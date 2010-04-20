@@ -10,6 +10,7 @@ class EpisodesController < ApplicationController
 
   def mark
     @episode.update_attribute(:downloaded, true)
+    @header_title = "Season #{@episode.season.nr} ( #{@episode.season.episodes.downloaded.count} / #{@episode.season.episodes.aired.count} / #{@episode.season.episodes.count} )"
   end
 
   def get_episode
