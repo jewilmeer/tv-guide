@@ -1,0 +1,34 @@
+- content_for(:bottom_js) do
+  $(function() { $('.programs').accordion({autoHeight: false, active: false, collapsible: true}); });
+  $(function() { $('.seasons').accordion({autoHeight: false, active: false, collapsible: true}); });
+  
+%h1 All programs
+
+- if @programs.any?
+  .programs
+    - @programs.each do |program|
+      %h3[program]
+        = link_to program.name, program
+        .controls
+          = link_to 'remove', program_path(program), :method => :delete
+      %ul
+        - program.seasons.each do |season|
+          %li.seasons
+            %h3
+              = link_to "Season #{season.nr} ( #{season.episodes.downloaded.count} / #{season.episodes.aired.count} / #{season.episodes.count} )", [program, season]
+            %ul.episodes
+              - season.episodes.each do |episode|
+                %li[episode]{:class => episode.view_classes}
+                  = link_to "#{episode.nr} - #{episode.title} - #{episode.airdate.to_s(:long)}", program_season_episode_path(program, season, episode, :format => :js)
+                  \|
+                  - if episode.downloaded?
+                    Downloaded                  
+                  - else
+                    = link_to "Mark as downloaded", mark_program_season_episode_path(program, season, episode), :class => :mark, :'data-remote' => true, :'data-method' => 'put'
+                  \|
+                  = link_to "search download", download_program_season_episode_path(program, season, episode), :target => '_blank'
+- else
+  %p.nothing No programs yet
+
+%h1 Add new program  
+= render 'form'

@@ -1,0 +1,23 @@
+%h1== #{@season.program.name} - Season #{@season.nr}
+
+- if @season.episodes.any?
+  %table.full_width
+    %thead
+      %tr
+        %th Episode
+        %th Title
+        %th Airdate
+        %th 
+          %abbr{:title => "Downloaded / Watched"} Status
+        %th Controls
+    %tbody
+      - @season.episodes.each do |episode|
+        %tr[episode]
+          %td== #{@season.nr}-#{episode.nr}
+          %td= episode.title
+          %td= episode.airdate.to_s(:long)
+          %td== #{episode.downloaded}-#{episode.watched}
+          %td
+            = link_to 'Show', [@season.program, @season, episode]
+- else
+  %p.nothing No episodes for this season yet
