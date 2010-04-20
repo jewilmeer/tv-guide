@@ -7,8 +7,8 @@ class CreateEpisodes < ActiveRecord::Migration
       t.string :filename
       t.integer :nr
       t.date :airdate
-      t.boolean :downloaded, :default => :false
-      t.boolean :watched, :default => :false
+      t.boolean :downloaded, :default => false
+      t.boolean :watched, :default => false
       t.integer :season_id
 
       t.timestamps
