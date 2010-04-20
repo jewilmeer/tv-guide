@@ -1,0 +1,68 @@
+=clear_after
+  content: ""
+  height: 0
+  clear: both
+  display: block
+=clear
+  &:after
+    +clear_after
+  zoom: 1 /*ie6/7*/
+
+html
+  :font-size 12px
+html, body
+  :margin 0
+  :padding 0
+  :height 100%
+  :background
+    :color #ebe7dc 
+body
+  :font-family arial, sans-serif
+  :font-size 12px
+  :min-height 800px
+a
+  :color #74323b
+  :text-decoration none
+a:hover
+  :text-decoration underline
+textarea
+  :background-color rgba(255,255,255,0.8)
+  :border 1px solid
+    :color rgba()
+  :padding 5px
+h1,h2,h3,h4
+  :color #f60
+  a
+    :color #74323b
+  padding: 10px
+    left: 0
+h1
+  :font-size 18px
+h2
+  :font-size 15px
+h3
+  :font-size 14px
+h4
+  :font-size 14px
+p, label, li
+  :color #9f9884
+  :line-height 18px
+label
+  font-weight: bold
+hr
+  :color #d4d0c0
+  :background
+    :color #d4d0c0
+  :height 1px
+strong
+  :font-weight bold
+ol, ul
+  padding:
+    left: 20px
+ol
+  li 
+    list-style-type: decimal
+    margin: 5px 5px 5px 0
+    display: list-item
+.hidden
+  display: none

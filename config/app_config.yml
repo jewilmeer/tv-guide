@@ -1,0 +1,15 @@
+common: &common
+  paths:
+    app_root: ''
+    tv_root: '/Volumes/openshare/download/TV/'
+  links:
+    search_url: http://www.google.nl/search?q=
+    download_url: http://nzbindex.nl/search/?max=2&g[]=687&minsize=200&complete=1&hidespam=1&q=
+  filters: .720p .HDTV .x264 .AC3 -CTU -SHELDON .REPACK -REPACK
+
+development:
+  <<: *common
+test:
+  <<: *common
+production:
+  <<: *common
