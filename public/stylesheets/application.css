@@ -1,0 +1,297 @@
+/* Copyright (c) 2008, Yahoo! Inc. All rights reserved.
+ * Code licensed under the BSD License:
+ * http://developer.yahoo.net/yui/license.txt
+ * version: 2.6.0 */
+html {
+  color: #000;
+  background: #FFF; }
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+fieldset, img {
+  border: 0; }
+
+address, caption, cite, code, dfn, em, strong, th, var {
+  font-style: normal;
+  font-weight: normal; }
+
+li {
+  list-style: none; }
+
+caption, th {
+  text-align: left; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal; }
+
+q:before, q:after {
+  content: ''; }
+
+abbr, acronym {
+  border: 0;
+  font-variant: normal; }
+
+sup {
+  vertical-align: text-top; }
+
+sub {
+  vertical-align: text-bottom; }
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit; }
+
+input, textarea, select {
+  *font-size: 100%; }
+
+legend {
+  color: #000; }
+
+del, ins {
+  text-decoration: none; }
+
+/* POSITION IS EVERYTHING CLEAR FIXER */
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+
+.clearfix {
+  display: inline-block; }
+
+/* Hides from IE-mac \ */
+* html .clearfix {
+  height: 1%; }
+
+.clearfix {
+  display: block; }
+
+/* End hide from IE-mac */
+
+html {
+  font-size: 12px; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #ebe7dc; }
+
+body {
+  font-family: arial, sans-serif;
+  font-size: 12px;
+  min-height: 800px; }
+
+a {
+  color: #74323b;
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: underline; }
+
+textarea {
+  background-color: rgba(255,255,255,0.8);
+  border: 1px solid;
+  border-color: rgba();
+  padding: 5px; }
+
+h1, h2, h3, h4 {
+  color: #f60;
+  padding: 10px;
+  padding-left: 0; }
+  h1 a, h2 a, h3 a, h4 a {
+    color: #74323b; }
+
+h1 {
+  font-size: 18px; }
+
+h2 {
+  font-size: 15px; }
+
+h3 {
+  font-size: 14px; }
+
+h4 {
+  font-size: 14px; }
+
+p, label, li {
+  color: #9f9884;
+  line-height: 18px; }
+
+label {
+  font-weight: bold; }
+
+hr {
+  color: #d4d0c0;
+  background-color: #d4d0c0;
+  height: 1px; }
+
+strong {
+  font-weight: bold; }
+
+ol, ul {
+  padding-left: 20px; }
+
+ol li {
+  list-style-type: decimal;
+  margin: 5px 5px 5px 0;
+  display: list-item; }
+
+.hidden {
+  display: none; }
+
+#columnized-layout .column-block form .entry {
+  padding-top: 5px; }
+  #columnized-layout .column-block form .entry fieldset {
+    border: none;
+    border-top: 1px solid #ccc; }
+    #columnized-layout .column-block form .entry fieldset legend {
+      font-size: 12px;
+      font-weight: bolder; }
+
+.form_row {
+  overflow: hidden;
+  padding: 2px 5px;
+  margin-bottom: 5px;
+  line-height: 20px;
+  clear: left;
+  zoom: 1 /*ie6/7*/;
+  overflow: hidden;
+  padding: 2px 5px;
+  margin-bottom: 5px;
+  line-height: 20px;
+  clear: left; }
+  .form_row label {
+    float: left;
+    width: 150px;
+    padding-right: 5px; }
+    .form_row label.long {
+      width: 250px; }
+    .form_row label.required {
+      font-weight: bold; }
+  .form_row:after {
+    content: "";
+    height: 0;
+    clear: both;
+    display: block; }
+  .form_row.required label {
+    font-weight: bolder; }
+  .form_row.icon {
+    line-height: 30px; }
+    .form_row.icon input[type="text"], .form_row.icon input[type="password"] {
+      float: left;
+      margin-top: 5px; }
+    .form_row.icon button {
+      margin-left: 5px;
+      float: right;
+      height: 27px; }
+  .form_row label {
+    float: left;
+    width: 150px; }
+  .form_row label.required {
+    font-weight: bold; }
+  .form_row input[type="text"], .form_row input[type="password"] {
+    width: 400px; }
+  .form_row textarea {
+    width: 410px;
+    height: 70px; }
+    .form_row textarea.hugh {
+      width: 750px;
+      height: 250px; }
+  .form_row select {
+    width: 220px; }
+    .form_row select.date {
+      width: 70px;
+      width: inherit; }
+  .form_row select.inherit, .form_row input.inherit, .form_row textarea.inherit {
+    width: inherit; }
+  .form_row .input_small, .form_row input.small {
+    width: 200px; }
+  .form_row .input_medium, .form_row input.medium {
+    width: 264px; }
+
+.form_row_checkbox {
+  overflow: hidden;
+  padding: 2px 5px;
+  margin-bottom: 5px;
+  line-height: 20px;
+  clear: left; }
+  .form_row_checkbox label {
+    float: left;
+    width: 150px;
+    padding-right: 5px; }
+    .form_row_checkbox label.long {
+      width: 250px; }
+    .form_row_checkbox label.required {
+      font-weight: bold; }
+  .form_row_checkbox input {
+    width: 15px; }
+
+
+input.error, select.error, textarea.error {
+  border: 1px solid;
+  border-color: #c00 !important; }
+
+#errorExplanation {
+  margin: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-left: none;
+  border-top: none; }
+  #errorExplanation ul, #errorExplanation ol {
+    margin-bottom: 10px; }
+    #errorExplanation ul li, #errorExplanation ol li {
+      padding-left: 5px;
+      list-style-type: square;
+      list-style-position: inside; }
+
+#wrapper {
+  -moz-border-radius: 5px 5px;
+  -webkit-border-radius: 5px 5px;
+  width: 1024px;
+  background-color: white;
+  margin: 10px auto; }
+
+.full_width {
+  width: 100%; }
+
+.content {
+  padding: 10px; }
+
+ul.episodes li.inactive {
+  color: #cccccc; }
+  ul.episodes li.inactive a {
+    color: #cccccc; }
+ul.episodes li.active {
+  color: #33cc33; }
+  ul.episodes li.active a {
+    color: #33cc33; }
+ul.episodes li.downloaded {
+  color: #339933; }
+  ul.episodes li.downloaded a {
+    color: #339933; }
+ul.episodes li.downloaded.inactive {
+  color: white; }
+  ul.episodes li.downloaded.inactive a {
+    color: white; }
+
+h3.ui-accordion-header {
+  position: relative;
+  line-height: 1.4em; }
+  h3.ui-accordion-header a {
+    width: 90%; }
+  h3.ui-accordion-header .controls {
+    position: absolute;
+    top: 0;
+    right: 2px; }

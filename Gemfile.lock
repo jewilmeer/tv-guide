@@ -1,0 +1,191 @@
+--- 
+hash: 13f52740cb57fa91ec90d83aa3552e6581a7cd4c
+sources: 
+- Git: 
+    git: git://github.com/rspec/rspec-rails.git
+    branch: v2.0.0.beta.6
+    uri: git://github.com/rspec/rspec-rails.git
+    ref: ae611acc938e5b73550c757eaa9b96b6a9354c04
+- Git: 
+    git: git://github.com/rspec/rspec.git
+    branch: v2.0.0.beta.6
+    uri: git://github.com/rspec/rspec.git
+    ref: 88535aef0952446bc2e130065d4404d7cbf9490f
+- Rubygems: 
+    uri: http://rubygems.org
+specs: 
+- rake: 
+    version: 0.8.7
+- abstract: 
+    version: 1.0.0
+- builder: 
+    version: 2.1.2
+- i18n: 
+    version: 0.3.6
+- memcache-client: 
+    version: 1.8.2
+- tzinfo: 
+    version: 0.3.19
+- activesupport: 
+    version: 3.0.0.beta3
+- activemodel: 
+    version: 3.0.0.beta3
+- erubis: 
+    version: 2.6.5
+- rack: 
+    version: 1.1.0
+- rack-mount: 
+    version: 0.6.2
+- rack-test: 
+    version: 0.5.3
+- actionpack: 
+    version: 3.0.0.beta3
+- mime-types: 
+    version: "1.16"
+- polyglot: 
+    version: 0.3.1
+- treetop: 
+    version: 1.4.5
+- mail: 
+    version: 2.2.0
+- text-hyphen: 
+    version: 1.0.0
+- text-format: 
+    version: 1.0.0
+- actionmailer: 
+    version: 3.0.0.beta3
+- arel: 
+    version: 0.3.3
+- activerecord: 
+    version: 3.0.0.beta3
+- activeresource: 
+    version: 3.0.0.beta3
+- autotest: 
+    version: 4.2.9
+- bundler: 
+    version: 0.9.19
+- highline: 
+    version: 1.5.2
+- net-ssh: 
+    version: 2.0.21
+- net-scp: 
+    version: 1.0.2
+- net-sftp: 
+    version: 2.0.4
+- net-ssh-gateway: 
+    version: 1.0.1
+- capistrano: 
+    version: 2.5.18
+- diff-lcs: 
+    version: 1.1.2
+- json_pure: 
+    version: 1.2.4
+- term-ansicolor: 
+    version: 1.0.5
+- cucumber: 
+    version: 0.6.4
+- cucumber-rails: 
+    version: 0.3.0
+- factory_girl: 
+    version: 1.2.4
+- file-utils: 
+    version: 0.1.1
+- haml: 
+    version: 2.2.23
+- little-plugger: 
+    version: 1.1.2
+- logging: 
+    version: 1.4.1
+- nokogiri: 
+    version: 1.4.1
+- thor: 
+    version: 0.13.4
+- railties: 
+    version: 3.0.0.beta3
+- rails: 
+    version: 3.0.0.beta3
+- rails3-generators: 
+    version: 0.6.0
+- rspec-core: 
+    version: 2.0.0.beta.6
+- rspec-expectations: 
+    version: 2.0.0.beta.6
+- rspec-mocks: 
+    version: 2.0.0.beta.6
+- rspec: 
+    version: 2.0.0.beta.6
+    source: 1
+- webrat: 
+    version: 0.7.0
+- rspec-rails: 
+    version: 2.0.0.beta.6
+    source: 0
+- sqlite3-ruby: 
+    version: 1.2.5
+dependencies: 
+  rails: 
+    version: = 3.0.0.beta3
+    group: 
+    - :default
+  rack-mount: 
+    version: = 0.6.2
+    group: 
+    - :default
+  capistrano: 
+    version: ">= 0"
+    group: 
+    - :default
+  nokogiri: 
+    version: = 1.4.1
+    group: 
+    - :default
+  sqlite3-ruby: 
+    version: ">= 0"
+    group: 
+    - :default
+    require: 
+    - sqlite3
+  logging: 
+    version: ">= 0"
+    group: 
+    - :default
+  file-utils: 
+    version: ">= 0"
+    group: 
+    - :default
+  haml: 
+    version: ">= 0"
+    group: 
+    - :default
+  rails3-generators: 
+    version: ">= 0"
+    group: 
+    - :default
+  rspec: 
+    version: ">= 0"
+    group: 
+    - :test
+  rspec-rails: 
+    version: ">= 0"
+    group: 
+    - :test
+  cucumber: 
+    version: ">= 0"
+    group: 
+    - :test
+  cucumber-rails: 
+    version: ">= 0"
+    group: 
+    - :test
+  webrat: 
+    version: ">= 0"
+    group: 
+    - :test
+  factory_girl: 
+    version: ">= 0"
+    group: 
+    - :test
+  autotest: 
+    version: ">= 0"
+    group: 
+    - :test
