@@ -11,6 +11,10 @@ TvEpisodes::Application.routes.draw do |map|
     end
   end
 
+  namespace :admin do
+    root :to => 'pages#index'
+  end
+
   match "/settings(.:format)" => "settings#index", :as => :setting
 
   # The priority is based upon order of creation:
