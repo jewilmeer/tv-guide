@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100412214245) do
+ActiveRecord::Schema.define(:version => 20100420164158) do
 
   create_table "episodes", :force => true do |t|
     t.string   "title"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(:version => 20100412214245) do
   end
 
   add_index "episodes", ["season_id", "nr"], :name => "chained_index"
+
+  create_table "pages", :force => true do |t|
+    t.string  "title"
+    t.text    "content"
+    t.boolean "online",  :default => false
+    t.integer "user_id"
+  end
 
   create_table "programs", :force => true do |t|
     t.string   "name"
