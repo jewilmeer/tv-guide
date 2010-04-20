@@ -1,0 +1,18 @@
+%h1== Programma: #{@program.name}
+
+- if @program.seasons.any?
+  %table.full_width
+    %thead
+      %tr
+        %th Season 
+        %th Control
+    %tbody
+      - @program.seasons.each do |season|
+        %tr[season]
+          %td= season.nr
+          %td
+            = link_to 'Show', [@program, season]
+            = link_to 'Edit', [@program, season]
+            = link_to 'Remove', [@program, season]
+- else
+  %p.nothing No seasons yet!
