@@ -68,7 +68,6 @@ jQuery(function ($) {
         }
     });
 
-
     /**
      * remote handlers
      */
