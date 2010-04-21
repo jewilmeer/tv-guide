@@ -12,7 +12,7 @@ class Program < ActiveRecord::Base
   has_and_belongs_to_many :users
   
   validates :name, :presence => true, :uniqueness => true
-  before_create :get_all_episodes
+  after_create :get_all_episodes
     
   scope :by_name, :order => 'name ASC'
   
