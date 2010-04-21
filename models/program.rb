@@ -9,7 +9,7 @@ class Program < ActiveRecord::Base
       first(:conditions => ['episodes.airdate > :date', :date => date], :order => 'episodes.airdate ASC')
     end
   end
-  
+  has_and_belongs_to_many :users
   
   validates :name, :presence => true, :uniqueness => true
   after_create :get_all_episodes
