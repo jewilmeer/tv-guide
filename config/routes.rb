@@ -1,4 +1,5 @@
 TvEpisodes::Application.routes.draw do |map|
+  devise_for :users, :admins
 
   resources :programs do 
     resources :seasons do 
@@ -13,6 +14,7 @@ TvEpisodes::Application.routes.draw do |map|
 
   namespace :admin do
     root :to => 'pages#index'
+    resources :programs, :users, :pages
   end
 
   match "/settings(.:format)" => "settings#index", :as => :setting

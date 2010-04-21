@@ -262,6 +262,10 @@ input.error, select.error, textarea.error {
   width: 1024px;
   background-color: white;
   margin: 10px auto; }
+  #wrapper #header {
+    padding: 10px; }
+    #wrapper #header .user_nav {
+      float: right; }
 
 .full_width {
   width: 100%; }
