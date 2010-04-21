@@ -1,5 +1,5 @@
 --- 
-hash: 9646f0c90854e68071025e85d4de586edd5af7e1
+hash: 7b2befb78f5a2b32889aa8dafd43cbe54cc8e983
 sources: 
 - Git: 
     git: git://github.com/rspec/rspec-rails.git
@@ -27,9 +27,9 @@ specs:
 - tzinfo: 
     version: 0.3.20
 - activesupport: 
-    version: 3.0.0.beta3
+    version: 3.0.0.beta2
 - activemodel: 
-    version: 3.0.0.beta3
+    version: 3.0.0.beta2
 - erubis: 
     version: 2.6.5
 - rack: 
@@ -39,7 +39,7 @@ specs:
 - rack-test: 
     version: 0.5.3
 - actionpack: 
-    version: 3.0.0.beta3
+    version: 3.0.0.beta2
 - mime-types: 
     version: "1.16"
 - polyglot: 
@@ -47,27 +47,27 @@ specs:
 - treetop: 
     version: 1.4.5
 - mail: 
-    version: 2.2.0
+    version: 2.1.5.3
 - text-hyphen: 
     version: 1.0.0
 - text-format: 
     version: 1.0.0
 - actionmailer: 
-    version: 3.0.0.beta3
+    version: 3.0.0.beta2
 - arel: 
     version: 0.3.3
 - activerecord: 
-    version: 3.0.0.beta3
+    version: 3.0.0.beta2
 - activeresource: 
-    version: 3.0.0.beta3
+    version: 3.0.0.beta2
 - autotest: 
     version: 4.2.9
 - bundler: 
-    version: 0.9.21
+    version: 0.9.23
 - highline: 
     version: 1.5.2
 - net-ssh: 
-    version: 2.0.21
+    version: 2.0.22
 - net-scp: 
     version: 1.0.2
 - net-sftp: 
@@ -105,9 +105,9 @@ specs:
 - thor: 
     version: 0.13.4
 - railties: 
-    version: 3.0.0.beta3
+    version: 3.0.0.beta2
 - rails: 
-    version: 3.0.0.beta3
+    version: 3.0.0.beta2
 - rails3-generators: 
     version: 0.6.0
 - rspec-core: 
@@ -128,7 +128,7 @@ specs:
     version: 1.2.5
 dependencies: 
   rails: 
-    version: = 3.0.0.beta3
+    version: = 3.0.0.beta2
     group: 
     - :default
   rack-mount: 
