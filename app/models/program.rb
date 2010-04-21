@@ -12,16 +12,16 @@ class Program < ActiveRecord::Base
   has_and_belongs_to_many :users
   
   validates :name, :presence => true, :uniqueness => true
-  after_create :get_all_episodes
+  before_create :get_all_episodes
     
   scope :by_name, :order => 'name ASC'
   
-
   def episode_list
     return @episode_list if @episode_list 
     @episode_list = []
 
     logger.info "getting episode titles from #{episodelist_url}"
+    raise unless episodelist_url
     page = get_page(episodelist_url)
     # get the pre element, each line should contain show info
     plain_text = Nokogiri::HTML(page).search('pre').first
@@ -48,9 +48,23 @@ class Program < ActiveRecord::Base
   
   def episodelist_url
     return @episodelist_url if @episodelist_url
-    url   = URI.escape "#{APP_CONFIG[:links]['search_url']} #{self} site:epguides.com"
-    # return the first search result (just click the first result of the google page, haha)
-    @episodelist_url = Nokogiri::HTML( get_page(url) ).css('a.l').first['href']
+    # logger.debug google_result
+    
+    # @episodelist_url = Nokogiri::HTML( episodelist_search_result ).css('a.l').first['href']
+    get_first_result( episodelist_search_result )
+  end
+  
+  def google_url
+    URI.escape "#{APP_CONFIG[:links]['search_url']} \"#{self}\" site:epguides.com"
+  end
+
+  def episodelist_search_result
+    google_result = get_page(google_url)
+  end
+  
+  def get_first_result(search_result)
+    links = Nokogiri::HTML( search_result ).css('.l')
+    links.any? ? links.attr('href').to_s : false
   end
   
   def get_page(url)
