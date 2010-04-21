@@ -17,6 +17,9 @@ gem 'file-utils'
 gem 'haml'
 gem 'rails3-generators'
 
+# authentication
+gem 'devise', '1.1.rc1'
+
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
 group :test do

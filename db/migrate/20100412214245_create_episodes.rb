@@ -19,5 +19,6 @@ class CreateEpisodes < ActiveRecord::Migration
 
   def self.down
     drop_table :episodes
+    remove_index :chained_index
   end
 end
