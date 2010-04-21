@@ -1,7 +1,4 @@
 class AdminAreaController < ApplicationController
-  before_filter :require_admin
-  
-  def index
-    render 'admin/index'
-  end
+  before_filter :authenticate_admin!  
+  layout 'layouts/admin/application'
 end

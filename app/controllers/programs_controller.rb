@@ -7,11 +7,10 @@ class ProgramsController < ApplicationController
   end
   
   def show
-    
   end
     
   def create
-    @program = Program.new(params[:program])
+    @program = Program.create(params[:program])
     if @program.save
       redirect_to :programs
     else
