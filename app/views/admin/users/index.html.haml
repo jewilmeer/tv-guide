@@ -1,0 +1,24 @@
+%h1 Listing users
+
+- if @users.any?
+  %table.full_width.list
+    %thead
+      %tr
+        %th Email
+        %th Registerd at
+        %th.controls
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user.email
+          %td= user.created_at.to_s(:long)
+          %td
+            = link_to 'Show', [:admin, user]
+            = link_to 'Edit', edit_admin_user_path(user)
+            = link_to 'Destroy', [:admin, user], :confirm => 'Are you sure?', :method => :delete
+  
+- else
+  %p No users yet!
+%br
+
+= link_to 'New user', new_admin_user_path
