@@ -29,6 +29,7 @@
           Loading
           = image_tag 'spinner.gif'
       .content
+        = render :partial => 'layouts/notifications_and_errors'
         = yield
       #footer
     = yield :bottom

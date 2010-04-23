@@ -13,7 +13,7 @@ TvEpisodes::Application.routes.draw do |map|
   end
 
   namespace :admin do
-    root :to => 'pages#index'
+    root :to => 'admin/pages#root'
     resources :programs, :users, :pages
   end
 

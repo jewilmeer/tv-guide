@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta2'
+gem 'rails', '3.0.0.beta3'
 gem 'rack-mount', '0.6.2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -18,7 +18,8 @@ gem 'haml'
 gem 'rails3-generators'
 
 # authentication
-gem 'devise', '1.1.rc1'
+# gem 'devise', '1.1.rc1'
+gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => 'master'
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
