@@ -1,5 +1,5 @@
 TvEpisodes::Application.routes.draw do |map|
-  devise_for :users, :admins
+  # devise_for :users, :admins
 
   resources :programs do 
     resources :seasons do 
