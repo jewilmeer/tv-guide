@@ -11,11 +11,14 @@
     %tbody
       - @pages.each do |page|
         %tr[page]
-          %tr= page.title
-          %tr= link_to page.permalink, page
-          %tr= page.updated_at.to_s(:short)
-          %tr
+          %td= page.title
+          %td= link_to page.permalink, page
+          %td= page.updated_at.to_s(:short)
+          %td
             = link_to 'Edit', edit_admin_page_path(page)
             = link_to 'Remove', admin_page_path(page)
 - else
   %p.nothing No pages defined yet
+  
+%h2 Create new page
+= render :partial => 'form'

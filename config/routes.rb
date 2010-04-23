@@ -11,7 +11,8 @@ TvEpisodes::Application.routes.draw do |map|
       end
     end
   end
-
+  resource :page, :only => :show
+  
   namespace :admin do
     root :to => 'admin/pages#root'
     resources :programs, :users, :pages
@@ -68,7 +69,7 @@ TvEpisodes::Application.routes.draw do |map|
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "programs#index"
+  root :to => "pages#show", :id => 'home'
 
   # See how all your routes lay out with "rake routes"
 
