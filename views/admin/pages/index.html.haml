@@ -1,1 +1,21 @@
-%h1 This is the admin
+%h1 Content pages
+
+- if @pages.any?
+  %table.list.full_width
+    %thead
+      %tr
+        %th Title
+        %th Permalink
+        %th Last updates
+        %th Controls
+    %tbody
+      - @pages.each do |page|
+        %tr[page]
+          %tr= page.title
+          %tr= link_to page.permalink, page
+          %tr= page.updated_at.to_s(:short)
+          %tr
+            = link_to 'Edit', edit_admin_page_path(page)
+            = link_to 'Remove', admin_page_path(page)
+- else
+  %p.nothing No pages defined yet
