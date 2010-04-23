@@ -1,0 +1,17 @@
+%h1 Listing programs
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @programs.each do |program|
+    %tr
+      %td= link_to 'Show', program
+      %td= link_to 'Edit', edit_program_path(program)
+      %td= link_to 'Destroy', program, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New program', new_program_path
