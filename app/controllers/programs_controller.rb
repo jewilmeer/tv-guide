@@ -10,8 +10,10 @@ class ProgramsController < ApplicationController
   end
     
   def create
-    @program = Program.create(params[:program])
+    @program = Program.find_or_create_by_name(params[:program][:name], params[:program])
+    current_user.programs << @program if @program && current_user
     if @program.save
+      flash[:notice] = "#{@program.name} added to watchlist"
       redirect_to :programs
     else
       @programs = Program.all
