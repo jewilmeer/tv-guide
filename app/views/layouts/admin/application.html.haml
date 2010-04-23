@@ -1,0 +1,34 @@
+!!!
+%html{html_attrs('en')}
+  %head
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
+    = stylesheet_link_tag "application", 'jquery-ui-1.8.custom'
+    %meta{:name=>"robots",        :content=>"index, follow"}
+    %meta{:name=>"revisit-after", :content=>"1 days"}
+    %meta{:name=>"author",        :content=>"Jan-Willem van der Meer"}
+    %meta{:name =>'csrf-token',    :content => form_authenticity_token}
+    %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
+    
+    %title TV Episode downloader admin
+    = javascript_include_tag 'jquery-1.4.2.min', 'rails', 'jquery-ui-1.8.custom.min', 'jquery.dotimeout', 'jquery.application'
+    
+    = yield :head
+  %body
+    #wrapper
+      #header
+        %h1 The admin
+        - if admin_signed_in?
+          == Welcome #{current_admin.email}. Not you?
+          = link_to 'Sign out', destroy_admin_session_path 
+        - else
+          = link_to 'Sign in', new_admin_session_path
+        .loading.hidden
+          Loading
+          = image_tag 'spinner.gif'
+        = render 'layouts/admin/navigation'
+      .content
+        = yield
+      #footer
+    = yield :bottom
+    :javascript
+      #{yield :bottom_js}
