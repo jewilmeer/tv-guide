@@ -21,6 +21,7 @@ class Admin::PagesController < AdminAreaController
     @page = Page.find(params[:id])
     @page.update_attributes(params[:page])
     expire_page(page_path(@page))
+    expire_page('/')
     flash[:notice] = 'Update completed'
     redirect_to([:admin, :pages])
   end
