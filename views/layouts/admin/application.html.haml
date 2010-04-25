@@ -5,7 +5,7 @@
     = stylesheet_link_tag "application", 'jquery-ui-1.8.custom'
     %meta{:name=>"robots",        :content=>"index, follow"}
     %meta{:name=>"revisit-after", :content=>"1 days"}
-    %meta{:name=>"author",        :content=>"Jan-Willem van der Meer"}
+    %meta{:name=>"author",        :content=>"me"}
     %meta{:name =>'csrf-token',    :content => form_authenticity_token}
     %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
     
@@ -17,11 +17,12 @@
     #wrapper
       #header
         %h1 The admin
-        - if admin_signed_in?
-          == Welcome #{current_admin.email}. Not you?
-          = link_to 'Sign out', destroy_admin_session_path 
-        - else
-          = link_to 'Sign in', new_admin_session_path
+        .user_nav
+          - if admin_signed_in?
+            == Welcome #{current_admin.email}. Not you?
+            = link_to 'Sign out', destroy_admin_session_path 
+          - else
+            = link_to 'Sign in', new_admin_session_path
         .loading.hidden
           Loading
           = image_tag 'spinner.gif'
