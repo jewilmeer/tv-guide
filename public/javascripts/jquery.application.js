@@ -4,6 +4,7 @@ var button_aliases = {
   'delete': 'ui-icon-trash',
   'search': 'ui-icon-search'
 };
+
 $(function()
 {
   // ajax setup
@@ -28,4 +29,28 @@ $(function()
   // jquery-ui fancy buttons
   $("input:submit").button();
   $('button').button({});
+  
+  $('table.list tbody tr:visible').reapplyOddEven();
+  
 });
+
+(function($) {
+  // currently this function is accepting a set of tr elements or a tbody element (set)
+  $.fn.reapplyOddEven = function() {
+    var i = 0;
+    $(this).each(function()
+    {
+      elm = $(this);
+      if(i%2 == 0)
+      {
+        elm.removeClass('even').addClass('odd');
+      }
+      else
+      {
+        elm.removeClass('odd').addClass('even');
+      }
+      i++;
+    });
+    return this;
+  }
+})(jQuery);

@@ -13,4 +13,15 @@ class Admin::PagesController < AdminAreaController
     Page.create(params[:page])
     redirect_to [:admin, :pages]
   end
+  
+  def edit
+    @page = Page.find(params[:id])
+  end
+  def update
+    @page = Page.find(params[:id])
+    @page.update_attributes(params[:page])
+    expire_page(page_path(@page))
+    flash[:notice] = 'Update completed'
+    redirect_to([:admin, :pages])
+  end
 end
