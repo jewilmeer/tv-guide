@@ -1,16 +1,24 @@
 %h1 Listing programs
 
-%table
-  %tr
-    %th
-    %th
-    %th
-
-  - @programs.each do |program|
+- if @programs.any?
+  %table.list
     %tr
-      %td= link_to 'Show', program
-      %td= link_to 'Edit', edit_program_path(program)
-      %td= link_to 'Destroy', program, :confirm => 'Are you sure?', :method => :delete
+      %th Name
+      %th Next episode
+      %th Controls
+
+    - @programs.each do |program|
+      %tr[program]
+        %td= program.name
+        %td
+          - if first_to_be_aired = program.episodes.first_aired_after(Date.today)
+            = first_to_be_aired.airdate.to_s(:long)
+          - else
+            \-
+        %td
+          = link_to 'Show', program
+          = link_to 'Edit', edit_program_path(program)
+          = link_to 'Destroy', program, :confirm => 'Are you sure?', :method => :delete
 
 %br
 

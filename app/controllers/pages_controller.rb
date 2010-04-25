@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  caches_page :show
+  
   # hompage
   def index
   end

@@ -1,19 +1,19 @@
-class Admin::ProgramsController < ApplicationController
+class Admin::ProgramsController < AdminAreaController
   # GET /admin_programs
   # GET /admin_programs.xml
   def index
-    @admin_programs = Admin::Program.all
+    @programs = Program.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @admin_programs }
+      format.xml  { render :xml => @programs }
     end
   end
 
   # GET /admin_programs/1
   # GET /admin_programs/1.xml
   def show
-    @program = Admin::Program.find(params[:id])
+    @program = Program.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class Admin::ProgramsController < ApplicationController
   # GET /admin_programs/new
   # GET /admin_programs/new.xml
   def new
-    @program = Admin::Program.new
+    @program = Program.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +34,13 @@ class Admin::ProgramsController < ApplicationController
 
   # GET /admin_programs/1/edit
   def edit
-    @program = Admin::Program.find(params[:id])
+    @program = Program.find(params[:id])
   end
 
   # POST /admin_programs
   # POST /admin_programs.xml
   def create
-    @program = Admin::Program.new(params[:program])
+    @program = Program.new(params[:program])
 
     respond_to do |format|
       if @program.save
@@ -56,7 +56,7 @@ class Admin::ProgramsController < ApplicationController
   # PUT /admin_programs/1
   # PUT /admin_programs/1.xml
   def update
-    @program = Admin::Program.find(params[:id])
+    @program = Program.find(params[:id])
 
     respond_to do |format|
       if @program.update_attributes(params[:program])
@@ -72,7 +72,7 @@ class Admin::ProgramsController < ApplicationController
   # DELETE /admin_programs/1
   # DELETE /admin_programs/1.xml
   def destroy
-    @program = Admin::Program.find(params[:id])
+    @program = Program.find(params[:id])
     @program.destroy
 
     respond_to do |format|

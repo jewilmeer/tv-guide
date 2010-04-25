@@ -66,3 +66,24 @@ ol
     display: list-item
 .hidden
   display: none
+table
+  width: 100%
+  th
+    padding: 5px
+    font-weight: bold
+    text-align: left
+    background-color = !th_background_color
+  &.with_lines
+    td
+      border: 1px solid
+  tbody
+    tr:hover
+      background-color: #eee
+    td
+      padding: 2px
+.odd
+  background-color = !odd_bg_color
+  color = !odd_color
+.even
+  background-color = !even_bg_color
+  color = !even_color

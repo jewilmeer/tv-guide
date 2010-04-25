@@ -150,6 +150,28 @@ ol li {
 .hidden {
   display: none; }
 
+table {
+  width: 100%; }
+  table th {
+    padding: 5px;
+    font-weight: bold;
+    text-align: left;
+    background-color: #dddddd; }
+  table.with_lines td {
+    border: 1px solid; }
+  table tbody tr:hover {
+    background-color: #eee; }
+  table tbody td {
+    padding: 2px; }
+
+.odd {
+  background-color: rgba(240, 240, 240, 0.9);
+  color: black; }
+
+.even {
+  background-color: rgba(220, 220, 220, 0.9);
+  color: black; }
+
 #columnized-layout .column-block form .entry {
   padding-top: 5px; }
   #columnized-layout .column-block form .entry fieldset {
@@ -265,6 +287,7 @@ input.error, select.error, textarea.error {
   #wrapper #header {
     padding: 10px; }
     #wrapper #header .user_nav {
+      margin-top: -20px;
       float: right; }
 
 .full_width {
@@ -299,3 +322,64 @@ h3.ui-accordion-header {
     position: absolute;
     top: 0;
     right: 2px; }
+
+ul.dropdown {
+  zoom: 1 /*ie6/7*/;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.8); }
+  ul.dropdown:after {
+    content: "";
+    height: 0;
+    clear: both;
+    display: block; }
+  ul.dropdown li {
+    float: left;
+    zoom: 1;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 6px 15px; }
+    ul.dropdown li.hover, ul.dropdown li:hover {
+      background: #333333;
+      color: black;
+      position: relative; }
+    ul.dropdown li.hover > ul {
+      visibility: visible; }
+    ul.dropdown li a {
+      position: relative;
+      color: white;
+      white-space: nowrap; }
+      ul.dropdown li a:hover, ul.dropdown li a .hover {
+        color: #dddddd;
+        text-decoration: none; }
+      ul.dropdown li a:active {
+        color: #ffa500; }
+      ul.dropdown li a span.more {
+        position: absolute;
+        top: 7px;
+        right: -12px;
+        width: 7px;
+        height: 7px;
+        background: transparent url(/images/v_arrow_white.gif); }
+        ul.dropdown li a span.more span {
+          display: none; }
+  ul.dropdown ul {
+    visibility: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0; }
+    ul.dropdown ul li {
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid;
+      border-bottom-color: #222222;
+      float: none; }
+      ul.dropdown ul li a {
+        border-right: none;
+        width: 100%;
+        display: inline;
+        display: inline-block; }
+    ul.dropdown ul ul {
+      left: 100%;
+      top: 0; }

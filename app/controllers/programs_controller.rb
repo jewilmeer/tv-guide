@@ -1,9 +1,11 @@
 class ProgramsController < ApplicationController
+  
   before_filter :find_program, :except => [:index, :create]
+  before_filter :authenticate_user!
   
   def index
-    @programs = Program.by_name.all(:include => {:seasons => :episodes})
-    @program = Program.new
+    @programs = current_user.programs.by_name.all(:include => {:seasons => :episodes})
+    @program  = current_user.programs.build
   end
   
   def show

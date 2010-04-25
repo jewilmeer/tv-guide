@@ -8,4 +8,4 @@
   .form_row
     = f.label :content
     = f.text_area :content
-  = f.submit 'Toevoegen'
+  = f.submit "#{@page.new_record? ? 'Add' : 'Update'} page"
