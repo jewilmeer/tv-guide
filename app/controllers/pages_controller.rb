@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  caches_page :show
+  caches_page :show, :if => Proc.new{|r| Rails.env.production? }
   
   # hompage
   def index
