@@ -11,6 +11,7 @@ TvEpisodes::Application.routes.draw do |map|
       end
     end
   end
+  
   resource :page, :only => :show
   
   namespace :admin do
