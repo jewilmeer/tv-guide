@@ -5,6 +5,7 @@ class ProgramsController < ApplicationController
   
   def index
     @programs = current_user.programs.by_name.all(:include => {:seasons => :episodes})
+    @episodes = Episode.airdate_inside(1.week.ago, Date.today).watched_by_user(current_user.programs).all
     @program  = current_user.programs.build
   end
   
