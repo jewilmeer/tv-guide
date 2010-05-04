@@ -1,15 +1,9 @@
 class Program < ActiveRecord::Base
   include Pacecar
   require 'open-uri'
+
   has_many :seasons, :dependent => :destroy
-  has_many :episodes, :through => :seasons, :dependent => :destroy do
-    def last_aired_before(date)
-      first(:conditions => ['episodes.airdate < :date', :date => date], :order => 'episodes.airdate DESC')
-    end
-    def first_aired_after(date)
-      first(:conditions => ['episodes.airdate > :date', :date => date], :order => 'episodes.airdate ASC')
-    end
-  end
+  has_many :episodes, :through => :seasons, :dependent => :destroy
   has_and_belongs_to_many :users
   
   validates :name, :presence => true, :uniqueness => true
