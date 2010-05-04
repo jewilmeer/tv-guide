@@ -16,6 +16,10 @@ gem 'logging'
 gem 'file-utils'
 gem 'haml'
 gem 'rails3-generators'
+gem 'pacecar', :git => 'git://github.com/thoughtbot/pacecar.git', :branch => 'rails3'
+
+# caching
+gem 'memcached'
 
 # authentication
 # gem 'devise', '1.1.rc1'

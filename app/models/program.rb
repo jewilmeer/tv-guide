@@ -1,4 +1,5 @@
 class Program < ActiveRecord::Base
+  include Pacecar
   require 'open-uri'
   has_many :seasons, :dependent => :destroy
   has_many :episodes, :through => :seasons, :dependent => :destroy do
