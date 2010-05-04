@@ -9,8 +9,7 @@ class Episode < ActiveRecord::Base
   
   scope :by_nr, lambda {|nr| {:conditions => {:nr => nr} } }
   scope :downloaded, {:conditions => {:downloaded => true} }
-  scope :aired, lambda { { :conditions => ['airdate < ?', Date.today] } }
-  scope :aired_on, lambda {|date| { :conditions => ['airdate = ?', date] } }
+  scope :watched_by_user, lambda{|programs| {:conditions => ['season_id IN (?)', programs.map(&:season_ids).flatten] }}
   
   attr_accessor :options, :name, :episode, :filters, :real_filename
 
@@ -65,7 +64,11 @@ class Episode < ActiveRecord::Base
   end
   
   def season_and_episode
-    "S#{"%02d" % season.to_i}E#{episode}"
+    # if self.program.filters.roman
+    #   "S#{"%02d" % season.to_i}Part#{nr.to_s_roman}"
+    # else
+      "S#{"%02d" % season.to_i}E#{episode}"
+    # end
   end
   
   def renamed_filename
