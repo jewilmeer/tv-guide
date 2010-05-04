@@ -1,4 +1,6 @@
 class Episode < ActiveRecord::Base
+  include Pacecar
+  
   belongs_to :season
   has_one :program, :through => :season
   
@@ -8,6 +10,7 @@ class Episode < ActiveRecord::Base
   scope :by_nr, lambda {|nr| {:conditions => {:nr => nr} } }
   scope :downloaded, {:conditions => {:downloaded => true} }
   scope :aired, lambda { { :conditions => ['airdate < ?', Date.today] } }
+  scope :aired_on, lambda {|date| { :conditions => ['airdate = ?', date] } }
   
   attr_accessor :options, :name, :episode, :filters, :real_filename
 

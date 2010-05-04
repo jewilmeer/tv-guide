@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   end
   
   def show
+    redirect_to :programs if params[:id] == 'home' && current_user
     @page = Page.find_by_permalink(params[:id])
     raise ActiveRecord::RecordNotFound unless @page
   end

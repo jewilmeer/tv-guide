@@ -17,16 +17,7 @@
             %h3
               = link_to "Season #{season.nr} ( #{season.episodes.downloaded.count} / #{season.episodes.aired.count} / #{season.episodes.count} )", [program, season]
             %ul.episodes
-              - season.episodes.each do |episode|
-                %li[episode]{:class => episode.view_classes}
-                  = link_to "#{episode.nr} - #{episode.title} - #{episode.airdate.to_s(:long)}", program_season_episode_path(program, season, episode, :format => :js)
-                  \|
-                  - if episode.downloaded?
-                    Downloaded                  
-                  - else
-                    = link_to "Mark as downloaded", mark_program_season_episode_path(program, season, episode), :class => :mark, :'data-remote' => true, :'data-method' => 'put'
-                  \|
-                  = link_to "search download", download_program_season_episode_path(program, season, episode), :target => '_blank'
+              = render season.episodes
 - else
   %p.nothing No programs yet
 

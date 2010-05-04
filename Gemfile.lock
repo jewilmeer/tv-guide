@@ -1,5 +1,5 @@
 --- 
-hash: 9ba127817c2360046ad3fadc9938e474cb9e7541
+hash: 33d82d8c9b7f1a01d17e4db897e2d77e9c419347
 sources: 
 - Git: 
     git: git://github.com/rspec/rspec-rails.git
@@ -15,7 +15,12 @@ sources:
     git: http://github.com/plataformatec/devise.git
     branch: master
     uri: http://github.com/plataformatec/devise.git
-    ref: da971e42497b96b846449ef242069872b6a95010
+    ref: 9bdc7113244ea23769b613a9cf72252d8ae96903
+- Git: 
+    git: git://github.com/thoughtbot/pacecar.git
+    branch: rails3
+    uri: git://github.com/thoughtbot/pacecar.git
+    ref: 12beb0fffa685987985101b2d55a325dbfc390e9
 - Rubygems: 
     uri: http://rubygems.org
 specs: 
@@ -28,7 +33,7 @@ specs:
 - i18n: 
     version: 0.3.7
 - memcache-client: 
-    version: 1.8.2
+    version: 1.8.3
 - tzinfo: 
     version: 0.3.20
 - activesupport: 
@@ -68,7 +73,7 @@ specs:
 - autotest: 
     version: 4.2.9
 - bundler: 
-    version: 0.9.24
+    version: 0.9.25
 - highline: 
     version: 1.5.2
 - net-ssh: 
@@ -83,14 +88,18 @@ specs:
     version: 2.5.18
 - diff-lcs: 
     version: 1.1.2
+- trollop: 
+    version: 1.16.2
+- gherkin: 
+    version: 1.0.24
 - json_pure: 
-    version: 1.4.0
+    version: 1.4.2
 - term-ansicolor: 
     version: 1.0.5
 - cucumber: 
-    version: 0.6.4
+    version: 0.7.2
 - cucumber-rails: 
-    version: 0.3.0
+    version: 0.3.1
 - warden: 
     version: 0.10.3
 - devise: 
@@ -101,21 +110,26 @@ specs:
 - file-utils: 
     version: 0.1.1
 - haml: 
-    version: 2.2.23
+    version: 2.2.24
 - little-plugger: 
     version: 1.1.2
 - logging: 
     version: 1.4.1
+- memcached: 
+    version: 0.19.4
 - nokogiri: 
     version: 1.4.1
+- pacecar: 
+    version: 1.2.0
+    source: 3
 - thor: 
-    version: 0.13.4
+    version: 0.13.6
 - railties: 
     version: 3.0.0.beta3
 - rails: 
     version: 3.0.0.beta3
 - rails3-generators: 
-    version: 0.6.0
+    version: 0.7.0
 - rspec-core: 
     version: 2.0.0.beta.6
 - rspec-expectations: 
@@ -126,7 +140,7 @@ specs:
     version: 2.0.0.beta.6
     source: 1
 - webrat: 
-    version: 0.7.0
+    version: 0.7.1
 - rspec-rails: 
     version: 2.0.0.beta.6
     source: 0
@@ -168,6 +182,14 @@ dependencies:
     group: 
     - :default
   rails3-generators: 
+    version: ">= 0"
+    group: 
+    - :default
+  pacecar: 
+    version: ">= 0"
+    group: 
+    - :default
+  memcached: 
     version: ">= 0"
     group: 
     - :default
