@@ -28,7 +28,7 @@ class ProgramsController < ApplicationController
     @program = Program.find(params[:id])
     
     raise ActiveRecord::RecordNotFound unless @program
-    if @program.destroy
+    if current_user.programs.delete(@program)
       flash[:notice] = "#{@program.name} removed"
     else
       flash[:error] = 'Program could not be removed'
