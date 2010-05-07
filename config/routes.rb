@@ -16,7 +16,7 @@ TvEpisodes::Application.routes.draw do |map|
   
   namespace :admin do
     root :to => 'pages#root'
-    resources :programs, :users, :pages
+    resources :programs, :users, :pages, :configurations
   end
 
   match "/settings(.:format)" => "settings#index", :as => :setting

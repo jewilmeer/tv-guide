@@ -1,4 +1,5 @@
 class Admin::ProgramsController < AdminAreaController
+  before_filter :find_program, :except => [:index, :new, :create]
   # GET /admin_programs
   # GET /admin_programs.xml
   def index
@@ -10,31 +11,19 @@ class Admin::ProgramsController < AdminAreaController
     end
   end
 
-  # GET /admin_programs/1
-  # GET /admin_programs/1.xml
   def show
-    @program = Program.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @program }
-    end
+    @default_configuration  = Configuration.first
+    @configuration          = @program.configuration || @program.build_configuration(:filter_data => @default_configuration.filter_data)
   end
 
   # GET /admin_programs/new
   # GET /admin_programs/new.xml
   def new
     @program = Program.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @program }
-    end
   end
 
   # GET /admin_programs/1/edit
   def edit
-    @program = Program.find(params[:id])
   end
 
   # POST /admin_programs
@@ -56,8 +45,6 @@ class Admin::ProgramsController < AdminAreaController
   # PUT /admin_programs/1
   # PUT /admin_programs/1.xml
   def update
-    @program = Program.find(params[:id])
-
     respond_to do |format|
       if @program.update_attributes(params[:program])
         format.html { redirect_to(@program, :notice => 'Program was successfully updated.') }
@@ -72,12 +59,16 @@ class Admin::ProgramsController < AdminAreaController
   # DELETE /admin_programs/1
   # DELETE /admin_programs/1.xml
   def destroy
-    @program = Program.find(params[:id])
     @program.destroy
 
     respond_to do |format|
       format.html { redirect_to(admin_programs_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def find_program
+    @program = Program.find(params[:id])
+    raise ActiveRecord::RecordNotFound unless @program
   end
 end
