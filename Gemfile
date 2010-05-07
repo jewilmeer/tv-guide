@@ -11,12 +11,15 @@ gem 'capistrano'
 # Bundle the extra gems:
 # gem 'bj'
 gem 'nokogiri', '1.4.1'
+gem 'mechanize'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'logging'
 gem 'file-utils'
 gem 'haml'
 gem 'rails3-generators'
 gem 'pacecar', :git => 'git://github.com/thoughtbot/pacecar.git', :branch => 'rails3'
+# gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git', :branch => 'rails3'
+gem 'paperclip', :git => 'http://github.com/JasonKing/paperclip.git', :branch => 'rails3'
 
 # caching
 gem 'memcached'

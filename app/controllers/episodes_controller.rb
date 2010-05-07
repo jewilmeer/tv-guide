@@ -5,9 +5,17 @@ class EpisodesController < ApplicationController
   end
 
   def download
+    if @episode.nzb?
+      send_file @episode.nzb.path
+    else
+      search
+    end
+  end
+  
+  def search
     redirect_to @episode.search_url
   end
-
+  
   def mark
     @episode.update_attribute(:downloaded, true)
     @header_title = "Season #{@episode.season.nr} ( #{@episode.season.episodes.downloaded.count} / #{@episode.season.episodes.aired.count} / #{@episode.season.episodes.count} )"

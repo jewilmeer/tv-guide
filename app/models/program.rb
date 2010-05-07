@@ -69,9 +69,13 @@ class Program < ActiveRecord::Base
   end
   
   def get_page(url)
-    page  = ''
-    open(url).each{|line| page << line }
-    page
+    # WWW::Mechanize.html_parser = Nokogiri::HTML
+    # agent = WWW::Mechanize.new
+    # 
+    # page  = ''
+    # open(url).each{|line| page << line }
+    # page
+    Browser.agent.get(url)
   end
   
   def get_all_episodes

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100506194849) do
+ActiveRecord::Schema.define(:version => 20100507201954) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                             :default => "", :null => false
@@ -39,14 +39,17 @@ ActiveRecord::Schema.define(:version => 20100506194849) do
     t.string   "title"
     t.text     "description"
     t.string   "path"
-    t.string   "filename"
     t.integer  "nr"
     t.date     "airdate"
-    t.boolean  "downloaded",  :default => false
-    t.boolean  "watched",     :default => false
+    t.boolean  "downloaded",       :default => false
+    t.boolean  "watched",          :default => false
     t.integer  "season_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nzb_file_name"
+    t.string   "nzb_content_type"
+    t.integer  "nzb_file_size"
+    t.datetime "nzb_updated_at"
   end
 
   add_index "episodes", ["season_id", "nr"], :name => "chained_index"
