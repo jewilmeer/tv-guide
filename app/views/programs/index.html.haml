@@ -35,5 +35,7 @@
       %br
       == Aired on #{episode.airdate.to_s(:long)}
       \|
-      = link_to 'search episode', episode.search_url, :target => '_blank'
+      = link_to 'Search', search_episode_path(episode), :target => '_blank'
+      \|
+      = link_to 'Download', download_episode_path(episode)
       
