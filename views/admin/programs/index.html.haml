@@ -11,12 +11,14 @@
       %tr[program]
         %td= program.name
         %td
-          - if first_to_be_aired = program.episodes.first_aired_after(Date.today)
-            = first_to_be_aired.airdate.to_s(:long)
+          - if next_aired = program.episodes.airdate_in_future.first
+            = next_aired.airdate.to_s(:long)
+            - if program.episodes.airdate_in_future.count > 1
+              == (+#{program.episodes.airdate_in_future.count - 1})
           - else
             \-
         %td
-          = link_to 'Show', program
+          = link_to 'Show', [:admin, program]
           = link_to 'Edit', edit_program_path(program)
           = link_to 'Destroy', program, :confirm => 'Are you sure?', :method => :delete
 

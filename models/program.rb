@@ -5,11 +5,18 @@ class Program < ActiveRecord::Base
   has_many :seasons, :dependent => :destroy
   has_many :episodes, :through => :seasons, :dependent => :destroy
   has_and_belongs_to_many :users
+  has_one :configuration
   
   validates :name, :presence => true, :uniqueness => true
   after_create :get_all_episodes
     
   scope :by_name, :order => 'name ASC'
+  
+  attr_accessor :active_configuration
+  
+  def active_configuration
+    @active_configuration ||= (self.configuration ? self.configuration : Configuration.default)
+  end
   
   def episode_list
     return @episode_list if @episode_list 
@@ -24,7 +31,6 @@ class Program < ActiveRecord::Base
     plain_text.to_s.split("\n").each_with_index do |line, index|
       if line.length > 100
         logger.debug line
-        # match = line.match('(\d+)- ?(\d{1,2}).*>(.*)<').to_a #old one
         match = line.match('(\d+)- ?(\d{1,2}).*?(\d{1,2}[ \/]+\w{1,3}[ \/]+\d{1,2}).*<.*>(.*)<').to_a
         if match.any?
           episode = "%02d" % match[2].to_i
