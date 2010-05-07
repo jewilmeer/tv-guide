@@ -1,3 +1,29 @@
+- require 'pp'
+%h1= @program.name
+
+.full-column
+  .half-column.flt-left
+    .column-block
+      %h3 Current filter
+      .body
+        - form_for([:admin, @configuration]) do |f|
+          = f.hidden_field :program_id
+          - if @configuration.new_record?
+            %p.nothing There is no custom filter yet, editing the custom filter below will create a custom one
+          .form_row
+            = f.label :filter_data, 'filter data (Hash)'
+            = f.text_area :filter_data
+          %button.save= @configuration.new_record? ? 'Create' : 'Update'
+  .half-column.flt-right
+    .column-block
+      %h3 Default Filter [HASH]
+      .body
+        %pre= raw @default_configuration.filter_data.pretty_inspect
+    .column-block
+      %h3 Default Filter [YAML]
+      .body
+        %pre= raw @default_configuration.filter_data.to_yaml
+
 
 = link_to 'Edit', edit_program_path(@program)
 \|

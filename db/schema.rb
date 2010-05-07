@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100423224130) do
+ActiveRecord::Schema.define(:version => 20100506194849) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                             :default => "", :null => false
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20100423224130) do
     t.integer  "failed_attempts",                   :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "configurations", :force => true do |t|
+    t.integer  "program_id"
+    t.boolean  "active",      :default => true
+    t.string   "filter_data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

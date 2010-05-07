@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe Episode do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    
+  end
+  
+  it "should build a search query from a filter file" do
+    
+  end
 end

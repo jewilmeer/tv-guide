@@ -28,11 +28,12 @@ gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => '
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
 group :test do
-  gem 'rspec', :git => 'git://github.com/rspec/rspec.git', :branch => 'v2.0.0.beta.6'
-  gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git', :branch => 'v2.0.0.beta.6'
+  gem 'rspec', :git => 'git://github.com/rspec/rspec.git', :branch => 'v2.0.0.beta.8'
+  gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git', :branch => 'v2.0.0.beta.8'
   gem 'cucumber'
   gem 'cucumber-rails'
   gem 'webrat'
-  gem 'factory_girl'
+  gem "factory_girl", :branch => 'rails3'
   gem 'autotest'
+  gem 'autotest-rails'
 end

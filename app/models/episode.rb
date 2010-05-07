@@ -37,30 +37,17 @@ class Episode < ActiveRecord::Base
     %w(.avi .mkv .mov .srt .wmv .ts).include?(File.extname(path).downcase)
   end
   
-  # def changed?
-  #   filename != renamed_filename
-  # end
-  # 
-  # def changed
-  #   { filename => renamed_filename } unless filename == renamed_filename
-  # end
-  # 
-  # def change!
-  #   FileUtils.mv(path, File.join( File.dirname(path), renamed_filename )) if File.exists?(path)
-  #   self.path = File.join( File.dirname(path), renamed_filename )
-  #   if self.valid?
-  #     logger.info "saving.... #{self.save}"
-  #   else
-  #     logger.error self.errors.inspect
-  #   end
-  # end
+  def age
+    (airdate - Date.today).to_i.abs
+  end
 
   def search_url
-    APP_CONFIG[:links]['download_url'] + search_query
+    # APP_CONFIG[:links]['download_url'] + search_query + "&age=#{age.succ}"
+    program.active_configuration.search_url(search_query)
   end
   
   def search_query
-    "#{season_and_episode} 720 #{program}".split(' ').join("+")
+    "#{season_and_episode} #{program}"
   end
   
   def season_and_episode

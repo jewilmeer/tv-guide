@@ -1,21 +1,21 @@
 --- 
-hash: 33d82d8c9b7f1a01d17e4db897e2d77e9c419347
+hash: 7b4f3399fd6a572ecd6119651b347e841ecacf10
 sources: 
 - Git: 
     git: git://github.com/rspec/rspec-rails.git
-    branch: v2.0.0.beta.6
+    branch: v2.0.0.beta.8
     uri: git://github.com/rspec/rspec-rails.git
-    ref: ae611acc938e5b73550c757eaa9b96b6a9354c04
+    ref: d92e8b0695b7c4bf5a85dd763f82d3102ddfb2bd
 - Git: 
     git: git://github.com/rspec/rspec.git
-    branch: v2.0.0.beta.6
+    branch: v2.0.0.beta.8
     uri: git://github.com/rspec/rspec.git
-    ref: 88535aef0952446bc2e130065d4404d7cbf9490f
+    ref: 860e4a08c87a41204911e4be4d0872aed1c1baa4
 - Git: 
     git: http://github.com/plataformatec/devise.git
     branch: master
     uri: http://github.com/plataformatec/devise.git
-    ref: 9bdc7113244ea23769b613a9cf72252d8ae96903
+    ref: bb39243da2be6ae8171ed5884e85174a69f02100
 - Git: 
     git: git://github.com/thoughtbot/pacecar.git
     branch: rails3
@@ -26,6 +26,8 @@ sources:
 specs: 
 - rake: 
     version: 0.8.7
+- ZenTest: 
+    version: 4.3.1
 - abstract: 
     version: 1.0.0
 - builder: 
@@ -72,6 +74,8 @@ specs:
     version: 3.0.0.beta3
 - autotest: 
     version: 4.2.9
+- autotest-rails: 
+    version: 4.1.0
 - bundler: 
     version: 0.9.25
 - highline: 
@@ -93,7 +97,7 @@ specs:
 - gherkin: 
     version: 1.0.24
 - json_pure: 
-    version: 1.4.2
+    version: 1.4.3
 - term-ansicolor: 
     version: 1.0.5
 - cucumber: 
@@ -129,20 +133,20 @@ specs:
 - rails: 
     version: 3.0.0.beta3
 - rails3-generators: 
-    version: 0.7.0
+    version: 0.7.1
 - rspec-core: 
-    version: 2.0.0.beta.6
+    version: 2.0.0.beta.7
 - rspec-expectations: 
-    version: 2.0.0.beta.6
+    version: 2.0.0.beta.7
 - rspec-mocks: 
-    version: 2.0.0.beta.6
+    version: 2.0.0.beta.7
 - rspec: 
-    version: 2.0.0.beta.6
+    version: 2.0.0.beta.7
     source: 1
 - webrat: 
     version: 0.7.1
 - rspec-rails: 
-    version: 2.0.0.beta.6
+    version: 2.0.0.beta.7
     source: 0
 - sqlite3-ruby: 
     version: 1.2.5
@@ -222,6 +226,10 @@ dependencies:
     group: 
     - :test
   autotest: 
+    version: ">= 0"
+    group: 
+    - :test
+  autotest-rails: 
     version: ">= 0"
     group: 
     - :test
