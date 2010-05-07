@@ -7,24 +7,35 @@ class Configuration < ActiveRecord::Base
     filter_data[:nzb][:url]
   end
   
-  def search_params(search, hd=true)
-    params = filter_data[:nzb][:params]
-    params.merge!( self.query_param(search, hd) )
-    params
+  def search_params(search, additional_params = {})
+    params.merge!( self.query_param(search) ).merge!( additional_params )
+    # params.merge!( dynamic_params )
+    # params
   end
   
-  def query_param(search, hd=true)
-    search << ' ' << filter_data[:nzb][:extra_search_terms] unless filter_data[:nzb][:extra_search_terms].blank?
-    search << ' ' << filter_data[:nzb][:hd_terms] if hd
+  def query_param(search)
+    search << ' ' << additional_terms unless additional_terms.blank?
     { filter_data[:nzb][:search_param].to_sym => search }
   end
   
-  def search_url(query, hd=true)
-    root_search_url + '?' + search_params(query, hd).to_query
+  def search_url(query, additional_params = {})
+    root_search_url + '?' + search_params(query, additional_params).to_query
   end
   
   # cache the result to avoid database calls
   def self.default
     @default ||= Configuration.first
+  end
+  
+  def params
+    filter_data[:nzb][:params]
+  end
+  
+  def additional_terms
+    filter_data[:nzb][:extra_search_terms]
+  end
+  
+  def hd_terms
+    filter_data[:nzb][:hd_terms]
   end
 end
