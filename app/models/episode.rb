@@ -12,7 +12,9 @@ class Episode < ActiveRecord::Base
   scope :watched_by_user, lambda{|programs| {:conditions => ['season_id IN (?)', programs.map(&:season_ids).flatten] }}
   
   attr_accessor :options, :name, :episode, :filters, :real_filename
-
+  
+  has_attached_file :nzb, :processors => [], url: '/system/:attachment/:id/:style/:filename.nzb'
+  
   def <=>(o)
     program_comp = self.program.name <=> o.program.name
     return program_comp unless program_comp == 0
@@ -42,12 +44,11 @@ class Episode < ActiveRecord::Base
   end
 
   def search_url
-    # APP_CONFIG[:links]['download_url'] + search_query + "&age=#{age.succ}"
-    program.active_configuration.search_url(search_query)
+    program.active_configuration.search_url(search_query, {:age => self.age})
   end
   
   def search_query
-    "#{season_and_episode} #{program}"
+    [program.name, season_and_episode, program.active_configuration.hd_terms] * ' '
   end
   
   def season_and_episode
@@ -58,6 +59,10 @@ class Episode < ActiveRecord::Base
     # end
   end
   
+  def filename
+    "#{program.name}_#{season_and_episode}_-_#{title}".parameterize
+  end
+
   def renamed_filename
     renamed = season_and_episode
     renamed << " - #{title}" if title && !title.empty?
@@ -96,5 +101,22 @@ class Episode < ActiveRecord::Base
     classes << 'inactive' unless aired?
     classes << 'active' if aired?
     classes * ' '
+  end
+  
+  def get_nzb
+    logger.debug "Getting nzbfile from #{search_url}"
+    tmp_filepath = "tmp/#{filename}.nzb"
+    agent        = Browser.agent
+    first_page   = agent.get(search_url).forms.last.submit
+
+    if (download_links = first_page.links_with(:text => 'Download')).any?
+      file = download_links.last.click.save(tmp_filepath)
+    end
+    
+    raise 'failed to download' unless file
+    
+    File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file }
+    self.save
+    File.delete(tmp_filepath)
   end
 end

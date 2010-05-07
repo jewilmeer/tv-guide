@@ -12,6 +12,14 @@ TvEpisodes::Application.routes.draw do |map|
     end
   end
   
+  resources :episodes do
+    member do
+      get :download
+      get :search
+      put :mark
+    end
+  end
+  
   resource :page, :only => :show
   
   namespace :admin do

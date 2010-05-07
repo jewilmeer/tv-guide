@@ -1,5 +1,5 @@
 --- 
-hash: 7b4f3399fd6a572ecd6119651b347e841ecacf10
+hash: a67bd1352a0d0bd7d9172f624df8076ba91e478e
 sources: 
 - Git: 
     git: git://github.com/rspec/rspec-rails.git
@@ -16,6 +16,11 @@ sources:
     branch: master
     uri: http://github.com/plataformatec/devise.git
     ref: bb39243da2be6ae8171ed5884e85174a69f02100
+- Git: 
+    git: http://github.com/JasonKing/paperclip.git
+    branch: rails3
+    uri: http://github.com/JasonKing/paperclip.git
+    ref: c285292ee515e0169ebff6f3fa63aec48a383850
 - Git: 
     git: git://github.com/thoughtbot/pacecar.git
     branch: rails3
@@ -119,12 +124,17 @@ specs:
     version: 1.1.2
 - logging: 
     version: 1.4.1
-- memcached: 
-    version: 0.19.4
 - nokogiri: 
     version: 1.4.1
+- mechanize: 
+    version: 1.0.0
+- memcached: 
+    version: 0.19.4
 - pacecar: 
     version: 1.2.0
+    source: 4
+- paperclip: 
+    version: 2.3.1.1
     source: 3
 - thor: 
     version: 0.13.6
@@ -167,6 +177,10 @@ dependencies:
     version: = 1.4.1
     group: 
     - :default
+  mechanize: 
+    version: ">= 0"
+    group: 
+    - :default
   sqlite3-ruby: 
     version: ">= 0"
     group: 
@@ -190,6 +204,10 @@ dependencies:
     group: 
     - :default
   pacecar: 
+    version: ">= 0"
+    group: 
+    - :default
+  paperclip: 
     version: ">= 0"
     group: 
     - :default

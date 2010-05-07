@@ -31,7 +31,7 @@ $(function()
   $('button').button({});
   
   $('table.list tbody tr:visible').reapplyOddEven();
-  
+  $('textarea').autoResize({animate: true}).trigger('change');  
 });
 
 (function($) {
