@@ -3,7 +3,7 @@ class CreateFilters < ActiveRecord::Migration
     create_table :configurations do |t|
       t.integer :program_id
       t.boolean :active, :default => true
-      t.string :filter_data
+      t.text :filter_data
       t.timestamps
     end
   end
