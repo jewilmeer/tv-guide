@@ -1,6 +1,6 @@
 class AddNzbToEpisodes < ActiveRecord::Migration
   def self.up
-    remove_column :episodes, :filename
+    # remove_column :episodes, :filename
     add_column :episodes, :nzb_file_name,    :string
     add_column :episodes, :nzb_content_type, :string
     add_column :episodes, :nzb_file_size,    :integer
