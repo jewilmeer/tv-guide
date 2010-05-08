@@ -5,7 +5,7 @@ class Episode < ActiveRecord::Base
   has_one :program, :through => :season
   
   validates :title, :presence => true
-  validates :nr, :uniqueness => {:scope => :season_id}
+  validates :nr, :presence => true, :uniqueness => {:scope => :season_id}
   
   scope :by_nr, lambda {|nr| {:conditions => {:nr => nr} } }
   scope :downloaded, {:conditions => {:downloaded => true} }
