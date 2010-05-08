@@ -1,6 +1,8 @@
 class Season < ActiveRecord::Base
+  include Pacecar
+  
   belongs_to :program
-  has_many :episodes
+  has_many :episodes, :dependent => :destroy
   
   validates :nr, :uniqueness => { :scope => :program_id }
 
