@@ -113,7 +113,7 @@ class Episode < ActiveRecord::Base
       file = download_links.last.click.save(tmp_filepath)
     end
     
-    raise 'failed to download' unless file
+    return 'failed to download' unless file
     
     File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file }
     self.save
