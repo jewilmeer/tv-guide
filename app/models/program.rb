@@ -8,11 +8,19 @@ class Program < ActiveRecord::Base
   has_one :configuration
   
   validates :name, :presence => true, :uniqueness => true
+  before_validation :guess_correct_name, :on => :create
   after_create :get_all_episodes
     
   scope :by_name, :order => 'name ASC'
   
   attr_accessor :active_configuration
+
+  def guess_correct_name
+    self.name = google_result.text.match(/(.*?) \(.*\)/)[1]
+  rescue StandardError => e
+    logger.error e
+    name
+  end
   
   def active_configuration
     @active_configuration ||= (self.configuration ? self.configuration : Configuration.default)
@@ -22,9 +30,10 @@ class Program < ActiveRecord::Base
     return @episode_list if @episode_list 
     @episode_list = []
 
-    logger.info "getting episode titles from #{episodelist_url}"
-    raise unless episodelist_url
-    page = get_page(episodelist_url)
+    raise 'Episodelist url is missing' unless episodelist_url
+    logger.info "getting episode titles from #{episodelist_url.inspect}"
+
+    page = Browser.agent.get(episodelist_url).body
     # get the pre element, each line should contain show info
     plain_text = Nokogiri::HTML(page).search('pre').first
     
@@ -38,8 +47,10 @@ class Program < ActiveRecord::Base
             :season => match[1].to_i,
             :episode => match[2].to_i,
             :airdate => Date.parse(match[3].gsub('/', ' ')),
-            :title => match[4]
+            :title => match[4],
+            :season_and_episode => "S#{"%02d" % match[1].to_i.to_i}E#{"%02d" % match[2].to_i}"
           }
+          
         end
       end
     end
@@ -48,17 +59,17 @@ class Program < ActiveRecord::Base
   end
   
   def episodelist_url
-    return @episodelist_url if @episodelist_url
-    # logger.debug google_result
-    
-    # @episodelist_url = Nokogiri::HTML( episodelist_search_result ).css('a.l').first['href']
-    get_first_result( episodelist_search_result )
+    google_result.uri
   end
   
   def google_url
     URI.escape "#{APP_CONFIG[:links]['search_url']} \"#{self}\" site:epguides.com"
   end
 
+  def google_result
+    Browser.agent.get(self.google_url).links.find{|l| l.text =~ /Titles & Air Dates/}
+  end
+  
   def episodelist_search_result
     google_result = get_page(google_url)
   end
@@ -69,12 +80,6 @@ class Program < ActiveRecord::Base
   end
   
   def get_page(url)
-    # WWW::Mechanize.html_parser = Nokogiri::HTML
-    # agent = WWW::Mechanize.new
-    # 
-    # page  = ''
-    # open(url).each{|line| page << line }
-    # page
     Browser.agent.get(url)
   end
   
@@ -99,28 +104,22 @@ class Program < ActiveRecord::Base
   end
   
   def episodelist_needs_update?
-    last_eplist = self.episode_list.last
-    last_episode= self.episodes.last
+    self.episode_list.length != self.episodes.count
+  end
 
-    last_episode.season.nr == last_eplist[:season] && 
-    last_episode.nr        == last_eplist[:episode] && 
-    last_episode.title     == last_eplist[:title]
+  # TODO: watch for new seasons
+  def new_episodes
+    last_season  = self.seasons.last.nr
+    all_episodes = self.episodes.map(&:season_and_episode)
+    episode_list.reject{|e| all_episodes.include?(e[:season_and_episode]) }
   end
   
-  def update_episode_list
-    self.episodes.last
-  end
-  
-  def next_episode_to_download
-    last_episode = episodes.last(:downloaded => true)
-    next_episode = last_episode.season.episodes.first(:nr => last_episode.nr.succ)
-    next_episode.is_a?(Episode) ? next_episode.search_url : nil
-  end
-  
-  def self.downloads
-    downloads = []
-    all.map{|p| downloads << p.next_episode_to_download }
-    downloads.compact
+  def add_new_episodes
+    last_season     = self.seasons.last
+    new_episodes.each do |e|
+      raise 'seasons does not match' unless last_season.nr == e[:season]
+      last_season.episodes.create!(:nr => e[:episode], :title => e[:title], :airdate => e[:airdate])
+    end
   end
   
   def to_s
