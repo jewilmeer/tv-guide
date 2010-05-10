@@ -13,6 +13,7 @@ class Admin::ConfigurationsController < AdminAreaController
     if (filter_data = eval(params[:configuration][:filter_data])).is_a?(Hash)
       @config.filter_data = filter_data
     end
+    @config.save!
     flash[:notice] = "filter added"
     redirect_to :back
   end

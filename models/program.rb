@@ -9,6 +9,7 @@ class Program < ActiveRecord::Base
   
   validates :name, :presence => true, :uniqueness => true
   before_validation :guess_correct_name, :on => :create
+  before_create :fill_search_term
   after_create :get_all_episodes
     
   scope :by_name, :order => 'name ASC'
@@ -120,6 +121,10 @@ class Program < ActiveRecord::Base
       raise 'seasons does not match' unless last_season.nr == e[:season]
       last_season.episodes.create!(:nr => e[:episode], :title => e[:title], :airdate => e[:airdate])
     end
+  end
+  
+  def fill_search_term
+    self.search_term = self.name
   end
   
   def to_s
