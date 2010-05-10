@@ -37,5 +37,8 @@
       \|
       = link_to 'Search', search_episode_path(episode), :target => '_blank'
       \|
-      = link_to 'Download', download_episode_path(episode)
+      = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
+      - if episode.nzb?
+        \|
+        = link_to 'Download', download_episode_path(episode) 
       

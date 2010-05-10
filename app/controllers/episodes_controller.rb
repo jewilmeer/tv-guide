@@ -13,7 +13,7 @@ class EpisodesController < ApplicationController
   end
   
   def search
-    redirect_to @episode.search_url
+    redirect_to @episode.search_url(params[:hd])
   end
   
   def mark
