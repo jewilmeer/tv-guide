@@ -28,8 +28,8 @@
           = image_tag 'spinner.gif'
         = render 'layouts/admin/navigation'
       .content
+        = render :partial => 'layouts/notifications_and_errors'
         = yield
       #footer
     = yield :bottom
-    :javascript
-      #{yield :bottom_js}
+    = render 'layouts/bottom_js'

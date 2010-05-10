@@ -8,9 +8,8 @@ class Configuration < ActiveRecord::Base
   end
   
   def search_params(search, additional_params = {})
+    logger.debug "wordt ook echt gebruik!!"
     params.merge!( self.query_param(search) ).merge!( additional_params )
-    # params.merge!( dynamic_params )
-    # params
   end
   
   def query_param(search)
@@ -37,5 +36,12 @@ class Configuration < ActiveRecord::Base
   
   def hd_terms
     filter_data[:nzb][:hd_terms]
+  end
+  
+  def roman?
+    filter_data.each do |k,v|
+      return true if v.keys.include?(:roman)
+    end
+    false
   end
 end

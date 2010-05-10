@@ -9,5 +9,6 @@
       - else
         = link_to "Mark as downloaded", mark_program_season_episode_path(program, season, episode), :class => :mark, :'data-remote' => true, :'data-method' => 'put'
     %li= link_to "Search", search_episode_path(episode), :target => '_blank'
+    %li= link_to "HD", search_episode_path(episode, :hd => true), :target => '_blank'
     - if episode.nzb?
       %li= link_to "Download", download_episode_path(episode), :target => '_blank'

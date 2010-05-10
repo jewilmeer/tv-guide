@@ -31,12 +31,21 @@
 .full-column
   .half-column.flt-left
     .column-block
+      %h3 Program settings
+      .body
+        = form_for([:admin, @program]) do |f|
+          .form_row
+            = f.label :search_term, 'Custom search term'
+            = f.text_field :search_term
+          .form_row
+            %label Search term
+            = link_to @program.episodes.airdate_in_past.last.search_query(true), @program.episodes.airdate_in_past.last.search_url
+          %button.save Save
+
+      .row_seperator
       %h3 Current filter
       .body
-        - form_for([:admin, @configuration]) do |f|
-          .form_row
-            %label Sample download link
-            = @program.episodes.airdate_in_past.last.search_url
+        = form_for([:admin, @configuration]) do |f|
           = f.hidden_field :program_id
           - if @configuration.new_record?
             %p.nothing There is no custom filter yet, editing the custom filter below will create a custom one
