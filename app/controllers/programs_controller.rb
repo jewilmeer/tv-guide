@@ -13,7 +13,8 @@ class ProgramsController < ApplicationController
   end
     
   def create
-    @program = Program.find_or_create_by_name(params[:program][:name], params[:program])
+    program_name = Program.new(params[:program]).guess_correct_name
+    @program = Program.find_or_create_by_name(program_name, params[:program])
     current_user.programs << @program if @program && current_user
     if @program.save
       flash[:notice] = "#{@program.name} added to watchlist"
