@@ -1,5 +1,5 @@
 --- 
-hash: a67bd1352a0d0bd7d9172f624df8076ba91e478e
+hash: c92254675ecdfdcbf89f04119e63e7a20e6d4bbe
 sources: 
 - Git: 
     git: git://github.com/rspec/rspec-rails.git
@@ -81,6 +81,10 @@ specs:
     version: 4.2.9
 - autotest-rails: 
     version: 4.1.0
+- xml-simple: 
+    version: 1.0.12
+- aws-s3: 
+    version: 0.6.2
 - bundler: 
     version: 0.9.25
 - highline: 
@@ -100,7 +104,7 @@ specs:
 - trollop: 
     version: 1.16.2
 - gherkin: 
-    version: 1.0.24
+    version: 1.0.26
 - json_pure: 
     version: 1.4.3
 - term-ansicolor: 
@@ -119,7 +123,7 @@ specs:
 - file-utils: 
     version: 0.1.1
 - haml: 
-    version: 2.2.24
+    version: 3.0.0
 - little-plugger: 
     version: 1.1.2
 - logging: 
@@ -208,6 +212,10 @@ dependencies:
     group: 
     - :default
   paperclip: 
+    version: ">= 0"
+    group: 
+    - :default
+  aws-s3: 
     version: ">= 0"
     group: 
     - :default

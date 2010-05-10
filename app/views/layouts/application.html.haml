@@ -33,5 +33,4 @@
         = yield
       #footer
     = yield :bottom
-    :javascript
-      #{yield :bottom_js}
+    = render 'layouts/bottom_js'

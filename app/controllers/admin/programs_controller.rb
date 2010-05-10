@@ -47,7 +47,7 @@ class Admin::ProgramsController < AdminAreaController
   def update
     respond_to do |format|
       if @program.update_attributes(params[:program])
-        format.html { redirect_to(@program, :notice => 'Program was successfully updated.') }
+        format.html { redirect_to([:admin, @program], :notice => 'Program was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

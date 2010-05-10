@@ -1,22 +1,3 @@
-#!/usr/bin/ruby
-#
-# Roman numerals
-#
-# Generates roman numerals from integers and vice-versa
-#
-# A response to Ruby Quiz of the Week #22 - Roman Numerals [ruby-talk:132925]
-#
-# Author: Dave Burt <dave at burt.id.au>
-#
-# Created: 7 Mar 2005
-#
-# Last modified: 8 Mar 2005
-#
-# Fine print: Provided as is. Use at your own risk. Unauthorized copying is
-#             not disallowed. Credit's appreciated if you use my code. I'd
-#             appreciate seeing any modifications you make to it.
-#
-
 # Contains methods to convert integers to roman numeral strings and vice-versa.
 module RomanNumerals
   
@@ -97,7 +78,15 @@ class String
     RomanNumerals.is_roman_numeral?(self)
   end
 end
+
 class Integer
+  # Converts this integer to a roman numeral.
+  def to_s_roman
+    RomanNumerals.from_integer(self) || ''
+  end
+end
+
+class Fixnum
   # Converts this integer to a roman numeral.
   def to_s_roman
     RomanNumerals.from_integer(self) || ''
@@ -168,7 +157,7 @@ end
 #   VIII + 7         #=> XV
 #   III ** III       #=> XXVII
 #   VIII.divmod(III) #=> [II, II]
-def Object.const_missing sym
-  raise NameError.new("uninitialized constant: #{sym}") unless RomanNumerals::REGEXP === sym.to_s
-  const_set(sym, RomanNumeral.get(sym))
-end
+# def Object.const_missing sym
+#   raise NameError.new("uninitialized constant: #{sym}") unless RomanNumerals::REGEXP === sym.to_s
+#   const_set(sym, RomanNumeral.get(sym))
+# end

@@ -13,7 +13,13 @@ class Episode < ActiveRecord::Base
   
   attr_accessor :options, :name, :episode, :filters, :real_filename
   
-  has_attached_file :nzb, :processors => [], url: '/system/:attachment/:id/:style/:filename.nzb'
+  has_attached_file :nzb, 
+                    :processors => [], 
+                    :storage => :s3,
+                    :s3_credentials => "#{Rails.root}/config/s3.yml",
+                    :bucket => 'nzbs',
+                    :path => ':attachment/:id/:style/:filename.nzb'
+                    # :url => '/system/:attachment/:id/:style/:filename.nzb'
   
   def <=>(o)
     program_comp = self.program.name <=> o.program.name
@@ -43,20 +49,23 @@ class Episode < ActiveRecord::Base
     (airdate - Date.today).to_i.abs
   end
 
-  def search_url
-    program.active_configuration.search_url(search_query, {:age => self.age})
+  def search_url(hd = false)
+    program.active_configuration.search_url(search_query(hd), {:age => self.age})
   end
   
-  def search_query
-    [program.name, season_and_episode, program.active_configuration.hd_terms] * ' '
+  def search_query(hd)
+    terms = []
+    terms << program.search_term << season_and_episode 
+    terms << program.active_configuration.hd_terms if hd
+    terms * ' '
   end
   
   def season_and_episode
-    # if self.program.filters.roman
-    #   "S#{"%02d" % season.to_i}Part#{nr.to_s_roman}"
-    # else
+    if self.program.active_configuration.roman?
+      "pt #{nr.to_s_roman}"
+    else
       "S#{"%02d" % season.to_i}E#{episode}"
-    # end
+    end
   end
   
   def filename
