@@ -49,6 +49,7 @@
           = f.hidden_field :program_id
           - if @configuration.new_record?
             %p.nothing There is no custom filter yet, editing the custom filter below will create a custom one
+          %pre= raw @program.active_configuration.filter_data.to_yaml
           .form_row
             = f.label :filter_data, 'filter data (Hash)'
             = f.text_area :filter_data
