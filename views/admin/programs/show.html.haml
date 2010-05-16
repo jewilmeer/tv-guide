@@ -26,6 +26,9 @@
           %label Last aired
           = @program.episodes.airdate_in_past.last.airdate.to_s(:long)
         .form_row
+          %label Last episode update
+          = @program.episodes.by_created_at.last.created_at.to_s(:long)
+        .form_row
           %label Custom conifiguration?
           = @program.configuration ? 'yes' : 'no'
 .full-column

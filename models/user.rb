@@ -7,5 +7,5 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation
   
-  has_and_belongs_to_many :programs
+  has_and_belongs_to_many :programs, :uniq => true
 end

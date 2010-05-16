@@ -19,7 +19,7 @@
                 %h3
                   = link_to "Season #{season.nr} ( #{season.episodes.downloaded.count} / #{season.episodes.airdate_in_past.count} / #{season.episodes.count} )", [program, season]
                 %ul.episodes
-                  = render season.episodes
+                  = render season.episodes.by_id.all
   - else
     %p.nothing No programs yet
 
@@ -29,16 +29,22 @@
 .half-column.flt-left
   %h2 Recently aired
   .body
-    - @episodes.each do |episode|
-      %h4= episode.program.name
-      %strong== #{episode.title} (#{episode.season_and_episode})
-      %br
-      == Aired on #{episode.airdate.to_s(:long)}
-      \|
-      = link_to 'Search', search_episode_path(episode), :target => '_blank'
-      \|
-      = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
-      - if episode.nzb?
+    - @episodes.each do |airdate, episodes|
+      %h4== #{airdate.to_s(:with_day)}
+      - episodes.each do |episode|  
+        - next unless episode.program
+        %strong
+          == #{episode.program.name}
+          == - #{episode.title} (#{episode.season_and_episode})
+        %br
+        == Aired on #{episode.airdate.to_s(:long)}
         \|
-        = link_to 'Download', download_episode_path(episode) 
-      
+        = link_to 'Search', search_episode_path(episode), :target => '_blank'
+        \|
+        = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
+        - if episode.nzb?
+          \|
+          = link_to 'Download', download_episode_path(episode) 
+        %br
+        %br
+              
