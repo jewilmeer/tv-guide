@@ -127,9 +127,9 @@ class Program < ActiveRecord::Base
     self.search_term = self.name
   end
   
-  def to_s
-    self.name
-  end
+  # def to_s
+  #   self.name
+  # end
   
   def to_param
     "#{id}-#{name.parameterize}"
