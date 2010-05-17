@@ -1,5 +1,5 @@
 --- 
-hash: c92254675ecdfdcbf89f04119e63e7a20e6d4bbe
+hash: 95fd24a8979059f67569d40c5018c03b587b2973
 sources: 
 - Git: 
     git: git://github.com/rspec/rspec-rails.git
@@ -13,14 +13,14 @@ sources:
     ref: 860e4a08c87a41204911e4be4d0872aed1c1baa4
 - Git: 
     git: http://github.com/plataformatec/devise.git
-    branch: master
+    branch: v1.1.rc1
     uri: http://github.com/plataformatec/devise.git
-    ref: bb39243da2be6ae8171ed5884e85174a69f02100
+    ref: ca6248cfd3aaecf126ab5502469bba52b5dc1216
 - Git: 
-    git: http://github.com/JasonKing/paperclip.git
+    git: git://github.com/thoughtbot/paperclip.git
     branch: rails3
-    uri: http://github.com/JasonKing/paperclip.git
-    ref: c285292ee515e0169ebff6f3fa63aec48a383850
+    uri: git://github.com/thoughtbot/paperclip.git
+    ref: 7c3dd0f0b754aed4aaf4ecc67d7888f5b0bb1233
 - Git: 
     git: git://github.com/thoughtbot/pacecar.git
     branch: rails3
@@ -64,7 +64,7 @@ specs:
 - treetop: 
     version: 1.4.5
 - mail: 
-    version: 2.2.0
+    version: 2.2.1
 - text-hyphen: 
     version: 1.0.0
 - text-format: 
@@ -77,8 +77,10 @@ specs:
     version: 3.0.0.beta3
 - activeresource: 
     version: 3.0.0.beta3
+- addressable: 
+    version: 2.1.2
 - autotest: 
-    version: 4.2.9
+    version: 4.2.10
 - autotest-rails: 
     version: 4.1.0
 - xml-simple: 
@@ -114,16 +116,18 @@ specs:
 - cucumber-rails: 
     version: 0.3.1
 - warden: 
-    version: 0.10.3
+    version: 0.10.4
 - devise: 
     version: 1.1.rc1
     source: 2
 - factory_girl: 
     version: 1.2.4
+- faraday: 
+    version: 0.4.5
 - file-utils: 
     version: 0.1.1
 - haml: 
-    version: 3.0.0
+    version: 3.0.4
 - little-plugger: 
     version: 1.1.2
 - logging: 
@@ -134,6 +138,8 @@ specs:
     version: 1.0.0
 - memcached: 
     version: 0.19.4
+- oauth2: 
+    version: 0.0.8
 - pacecar: 
     version: 1.2.0
     source: 4
@@ -147,7 +153,7 @@ specs:
 - rails: 
     version: 3.0.0.beta3
 - rails3-generators: 
-    version: 0.7.1
+    version: 0.8.1
 - rspec-core: 
     version: 2.0.0.beta.7
 - rspec-expectations: 
@@ -224,6 +230,10 @@ dependencies:
     group: 
     - :default
   devise: 
+    version: ">= 0"
+    group: 
+    - :default
+  oauth2: 
     version: ">= 0"
     group: 
     - :default

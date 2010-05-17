@@ -1,4 +1,8 @@
 common: &common
+  facebook: &facebook
+    app_id: 117884434913747
+    api_id: 
+    secret: 3dfbad4725299f687198a5e77d29452f
   paths:
     app_root: ''
     tv_root: '/Volumes/openshare/download/TV/'

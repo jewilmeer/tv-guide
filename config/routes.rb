@@ -21,6 +21,10 @@ TvEpisodes::Application.routes.draw do |map|
   end
   
   resource :page, :only => :show
+
+  match '/oauth/start', :to => 'oauths#start'
+  match '/oauth/callback', :to => 'oauths#callback'
+  match '/oauth', :to => 'oauths#destroy'
   
   namespace :admin do
     root :to => 'pages#root'
