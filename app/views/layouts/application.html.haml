@@ -1,5 +1,5 @@
 !!!
-%html{html_attrs('en')}
+%html{html_attrs('en'), 'xmlns:fb' => 'http://www.facebook.com/2008/fbml'}
   %head
     %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
     = stylesheet_link_tag "application", 'jquery-ui-1.8.custom'
@@ -18,13 +18,19 @@
       #header
         %h1 TV Episode dingus
         .user_nav
-          - if user_signed_in?
-            == Welcome #{current_user.email}. Not you?
-            = link_to 'Sign out', destroy_user_session_path 
+          - if params[:facebook]
+            %button#login{:style => 'display:none'} Login
+            %button#logout{:style => 'display:none'} Logout
+            %button#disconnect{:style => 'display:none'} Disconnect
           - else
-            = link_to 'Sign in', new_user_session_path
-            or
-            = link_to 'Sign up', new_user_registration_path
+            - if user_signed_in?
+              == Welcome #{current_user.email}. Not you?
+              = link_to 'Sign out', destroy_user_session_path 
+            - else
+              = link_to 'Sign in', new_user_session_path
+              or
+              = link_to 'Sign up', new_user_registration_path
+        #user-info
         .loading.hidden
           Loading
           = image_tag 'spinner.gif'

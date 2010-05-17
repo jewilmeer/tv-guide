@@ -19,7 +19,7 @@ gem 'haml'
 gem 'rails3-generators'
 gem 'pacecar', :git => 'git://github.com/thoughtbot/pacecar.git', :branch => 'rails3'
 # gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git', :branch => 'rails3'
-gem 'paperclip', :git => 'http://github.com/JasonKing/paperclip.git', :branch => 'rails3'
+gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git', :branch => 'rails3'
 gem 'aws-s3'
 
 # caching
@@ -27,7 +27,8 @@ gem 'memcached'
 
 # authentication
 # gem 'devise', '1.1.rc1'
-gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => 'master'
+gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => 'v1.1.rc1'
+gem 'oauth2'
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
