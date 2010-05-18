@@ -17,7 +17,7 @@ class Episode < ActiveRecord::Base
                     :processors => [], 
                     :storage => :s3,
                     :s3_credentials => "#{Rails.root}/config/s3.yml",
-                    :bucket => 'nzbs',
+                    :bucket => 'us-nzbs',
                     :path => ':attachment/:id/:style/:filename.nzb'
                     # :url => '/system/:attachment/:id/:style/:filename.nzb'
   
