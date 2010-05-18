@@ -22,6 +22,7 @@
             %button#login{:style => 'display:none'} Login
             %button#logout{:style => 'display:none'} Logout
             %button#disconnect{:style => 'display:none'} Disconnect
+            %fb:login
           - else
             - if user_signed_in?
               == Welcome #{current_user.email}. Not you?
