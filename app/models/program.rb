@@ -118,8 +118,13 @@ class Program < ActiveRecord::Base
   def add_new_episodes
     last_season     = self.seasons.last
     new_episodes.each do |e|
-      raise 'seasons does not match' unless last_season.nr == e[:season]
-      last_season.episodes.create!(:nr => e[:episode], :title => e[:title], :airdate => e[:airdate])
+      raise "seasons does not match #{self} #{last_season.nr} <> #{e[:season]}" unless last_season.nr == e[:season]
+      ep = last_season.episodes.build(:nr => e[:episode], :title => e[:title], :airdate => e[:airdate])
+      if ep.save
+        logger.debug "Episode added: #{ep.inspect}"
+      else
+        logger.debug "Episode save failed: #{ep.inspect}"
+      end
     end
   end
   
@@ -127,9 +132,9 @@ class Program < ActiveRecord::Base
     self.search_term = self.name
   end
   
-  # def to_s
-  #   self.name
-  # end
+  def to_s
+    self.name
+  end
   
   def to_param
     "#{id}-#{name.parameterize}"
