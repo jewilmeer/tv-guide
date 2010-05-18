@@ -18,7 +18,7 @@ gem 'file-utils'
 gem 'haml'
 gem 'rails3-generators'
 gem 'pacecar', :git => 'git://github.com/thoughtbot/pacecar.git', :branch => 'rails3'
-gem 'paperclip', :branch => 'rails3'
+# gem 'paperclip', :branch => 'rails3'
 gem 'aws-s3'
 
 # caching
