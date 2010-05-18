@@ -17,9 +17,11 @@ class Episode < ActiveRecord::Base
                     :processors => [], 
                     :storage => :s3,
                     :s3_credentials => "#{Rails.root}/config/s3.yml",
+                    :s3_permissions => 'authenticated-read',
+                    :s3_protocol => 'http',
+                    :s3_headers => { :content_type => 'application/octet-stream', :content_disposition => 'attachment' },
                     :bucket => 'us-nzbs',
                     :path => ':attachment/:id/:style/:filename.nzb'
-                    # :url => '/system/:attachment/:id/:style/:filename.nzb'
   
   def <=>(o)
     program_comp = self.program.name <=> o.program.name
