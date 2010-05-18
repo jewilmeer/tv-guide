@@ -1,5 +1,5 @@
 --- 
-hash: af0f69a6e11a426d04840f9b82a42f05bdd78699
+hash: fda926c2698352bb3d57c484a9ec1937f5fe7f9f
 sources: 
 - Git: 
     git: git://github.com/rspec/rspec-rails.git
@@ -138,8 +138,6 @@ specs:
 - pacecar: 
     version: 1.2.0
     source: 3
-- paperclip: 
-    version: 2.3.1.1
 - thor: 
     version: 0.13.6
 - railties: 
@@ -208,10 +206,6 @@ dependencies:
     group: 
     - :default
   pacecar: 
-    version: ">= 0"
-    group: 
-    - :default
-  paperclip: 
     version: ">= 0"
     group: 
     - :default
