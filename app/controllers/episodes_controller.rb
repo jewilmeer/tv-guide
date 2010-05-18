@@ -6,7 +6,13 @@ class EpisodesController < ApplicationController
 
   def download
     if @episode.nzb?
-      send_file @episode.nzb.path
+      # old method with files living on the filesystem
+      # send_file @episode.nzb.path
+      
+      # redirect for links living on external storage
+      path = @episode.nzb.path
+      redirect_to(AWS::S3::S3Object.url_for(@episode.nzb.path, @episode.nzb.bucket_name, :expires_in => 10.seconds))
+      # send_file AWS::S3::S3Object.url_for(@episode.nzb.path, @episode.nzb.bucket_name)
     else
       search
     end
@@ -23,5 +29,6 @@ class EpisodesController < ApplicationController
 
   def get_episode
     @episode = Episode.find(params[:id], :include => {:season => :program})
+    raise ActiveRecord::RecordNotFound unless @episode
   end
 end
