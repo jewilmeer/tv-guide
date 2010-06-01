@@ -33,7 +33,12 @@ TvEpisodes::Application.routes.draw do |map|
       get :download, :on => :member
     end
   end
-
+  
+  namespace :auth do
+    match 'facebook/callback', :to => 'facebook#callback'
+    match 'facebook/remove', :to => 'facebook#remove'
+  end
+  
   match "/settings(.:format)" => "settings#index", :as => :setting
 
   # The priority is based upon order of creation:
