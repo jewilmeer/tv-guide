@@ -37,6 +37,7 @@
       .content
         = render :partial => 'layouts/notifications_and_errors'
         = yield
+        %fb:like
       #footer
     = yield :bottom
     = render 'layouts/bottom_js'

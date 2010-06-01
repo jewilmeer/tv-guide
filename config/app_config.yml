@@ -13,6 +13,10 @@ common: &common
 
 development:
   <<: *common
+  facebook:
+    app_id: 104796206234015
+    api_id: 03b6de06612867d1aa8c3869f08b9e21
+    secret: 7e7a25ef871a88e4fe7fe2c1ed833776
 test:
   <<: *common
 production:
