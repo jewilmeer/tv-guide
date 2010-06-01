@@ -13,13 +13,6 @@ class OauthsController < ApplicationController
     access_token = client.web_server.get_access_token(params[:code], :redirect_uri => redirect_uri)
     user = JSON.parse(access_token.get('/me'))
     
-    logger.debug ""*20
-    logger.debug params.inspect
-    logger.debug ""*20
-    logger.debug user.inspect
-    logger.debug ""*20
-    logger.debug ""*20
-    
     render :text => 'ok'
   end
   

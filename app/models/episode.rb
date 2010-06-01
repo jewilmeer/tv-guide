@@ -20,7 +20,7 @@ class Episode < ActiveRecord::Base
                     :s3_permissions => 'authenticated-read',
                     :s3_protocol => 'http',
                     :s3_headers => { :content_type => 'application/octet-stream', :content_disposition => 'attachment' },
-                    :bucket => 'us-nzbs',
+                    :bucket => Rails.env.production? ? 'us-nzbs' : 'tmp-nzbs',
                     :path => ':attachment/:id/:style/:filename.nzb'
   
   def <=>(o)
@@ -126,7 +126,8 @@ class Episode < ActiveRecord::Base
     
     return 'failed to download' unless file
     
-    File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file }
+    File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file  }
+    return 'failed to download (empty file)' unless self.nzb.size > 0
     self.save
     File.delete(tmp_filepath)
   end
