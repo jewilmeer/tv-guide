@@ -5,5 +5,5 @@
   %ul.controls
     %li= link_to "Search", search_episode_path(episode), :target => '_blank'
     %li= link_to "HD", search_episode_path(episode, :hd => true), :target => '_blank'
-    - if episode.nzb?
+    - if episode.nzb.file?
       %li= link_to "Download", download_episode_path(episode), :target => '_blank'
