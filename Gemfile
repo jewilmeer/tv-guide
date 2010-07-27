@@ -28,6 +28,7 @@ gem 'memcached'
 # gem 'devise', '1.1.rc1'
 gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => 'v1.1.rc1'
 gem 'oauth2'
+gem 'tvdb', :git => 'http://github.com/alvarobp/tvdb'
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
