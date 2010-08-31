@@ -13,8 +13,8 @@
       - @users.each do |user|
         %tr
           %td= user.email
-          %td= user.created_at.to_s(:long)
-          %td= user.current_login_at.to_s(:long)
+          %td= l user.created_at, :format => :long
+          %td= l user.current_login_at, :format => :long
           %td= user.login_count
           %td
             = link_to 'Show', [:admin, user]
