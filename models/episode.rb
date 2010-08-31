@@ -2,14 +2,15 @@ class Episode < ActiveRecord::Base
   include Pacecar
   
   belongs_to :season
-  has_one :program, :through => :season
+  belongs_to :program
   
-  validates :title, :presence => true
-  validates :nr, :presence => true, :uniqueness => {:scope => :season_id}
+  validates :title, :season_id, :program_id, :presence => true
+  validates :nr, :presence => true, :uniqueness => {:scope => [:season_id, :program_id]}
   
   scope :by_nr, lambda {|nr| {:conditions => {:nr => nr} } }
   scope :downloaded, {:conditions => {:downloaded => true} }
-  scope :watched_by_user, lambda{|programs| {:conditions => ['season_id IN (?)', programs.map(&:season_ids).flatten] }}
+  # scope :watched_by_user, lambda{|programs| {:conditions => ['season_id IN (?)', programs.map(&:season_ids).flatten] }}
+  scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
   
   attr_accessor :options, :name, :episode, :filters, :real_filename
   
@@ -68,6 +69,10 @@ class Episode < ActiveRecord::Base
     else
       "S#{"%02d" % season.to_i}E#{episode}"
     end
+  end
+  
+  def full_episode_title
+    "#{season_and_episode} - #{title}"
   end
   
   def filename
@@ -130,5 +135,21 @@ class Episode < ActiveRecord::Base
     return 'failed to download (empty file)' unless self.nzb.size > 0
     self.save
     File.delete(tmp_filepath)
+  end
+  
+  def tvdb_info=(tvdb_info)
+    self.title       = tvdb_info['EpisodeName']
+    self.nr          = tvdb_info['EpisodeNumber']
+    self.description = tvdb_info['Overview']
+    self.airdate     = tvdb_info['FirstAired'] ? Date.parse(tvdb_info['FirstAired']) : nil
+  end
+    
+  def self.from_tvdb tvdb_hash
+    self.new({
+      :title       => tvdb_hash['EpisodeName'],
+      :nr          => tvdb_hash['EpisodeNumber'],
+      :description => tvdb_hash['Overview'],
+      :airdate     => Date.parse(tvdb_hash['FirstAired'])
+    })
   end
 end

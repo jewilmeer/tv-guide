@@ -1,0 +1,19 @@
+- if @programs.any?
+  .column-block
+    %h2== Found #{pluralize(@programs.count,'matched program')}
+    .body
+      %p Which of these where you looking for?
+      %ul
+        - @programs.each do |program|
+          %li
+            = link_to(program['SeriesName'], user_programs_path(current_user, :name => program['SeriesName']), :method => :post, :remote => true)
+            - if program['Status'].blank?
+              [status unknown]
+            - else
+              == [#{program['Status']}]  
+            - if program['Overview'].blank?
+              %p.nothing No description available
+            - else
+              %p= program['Overview']
+- else
+  %p.nothing No programs found

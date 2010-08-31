@@ -12,4 +12,6 @@
     - flash.delete(k)
     
 - content_for(:bottom_js_domready) do
-  $('.flash').slideDown('slow').animate({opacity: 1.0}, 15000).fadeOut('fast');
+  / $('.flash').slideDown('slow').animate({opacity: 1.0}, 15000).fadeOut('fast');
+  $('.flash.error').errorStyle().fadeIn(1500);
+  $('.flash.notice, .flash.warning').noticeStyle().fadeIn(1500);

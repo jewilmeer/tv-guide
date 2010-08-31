@@ -1,0 +1,52 @@
+- content_for(:head) do
+  %style
+    :sass
+      .form_row.one_line_form
+        line-height: 22px
+        label
+          padding-left: 5px
+          margin-top: 2px
+          line-height: 22px
+        input 
+          margin-top: 2px
+          float: left
+          length: 250px
+        button
+          float: right
+        height: 30px
+%h1 User settings
+.half-column.flt-left
+  .column-block
+    %h2 Account settings
+    .body
+      = form_for(current_user) do |f|
+        = f.error_messages
+        .form_row
+          = f.label :email
+          = current_user.email
+        .form_row
+          = f.label :login, 'Username'
+          = f.text_field :login, :class => :small
+        .form_row
+          = f.label :password
+          = f.password_field :password, :class => :small, :autocomplete => :off
+        .form_row
+          = f.label :password_confirmation
+          = f.password_field :password_confirmation, :class => :small, :autocomplete => :off
+        %button.save Update
+.half-column.flt-right
+  .column-block
+    %h2 Watched programs
+    .body
+      - if current_user.programs.any?
+        %ul.my_programs
+          - current_user.programs.each do |program|
+            %li= link_to program.name, program
+      - else
+        %p.nothing No programs watched yet
+      = form_for(:program, :url => suggest_programs_path) do |f|
+        .form_row.one_line_form
+          %label Add new program
+          = text_field_tag :q, params[:q] || '', :class => :small
+          %button.search
+

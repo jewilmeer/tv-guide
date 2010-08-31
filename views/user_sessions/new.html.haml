@@ -1,0 +1,23 @@
+.centerbox
+  %h1 Login
+  - if current_user
+    %p You are already logged in! 
+    %p= link_to 'Logout', user_session_path, :method => :delete
+  - else
+    = form_for :user_session, :url => user_session_path do |f|
+      .form_row
+        = f.label :email
+        = email_field_tag 'user_session[email]', '',:class => :small, :placeholder => 'e.g. you@email.com ', :autofocus=> 'ok', :required => 'zeker wel'
+      .form_row
+        = f.label :password
+        = password_field_tag 'user_session[password]', '', :class => :small, :placeholder => 'password'
+      .form_row
+        %label &nbsp;
+        = f.check_box :remember_me
+        &nbsp;keep me logged in
+      .form_row
+        %label &nbsp;
+        %button.save.flt-left Login
+    %hr
+    %p
+      Signup for this project is private. If you forgot your password your totally fucked for now. You should email me to reset it for now ;-)
