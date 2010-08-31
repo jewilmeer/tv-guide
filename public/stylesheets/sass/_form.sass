@@ -4,7 +4,6 @@
   margin-bottom: 5px
   line-height: 20px
   clear: left
-
   label
     float: left
     width: 150px
@@ -25,9 +24,9 @@
             font-size: 12px
             font-weight: bolder
           border: none
-            top: 1px solid #ccc
+            top: 1px solid #cccccc
 
-.form_row 
+.form_row
   +form_row_basics
   +clear
   overflow: hidden
@@ -52,9 +51,15 @@
     width: 150px
   label.required
     font-weight: bold
-  input[type="text"], input[type="password"]
+  input[type="text"], input[type="password"], input[type="email"]
+    border: 1px solid $input_border_color
+    padding: 3px
+    font-size: 12px
     width: 400px
+    &.small
+      width: 200px
   textarea
+    padding: 5px
     width: 410px
     height: 70px
     &.hugh
@@ -72,25 +77,23 @@
     width: 200px
   .input_medium, input.medium
     width: 264px
-    
+
 .form_row_checkbox
   +form_row_basics
-
   input
     width: 15px
 
-/ error styling
-
 input, select, textarea
+  border: 1px solid
+    color: $input_border_color !important
   &.error
-    border: 1px solid 
-      color: #c00 !important
-
+    border: 1px solid
+      color: $input_border_error_color !important
 #errorExplanation
   margin: 10px
     bottom: 20px
   padding: 10px
-  border: 1px solid #ddd
+  border: 1px solid #dddddd
     left: none
     top: none
   ul, ol

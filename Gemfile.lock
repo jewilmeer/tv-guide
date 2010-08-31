@@ -1,259 +1,188 @@
---- 
-hash: fda926c2698352bb3d57c484a9ec1937f5fe7f9f
-sources: 
-- Git: 
-    git: git://github.com/rspec/rspec-rails.git
-    branch: v2.0.0.beta.8
-    uri: git://github.com/rspec/rspec-rails.git
-    ref: d92e8b0695b7c4bf5a85dd763f82d3102ddfb2bd
-- Git: 
-    git: git://github.com/rspec/rspec.git
-    branch: v2.0.0.beta.8
-    uri: git://github.com/rspec/rspec.git
-    ref: 860e4a08c87a41204911e4be4d0872aed1c1baa4
-- Git: 
-    git: http://github.com/plataformatec/devise.git
-    branch: v1.1.rc1
-    uri: http://github.com/plataformatec/devise.git
-    ref: ca6248cfd3aaecf126ab5502469bba52b5dc1216
-- Git: 
-    git: git://github.com/thoughtbot/pacecar.git
-    branch: rails3
-    uri: git://github.com/thoughtbot/pacecar.git
-    ref: 12beb0fffa685987985101b2d55a325dbfc390e9
-- Rubygems: 
-    uri: http://rubygems.org
-specs: 
-- rake: 
-    version: 0.8.7
-- ZenTest: 
-    version: 4.3.1
-- abstract: 
-    version: 1.0.0
-- builder: 
-    version: 2.1.2
-- i18n: 
-    version: 0.3.7
-- memcache-client: 
-    version: 1.8.3
-- tzinfo: 
-    version: 0.3.20
-- activesupport: 
-    version: 3.0.0.beta3
-- activemodel: 
-    version: 3.0.0.beta3
-- erubis: 
-    version: 2.6.5
-- rack: 
-    version: 1.1.0
-- rack-mount: 
-    version: 0.6.2
-- rack-test: 
-    version: 0.5.3
-- actionpack: 
-    version: 3.0.0.beta3
-- mime-types: 
-    version: "1.16"
-- polyglot: 
-    version: 0.3.1
-- treetop: 
-    version: 1.4.5
-- mail: 
-    version: 2.2.1
-- text-hyphen: 
-    version: 1.0.0
-- text-format: 
-    version: 1.0.0
-- actionmailer: 
-    version: 3.0.0.beta3
-- arel: 
-    version: 0.3.3
-- activerecord: 
-    version: 3.0.0.beta3
-- activeresource: 
-    version: 3.0.0.beta3
-- addressable: 
-    version: 2.1.2
-- autotest: 
-    version: 4.2.10
-- autotest-rails: 
-    version: 4.1.0
-- xml-simple: 
-    version: 1.0.12
-- aws-s3: 
-    version: 0.6.2
-- bundler: 
-    version: 0.9.25
-- highline: 
-    version: 1.5.2
-- net-ssh: 
-    version: 2.0.22
-- net-scp: 
-    version: 1.0.2
-- net-sftp: 
-    version: 2.0.4
-- net-ssh-gateway: 
-    version: 1.0.1
-- capistrano: 
-    version: 2.5.18
-- diff-lcs: 
-    version: 1.1.2
-- trollop: 
-    version: 1.16.2
-- gherkin: 
-    version: 1.0.26
-- json_pure: 
-    version: 1.4.3
-- term-ansicolor: 
-    version: 1.0.5
-- cucumber: 
-    version: 0.7.2
-- cucumber-rails: 
-    version: 0.3.1
-- warden: 
-    version: 0.10.4
-- devise: 
-    version: 1.1.rc1
-    source: 2
-- factory_girl: 
-    version: 1.2.4
-- faraday: 
-    version: 0.4.5
-- file-utils: 
-    version: 0.1.1
-- haml: 
-    version: 3.0.4
-- little-plugger: 
-    version: 1.1.2
-- logging: 
-    version: 1.4.1
-- nokogiri: 
-    version: 1.4.1
-- mechanize: 
-    version: 1.0.0
-- memcached: 
-    version: 0.19.4
-- oauth2: 
-    version: 0.0.8
-- pacecar: 
-    version: 1.2.0
-    source: 3
-- thor: 
-    version: 0.13.6
-- railties: 
-    version: 3.0.0.beta3
-- rails: 
-    version: 3.0.0.beta3
-- rails3-generators: 
-    version: 0.8.1
-- rspec-core: 
-    version: 2.0.0.beta.7
-- rspec-expectations: 
-    version: 2.0.0.beta.7
-- rspec-mocks: 
-    version: 2.0.0.beta.7
-- rspec: 
-    version: 2.0.0.beta.7
-    source: 1
-- webrat: 
-    version: 0.7.1
-- rspec-rails: 
-    version: 2.0.0.beta.7
-    source: 0
-- sqlite3-ruby: 
-    version: 1.2.5
-dependencies: 
-  rails: 
-    version: = 3.0.0.beta3
-    group: 
-    - :default
-  rack-mount: 
-    version: = 0.6.2
-    group: 
-    - :default
-  capistrano: 
-    version: ">= 0"
-    group: 
-    - :default
-  nokogiri: 
-    version: = 1.4.1
-    group: 
-    - :default
-  mechanize: 
-    version: ">= 0"
-    group: 
-    - :default
-  sqlite3-ruby: 
-    version: ">= 0"
-    group: 
-    - :default
-    require: 
-    - sqlite3
-  logging: 
-    version: ">= 0"
-    group: 
-    - :default
-  file-utils: 
-    version: ">= 0"
-    group: 
-    - :default
-  haml: 
-    version: ">= 0"
-    group: 
-    - :default
-  rails3-generators: 
-    version: ">= 0"
-    group: 
-    - :default
-  pacecar: 
-    version: ">= 0"
-    group: 
-    - :default
-  aws-s3: 
-    version: ">= 0"
-    group: 
-    - :default
-  memcached: 
-    version: ">= 0"
-    group: 
-    - :default
-  devise: 
-    version: ">= 0"
-    group: 
-    - :default
-  oauth2: 
-    version: ">= 0"
-    group: 
-    - :default
-  rspec: 
-    version: ">= 0"
-    group: 
-    - :test
-  rspec-rails: 
-    version: ">= 0"
-    group: 
-    - :test
-  cucumber: 
-    version: ">= 0"
-    group: 
-    - :test
-  cucumber-rails: 
-    version: ">= 0"
-    group: 
-    - :test
-  webrat: 
-    version: ">= 0"
-    group: 
-    - :test
-  factory_girl: 
-    version: ">= 0"
-    group: 
-    - :test
-  autotest: 
-    version: ">= 0"
-    group: 
-    - :test
-  autotest-rails: 
-    version: ">= 0"
-    group: 
-    - :test
+GIT
+  remote: git://github.com/odorcicd/authlogic.git
+  revision: a087ad0
+  branch: rails3
+  specs:
+    authlogic (2.1.3)
+      activesupport
+
+GIT
+  remote: git://github.com/rspec/rspec-rails.git
+  revision: d92e8b0
+  branch: v2.0.0.beta.8
+  specs:
+    rspec-rails (2.0.0.beta.7)
+      rspec (= 2.0.0.beta.7)
+      webrat (>= 0.7.0)
+
+GIT
+  remote: git://github.com/rspec/rspec.git
+  revision: 860e4a0
+  branch: v2.0.0.beta.8
+  specs:
+    rspec (2.0.0.beta.7)
+      rspec-core (= 2.0.0.beta.7)
+      rspec-expectations (= 2.0.0.beta.7)
+      rspec-mocks (= 2.0.0.beta.7)
+
+GIT
+  remote: git://github.com/thoughtbot/pacecar.git
+  revision: beba277
+  branch: rails3
+  specs:
+    pacecar (1.2.0)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    ZenTest (4.3.3)
+    abstract (1.0.0)
+    actionmailer (3.0.0.rc)
+      actionpack (= 3.0.0.rc)
+      mail (~> 2.2.5)
+    actionpack (3.0.0.rc)
+      activemodel (= 3.0.0.rc)
+      activesupport (= 3.0.0.rc)
+      builder (~> 2.1.2)
+      erubis (~> 2.6.6)
+      i18n (~> 0.4.1)
+      rack (~> 1.2.1)
+      rack-mount (~> 0.6.9)
+      rack-test (~> 0.5.4)
+      tzinfo (~> 0.3.22)
+    activemodel (3.0.0.rc)
+      activesupport (= 3.0.0.rc)
+      builder (~> 2.1.2)
+      i18n (~> 0.4.1)
+    activerecord (3.0.0.rc)
+      activemodel (= 3.0.0.rc)
+      activesupport (= 3.0.0.rc)
+      arel (~> 0.4.0)
+      tzinfo (~> 0.3.22)
+    activeresource (3.0.0.rc)
+      activemodel (= 3.0.0.rc)
+      activesupport (= 3.0.0.rc)
+    activesupport (3.0.0.rc)
+    arel (0.4.0)
+      activesupport (>= 3.0.0.beta)
+    autotest (4.3.2)
+    autotest-rails (4.1.0)
+      ZenTest
+    aws-s3 (0.6.2)
+      builder
+      mime-types
+      xml-simple
+    builder (2.1.2)
+    capistrano (2.5.19)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.0.0)
+    cucumber (0.8.5)
+      builder (~> 2.1.2)
+      diff-lcs (~> 1.1.2)
+      gherkin (~> 2.1.4)
+      json_pure (~> 1.4.3)
+      term-ansicolor (~> 1.0.4)
+    cucumber-rails (0.3.2)
+      cucumber (>= 0.8.0)
+    diff-lcs (1.1.2)
+    dynamic_form (1.1.2)
+    erubis (2.6.6)
+      abstract (>= 1.0.0)
+    factory_girl (1.3.1)
+    file-utils (0.1.1)
+    gherkin (2.1.5)
+      trollop (~> 1.16.2)
+    haml (3.0.15)
+    highline (1.6.1)
+    hpricot (0.8.2)
+    i18n (0.4.1)
+    json_pure (1.4.3)
+    little-plugger (1.1.2)
+    logging (1.4.3)
+      little-plugger (>= 1.1.2)
+    mail (2.2.5)
+      activesupport (>= 2.3.6)
+      mime-types
+      treetop (>= 1.4.5)
+    mechanize (1.0.0)
+      nokogiri (>= 1.2.1)
+    mime-types (1.16)
+    mysql (2.8.1)
+    net-scp (1.0.2)
+      net-ssh (>= 1.99.1)
+    net-sftp (2.0.4)
+      net-ssh (>= 2.0.9)
+    net-ssh (2.0.23)
+    net-ssh-gateway (1.0.1)
+      net-ssh (>= 1.99.1)
+    nokogiri (1.4.1)
+    polyglot (0.3.1)
+    rack (1.2.1)
+    rack-mount (0.6.9)
+      rack (>= 1.0.0)
+    rack-test (0.5.4)
+      rack (>= 1.0)
+    rails (3.0.0.rc)
+      actionmailer (= 3.0.0.rc)
+      actionpack (= 3.0.0.rc)
+      activerecord (= 3.0.0.rc)
+      activeresource (= 3.0.0.rc)
+      activesupport (= 3.0.0.rc)
+      bundler (>= 1.0.0.rc.1)
+      railties (= 3.0.0.rc)
+    rails3-generators (0.11.0)
+    railties (3.0.0.rc)
+      actionpack (= 3.0.0.rc)
+      activesupport (= 3.0.0.rc)
+      rake (>= 0.8.3)
+      thor (~> 0.14.0)
+    rake (0.8.7)
+    rspec-core (2.0.0.beta.7)
+    rspec-expectations (2.0.0.beta.7)
+    rspec-mocks (2.0.0.beta.7)
+    sqlite3-ruby (1.3.1)
+    term-ansicolor (1.0.5)
+    thor (0.14.0)
+    treetop (1.4.8)
+      polyglot (>= 0.3.1)
+    trollop (1.16.2)
+    tzinfo (0.3.22)
+    webrat (0.7.1)
+      nokogiri (>= 1.2.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5.3)
+    xml-simple (1.0.12)
+    zip (2.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  authlogic!
+  autotest
+  autotest-rails
+  aws-s3
+  bundler
+  capistrano
+  cucumber
+  cucumber-rails
+  dynamic_form
+  factory_girl
+  file-utils
+  haml
+  hpricot
+  logging
+  mechanize
+  mysql
+  nokogiri (= 1.4.1)
+  pacecar!
+  rails (= 3.0.0.rc)
+  rails3-generators
+  rspec!
+  rspec-rails!
+  sqlite3-ruby
+  webrat
+  zip

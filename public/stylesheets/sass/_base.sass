@@ -3,87 +3,118 @@
   height: 0
   clear: both
   display: block
+
 =clear
   &:after
     +clear_after
-  zoom: 1 /*ie6/7*/
+  zoom: 1
+@font-face
+  font-family: GraublauWeb
+  src: url('../fonts/GraublauWeb.otf')
+@font-face
+  font-family: GraublauWeb
+  font-weight: bold
+  src: url('../fonts/GraublauWebBold.otf')
 
+header, footer, article, section, nav, menu, hgroup //html5
+  display: block
 html
-  :font-size 12px
+  font-size: 12px
+
 html, body
-  :margin 0
-  :padding 0
-  :height 100%
-  :background
-    :color #ebe7dc 
+  margin: 0
+  padding: 0
+  height: 100%
+  background:
+    color: $bg_color
+
 body
-  :font-family arial, sans-serif
-  :font-size 12px
-  :min-height 800px
+  font-family: GraublauWeb, arial, sans-serif
+  font-size: 12px
+  min-height: 800px
+header
+  padding: 5px 20px
+  hgroup *
+    float: left
+    line-height: 22px
 a
-  :color #74323b
-  :text-decoration none
+  color: #74323b
+  text-decoration: underline
+
 a:hover
-  :text-decoration underline
-textarea
-  :background-color rgba(255,255,255,0.8)
-  :border 1px solid
-    :color rgba()
-  :padding 5px
+  text-decoration: underline
+
 h1,h2,h3,h4
-  :color #f60
+  color= $header_color
   a
-    :color #74323b
+    color = $header_link_color 
   padding: 10px
     left: 0
+
 h1
-  :font-size 18px
+  font-size: 18px
+
 h2
-  :font-size 15px
+  font-size: 15px
+
 h3
-  :font-size 14px
+  font-size: 14px
+
 h4
-  :font-size 14px
+  font-size: 14px
+
 p, label, li
-  :color #9f9884
-  :line-height 18px
+  color: $default_text_color
+  line-height: 18px
+
 label
   font-weight: bold
+
 hr
-  :color #d4d0c0
-  :background
-    :color #d4d0c0
-  :height 1px
+  border: 0
+  color: #d4d0c0
+  background:
+    color: #d4d0c0
+  height: 1px
+
 strong
-  :font-weight bold
+  font-weight: bold
+
 ol, ul
   padding:
     left: 20px
+
 ol
-  li 
+  li
     list-style-type: decimal
     margin: 5px 5px 5px 0
     display: list-item
+p
+  margin: 10px 5px
+  line-height: 16px
 .hidden
   display: none
+
 table
   width: 100%
   th
     padding: 5px
     font-weight: bold
     text-align: left
-    background-color = !th_background_color
+    background-color: $th_background_color
   &.with_lines
     td
       border: 1px solid
   tbody
     tr:hover
-      background-color: #eee
+      background-color: #eeeeee
     td
       padding: 2px
+
 .odd
-  background-color = !odd_bg_color
-  color = !odd_color
+  background-color: $odd_bg_color
+  color: $odd_color
+
 .even
-  background-color = !even_bg_color
-  color = !even_color
+  background-color: $even_bg_color
+  color: $even_color

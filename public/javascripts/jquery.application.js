@@ -16,15 +16,15 @@ $(function()
     beforeSend: function(xhr) 
     {
       xhr.setRequestHeader("Accept", "text/javascript");
-      $('.loading').removeClass('hidden')
+      $('.loading').fadeIn();
     },
     complete: function(req, status) {
-      $('.loading').addClass('hidden');
+      $('.loading').fadeOut();
     }
   });
   
   // turn select boxes to auto completes
-  // $('select.autocomplete').select_autocomplete();
+  // $('select.autocomplete').autocomplete();
   
   // jquery-ui fancy buttons
   $("input:submit").button();
@@ -33,20 +33,25 @@ $(function()
   $('table.list tbody tr:visible').reapplyOddEven();
   $('textarea').autoResize({animate: true}).trigger('change');  
   
-  $('#login').bind('click', function() {
-    FB.login(handleSessionResponse);
-  });
-
-  $('#logout').bind('click', function() {
-    FB.logout(handleSessionResponse);
-  });
-
-  $('#disconnect').bind('click', function() {
-    FB.api({ method: 'Auth.revokeAuthorization' }, function(response) {
-      clearDisplay();
-    });
-  });
+  $('input, textarea').placeholder();
+  $('.tabs').tabs();
+  
+  $('button.search').button({
+    icons: {
+      primary: 'ui-icon-search'
+    },
+    text: false
+  })
 });
+
+// no user, clear display
+function clearDisplay() {
+  $('#user-info').hide('fast');
+}
+
+// handle a session response from any of the auth related calls
+function handleSessionResponse(response) {  
+}
 
 (function($) {
   // currently this function is accepting a set of tr elements or a tbody element (set)
@@ -67,34 +72,26 @@ $(function()
     });
     return this;
   }
-})(jQuery);
-
-// no user, clear display
-function clearDisplay() {
-  $('#user-info').hide('fast');
-}
-
-// handle a session response from any of the auth related calls
-function handleSessionResponse(response) {
-  // if we dont have a session, just hide the user info
-  if (!response.session) {
-    clearDisplay();
-    $('#login').show().siblings().hide();
-    return;
-  }
   
-  // if we have a session, query for the user's profile picture and name
-  FB.api(
-    {
-      method: 'fql.query',
-      query: 'SELECT name, pic FROM profile WHERE id=' + FB.getSession().uid
-    },
-    function(response) {
-      var user = response[0];
-      $('#user-info').html('<img src="' + user.pic + '">' + user.name).show('fast');
+  $.fn.createNotice = function(type) {
+    $this           = $(this);
+    switch(type) {
+      case 'error':
+        $this.addClass('ui-corner-all ui-state-error');
+      break;
+      default:
+        $this.addClass('ui-corner-all ui-state-highlight');
     }
-  );
-  // also show the login state
-  $('#login').hide().siblings().show();
-  
-}
+    
+    $this.attr('style', $this.attr('style') + '; padding: 0.7em; margin-bottom: 0.7em; ');
+    return $this;
+  }
+  $.fn.errorStyle = function() {
+    $this           = $(this).createNotice('error');
+    return $this;
+  }
+  $.fn.noticeStyle = function() {
+    $this           = $(this).createNotice('notice');
+    return $this;
+  }
+})(jQuery);

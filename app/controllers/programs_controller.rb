@@ -1,24 +1,26 @@
 class ProgramsController < ApplicationController
   
-  before_filter :find_program, :except => [:index, :create]
-  before_filter :authenticate_user!
+  before_filter :find_program, :except => [:index, :create, :suggest, :search]
   
   def index
-    @programs = current_user.programs.by_name.all(:include => :seasons)
-    @airdates = Episode.airdate_inside(1.week.ago, Date.today).watched_by_user(current_user.programs).by_airdate(:desc).count(:group => :airdate)
-    @episodes = {}
-    @airdates.each do |airdate, cnt|
-      @episodes[airdate] = Episode.airdate_equals(airdate).all(:include => :program)
-    end
-    @program  = current_user.programs.build
+    @programs = Program.by_name
   end
   
   def show
   end
     
+  def suggest
+    @programs = Program.search(params[:q].downcase)
+    # exact match?
+    if @programs.length == 1 && @programs.first['SeriesName'].downcase == params[:q].downcase
+      current_user.programs << Program.find_or_create_by_name(@programs.first['SeriesName'])
+      redirect_to :back
+    end
+  end
+    
   def create
     program_name = Program.new(params[:program]).guess_correct_name
-    @program = Program.find_or_create_by_name(program_name, params[:program])
+    @program     = Program.find_or_create_by_name(program_name, params[:program])
     current_user.programs << @program if @program && current_user
     if @program.save
       flash[:notice] = "#{@program.name} added to watchlist"
@@ -39,6 +41,13 @@ class ProgramsController < ApplicationController
       flash[:error] = 'Program could not be removed'
     end
     redirect_to root_path
+  end
+  
+  def search
+    @programs = Program.search_for(params[:term], :on => [:name, :search_term]).all(:select => 'id, name')
+    respond_to do |format|
+      format.js { render :json => @programs.map{|p| {:id => p.id, :label => p.name, :value => p.name} } }
+    end
   end
   
   def find_program

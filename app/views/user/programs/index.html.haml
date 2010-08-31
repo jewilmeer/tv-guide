@@ -1,0 +1,65 @@
+- content_for(:bottom_js_domready) do
+  :plain
+    $('.autocomplete').autocomplete({
+      source: '/programs/search',
+      minlength: 2,
+      select: function(event, ui) {
+        $.post('#{user_programs_path(current_user)}', {id: ui.item.id});
+        return true;
+      }
+    });
+%h1
+  - if @user == current_user
+    Your episode guide
+  - else
+    == #{@user.login.humanize}'s episode guide
+
+.half-column.flt-right
+  .column-block
+    %h2 All programs
+    .body
+      - if @programs.any?
+        - if current_user == @user
+          %p!== You are currently following #{@programs.map{|p| link_to p.name, p}.to_sentence}
+        - else
+          %p!== #{@user.login} is currently following #{@programs.map{|p| link_to p.name, p}.to_sentence}
+      - else
+        %p.nothing No programs following yet
+  - if current_user == @user
+    .column-block
+      %h2 Follow a new program
+      .body
+        = form_for(:program, :url => suggest_programs_path) do |f|
+          .form_row.one_line_form
+            %label Add new program
+            = text_field_tag :q, params[:q] || '', :class => :autocomplete
+            / = f.collection_select :id, Program.all, :id, :name, {}, :class => :autocomplete
+            %button.search ?
+      
+.half-column.flt-left
+  .column-block
+    %h2 Recently aired
+    .body
+      - if @upcomming_episodes.any?
+        %ul.program_guide
+          - @upcomming_episodes.all(:include => :program).each do |episode|
+            - next unless episode.program
+            %li
+              %strong
+                == #{episode.program.name}
+                == - #{episode.title} (#{episode.season_and_episode})
+              = link_to '[view]', [episode.program, episode]
+              %br
+              == Aired on #{episode.airdate.to_s(:long)}
+              - if current_user && current_user.trusted?
+                \|
+                = link_to 'Search', search_episode_path(episode), :target => '_blank'
+                \|
+                = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
+                - if episode.nzb?
+                  \|
+                  = link_to 'Download', download_episode_path(episode) 
+          %br
+          %br
+      - else
+        %p.nothing No upcomming shows :-(

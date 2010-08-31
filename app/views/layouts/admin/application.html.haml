@@ -15,18 +15,15 @@
     = yield :head
   %body
     #wrapper
-      #header
-        %h1 The admin
+      %header
+        %hgroup
+          %h1 The admin
         .user_nav
-          - if admin_signed_in?
-            == Welcome #{current_admin.email}. Not you?
-            = link_to 'Sign out', destroy_admin_session_path 
-          - else
-            = link_to 'Sign in', new_admin_session_path
+          %p== welcome #{link_to current_user.login.humanize, edit_admin_user_path(current_user)}! #{link_to 'Back to the website', root_path} 
         .loading.hidden
           Loading
           = image_tag 'spinner.gif'
-        = render 'layouts/admin/navigation'
+      = render 'layouts/admin/navigation'
       .content
         = render :partial => 'layouts/notifications_and_errors'
         = yield

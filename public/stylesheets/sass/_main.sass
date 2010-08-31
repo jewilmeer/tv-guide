@@ -1,33 +1,71 @@
+hgroup
+  +clear
 #wrapper
   +rounded_corners
   width: 1024px
   background-color: white
   margin: 10px auto
-  #header
+  header
+    position: relative
     padding: 10px
+    .loading
+      position: absolute
+      top: 40px
+      left: 10px
     .user_nav
-      margin-top: -20px
-      float: right
+      position: absolute
+      top: 0
+      right: 10px
+
+  .content
+    .column-block .body
+      ul.program_guide
+        margin: 10px
+        padding: 0
+        li
+          padding: 5px
 .full_width
   width: 100%
-  
+
 .content
   padding: 10px
-  
-ul.episodes 
+
+ul.episodes
   li.inactive
-    color= !grey
+    color: $grey
     a
-      color= !grey
+      color: $grey
   li.active
-    color= !lightgreen
+    color: $lightgreen
     a
-      color= !lightgreen
+      color: $lightgreen
   li.downloaded
-    color= !green
+    color: $green
     a
-      color= !green
+      color: $green
   li.downloaded.inactive
-    color= !grey + !green
+    color: $grey + $green
     a
-      color= !grey + !green
+      color: $grey + $green
+ul.my_programs
+  margin: 0
+    left: 0 !important
+  padding: 0
+  li
+    margin: 0
+    padding: 5px
+    line-height: 22px
+footer
+  +rounded_bottoms
+  margin: 20px 0
+  background-color: rgba(233, 233, 233, 0.8)
+  hr
+    display: none
+    width: 95%
+    margin: 0 auto
+  ul
+    text-align: center
+    +clear
+    li
+      display: inline-block
+      margin: 5px 20px

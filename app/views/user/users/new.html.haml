@@ -1,0 +1,22 @@
+.centerbox
+  %h2 Create an account
+  - if current_user
+    %p You are already logged in!
+  - else
+    = form_for(:user, :url => users_path) do |f|
+      .form_row
+        = f.label :email
+        = f.email_field :email, :class => :small, :placeholder => 'e.g. you@email.com ', :autofocus=> 'ok', :required => 'true'
+      .form_row
+        = f.label :password
+        = f.password_field :password, :class => :small, :required => true
+      .form_row
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, :class => :small, :required => true
+      .form_row
+        = f.label :login, 'Username'
+        = f.text_field :login, :class => :small, :placeholder => 'e.g. tv-geek', :required => true
+      .form_row
+        %label &nbsp;
+        %button.save Create
+    

@@ -18,5 +18,6 @@ TvEpisodes::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => 'tv-episodes.local' }
   
-  config.cache_store = :mem_cache_store
+  # config.cache_store = :mem_cache_store
+  config.active_support.deprecation = :log
 end

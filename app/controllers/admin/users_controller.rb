@@ -1,18 +1,13 @@
 class Admin::UsersController < AdminAreaController
+  before_filter :get_user, :except => [:index, :new, :create]
+
   def index
     @users = User.all
   end
 
-  def show
-    @user = User.find(params[:id])
-  end
 
   def new
     @user = User.new
-  end
-
-  def edit
-    @user = User.find(params[:id])
   end
 
   def create
@@ -30,13 +25,18 @@ class Admin::UsersController < AdminAreaController
   end
 
   def update
-    @user = User.find(params[:id])
-
     respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
+      @user.attributes = params[:user]
+      @user.email      = params[:user][:email] if params[:user][:email]
+      @user.trusted    = params[:user][:trusted]
+      @user.admin      = params[:user][:admin]
+      if @user.save
+        flash[:notice] = 'Update successful!'
+        format.html { redirect_to(:back, :notice => 'User was successfully updated.') }
         format.xml  { head :ok }
       else
+        @user.reset_login!
+        flash[:error] = 'Update failed!'
         format.html { render :action => "edit" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
@@ -44,12 +44,16 @@ class Admin::UsersController < AdminAreaController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
 
     respond_to do |format|
       format.html { redirect_to(admin_users_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def get_user
+    @user = User.find_by_login(params[:id])
+    raise ActiveRecord::RecordNotFound unless @user
   end
 end

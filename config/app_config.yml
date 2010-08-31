@@ -1,6 +1,6 @@
 common: &common
   thetvdb:
-    app_id: A80BBC7B6342EEB0
+    api_key: A80BBC7B6342EEB0
   facebook: &facebook
     app_id: 117884434913747
     api_id: 
