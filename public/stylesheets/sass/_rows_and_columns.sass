@@ -22,37 +22,40 @@ h1,h2,h3,h4,h5,h6
       float: none
       padding-right: 10px
       margin-right: 10px
-      border-right: 1px solid #DDD
+      border-right: 1px solid #dddddd
       &.last
         border-right: none
+
 h1
   &.with_margin
-    margin: 2px important!
+    margin: 2px
   a
     color: white
   small, small a
     font-size: 80%
-    color: #ddd
+    color: #dddddd
+
 .content
   +clear
+
 .row_seperator
   height: 20px
   line-height: 20px
+
 .column-block
   +clear
-  border: 1px solid #DDD
   margin:
     bottom: 20px
   &.gray, &.grey
-    background-color: #F5F5EE
+    background-color: #f5f5ee
   h1,h2,h3,h4,h5,h6
-    background-color: #F5F5EE
+    background-color: #f5f5ee
     padding: 5px
     &.no_bg
       margin: 5px
       background-color: transparent
       border:
-        bottom: 1px solid #ddd
+        bottom: 1px solid #dddddd
   h3
     padding: 10px
     height: 18px
@@ -68,14 +71,11 @@ h1
         list-style-type: decimal
         padding-left: 5px
     ul, ol
-      :margin-left 10px
+      margin-left: 10px
       li
         margin: 2px 0px
         line-height: 20px
-        &:nth-child(odd), &.odd
-          background-color= !odd_bg_color
-        &:nth-child(even), &.even
-          background-color= !even_bg_color
+        border-bottom: 1px solid $li_border_color
     p
       padding: 5px !important
     .entry
@@ -86,15 +86,19 @@ h1
         bottom: 5px
   div.header
     +clear
+
 .small-column
   width: 305px
   +column
+
 .half-column
   width: 49%
   +column
+
 .wide-column
   width: 612px
   +column
+
 .third-column, .one-third-column
   width: 32%
   float: left
@@ -103,10 +107,12 @@ h1
   &:nth-child(3n+0)
     float: right
   +column
+
 .two-third-column
   width: 64%
   float: left
   +column
+
 .full-column
   width: 100%
   +column

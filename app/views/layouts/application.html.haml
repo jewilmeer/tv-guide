@@ -1,4 +1,4 @@
-!!!
+!!! 5
 %html{html_attrs('en'), 'xmlns:fb' => 'http://www.facebook.com/2008/fbml'}
   %head
     %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
@@ -10,34 +10,14 @@
     %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
     
     %title TV Episode downloader
-    = javascript_include_tag 'jquery-1.4.2.min', 'rails', 'jquery-ui-1.8.custom.min', 'jquery.dotimeout', 'jquery.autoresize.min', 'jquery.application'
-    
+    = javascript_include_tag 'jquery-1.4.2.min', 'rails', 'jquery-ui-1.8.4.custom.min', 'jquery.dotimeout', 'jquery.select_autocomplete', 'jquery.autoresize.min','jquery.placeholder', 'jquery.application'
     = yield :head
   %body
     #wrapper
-      #header
-        %h1 TV Episode dingus
-        .user_nav
-          - if params[:facebook]
-            %button#login{:style => 'display:none'} Login
-            %button#logout{:style => 'display:none'} Logout
-            %button#disconnect{:style => 'display:none'} Disconnect
-          - else
-            - if user_signed_in?
-              == Welcome #{current_user.email}. Not you?
-              = link_to 'Sign out', destroy_user_session_path 
-            - else
-              = link_to 'Sign in', new_user_session_path
-              or
-              = link_to 'Sign up', new_user_registration_path
-        #user-info
-        .loading.hidden
-          Loading
-          = image_tag 'spinner.gif'
+      %header= render 'layouts/header'
       .content
         = render :partial => 'layouts/notifications_and_errors'
         = yield
-        %fb:like
-      #footer
+      = render 'layouts/footer'
     = yield :bottom
-    = render 'layouts/bottom_js'
+    = render 'layouts/bottom_js'  

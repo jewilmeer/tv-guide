@@ -1,23 +1,24 @@
-!menu_background  = rgba(0,0,0, 0.8)
-!item_background  = rgba(0,0,0, 0.8)
-!item_hover_color = #333
-!link_color       = #fff
-!link_hover_color = #ddd
-!link_click_color = #ffa500
-!item_border_color= #222
+$menu_background: rgba(0, 0, 0, 0.8)
+$item_background: rgba(0, 0, 0, 0.8)
+$item_hover_color: #333333
+$link_color: white
+$link_hover_color: #dddddd
+$link_click_color: #ffa500
+$item_border_color: #222222
+
 ul.dropdown
   +clear
   position: relative
   margin: 0
   padding: 0
-  background-color = !menu_background
+  background-color: $menu_background
   li
     float: left
     zoom: 1
-    background= !item_background
+    background: $item_background
     padding: 6px 15px
     &.hover, &:hover
-      background= !item_hover_color
+      background: $item_hover_color
       color: black
       position: relative
     &.hover
@@ -25,13 +26,13 @@ ul.dropdown
         visibility: visible
     a
       position: relative
-      color = !link_color
+      color: $link_color
       white-space: nowrap
       &:hover, .hover
-        color= !link_hover_color
+        color: $link_hover_color
         text-decoration: none
       &:active
-        color= !link_click_color
+        color: $link_click_color
       span.more
         position: absolute
         top: 7px
@@ -49,9 +50,9 @@ ul.dropdown
     margin: 0
     padding: 0
     li
-      background= !item_background
-      border-bottom: 1px solid 
-        color = !item_border_color
+      background: $item_background
+      border-bottom: 1px solid
+        color: $item_border_color
       float: none
       a
         border-right: none
@@ -59,6 +60,5 @@ ul.dropdown
         display: inline
         display: inline-block
     ul
-      left: 100% 
+      left: 100%
       top: 0
-      

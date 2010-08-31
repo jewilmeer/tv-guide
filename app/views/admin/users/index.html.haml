@@ -14,8 +14,8 @@
         %tr
           %td= user.email
           %td= user.created_at.to_s(:long)
-          %td= user.current_sign_in_at.to_s(:long)
-          %td= user.sign_in_count
+          %td= user.current_login_at.to_s(:long)
+          %td= user.login_count
           %td
             = link_to 'Show', [:admin, user]
             = link_to 'Edit', edit_admin_user_path(user)
