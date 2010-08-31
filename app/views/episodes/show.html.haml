@@ -1,1 +1,17 @@
 %h1== #{@episode.program.name} - Season #{@episode.season.nr} - #{@episode.title}
+%p
+  == Airdate: #{l @episode.airdate, :format => :long} 
+  - if @episode.airdate > Date.today
+    == (in about #{distance_of_time_in_words_to_now(@episode.airdate)})
+  - else
+    == (#{distance_of_time_in_words_to_now(@episode.airdate)} ago)
+  
+%p= @episode.description
+
+%p
+  - if current_user && current_user.trusted?
+    %button.download= link_to "Download nzb", download_program_episode_path(@episode.program, @episode)
+    %button= link_to 'Search', search_episode_path(@episode), :target => '_blank'
+    %button= link_to 'Search HD', search_episode_path(@episode, :hd => true), :target => '_blank'
+    or
+  = link_to 'go back', :back

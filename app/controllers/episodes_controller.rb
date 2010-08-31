@@ -28,7 +28,7 @@ class EpisodesController < ApplicationController
   end
 
   def get_episode
-    @episode = Episode.find(params[:id], :include => {:season => :program})
+    @episode = Episode.find(params[:id], :include => [:season, :program])
     raise ActiveRecord::RecordNotFound unless @episode
   end
 end

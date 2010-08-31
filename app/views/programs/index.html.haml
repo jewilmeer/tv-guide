@@ -1,50 +1,46 @@
-- content_for(:bottom_js) do
-  $(function() { $('.programs').accordion({autoHeight: false, active: false, collapsible: true}); });
-  $(function() { $('.seasons').accordion({autoHeight: false, active: false, collapsible: true}); });
-
-.half-column.flt-right
-  %h2 All programs
-
-  - if @programs.any?
-    .programs
-      - @programs.each do |program|
-        %h3[program]
-          = link_to program.name, program
-          .controls
-            = link_to 'remove', program_path(program), :method => :delete
-        %ul
-          - cache([program, program.episodes.airdate_in_past.by_airdate.last, :season_ul]) do
-            - program.seasons.each do |season|
-              %li.seasons
-                %h3
-                  = link_to "Season #{season.nr} ( #{season.episodes.downloaded.count} / #{season.episodes.airdate_in_past.count} / #{season.episodes.count} )", [program, season]
-                %ul.episodes
-                  = render season.episodes.by_id.all
-  - else
-    %p.nothing No programs yet
-
-  %h1 Add new program  
-  = render 'form'
-  
-.half-column.flt-left
-  %h2 Recently aired
+.column-block
+  %h1 All programs
   .body
-    - @episodes.each do |airdate, episodes|
-      %h4== #{airdate.to_s(:with_day)}
-      - episodes.each do |episode|  
-        - next unless episode.program
-        %strong
-          == #{episode.program.name}
-          == - #{episode.title} (#{episode.season_and_episode})
-        %br
-        == Aired on #{episode.airdate.to_s(:long)}
-        \|
-        = link_to 'Search', search_episode_path(episode), :target => '_blank'
-        \|
-        = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
-        - if episode.nzb?
-          \|
-          = link_to 'Download', download_episode_path(episode) 
-        %br
-        %br
-              
+    .row_seperator
+    - if @programs.any?
+      - @programs.each do |program|
+        .column-block[program]
+          %h3
+            %span.header= link_to program.name, program
+            .header_links
+              == #{pluralize(program.users.count, 'watcher')}
+          .body
+            %p=program.overview
+    - else
+      %p.nothing No programs yet
+    
+
+/ - content_for(:bottom_js) do
+/   $(function() { $('.programs').accordion({autoHeight: false, active: false, collapsible: true}); });
+/   $(function() { $('.seasons').accordion({autoHeight: false, active: false, collapsible: true}); });
+/ 
+/ .half-column.flt-right
+/   %h2 All programs
+/ 
+/   - if @programs.any?
+/     .programs
+/       - @programs.each do |program|
+/         %h3[program]
+/           = link_to program.name, program
+/           .controls
+/             = link_to 'remove', program_path(program), :method => :delete
+/         %ul
+/           - cache([program, program.episodes.airdate_in_past.by_airdate.last, :season_ul]) do
+/             - program.seasons.each do |season|
+/               %li.seasons
+/                 %h3
+/                   = link_to "Season #{season.nr} ( #{season.episodes.downloaded.count} / #{season.episodes.airdate_in_past.count} / #{season.episodes.count} )", [program, season]
+/                 %ul.episodes
+/                   = render season.episodes.by_id.all
+/   - else
+/     %p.nothing No programs yet
+/ 
+/   %h1 Add new program  
+/   = render 'form'
+/   
+/               

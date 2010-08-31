@@ -1,18 +1,39 @@
-%h1== Programma: #{@program.name}
+%h1== Programma: #{@program.name} [#{@program.status}]
 
+%p= @program.overview
 - if @program.seasons.any?
-  %table.full_width
-    %thead
-      %tr
-        %th Season 
-        %th Control
-    %tbody
-      - @program.seasons.each do |season|
-        %tr[season]
-          %td= season.nr
-          %td
-            = link_to 'Show', [@program, season]
-            = link_to 'Edit', [@program, season]
-            = link_to 'Remove', [@program, season]
+  .tabs
+    %ul
+      - @program.seasons.by_nr(:desc).all(:include => :episodes).each do |season|
+        %li
+          %a{:href => "#tabs-#{season.nr}"}
+            - if season.nr == 0
+              Pilots & Specials
+              == (#{season.episodes.length})
+            - else
+              == Season #{season.nr} (#{season.episodes.length})
+            
+    - @program.seasons.by_id(:desc).all(:include => :episodes).each do |season|
+      %div{:id => "tabs-#{season.nr}"}
+        %table.full_width
+          %thead
+            %tr
+              %th Title
+              %th{:width => 150} Airdate
+          %tbody
+          - season.episodes.by_id(:desc).each do |episode|
+            %tr[episode]
+              %td
+                = link_to episode.full_episode_title, [@program, episode]
+                - if current_user.trusted?
+                  - if episode.nzb?
+                    == [#{link_to "Download", download_episode_path(@program, episode)}]
+                  == [#{link_to "Search", search_episode_path(episode)}]
+                  == [#{link_to "Search HD", search_episode_path(episode, :hd => true)}]
+              %td
+                - if episode.airdate
+                  = l(episode.airdate, :format => :long)
+                - else
+                  \-
 - else
   %p.nothing No seasons yet!
