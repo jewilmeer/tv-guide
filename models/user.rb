@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :login, :presence => true, :uniqueness => true, :format => /^[a-z-]+$/i
   
   has_and_belongs_to_many :programs, :uniq => true
-  attr_accessible :login, :password, :password_confirmation
+  # attr_accessible :login, :password, :password_confirmation
   
   def to_param
     login.parameterize
