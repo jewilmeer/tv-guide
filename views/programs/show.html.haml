@@ -25,7 +25,7 @@
             %tr[episode]
               %td
                 = link_to episode.full_episode_title, [@program, episode]
-                - if current_user.trusted?
+                - if current_user && current_user.trusted?
                   - if episode.nzb?
                     == [#{link_to "Download", download_episode_path(@program, episode)}]
                   == [#{link_to "Search", search_episode_path(episode)}]
