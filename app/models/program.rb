@@ -11,7 +11,7 @@ class Program < ActiveRecord::Base
   
   validates :name, :presence => true, :uniqueness => true
   # before_validation :guess_correct_name, :on => :create
-  before_create :find_additional_info
+  before_create :find_additional_info, :fill_search_term
   after_create :retrieve_episodes
     
   scope :by_name, :order => 'name ASC'
@@ -145,9 +145,10 @@ class Program < ActiveRecord::Base
   #   end
   # end
   # 
-  # def fill_search_term
-  #   self.search_term = self.name
-  # end
+
+  def fill_search_term
+    self.search_term = self.name
+  end
   
   def retrieve_episodes(save = true)
     changes = []
