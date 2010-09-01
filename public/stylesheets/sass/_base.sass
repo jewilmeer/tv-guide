@@ -32,6 +32,7 @@ body
   font-family: GraublauWeb, arial, sans-serif
   font-size: 12px
   min-height: 800px
+  padding: 0 10px
 header
   padding: 5px 20px
   hgroup *
@@ -104,12 +105,15 @@ table
     background-color: $th_background_color
   &.with_lines
     td
-      border: 1px solid
+      border-bottom: 1px solid ($th_background_color + #111111)
   tbody
     tr:hover
-      background-color: #eeeeee
+      background-color: $odd_bg_color + $even_bg_color
+      td
+        border-bottom: 1px solid #999
     td
-      padding: 2px
+      padding: 5px
+      border-bottom: 1px solid transparent
 
 .odd
   background-color: $odd_bg_color
