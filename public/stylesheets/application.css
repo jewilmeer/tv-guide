@@ -82,7 +82,8 @@ html, body {
 body {
   font-family: GraublauWeb, arial, sans-serif;
   font-size: 12px;
-  min-height: 800px; }
+  min-height: 800px;
+  padding: 0 10px; }
 
 header {
   padding: 5px 20px; }
@@ -155,11 +156,14 @@ table {
     text-align: left;
     background-color: #dddddd; }
   table.with_lines td {
-    border: 1px solid; }
+    border-bottom: 1px solid #eeeeee; }
   table tbody tr:hover {
-    background-color: #eeeeee; }
+    background-color: rgba(255, 255, 255, 0.9); }
+    table tbody tr:hover td {
+      border-bottom: 1px solid #999999; }
   table tbody td {
-    padding: 2px; }
+    padding: 5px;
+    border-bottom: 1px solid transparent; }
 
 .odd {
   background-color: rgba(240, 240, 240, 0.9);
@@ -225,12 +229,19 @@ h1 small, h1 small a {
   .column-block.gray, .column-block.grey {
     background-color: #f5f5ee; }
   .column-block h1, .column-block h2, .column-block h3, .column-block h4, .column-block h5, .column-block h6 {
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
     background-color: #f5f5ee;
     padding: 5px; }
     .column-block h1.no_bg, .column-block h2.no_bg, .column-block h3.no_bg, .column-block h4.no_bg, .column-block h5.no_bg, .column-block h6.no_bg {
       margin: 5px;
       background-color: transparent;
       border-bottom: 1px solid #dddddd; }
+  .column-block h2, .column-block h3 {
+    background: -moz-linear-gradient(top, #eeeeee, #dddddd);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eeeeee), color-stop(1, #dddddd));
+    border-bottom: 1px solid #d5d5d5; }
   .column-block h3 {
     padding: 10px;
     height: 18px;
@@ -478,7 +489,8 @@ hgroup {
 #wrapper {
   -moz-border-radius: 5px 5px;
   -webkit-border-radius: 5px 5px;
-  width: 1024px;
+  min-width: 600px;
+  max-width: 1024px;
   background-color: white;
   margin: 10px auto; }
   #wrapper header {

@@ -49,6 +49,9 @@ h1
   &.gray, &.grey
     background-color: #f5f5ee
   h1,h2,h3,h4,h5,h6
+    -moz-border-radius: 5px 5px 0 0
+    -webkit-border-top-left-radius: 5px
+    -webkit-border-top-right-radius: 5px
     background-color: #f5f5ee
     padding: 5px
     &.no_bg
@@ -56,6 +59,10 @@ h1
       background-color: transparent
       border:
         bottom: 1px solid #dddddd
+  h2, h3
+    background: -moz-linear-gradient(top, #eee,#ddd)
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #eee), color-stop(1.0, #ddd))
+    border-bottom: 1px solid #d5d5d5
   h3
     padding: 10px
     height: 18px
