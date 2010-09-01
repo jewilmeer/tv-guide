@@ -37,7 +37,17 @@ class Program < ActiveRecord::Base
   end
   
   def banner
-    @banner ||= "http://www.thetvdb.com/banners/" + banners.detect{|banner| banner[:subtype] == 'graphical' }[:path] rescue nil
+    @banner ||= (
+      read_attribute(:banner) || get_banner
+    )
+  end
+  
+  def get_banner
+    url = "http://www.thetvdb.com/banners/" + banners.detect{|banner| banner[:subtype] == 'graphical' }[:path]
+    File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file }
+  rescue StandardError => e
+    logger.debug e
+    nil
   end
   
   def episode_list
