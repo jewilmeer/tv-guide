@@ -180,12 +180,12 @@ class Program < ActiveRecord::Base
   end
 
   def find_additional_info
-    self.name             = tvdb_info['SeriesName']
-    self.overview         = tvdb_info['Overview']
-    self.status           = tvdb_info['Status']
+    self.name             = tvdb_info['seriesname']
+    self.overview         = tvdb_info['overview'].force_encoding("utf-8")
+    self.status           = tvdb_info['status']
     self.tvdb_id          = tvdb_info['id']
     self.tvdb_last_update = Time.at(tvdb_info['lastupdated'].to_i)
-    self.imdb_id          = tvdb_info['IMDB_ID']
+    self.imdb_id          = tvdb_info['imdb_id']
     self
   end
   

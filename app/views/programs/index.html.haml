@@ -10,7 +10,10 @@
             .header_links
               == #{pluralize(program.users.count, 'watcher')}
           .body
-            %p=program.overview
+            - if program.overview.blank?
+              %p.nothing No description available
+            - else
+              %p= program.overview
     - else
       %p.nothing No programs yet
     

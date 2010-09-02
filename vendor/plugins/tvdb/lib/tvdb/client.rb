@@ -13,16 +13,25 @@ module TVdb
       search_url      = @urls[:get_series] % {:name => URI.escape(name), :language => options[:lang]}
       doc             = Hpricot(OpenURI.open_uri(search_url).read)
       
-      ids = if options[:match_mode] == :exact
-        doc.search('series').select{|s| s.search('seriesname').inner_text.downcase == name.downcase }.collect{|e| e.search('id')}.map(&:inner_text)
-      else
-        doc.search('series').search('id').map(&:inner_text)
+      results = []
+      doc.search('series').select do |serie|
+        # s.search('seriesname').inner_text.downcase == name.downcase
+        # if options[:match_mode] == :exact
+        results << Hash.from_xml( serie.to_s )['series']
       end
+
+      results
+
+      # results = if options[:match_mode] == :exact
+      #   doc.search('series').select{|s| s.search('seriesname').inner_text.downcase == name.downcase }.collect{|e| e.search('id')}.map(&:inner_text)
+      # else
+      #   doc.search('series').search('id').map(&:inner_text)
+      # end
       
-      ids.map do |sid|
-        # get_serie_from_zip(sid, options[:lang])
-        get_program_info(sid, options[:lang])
-      end.compact
+      # ids.map do |sid|
+      #   # get_serie_from_zip(sid, options[:lang])
+      #   get_program_info(sid, options[:lang])
+      # end.compact
     end
 
     def get_episodes(id)
