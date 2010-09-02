@@ -41,9 +41,9 @@ gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => '
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
 
-group :development do
-  gem 'mysql'
-end
+# group :development do
+#   gem 'mysql'
+# end
 
 group :test do
   gem 'rspec', :git => 'git://github.com/rspec/rspec.git', :branch => 'v2.0.0.beta.8'
