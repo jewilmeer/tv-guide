@@ -8,7 +8,6 @@ class Configuration < ActiveRecord::Base
   end
   
   def search_params(search, additional_params = {})
-    logger.debug "wordt ook echt gebruik!!"
     params.merge!( self.query_param(search) ).merge!( additional_params )
   end
   
