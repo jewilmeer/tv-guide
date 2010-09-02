@@ -12,8 +12,8 @@ class ProgramsController < ApplicationController
   def suggest
     @programs = Program.search(params[:q].downcase)
     # exact match?
-    if @programs.length == 1 && @programs.first['SeriesName'].downcase == params[:q].downcase
-      current_user.programs << Program.find_or_create_by_name(@programs.first['SeriesName'])
+    if @programs.length == 1 && @programs.first['seriesname'].downcase == params[:q].downcase
+      current_user.programs << Program.find_or_create_by_name(@programs.first['seriesname'])
       redirect_to :back
     end
   end
