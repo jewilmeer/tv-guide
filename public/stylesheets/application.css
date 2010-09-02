@@ -91,6 +91,11 @@ header {
     float: left;
     line-height: 22px; }
 
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+  font-family: GraublauWeb, arial, sans-serif !important; }
+.content * {
+  font-family: Verdana, arial, sans-serif; }
+
 a {
   color: #74323b;
   text-decoration: underline; }
