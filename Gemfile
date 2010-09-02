@@ -55,3 +55,6 @@ group :test do
   gem 'autotest'
   gem 'autotest-rails'
 end
+
+#backward compatibility
+gem 'sanitize'
