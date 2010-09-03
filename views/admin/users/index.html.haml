@@ -6,16 +6,18 @@
       %tr
         %th Email
         %th Registerd at
-        %th Last login
+        %th Last request
         %th Nr of logins
+        %th Nr of programs
         %th.controls
     %tbody
       - @users.each do |user|
         %tr
           %td= user.email
           %td= l user.created_at, :format => :long
-          %td= l user.current_login_at, :format => :long
+          %td= user.last_request_at? ? l(user.last_request_at, :format => :long) : '-'
           %td= user.login_count
+          %td= pluralize(user.programs.count, 'program')
           %td
             = link_to 'Show', [:admin, user]
             = link_to 'Edit', edit_admin_user_path(user)
