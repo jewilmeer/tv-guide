@@ -11,7 +11,7 @@ class Program < ActiveRecord::Base
   
   validates :name, :presence => true, :uniqueness => true
   # before_validation :guess_correct_name, :on => :create
-  before_create :find_additional_info, :fill_search_term
+  before_create :find_additional_info, :fill_search_term, :get_banner
   after_create :retrieve_episodes
     
   scope :by_name, :order => 'name ASC'
@@ -19,6 +19,17 @@ class Program < ActiveRecord::Base
   attr_accessor :active_configuration, :banners, :banner
   cattr_accessor :tvdb_client
   
+  has_attached_file :banner, 
+                    :processors     => [], 
+                    :storage        => :s3,
+                    :s3_credentials => "#{Rails.root}/config/s3.yml",
+                    :s3_permissions => 'authenticated-read',
+                    :s3_protocol    => 'http',
+                    :s3_headers     => { :content_type => 'application/octet-stream', :content_disposition => 'attachment' },
+                    :bucket         => Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
+                    :path           => ':attachment/:id/:style/:filename'
+
+
   def self.tvdb_client
     @tvdb_client ||= TVdb::Client.new(APP_CONFIG[:thetvdb]['api_key'])
   end
@@ -36,20 +47,33 @@ class Program < ActiveRecord::Base
     @banners ||= self.class.tvdb_client.get_banners(self.tvdb_id)
   end
   
-  def banner
-    @banner ||= (
-      read_attribute(:banner) || get_banner
-    )
+  # def banner
+  #   @banner ||= (
+  #     read_attribute(:banner) || get_banner
+  #   )
+  # end
+  
+  def tvdb_banner_url
+    url = "http://www.thetvdb.com/banners/" + banners.detect{|banner| banner[:subtype] == 'graphical' }[:path]
+  rescue StandardError
+    false
+  end
+  
+  def tvdb_banner_filename
+    return false unless tvdb_banner_url
+    tvdb_banner_url.split('/').last
+  end
+  
+  def filename
+    "#{self.name.parameterize}-banner.jpg"
   end
   
   def get_banner
-    url = "http://www.thetvdb.com/banners/" + banners.detect{|banner| banner[:subtype] == 'graphical' }[:path]
-    File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file }
-  rescue StandardError => e
-    logger.debug e
-    nil
+    return false unless tvdb_banner_filename
+    tmp_filepath = "tmp/#{self.name.parameterize}-banner-#{tvdb_banner_filename}"
+    open(tvdb_banner_url) {|tmp_file| self.banner= tmp_file}
   end
-  
+    
   def episode_list
     @episode_list ||= self.class.tvdb_client.get_episodes(self.tvdb_id)
   end
