@@ -10,40 +10,11 @@
             .header_links
               == #{pluralize(program.users.count, 'watcher')}
           .body
+            - if program.banner?
+              = image_tag(AWS::S3::S3Object.url_for(program.banner.path, program.banner.bucket_name))
             - if program.overview.blank?
               %p.nothing No description available
             - else
               %p= program.overview
     - else
       %p.nothing No programs yet
-    
-
-/ - content_for(:bottom_js) do
-/   $(function() { $('.programs').accordion({autoHeight: false, active: false, collapsible: true}); });
-/   $(function() { $('.seasons').accordion({autoHeight: false, active: false, collapsible: true}); });
-/ 
-/ .half-column.flt-right
-/   %h2 All programs
-/ 
-/   - if @programs.any?
-/     .programs
-/       - @programs.each do |program|
-/         %h3[program]
-/           = link_to program.name, program
-/           .controls
-/             = link_to 'remove', program_path(program), :method => :delete
-/         %ul
-/           - cache([program, program.episodes.airdate_in_past.by_airdate.last, :season_ul]) do
-/             - program.seasons.each do |season|
-/               %li.seasons
-/                 %h3
-/                   = link_to "Season #{season.nr} ( #{season.episodes.downloaded.count} / #{season.episodes.airdate_in_past.count} / #{season.episodes.count} )", [program, season]
-/                 %ul.episodes
-/                   = render season.episodes.by_id.all
-/   - else
-/     %p.nothing No programs yet
-/ 
-/   %h1 Add new program  
-/   = render 'form'
-/   
-/               

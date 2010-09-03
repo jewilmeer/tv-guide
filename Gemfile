@@ -24,7 +24,7 @@ gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 # requirement for tvdb
 gem 'hpricot'
 gem 'zip'
-# gem 'paperclip', :branch => 'rails3'
+gem 'paperclip', :git => 'git://github.com/dwalters/paperclip.git', :branch => 'rails3'
 gem 'aws-s3'
 
 # caching
