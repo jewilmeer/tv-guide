@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/dwalters/paperclip.git
+  revision: c285292
+  branch: rails3
+  specs:
+    paperclip (2.3.1.1)
+
+GIT
   remote: git://github.com/odorcicd/authlogic.git
   revision: a087ad0
   branch: rails3
@@ -179,6 +186,7 @@ DEPENDENCIES
   mysql
   nokogiri (= 1.4.1)
   pacecar!
+  paperclip!
   rails (= 3.0.0)
   rails3-generators
   rspec!

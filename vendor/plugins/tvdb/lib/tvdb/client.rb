@@ -46,13 +46,13 @@ module TVdb
     
     def get_banners(id)
       banners = []
-      doc = Hpricot.XML(open_or_rescue( @urls[:banners_xml] % {:serie_id => id} ))
-      doc.search('banner').select do |e|
+      doc     = Hpricot.XML(open_or_rescue( @urls[:banners_xml] % {:serie_id => id} ))
+      doc.search('Banner').select do |e|
         banners << {
           :id         => e.search('id').inner_html,
-          :path       => e.search('bannerpath').inner_html,
-          :type       => e.search('bannertype').inner_html,
-          :subtype    => e.search('bannertype2').inner_html
+          :path       => e.search('BannerPath').inner_html,
+          :type       => e.search('BannerType').inner_html,
+          :subtype    => e.search('BannerType2').inner_html
         }
         banners
       end
