@@ -21,7 +21,10 @@
           = pluralize(@program.users.count, 'user')
         .form_row
           %label First episode aired at
-          = @program.episodes.first.airdate.to_s(:long)
+          - if @program.episodes.by_airdate.first.airdate
+            = l(@program.episodes.by_airdate.first.airdate, :format => :long)
+          - else
+            \-
         .form_row
           %label Last aired
           = @program.episodes.airdate_in_past.last.airdate.to_s(:long)
