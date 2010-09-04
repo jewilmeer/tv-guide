@@ -11,7 +11,7 @@
               == #{pluralize(program.users.count, 'watcher')}
           .body
             - if program.banner?
-              = image_tag(AWS::S3::S3Object.url_for(program.banner.path, program.banner.bucket_name))
+              = image_tag( program.banner_url )
             - if program.overview.blank?
               %p.nothing No description available
             - else

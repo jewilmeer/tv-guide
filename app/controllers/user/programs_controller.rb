@@ -7,11 +7,23 @@ class User::ProgramsController < UserAreaController
       raise ActiveRecord::RecordNotFound unless @program
       current_user.programs << @program
     end
-    flash[:notice] = 'Program added!'
+    respond_to do |format|
+      format.html do
+        flash[:notice] = 'Program added!'
+        redirect_to :back
+      end
+      format.js {}
+    end
   end
   
   def index
     @programs           = @user.programs
     @upcomming_episodes = Episode.airdate_inside(1.week.ago, Date.today).watched_by_user(@user.programs).by_airdate(:desc)
+  end
+  
+  def destroy
+    current_user.programs.delete(Program.find(params[:id]))
+    flash[:notice] = 'Program removed'
+    redirect_to :back
   end
 end

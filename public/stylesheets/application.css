@@ -170,6 +170,14 @@ table {
     padding: 5px;
     border-bottom: 1px solid transparent; }
 
+section {
+  zoom: 1; }
+  section:after {
+    content: "";
+    height: 0;
+    clear: both;
+    display: block; }
+
 .odd {
   background-color: rgba(240, 240, 240, 0.9);
   color: black; }
@@ -177,6 +185,12 @@ table {
 .even {
   background-color: rgba(220, 220, 220, 0.9);
   color: black; }
+
+.flt_right {
+  float: right; }
+
+.flt_left {
+  float: left; }
 
 h1, h2, h3, h4, h5, h6 {
   zoom: 1; }
