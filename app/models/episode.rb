@@ -69,6 +69,9 @@ class Episode < ActiveRecord::Base
     else
       "S#{"%02d" % season.to_i}E#{episode}"
     end
+  rescue StandardError => e
+    logger.debug e
+    "S#{"%02d" % season.to_i}E#{episode}"
   end
   
   def full_episode_title

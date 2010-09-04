@@ -21,19 +21,13 @@ module TVdb
       end
 
       results
-
-      # results = if options[:match_mode] == :exact
-      #   doc.search('series').select{|s| s.search('seriesname').inner_text.downcase == name.downcase }.collect{|e| e.search('id')}.map(&:inner_text)
-      # else
-      #   doc.search('series').search('id').map(&:inner_text)
-      # end
-      
-      # ids.map do |sid|
-      #   # get_serie_from_zip(sid, options[:lang])
-      #   get_program_info(sid, options[:lang])
-      # end.compact
     end
-
+    
+    def get_program_info(sid, lang='en')
+      doc = open_or_rescue( @urls[:serie_xml] % {:serie_id => sid, :language => lang} )
+      Hash.from_xml( Hpricot.XML( doc ).search('Series').to_s )['Series']
+    end
+    
     def get_episodes(id)
       xml      = open_or_rescue( @urls[:serie_full_xml] % {:serie_id => id, :language => 'en' } )
       doc      = Hpricot.XML xml
@@ -81,11 +75,6 @@ module TVdb
       rescue OpenURI::HTTPError # 404 errors for some of the ids returned in search
         return nil
       end
-    end
-    
-    def get_program_info(sid, lang='en')
-      doc = open_or_rescue( @urls[:serie_xml] % {:serie_id => sid, :language => lang} )
-      Hash.from_xml( Hpricot.XML( doc ).search('Series').to_s )['Series']
     end
     
     def get_serie_from_zip(sid, lang='en')

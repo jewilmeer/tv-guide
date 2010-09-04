@@ -2,6 +2,7 @@ class Program < ActiveRecord::Base
   include Pacecar
   require 'open-uri'
   require 'tvdb'
+  require 'aws/s3'
 
   has_many :seasons, :dependent => :destroy
   has_many :episodes, :through => :seasons, :dependent => :destroy
@@ -54,7 +55,7 @@ class Program < ActiveRecord::Base
   # end
   
   def tvdb_banner_url
-    url = "http://www.thetvdb.com/banners/" + banners.detect{|banner| banner[:subtype] == 'graphical' }[:path]
+    "http://www.thetvdb.com/banners/" + banners.detect{|banner| banner[:subtype] == 'graphical' }[:path]
   rescue StandardError
     false
   end
@@ -74,6 +75,10 @@ class Program < ActiveRecord::Base
     open(tvdb_banner_url) {|tmp_file| self.banner= tmp_file}
   end
     
+  def banner_url
+    AWS::S3::S3Object.url_for(self.banner.path, self.banner.bucket_name)
+  end
+  
   def episode_list
     @episode_list ||= self.class.tvdb_client.get_episodes(self.tvdb_id)
   end
@@ -187,13 +192,17 @@ class Program < ActiveRecord::Base
   def retrieve_episodes(save = true)
     changes = []
     self.episode_list.each do |tvdb_episode|
-      season = self.seasons.find_or_create_by_nr(tvdb_episode['SeasonNumber'])
-      episode = season.episodes.find_or_initialize_by_nr(tvdb_episode['EpisodeNumber']) do |e|
+      tmp_changes = nil
+      season      = self.seasons.find_or_create_by_nr(tvdb_episode['SeasonNumber'])
+      episode     = season.episodes.find_or_initialize_by_nr(tvdb_episode['EpisodeNumber']) do |e|
         e.program_id = self.id
       end
       episode.tvdb_info = tvdb_episode 
-      changes << {(episode.new_record? ? episode.season_and_episode : episode.id) => episode.changes} if episode.changed?
-      episode.save if save
+      
+      tmp_changes = {(episode.new_record? ? episode.season_and_episode : episode.id) => episode.changes} if episode.changed?
+      if save
+         changes << tmp_changes if episode.save && tmp_changes
+       end
     end
     if save
       self.program_updates.create(:revision_data => changes)
@@ -205,7 +214,7 @@ class Program < ActiveRecord::Base
 
   def find_additional_info
     self.name             = tvdb_info['seriesname']
-    self.overview         = tvdb_info['overview'].force_encoding("utf-8")
+    self.overview         = tvdb_info['overview'].force_encoding("utf-8") if tvdb_info['overview']
     self.status           = tvdb_info['status']
     self.tvdb_id          = tvdb_info['id']
     self.tvdb_last_update = Time.at(tvdb_info['lastupdated'].to_i)
@@ -214,11 +223,21 @@ class Program < ActiveRecord::Base
   end
   
   def needs_update?
-    self.tvdb_last_update < self.find_additional_info.tvdb_last_update 
+    self.find_additional_info
+    changed?
   end
   
   def tvdb_info
-    @tvdb_info          ||= self.class.search(self.name, :match_mode => :exact).first
+    if !tvdb_id
+      @tvdb_info ||= self.class.search(self.name, :match_mode => :exact).first.inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
+    else
+      @tvdb_info ||= self.class.tvdb_client.get_program_info(tvdb_id).inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
+    end
+  end
+  
+  def tvdb_update
+    needs_update? && retrieve_episodes
+    self.save!
   end
   
   def to_s

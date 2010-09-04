@@ -2,7 +2,7 @@ TvEpisodes::Application.routes.draw do
   resources :programs do 
     post :suggest, :on => :collection
     get :search, :on => :collection
-    resources :seasons
+    resources :seasons, :updates
     resources :episodes do
       member do
         get :download

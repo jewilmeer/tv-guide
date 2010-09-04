@@ -1,0 +1,14 @@
+%h1== Updates for #{@program.name} (still needs to be parsed)
+
+- if @updates.any?
+  - @updates.each do |update|
+    .column-block[update]
+      %h2== Update #{l update.created_at.to_date, :format => :long} 
+      .body
+        %p
+          = pluralize(update.additions.length, 'new episodes')
+          \/
+          = pluralize(update.updates.length, 'updated episodes')
+        %p.extra_info{:style => 'display: none'}= update.revision_data
+- else
+  %p.nothing No updates yet!
