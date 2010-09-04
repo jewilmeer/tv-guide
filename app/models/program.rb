@@ -202,10 +202,10 @@ class Program < ActiveRecord::Base
       tmp_changes = {(episode.new_record? ? episode.season_and_episode : episode.id) => episode.changes} if episode.changed?
       if save
          changes << tmp_changes if episode.save && tmp_changes
-       end
+      end
     end
     if save
-      self.program_updates.create(:revision_data => changes)
+      self.program_updates.create(:revision_data => changes) if changes.any?
     else
       self.program_updates.build(:revision_data => changes)
     end
