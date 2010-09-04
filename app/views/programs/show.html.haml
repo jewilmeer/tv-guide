@@ -1,7 +1,7 @@
 %h1== Programma: #{@program.name} [#{@program.status}]
 
 %section
-  = image_tag( @program.banner_url, :class => :flt_left )
+  = image_tag( @program.banner_url, :class => :flt_left ) if @program.banner?
   %ul.flt_right 
     %li== Last updated #{distance_of_time_in_words_to_now(@program.tvdb_last_update)} ago
     %li= link_to 'View update list', program_updates_path(@program)
