@@ -42,6 +42,17 @@ $(function()
     },
     text: false
   })
+  
+  $('.program_update').live('hover', 
+    function(e) {
+      if( e.type == 'mouseover' )
+      {
+        $(this).find('.extra_info').fadeIn(200);
+      } else {
+        $(this).find('.extra_info').fadeOut(500);
+      }
+    });
+  
 });
 
 // no user, clear display
