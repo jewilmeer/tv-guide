@@ -1,5 +1,17 @@
 %h1== Programma: #{@program.name} [#{@program.status}]
 
+%section
+  = image_tag( @program.banner_url, :class => :flt_left )
+  %ul.flt_right 
+    %li== Last updated #{distance_of_time_in_words_to_now(@program.tvdb_last_update)} ago
+    %li= link_to 'View update list', program_updates_path(@program)
+    - if current_user
+      - if current_user.programs.include?(@program)
+        %li= link_to 'Remove from your episode guide', user_program_path(current_user, @program), :method => :delete
+      - else
+        %li= link_to 'Add to your episode guide', user_programs_path(current_user, :id => @program.id), :method => :post
+
+.row_seperator
 %p= @program.overview
 - if @program.seasons.any?
   .tabs
