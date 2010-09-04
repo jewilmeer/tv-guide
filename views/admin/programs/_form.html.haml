@@ -1,5 +1,15 @@
-- form_for @program do |f|
+- form_for [:admin, @program] do |f|
   = f.error_messages
-
+  
+  - @program.attributes.each  do |k,v|
+    .form_row
+      = f.label k
+      - case Program.columns_hash[k].type
+      - when :datetime
+        = v ? l(v, :format => :long) : '-'
+      - when :text
+        = f.text_area k
+      - else
+        = f.text_field k
   .actions
     = f.submit 'Save'
