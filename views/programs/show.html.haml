@@ -56,7 +56,7 @@
             - else
               == Season #{season.nr} (#{season.episodes.length})
             
-    - @program.seasons.by_id(:desc).all(:include => :episodes).each do |season|
+    - @program.seasons.by_nr(:desc).all(:include => :episodes).each do |season|
       %div{:id => "tabs-#{season.nr}"}
         %table.full_width
           %thead
