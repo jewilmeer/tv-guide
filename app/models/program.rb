@@ -190,7 +190,7 @@ class Program < ActiveRecord::Base
   end
   
   def retrieve_episodes(save = true)
-    changes = []
+    changes = [{:program => changes}]
     self.episode_list.each do |tvdb_episode|
       tmp_changes = nil
       season      = self.seasons.find_or_create_by_nr(tvdb_episode['SeasonNumber'])
