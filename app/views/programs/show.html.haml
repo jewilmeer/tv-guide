@@ -1,12 +1,42 @@
+- content_for(:bottom_js_domready) do
+  :plain
+    $('#check_update')
+      .bind('ajax:loading', function() {
+        var $this = $(this);
+        $this.html('Checking...');
+      })
+      .bind('ajax:failure', function() {
+        var $this = $(this);
+        $this.html( 'Update failed!' );
+      })
+      .bind('ajax:success', function(xhr,data,status) {
+        var $this = $(this);
+        data      = data.replace(/\W/, '');
+        if( data == 'true' ) {
+          $this.html('Update found, updating...')
+          $.ajax({
+            url: '#{program_path(@program)}', 
+            data: { _method: 'put' },
+            success: function() {
+              $this.html('Update complete, reloading!');
+              document.location.href = document.location.href;
+            }
+          });
+        } else {
+          $this.html('No update available');
+        }
+      })
 %h1== Programma: #{@program.name} [#{@program.status}]
 
 %section
   = image_tag( @program.banner_url, :class => :flt_left ) if @program.banner?
   %ul.flt_right 
+    %li== #{pluralize(@program.users.count, 'watcher')}
     %li== Last updated #{distance_of_time_in_words_to_now(@program.tvdb_last_update)} ago
-    %li= link_to 'View update list', program_updates_path(@program)
     %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
+    %li= link_to 'View update list', program_updates_path(@program)
     - if current_user
+      %li= link_to 'Check for updates', edit_program_path(@program), :id => :check_update, :remote => true, :'ajax:loading' => 'checking...'
       - if current_user.programs.include?(@program)
         %li= link_to 'Remove from your episode guide', user_program_path(current_user, @program), :method => :delete
       - else
