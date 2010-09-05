@@ -31,6 +31,16 @@ class ProgramsController < ApplicationController
     end
   end
   
+  def edit
+    @needs_update = @program.needs_update?
+    render :json => @needs_update
+  end
+  
+  def update
+    @program.tvdb_update
+    render :nothing => true
+  end
+  
   def destroy
     @program = Program.find(params[:id])
     
