@@ -190,7 +190,7 @@ class Program < ActiveRecord::Base
   end
   
   def retrieve_episodes(save = true)
-    changes = [{:program => changes}]
+    changes = changed? ? [{:program => self.changes}] : []
     self.episode_list.each do |tvdb_episode|
       tmp_changes = nil
       season      = self.seasons.find_or_create_by_nr(tvdb_episode['SeasonNumber'])
@@ -246,5 +246,11 @@ class Program < ActiveRecord::Base
   
   def to_param
     "#{id}-#{name.parameterize}"
+  end
+    
+  def find_episode_information(episode_key)
+    season, episode = Episode.episode_season_split(episode_key)
+    episode         = self.episodes.season_episode_matches( season, episode ).first
+    episode.title if episode
   end
 end
