@@ -11,31 +11,37 @@ module ProgramHelper
     update_description = update.real_updates.map do |k,v|
       case k
       when :program
-        v.map do |k,v|
-          "<strong>#{k.humanize}</strong> changed to #{v.last}"
+        buffer = '<h5>Program updates</h5><ul>'
+        v.each do |k,v|
+          buffer << content_tag(:li, "<strong>#{k.humanize}</strong> changed to #{v.last}")
         end
+        buffer << '</ul>'
       when :additions
-        v.map do |episode|
+        buffer = '<h5>Added episodes</h5><ul>'
+        v.each do |episode|
           episode, data = episode.first
           if episode == "S01E00"
-            "Special episode added"
+            buffer << content_tag(:li, "Special episode added")
           else
-            "#{episode} - #{update.program.find_episode_information(episode)} added"
+            buffer << content_tag(:li, "#{episode} - #{update.program.find_episode_information(episode)} added")
           end
         end
+        buffer << '</ul>'
       when :updates
+        buffer = '<h5>Updated episodes</h5><ul>'
         v.map do |id, data|
           begin
             episode = update.program.episodes.find(id)
-            "#{episode.full_episode_title} updated"
+            buffer << content_tag(:li, "#{episode.full_episode_title} updated")
           rescue ActiveRecord::RecordNotFound
-            'Unknown'
+            buffer << content_tag(:li, 'Unknown')
           end
         end
+        buffer << '</ul>'
       else
         nil
       end
     end.compact
-    update_description.flatten.map{|update| "#{update}" } * '<br />'
+    update_description.flatten.map{|update| "#{update}".force_encoding('utf-8') } * ''
   end
 end
