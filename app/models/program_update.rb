@@ -2,8 +2,11 @@ class ProgramUpdate < ActiveRecord::Base
   include Pacecar
   belongs_to :program
   serialize :revision_data
-  
+  serialize :parsed_data
+  before_save :parse_update
   validates :revision_data, :presence => true
+
+  scope :real_updates, {:conditions => ['LENGTH(parsed_data) > 8']}
   
   def updates
     all_updates = self.revision_data.reject{|u| !u.first.first.is_a?(Fixnum) }
@@ -26,7 +29,6 @@ class ProgramUpdate < ActiveRecord::Base
   
   def program_update
     u = self.revision_data.detect{|u| u.first.first == :program}
-    logger.debug u.inspect
     (u && u[:program] && !u[:program].nil?) ? u[:program] : {}
   end
   
@@ -40,5 +42,9 @@ class ProgramUpdate < ActiveRecord::Base
     real_updates[:additions] = self.additions if self.additions.any?
     real_updates[:updates]   = self.updates if self.updates.any?
     real_updates
+  end
+  
+  def parse_update
+    self.parsed_data = self.real_updates
   end
 end

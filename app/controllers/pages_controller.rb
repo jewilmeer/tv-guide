@@ -10,4 +10,8 @@ class PagesController < ApplicationController
     @page = Page.find_by_permalink(params[:id])
     raise ActiveRecord::RecordNotFound unless @page
   end
+  
+  def program_updates
+    @program_updates = ProgramUpdate.real_updates.by_id(:desc).paginate :page => params[:page], :include => :program
+  end
 end
