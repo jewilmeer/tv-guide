@@ -26,7 +26,8 @@ class ProgramUpdate < ActiveRecord::Base
   
   def program_update
     u = self.revision_data.detect{|u| u.first.first == :program}
-    u ? u[:program] : {}
+    logger.debug u.inspect
+    (u && u[:program] && !u[:program].nil?) ? u[:program] : {}
   end
   
   def updated_program_attributes
