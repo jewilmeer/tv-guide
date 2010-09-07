@@ -1,14 +1,16 @@
-%h1== Updates for #{@program.name} (still needs to be parsed)
+%h1== Updates for #{@program.name}
 
 - if @updates.any?
   - @updates.each do |update|
-    - next unless update.real_updates.any?
     .column-block[update]
       %h2== Update #{l update.created_at.to_date, :format => :long} 
       .body
-        %p  
-          %strong= update_header(update)
-        %p!= update_description(update)
-        %p.extra_info{:style => 'display: none'}= update.real_updates
+        - if update.real_updates.any?
+          %p  
+            %strong= update_header(update)
+          %p!= update_description(update)
+          %p.extra_info{:style => 'display: none'}= update.real_updates
+        - else
+          %p.nothing Nothing updated with this update
 - else
   %p.nothing No updates yet!
