@@ -1,4 +1,9 @@
 TvEpisodes::Application.routes.draw do
+  match '/login',           :to => 'user_sessions#new'
+  match '/logout',          :to => 'user_sessions#destroy'
+  match '/signup',          :to => 'user/users#new'
+  match '/pages/program_updates', :to => 'pages#program_updates'
+
   resources :programs do 
     post :suggest, :on => :collection
     get :search, :on => :collection
@@ -30,9 +35,6 @@ TvEpisodes::Application.routes.draw do
   # match '/oauth/start',     :to => 'oauths#start'
   # match '/oauth/callback',  :to => 'oauths#callback'
   # match '/oauth',           :to => 'oauths#destroy'
-  match '/login',           :to => 'user_sessions#new'
-  match '/logout',          :to => 'user_sessions#destroy'
-  match '/signup',          :to => 'user/users#new'
   
   namespace :admin do
     root :to => 'pages#root'
