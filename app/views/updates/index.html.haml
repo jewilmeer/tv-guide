@@ -2,13 +2,13 @@
 
 - if @updates.any?
   - @updates.each do |update|
+    - next unless update.real_updates.any?
     .column-block[update]
       %h2== Update #{l update.created_at.to_date, :format => :long} 
       .body
-        %p
-          = pluralize(update.additions.length, 'new episodes')
-          \/
-          = pluralize(update.updates.length, 'updated episodes')
-        %p.extra_info{:style => 'display: none'}= update.revision_data
+        %p  
+          %strong= update_header(update)
+        %p!= update_description(update)
+        %p.extra_info{:style => 'display: none'}= update.real_updates
 - else
   %p.nothing No updates yet!
