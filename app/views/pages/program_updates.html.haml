@@ -1,0 +1,5 @@
+- @program_updates.each do |update|
+  - next unless update.real_updates.any?
+  .column-block
+    %h2== Update for #{update.program.name}
+    .body!= update_description(update)
