@@ -13,7 +13,7 @@ module ProgramHelper
       when :program
         buffer = '<h5>Program updates</h5><ul>'
         v.each do |k,v|
-          buffer << content_tag(:li, "<strong>#{k.humanize}</strong> changed to #{v.last}")
+          buffer << content_tag(:li, "<strong>#{k.humanize}</strong> changed to #{v.last}".html_safe)
         end
         buffer << '</ul>'
       when :additions
