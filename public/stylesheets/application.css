@@ -162,6 +162,8 @@ table {
     background-color: #dddddd; }
   table.with_lines td {
     border-bottom: 1px solid #eeeeee; }
+  table tbody th, table tbody td {
+    vertical-align: top; }
   table tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.9); }
     table tbody tr:hover td {
