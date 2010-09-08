@@ -70,14 +70,15 @@ class Episode < ActiveRecord::Base
   end
   
   def season_and_episode
-    if self.program.active_configuration.roman?
-      "pt #{nr.to_s_roman}"
-    else
-      "S#{"%02d" % season.to_i}E#{episode}"
-    end
-  rescue StandardError => e
-    logger.debug e
     "S#{"%02d" % season.to_i}E#{episode}"
+  #   if self.program.active_configuration.roman?
+  #     "pt #{nr.to_s_roman}"
+  #   else
+  #     
+  #   end
+  # rescue StandardError => e
+  #   logger.debug e
+  #   "S#{"%02d" % season.to_i}E#{episode}"
   end
   
   def full_episode_title
@@ -163,6 +164,10 @@ class Episode < ActiveRecord::Base
   end
   
   def airs_at
-    
+    Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + '-8' )
+  end
+  
+  def airs_at_without_zone
+    DateTime.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time )
   end
 end
