@@ -50,7 +50,10 @@
                 == - #{link_to episode.title, [episode.program, episode]} (#{episode.season_and_episode})
               = link_to '[view]', [episode.program, episode]
               %br
-              == Aired on #{l episode.airs_at, :format => :with_day}
+              - if episode.airs_at.future?
+                == Airing on #{l episode.airs_at, :format => :with_day}
+              - else
+                == Aired on #{l episode.airs_at, :format => :with_day}
               - if current_user && current_user.trusted?
                 \|
                 = link_to 'Search', search_episode_path(episode), :target => '_blank'
