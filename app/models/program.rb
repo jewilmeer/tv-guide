@@ -218,6 +218,8 @@ class Program < ActiveRecord::Base
     self.tvdb_id          = tvdb_info['id']
     self.tvdb_last_update = Time.at(tvdb_info['lastupdated'].to_i)
     self.overview         = tvdb_info['overview'].force_encoding("utf-8") if tvdb_info['overview']
+    self.genres           = tvdb_info['genre']
+    self.tvdb_rating      = tvdb_info['rating']
     self
   end
   
@@ -227,11 +229,12 @@ class Program < ActiveRecord::Base
   end
   
   def tvdb_info
-    if !tvdb_id
-      @tvdb_info ||= self.class.search(self.name, :match_mode => :exact).first.inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
-    else
-      @tvdb_info ||= self.class.tvdb_client.get_program_info(tvdb_id).inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
-    end
+    tvdb_id ||= get_tvdb_id
+    @tvdb_info ||= self.class.tvdb_client.get_program_info(tvdb_id).inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
+  end
+  
+  def get_tvdb_id
+    self.class.search(self.name, :match_mode => :exact).first['seriesid']
   end
   
   def tvdb_update
@@ -251,5 +254,15 @@ class Program < ActiveRecord::Base
     season, episode = Episode.episode_season_split(episode_key)
     episode         = self.episodes.season_episode_matches( season, episode ).first
     episode.title if episode
+  end
+  
+  def actors
+    @actors ||= read_attribute(:actors) || []
+    @actors.split('|').compact.reject(&:blank?)
+  end
+  
+  def genres
+    @genres ||= read_attribute(:genres) || []
+    @genres.split('|').compact.reject(&:blank?)
   end
 end
