@@ -213,12 +213,11 @@ class Program < ActiveRecord::Base
   end
 
   def find_additional_info
+    self.attributes       = tvdb_info.reject{|k,v| !self.attributes.keys.include?(k) }
     self.name             = tvdb_info['seriesname']
-    self.overview         = tvdb_info['overview'].force_encoding("utf-8") if tvdb_info['overview']
-    self.status           = tvdb_info['status']
     self.tvdb_id          = tvdb_info['id']
     self.tvdb_last_update = Time.at(tvdb_info['lastupdated'].to_i)
-    self.imdb_id          = tvdb_info['imdb_id']
+    self.overview         = tvdb_info['overview'].force_encoding("utf-8") if tvdb_info['overview']
     self
   end
   

@@ -161,4 +161,8 @@ class Episode < ActiveRecord::Base
       :airdate     => Date.parse(tvdb_hash['FirstAired'])
     })
   end
+  
+  def airs_at
+    
+  end
 end
