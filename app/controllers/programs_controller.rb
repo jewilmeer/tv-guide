@@ -7,6 +7,7 @@ class ProgramsController < ApplicationController
   end
   
   def show
+    @program = Program.find(params[:id], :include => {:seasons => :episodes})
   end
     
   def suggest
@@ -62,6 +63,5 @@ class ProgramsController < ApplicationController
   
   def find_program
     @program = Program.find(params[:id]) if params[:id]
-    raise ActiveRecord::RecordNotFound unless @program
   end
 end

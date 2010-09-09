@@ -162,6 +162,8 @@ table {
     background-color: #dddddd; }
   table.with_lines td {
     border-bottom: 1px solid #eeeeee; }
+  table tbody th, table tbody td {
+    vertical-align: top; }
   table tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.9); }
     table tbody tr:hover td {
@@ -247,11 +249,12 @@ h1 small, h1 small a {
     display: block; }
   .column-block.gray, .column-block.grey {
     background-color: #f5f5ee; }
-  .column-block h1, .column-block h2, .column-block h3, .column-block h4, .column-block h5, .column-block h6 {
+  .column-block h1, .column-block h2, .column-block h3, .column-block h4 {
     -moz-border-radius: 5px 5px 0 0;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
-    background-color: #f5f5ee;
+    background-color: #f5f5ee; }
+  .column-block h1, .column-block h2, .column-block h3, .column-block h4, .column-block h5, .column-block h6 {
     padding: 5px; }
     .column-block h1.no_bg, .column-block h2.no_bg, .column-block h3.no_bg, .column-block h4.no_bg, .column-block h5.no_bg, .column-block h6.no_bg {
       margin: 5px;
@@ -535,31 +538,11 @@ hgroup {
 .content {
   padding: 10px; }
 
-ul.episodes li.inactive {
-  color: #cccccc; }
-  ul.episodes li.inactive a {
-    color: #cccccc; }
-ul.episodes li.active {
-  color: #33cc33; }
-  ul.episodes li.active a {
-    color: #33cc33; }
-ul.episodes li.downloaded {
-  color: #339933; }
-  ul.episodes li.downloaded a {
-    color: #339933; }
-ul.episodes li.downloaded.inactive {
-  color: white; }
-  ul.episodes li.downloaded.inactive a {
-    color: white; }
-
-ul.my_programs {
-  margin: 0;
-    margin-left: 0 !important;
-  padding: 0; }
-  ul.my_programs li {
-    margin: 0;
-    padding: 5px;
-    line-height: 22px; }
+p.nothing {
+  margin: 50px auto;
+  font-size: 18px;
+  color: #cccccc;
+  text-align: center; }
 
 footer {
   -moz-border-bottom-left-radius: 5px;
