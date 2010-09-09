@@ -6,9 +6,6 @@ gem 'bundler'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-# Deploy with Capistrano
-gem 'capistrano'
-
 # Bundle the extra gems:
 # gem 'bj'
 gem 'nokogiri', '1.4.1'
@@ -27,6 +24,7 @@ gem 'hpricot'
 gem 'zip'
 gem 'paperclip', :git => 'git://github.com/dwalters/paperclip.git', :branch => 'rails3'
 gem 'aws-s3'
+gem 'hoptoad_notifier'
 
 # caching
 # gem 'memcached'
