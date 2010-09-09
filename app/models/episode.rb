@@ -9,6 +9,7 @@ class Episode < ActiveRecord::Base
   
   scope :by_nr, lambda {|nr| {:conditions => {:nr => nr} } }
   scope :downloaded, {:conditions => {:downloaded => true} }
+  scope :season_episode_matches, lambda{|season, episode| {:include => :season, :conditions => ['episodes.nr = :episode AND seasons.nr = :season ', {:episode => episode, :season => season}] } }
   # scope :watched_by_user, lambda{|programs| {:conditions => ['season_id IN (?)', programs.map(&:season_ids).flatten] }}
   scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
   
@@ -33,6 +34,11 @@ class Episode < ActiveRecord::Base
 
     episode_comp = self.episode <=> o.episode
     return episode_comp #unless int_comp == 0
+  end
+  
+  def self.episode_season_split(q)
+    match = q.match(/S(\d{1,2})E(\d{1,2})/)
+    [ match[1].to_i, match[2].to_i ] if match && match.length == 3
   end
     
   def episode
@@ -64,14 +70,15 @@ class Episode < ActiveRecord::Base
   end
   
   def season_and_episode
-    if self.program.active_configuration.roman?
-      "pt #{nr.to_s_roman}"
-    else
-      "S#{"%02d" % season.to_i}E#{episode}"
-    end
-  rescue StandardError => e
-    logger.debug e
     "S#{"%02d" % season.to_i}E#{episode}"
+  #   if self.program.active_configuration.roman?
+  #     "pt #{nr.to_s_roman}"
+  #   else
+  #     
+  #   end
+  # rescue StandardError => e
+  #   logger.debug e
+  #   "S#{"%02d" % season.to_i}E#{episode}"
   end
   
   def full_episode_title
@@ -154,5 +161,13 @@ class Episode < ActiveRecord::Base
       :description => tvdb_hash['Overview'],
       :airdate     => Date.parse(tvdb_hash['FirstAired'])
     })
+  end
+  
+  def airs_at
+    Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + '-8' )
+  end
+  
+  def airs_at_without_zone
+    DateTime.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time )
   end
 end
