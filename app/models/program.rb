@@ -190,7 +190,7 @@ class Program < ActiveRecord::Base
   end
   
   def retrieve_episodes(save = true)
-    changes = [{:program => changes}]
+    changes = changed? ? [{:program => self.changes}] : []
     self.episode_list.each do |tvdb_episode|
       tmp_changes = nil
       season      = self.seasons.find_or_create_by_nr(tvdb_episode['SeasonNumber'])
@@ -213,12 +213,13 @@ class Program < ActiveRecord::Base
   end
 
   def find_additional_info
+    self.attributes       = tvdb_info.reject{|k,v| !self.attributes.keys.include?(k) }
     self.name             = tvdb_info['seriesname']
-    self.overview         = tvdb_info['overview'].force_encoding("utf-8") if tvdb_info['overview']
-    self.status           = tvdb_info['status']
     self.tvdb_id          = tvdb_info['id']
     self.tvdb_last_update = Time.at(tvdb_info['lastupdated'].to_i)
-    self.imdb_id          = tvdb_info['imdb_id']
+    self.overview         = tvdb_info['overview'].force_encoding("utf-8") if tvdb_info['overview']
+    self.genres           = tvdb_info['genre']
+    self.tvdb_rating      = tvdb_info['rating']
     self
   end
   
@@ -228,11 +229,12 @@ class Program < ActiveRecord::Base
   end
   
   def tvdb_info
-    if !tvdb_id
-      @tvdb_info ||= self.class.search(self.name, :match_mode => :exact).first.inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
-    else
-      @tvdb_info ||= self.class.tvdb_client.get_program_info(tvdb_id).inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
-    end
+    tvdb_id ||= get_tvdb_id
+    @tvdb_info ||= self.class.tvdb_client.get_program_info(tvdb_id).inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
+  end
+  
+  def get_tvdb_id
+    self.class.search(self.name, :match_mode => :exact).first['seriesid']
   end
   
   def tvdb_update
@@ -246,5 +248,21 @@ class Program < ActiveRecord::Base
   
   def to_param
     "#{id}-#{name.parameterize}"
+  end
+    
+  def find_episode_information(episode_key)
+    season, episode = Episode.episode_season_split(episode_key)
+    episode         = self.episodes.season_episode_matches( season, episode ).first
+    episode.title if episode
+  end
+  
+  def actors
+    @actors ||= read_attribute(:actors) || []
+    @actors.split('|').compact.reject(&:blank?)
+  end
+  
+  def genres
+    @genres ||= read_attribute(:genres) || []
+    @genres.split('|').compact.reject(&:blank?)
   end
 end

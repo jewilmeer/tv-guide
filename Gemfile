@@ -20,6 +20,7 @@ gem 'haml'
 gem 'rails3-generators'
 gem 'pacecar', :git => 'git://github.com/thoughtbot/pacecar.git', :branch => 'rails3'
 gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
+gem 'will_paginate', :git => 'http://github.com/mislav/will_paginate.git', :branch => 'rails3' 
 
 # requirement for tvdb
 gem 'hpricot'

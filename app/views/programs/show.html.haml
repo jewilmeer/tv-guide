@@ -43,11 +43,38 @@
         %li= link_to 'Add to your episode guide', user_programs_path(current_user, :id => @program.id), :method => :post
 
 .row_seperator
-%p= @program.overview
+%table
+  %tr
+    %th{:width => 100} Runtime
+    %td= pluralize( @program.runtime, 'minute')
+    %th{:width => 100} Genres
+    %td= @program.genres.to_sentence(:last_word_connector => ' and ')
+    %th{:width => 100} Network
+    %td{:width => 150}= @program.network
+  %tr
+    %th Airs at
+    %td
+      = @program.airs_dayofweek 
+      @
+      = @program.airs_time
+    %th Thetvdb rating
+    %td= @program.tvdb_rating || 'Not available'
+    %th Content rating
+    %td= @program.contentrating || 'Not available'
+  - if @program.actors.any?
+    %tr
+      %th Actors
+      %td{:colspan => 5}= @program.actors.to_sentence(:last_word_connector => ' and ')
+  %tr
+    %th Overview
+    %td{:colspan => 5}= @program.overview
+
+.row_seperator
+
 - if @program.seasons.any?
   .tabs
     %ul
-      - @program.seasons.by_nr(:desc).all(:include => :episodes).each do |season|
+      - @program.seasons.by_nr(:desc).each do |season|
         %li
           %a{:href => "#tabs-#{season.nr}"}
             - if season.nr == 0
@@ -56,7 +83,7 @@
             - else
               == Season #{season.nr} (#{season.episodes.length})
             
-    - @program.seasons.by_nr(:desc).all(:include => :episodes).each do |season|
+    - @program.seasons.by_nr(:desc).each do |season|
       %div{:id => "tabs-#{season.nr}"}
         %table.full_width
           %thead
@@ -73,9 +100,9 @@
                     == [#{link_to "Download", download_episode_path(@program, episode)}]
                   == [#{link_to "Search", search_episode_path(episode)}]
                   == [#{link_to "Search HD", search_episode_path(episode, :hd => true)}]
-              %td
+              %td{:width => 220}
                 - if episode.airdate
-                  = l(episode.airdate, :format => :long)
+                  = l(episode.airdate, :format => :with_day)
                 - else
                   \-
 - else
