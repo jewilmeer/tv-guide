@@ -1,20 +1,58 @@
-.column-block
-  %h1 All programs
-  .body
-    .row_seperator
-    - if @programs.any?
-      - @programs.each do |program|
-        .column-block[program]
-          %h3
-            %span.header= link_to program.name, program
-            .header_links
-              == #{pluralize(program.users.count, 'watcher')}
-          .body
-            - if program.banner?
-              = image_tag( program.banner_url )
-            - if program.overview.blank?
-              %p.nothing No description available
-            - else
-              %p= program.overview
-    - else
-      %p.nothing No programs yet
+.half-column.flt-left
+  .column-block
+    %h1 Upcomming episodes
+    .body
+      .row_seperator
+      - if @future_episodes.any?
+        %ul.program_guide
+          - @future_episodes.all(:include => :program).each do |episode|
+            - next unless episode.program
+            %li
+              %strong
+                == #{link_to episode.program.name, episode.program}
+                == - #{link_to episode.title, [episode.program, episode]} (#{episode.season_and_episode})
+              = link_to '[view]', [episode.program, episode]
+              %br
+              - if episode.airs_at.future?
+                == Airing on #{l episode.airs_at, :format => :with_day}
+              - else
+                == Aired on #{l episode.airs_at, :format => :with_day}
+              - if current_user && current_user.trusted?
+                \|
+                = link_to 'Search', search_episode_path(episode), :target => '_blank'
+                \|
+                = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
+                - if episode.nzb?
+                  \|
+                  = link_to 'Download', download_episode_path(episode) 
+      - else
+        %p.nothing No upcomming programs yet
+.half-column.flt-right
+  .column-block
+    %h1 Past episodes
+    .body
+      .row_seperator
+      - if @past_episodes.any?
+        %ul.program_guide
+          - @past_episodes.all(:include => :program).each do |episode|
+            - next unless episode.program
+            %li
+              %strong
+                == #{link_to episode.program.name, episode.program}
+                == - #{link_to episode.title, [episode.program, episode]} (#{episode.season_and_episode})
+              = link_to '[view]', [episode.program, episode]
+              %br
+              - if episode.airs_at.future?
+                == Airing on #{l episode.airs_at, :format => :with_day}
+              - else
+                == Aired on #{l episode.airs_at, :format => :with_day}
+              - if current_user && current_user.trusted?
+                \|
+                = link_to 'Search', search_episode_path(episode), :target => '_blank'
+                \|
+                = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
+                - if episode.nzb?
+                  \|
+                  = link_to 'Download', download_episode_path(episode) 
+      - else
+        %p.nothing No programs yet

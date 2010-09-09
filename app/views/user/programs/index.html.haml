@@ -42,7 +42,7 @@
     .body
       - if @upcomming_episodes.any?
         %ul.program_guide
-          - @upcomming_episodes.all(:include => :program).each do |episode|
+          - @upcomming_episodes.each do |episode|
             - next unless episode.program
             %li
               %strong
@@ -72,7 +72,7 @@
     .body
       - if @past_episodes.any?
         %ul.program_guide
-          - @past_episodes.all(:include => :program).each do |episode|
+          - @past_episodes.each do |episode|
             - next unless episode.program
             %li
               %strong
