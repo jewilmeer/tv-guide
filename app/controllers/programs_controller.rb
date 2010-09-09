@@ -3,7 +3,9 @@ class ProgramsController < ApplicationController
   before_filter :find_program, :except => [:index, :create, :suggest, :search]
   
   def index
-    @programs = Program.by_name
+    # @programs = Program.by_name
+    @future_episodes = Episode.by_airdate.airdate_after(Date.today).limited(30)
+    @past_episodes   = Episode.by_airdate(:desc).airdate_before(Date.yesterday).limited(30)
   end
   
   def show
