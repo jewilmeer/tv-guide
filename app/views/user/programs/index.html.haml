@@ -38,7 +38,7 @@
       
 .half-column.flt-left
   .column-block
-    %h2 Recently aired
+    %h2 Upcomming episodes
     .body
       - if @upcomming_episodes.any?
         %ul.program_guide
@@ -65,4 +65,34 @@
           %br
           %br
       - else
-        %p.nothing No upcomming shows :-(
+        %p.nothing No previous shows
+
+  .column-block
+    %h2 Recently aired
+    .body
+      - if @past_episodes.any?
+        %ul.program_guide
+          - @past_episodes.all(:include => :program).each do |episode|
+            - next unless episode.program
+            %li
+              %strong
+                == #{link_to episode.program.name, episode.program}
+                == - #{link_to episode.title, [episode.program, episode]} (#{episode.season_and_episode})
+              = link_to '[view]', [episode.program, episode]
+              %br
+              - if episode.airs_at.future?
+                == Airing on #{l episode.airs_at, :format => :with_day}
+              - else
+                == Aired on #{l episode.airs_at, :format => :with_day}
+              - if current_user && current_user.trusted?
+                \|
+                = link_to 'Search', search_episode_path(episode), :target => '_blank'
+                \|
+                = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
+                - if episode.nzb?
+                  \|
+                  = link_to 'Download', download_episode_path(episode) 
+          %br
+          %br
+      - else
+        %p.nothing No previous shows
