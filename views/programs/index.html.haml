@@ -17,7 +17,7 @@
                 == Airing on #{l episode.airs_at, :format => :with_day}
               - else
                 == Aired on #{l episode.airs_at, :format => :with_day}
-              - if current_user && current_user.trusted?
+              - if current_user && current_user.trusted? && episode.airs_at.past?
                 \|
                 = link_to 'Search', search_episode_path(episode), :target => '_blank'
                 \|
@@ -46,7 +46,7 @@
                 == Airing on #{l episode.airs_at, :format => :with_day}
               - else
                 == Aired on #{l episode.airs_at, :format => :with_day}
-              - if current_user && current_user.trusted?
+              - if current_user && current_user.trusted? && episode.airs_at.past?
                 \|
                 = link_to 'Search', search_episode_path(episode), :target => '_blank'
                 \|
