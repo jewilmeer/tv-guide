@@ -25,7 +25,7 @@ gem 'hpricot'
 gem 'zip'
 gem 'paperclip', :git => 'git://github.com/dwalters/paperclip.git', :branch => 'rails3'
 gem 'aws-s3'
-gem 'hoptoad_notifier'
+# gem 'hoptoad_notifier'
 
 # caching
 # gem 'memcached'
