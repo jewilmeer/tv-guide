@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100909140600) do
+ActiveRecord::Schema.define(:version => 20100912211135) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                            :null => false
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20100909140600) do
     t.integer  "nzb_file_size"
     t.datetime "nzb_updated_at"
     t.integer  "program_id"
+    t.datetime "airs_at"
   end
 
   add_index "episodes", ["season_id", "nr"], :name => "chained_index"

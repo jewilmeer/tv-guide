@@ -164,10 +164,9 @@ class Episode < ActiveRecord::Base
   end
   
   def airs_at
-    Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + '-8' )
-  end
-  
-  def airs_at_without_zone
-    DateTime.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time )
+    @airs_at ||= read_attribute(:airs_at) || Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + '-6' )
+  rescue StandardError => e
+    logger.debug e
+    nil
   end
 end
