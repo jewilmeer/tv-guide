@@ -12,6 +12,6 @@ class PagesController < ApplicationController
   end
   
   def program_updates
-    @program_updates = ProgramUpdate.real_updates.by_id(:desc).paginate :page => params[:page], :include => :program
+    @program_updates = ProgramUpdate.real_updates.by_id(:desc).limited(10)
   end
 end
