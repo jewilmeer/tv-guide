@@ -48,20 +48,20 @@
               %strong
                 == #{link_to episode.program.name, episode.program}
                 == - #{link_to episode.title, [episode.program, episode]} (#{episode.season_and_episode})
-              = link_to '[view]', [episode.program, episode]
               %br
-              - if episode.airs_at.future?
-                == Airing on #{l episode.airs_at, :format => :with_day}
-              - else
-                == Aired on #{l episode.airs_at, :format => :with_day}
-              - if current_user && current_user.trusted?
-                \|
-                = link_to 'Search', search_episode_path(episode), :target => '_blank'
-                \|
-                = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
-                - if episode.nzb?
+              - if episode.airs_at
+                - if episode.airs_at.future?
+                  == Airing on #{l episode.airs_at, :format => :with_day}
+                - else
+                  == Aired on #{l episode.airs_at, :format => :with_day}
+                - if current_user && current_user.trusted? && episode.airs_at.past?
                   \|
-                  = link_to 'Download', download_episode_path(episode) 
+                  = link_to 'Search', search_episode_path(episode), :target => '_blank'
+                  \|
+                  = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
+                  - if episode.nzb?
+                    \|
+                    = link_to 'Download', download_episode_path(episode) 
           %br
           %br
       - else
