@@ -2,9 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.0'
 gem 'bundler'
-# gem 'rack-mount', '0.6.2'
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Bundle the extra gems:
 # gem 'bj'
@@ -17,7 +14,7 @@ gem 'haml'
 gem 'rails3-generators'
 gem 'pacecar', :git => 'git://github.com/thoughtbot/pacecar.git', :branch => 'rails3'
 gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
-gem 'will_paginate', :git => 'http://github.com/mislav/will_paginate.git', :branch => 'rails3' 
+# gem 'will_paginate', :git => 'http://github.com/mislav/will_paginate.git', :branch => 'rails3' 
 gem 'annotate'
 
 # requirement for tvdb
@@ -31,16 +28,9 @@ gem 'aws-s3'
 # gem 'memcached'
 
 # authentication
-# gem 'authlogic', :git => 'http://github.com/rballast/authlogic.git', :branch => 'rails3'
 gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
-# gem 'devise', '1.1.rc1'
-# gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => 'v1.1.rc1'
-# gem 'oauth2'
-# gem 'tvdb', :git => 'http://github.com/alvarobp/tvdb'
 
 # Bundle gems for certain environments:
-# gem 'rspec', :group => :test
-
 group :development do
   gem 'mysql'
 end
