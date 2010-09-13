@@ -13,7 +13,7 @@
     %tbody
       - @users.each do |user|
         %tr
-          %td= user.login, user_programs_path(user)
+          %td= link_to user.login, [user, :programs]
           %td= l user.created_at, :format => :long
           %td= user.last_request_at? ? l(user.last_request_at, :format => :long) : '-'
           %td= user.login_count
