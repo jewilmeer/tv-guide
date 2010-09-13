@@ -6,6 +6,7 @@
       %th Name
       %th Next episode
       %th Last update
+      %th Last checked
       %th Controls
 
     - @programs.each do |program|
@@ -21,6 +22,9 @@
         %td
           = l program.tvdb_last_update, :format => :long
           == (#{pluralize(program.program_updates.count, 'update')})
+        %td
+          - if program.last_checked_at
+            = l program.last_checked_at, :format => :long
         %td
           = link_to 'Show', [:admin, program]
           = link_to 'Edit', edit_admin_program_path(program)
