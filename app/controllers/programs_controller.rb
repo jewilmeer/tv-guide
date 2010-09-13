@@ -1,6 +1,6 @@
 class ProgramsController < ApplicationController
   
-  before_filter :find_program, :except => [:index, :create, :suggest, :search]
+  before_filter :find_program, :except => [:index, :create, :suggest, :search, :check]
   
   def index
     # @programs = Program.by_name
@@ -61,6 +61,14 @@ class ProgramsController < ApplicationController
     respond_to do |format|
       format.js { render :json => @programs.map{|p| {:id => p.id, :label => p.name, :value => p.name} } }
     end
+  end
+  
+  # 15 minutes cronjob
+  def check
+    Program.by_last_checked_at.limit(1).first.tvdb_update
+    nzb_to_get = Episode.airdate_present.airs_at_inside(1.week.ago, 2.hours.ago).nzb_file_name_missing.last
+    nzb_to_get.get_nzb if nzb_to_get
+    render :text => true
   end
   
   def find_program

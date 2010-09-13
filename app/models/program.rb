@@ -224,8 +224,7 @@ class Program < ActiveRecord::Base
   end
   
   def needs_update?
-    self.find_additional_info
-    changed?
+    return true if !self.last_checked_at || (self.last_checked_at + 1.hour).past?
   end
   
   def tvdb_info
@@ -238,7 +237,10 @@ class Program < ActiveRecord::Base
   end
   
   def tvdb_update
+    self.find_additional_info
+    changed?
     needs_update? && retrieve_episodes
+    self.last_checked_at = Time.now
     self.save!
   end
   

@@ -41,12 +41,8 @@
       - if current_user.programs.any?
         %ul.my_programs
           - current_user.programs.each do |program|
-            %li= link_to program.name, program
+            %li
+              = link_to program.name, program
+              = link_to 'X', user_program_path(current_user, program), :method => :delete
       - else
         %p.nothing No programs watched yet
-      = form_for(:program, :url => suggest_programs_path) do |f|
-        .form_row.one_line_form
-          %label Add new program
-          = text_field_tag :q, params[:q] || '', :class => :small
-          %button.search
-

@@ -5,8 +5,10 @@ TvEpisodes::Application.routes.draw do
   match '/pages/program_updates', :to => 'pages#program_updates'
 
   resources :programs do 
-    post :suggest, :on => :collection
-    get :search, :on => :collection
+    collection do
+      post :suggest
+      get :search, :check
+    end
     resources :seasons, :updates
     resources :episodes do
       member do
