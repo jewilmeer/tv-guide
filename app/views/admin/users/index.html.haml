@@ -15,7 +15,7 @@
         %tr
           %td= link_to user.login, [user, :programs]
           %td= l user.created_at, :format => :long
-          %td= user.last_request_at? ? l(user.last_request_at, :format => :long) : '-'
+          %td= user.last_request_at? ? "#{distance_of_time_in_words_to_now(user.last_request_at)} ago" : '-'
           %td= user.login_count
           %td= pluralize(user.programs.count, 'program')
           %td
