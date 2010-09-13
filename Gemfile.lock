@@ -104,7 +104,7 @@ GEM
     little-plugger (1.1.2)
     logging (1.4.3)
       little-plugger (>= 1.1.2)
-    mail (2.2.6)
+    mail (2.2.6.1)
       activesupport (>= 2.3.6)
       mime-types
       treetop (>= 1.4.5)
