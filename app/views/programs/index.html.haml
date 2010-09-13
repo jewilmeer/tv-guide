@@ -1,6 +1,6 @@
 .half-column.flt-left
   .column-block
-    %h1 Upcomming episodes
+    %h1 Upcoming episodes
     .body
       .row_seperator
       - if @future_episodes.any?
@@ -18,7 +18,7 @@
                 - else
                   == Aired on #{l episode.airs_at, :format => :with_day}
                 - if current_user && current_user.trusted? && episode.airs_at.past?
-                  \|
+                  %br
                   = link_to 'Search', search_episode_path(episode), :target => '_blank'
                   \|
                   = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
@@ -26,7 +26,7 @@
                     \|
                     = link_to 'Download', download_episode_path(episode) 
       - else
-        %p.nothing No upcomming programs yet
+        %p.nothing No upcoming programs yet
 .half-column.flt-right
   .column-block
     %h1 Past episodes
