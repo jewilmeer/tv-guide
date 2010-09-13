@@ -4,7 +4,7 @@
   %table.full_width.list
     %thead
       %tr
-        %th Email
+        %th Url
         %th Registerd at
         %th Last request
         %th Nr of logins
@@ -13,7 +13,7 @@
     %tbody
       - @users.each do |user|
         %tr
-          %td= user.email
+          %td= user.login
           %td= l user.created_at, :format => :long
           %td= user.last_request_at? ? l(user.last_request_at, :format => :long) : '-'
           %td= user.login_count

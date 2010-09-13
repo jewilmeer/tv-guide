@@ -7,6 +7,5 @@
     - if current_user
       %li= link_to 'Logout', logout_path
     - else
-      - if Rails.env.development?
-        %li= link_to 'Register', signup_path
+      %li= link_to 'Register', signup_path
       %li= link_to 'Login', login_path
