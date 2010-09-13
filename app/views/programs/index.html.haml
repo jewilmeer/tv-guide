@@ -17,14 +17,6 @@
                   == Airing on #{l episode.airs_at, :format => :with_day}
                 - else
                   == Aired on #{l episode.airs_at, :format => :with_day}
-                - if current_user && current_user.trusted? && episode.airs_at.past?
-                  %br
-                  = link_to 'Search', search_episode_path(episode), :target => '_blank'
-                  \|
-                  = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
-                  - if episode.nzb?
-                    \|
-                    = link_to 'Download', download_episode_path(episode) 
       - else
         %p.nothing No upcoming programs yet
 .half-column.flt-right
@@ -46,7 +38,7 @@
               - else
                 == Aired on #{l episode.airs_at, :format => :with_day}
               - if current_user && current_user.trusted? && episode.airs_at.past?
-                \|
+                %br
                 = link_to 'Search', search_episode_path(episode), :target => '_blank'
                 \|
                 = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
