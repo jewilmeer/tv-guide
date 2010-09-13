@@ -18,9 +18,9 @@ class User::ProgramsController < UserAreaController
   
   def index
     @programs           = @user.programs
-    basic_episodes      = Episode.watched_by_user(@user.programs).limited(6)
-    @upcomming_episodes = basic_episodes.by_airdate.airdate_after(Time.now)
-    @past_episodes      = basic_episodes.by_airdate(:desc).airdate_before(Time.now)
+    basic_episodes      = Episode.watched_by_user(@user.programs)
+    @upcomming_episodes = basic_episodes.by_airdate.airdate_after(Time.now).limit(6)
+    @past_episodes      = basic_episodes.by_airdate(:desc).airdate_before(Time.now).limit(20)
   end
   
   def destroy
