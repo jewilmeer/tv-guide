@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100912211135) do
+ActiveRecord::Schema.define(:version => 20100913195045) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                            :null => false
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20100912211135) do
     t.string   "contentrating"
     t.text     "actors"
     t.integer  "tvdb_rating"
+    t.datetime "last_checked_at"
   end
 
   create_table "programs_users", :id => false, :force => true do |t|
