@@ -4,8 +4,8 @@ class ProgramsController < ApplicationController
   
   def index
     # @programs = Program.by_name
-    @future_episodes = Episode.by_airdate.airdate_after(Date.today).limited(30)
-    @past_episodes   = Episode.by_airdate(:desc).airdate_before(Date.yesterday).limited(30)
+    @future_episodes = Episode.by_airs_at.airs_at_after(Date.today).limited(30)
+    @past_episodes   = Episode.by_airs_at(:desc).airs_at_before(Date.yesterday).limited(30)
   end
   
   def show
@@ -65,10 +65,11 @@ class ProgramsController < ApplicationController
   
   # 15 minutes cronjob
   def check
-    Program.by_last_checked_at.limit(1).first.tvdb_update rescue ''
+    program = Program.by_last_checked_at.limit(1).first
+    program.tvdb_update rescue ''
     nzb_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).nzb_file_name_missing.last
     nzb_to_get.get_nzb if nzb_to_get
-    render :text => true
+    render :text => "updated #{program.name}"
   end
   
   def find_program
