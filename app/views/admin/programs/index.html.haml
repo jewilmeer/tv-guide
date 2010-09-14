@@ -20,11 +20,15 @@
           - else
             \-
         %td
-          = l program.tvdb_last_update, :format => :long
+          = distance_of_time_in_words_to_now( program.tvdb_last_update )
+          ago
           == (#{pluralize(program.program_updates.count, 'update')})
         %td
           - if program.last_checked_at
-            = l program.last_checked_at, :format => :long
+            = distance_of_time_in_words_to_now( program.last_checked_at )
+            ago
+          - else
+            \-
         %td
           = link_to 'Show', [:admin, program]
           = link_to 'Edit', edit_admin_program_path(program)
