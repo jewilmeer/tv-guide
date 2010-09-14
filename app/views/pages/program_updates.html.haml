@@ -1,5 +1,23 @@
-- @program_updates.each do |update|
-  - next unless update.real_updates.any?
-  .column-block
-    %h2== Update for #{update.program.name}
-    .body!= update_description(update)
+.full-column
+  .half-column.flt-left
+    .column-block
+      %h2 New episodes
+      .body
+        - if @new_episodes.any?
+          %ol= render :partial => 'episodes/episode', :collection => @new_episodes, :locals => { :addition_info => :created_at }
+        - else
+          %p.nothing No new episodes found, huh!?
+  .half-column.flt-right
+    .column-block
+      %h2 Program updates
+      .body
+        - if @program_updates.any?
+          - @program_updates.each do |update|
+            -next unless update.real_updates.any?
+            .column-block
+              %h4
+                %span.header== Update for #{update.program.name}
+                .header_link= l(update.created_at, :format => :long)
+              .body!= update_description(update)
+        - else
+          %p.nothing No program updates found, huh!?
