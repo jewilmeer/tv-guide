@@ -1,4 +1,5 @@
 - addition_info ||= episode.airs_at ? :airdate : :created_at
+- program = episode.program
 %li
   %strong
     == #{link_to episode.program.name, episode.program}
@@ -12,12 +13,12 @@
         == Aired on #{l episode.airs_at, :format => :with_day}
       - if current_user && current_user.trusted? && episode.airs_at.past?
         %br
-        = link_to 'Search', search_episode_path(episode), :target => '_blank'
+        = link_to 'Search', search_program_episode_path(program, episode), :target => '_blank'
         \|
-        = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
+        = link_to 'Search HD', search_program_episode_path(program, episode, :hd => true), :target => '_blank'
         - if episode.nzb?
           \|
-          = link_to 'Download', download_episode_path(episode) 
+          = link_to 'Download', download_program_episode_path(program, episode) 
     - when :created_at
       == Added #{distance_of_time_in_words_to_now(episode.created_at)} ago
       
