@@ -12,18 +12,18 @@ TvEpisodes::Application.routes.draw do
     resources :seasons, :updates
     resources :episodes do
       member do
-        get :download
+        get :download, :search
         put :mark
       end
     end
   end
   
   resources :episodes do
-    member do
-      get :download
-      get :search
-      put :mark
-    end
+    # member do
+    #   get :download
+    #   get :search
+    #   put :mark
+    # end
   end
   
   resources :pages, :only => [:index, :show]
