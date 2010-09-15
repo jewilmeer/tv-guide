@@ -3,6 +3,7 @@ class Episode < ActiveRecord::Base
   
   belongs_to :season
   belongs_to :program
+  has_and_belongs_to_many :users
   
   validates :title, :season_id, :program_id, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_id, :program_id]}
