@@ -19,24 +19,7 @@
     %h2 Recently aired
     .body
       - if @past_episodes.any?
-        %ul.program_guide
-          - @past_episodes.each do |episode|
-            - next unless episode.program
-            %li
-              %strong
-                == #{link_to episode.program.name, episode.program}
-                == - #{link_to episode.title, [episode.program, episode]} (#{episode.season_and_episode})
-              %br
-              - if episode.airs_at
-                == Aired on #{l episode.airs_at, :format => :with_day}
-              - if current_user && current_user.trusted?
-                %br
-                = link_to 'Search', search_episode_path(episode), :target => '_blank'
-                \|
-                = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
-                - if episode.nzb?
-                  \|
-                  = link_to 'Download', download_episode_path(episode) 
+        %ul.program_guide= render :partial => 'episodes/episode', :collection => @past_episodes
       - else
         %p.nothing No previous shows
 .half-column.flt-right
@@ -58,21 +41,11 @@
           .form_row.one_line_form
             %label Add new program
             = text_field_tag :q, params[:q] || '', :class => :autocomplete
-            / = f.collection_select :id, Program.all, :id, :name, {}, :class => :autocomplete
             %button.search ?
   .column-block
     %h2 Upcoming episodes
     .body
       - if @upcomming_episodes.any?
-        %ul.program_guide
-          - @upcomming_episodes.each do |episode|
-            - next unless episode.program
-            %li
-              %strong
-                == #{link_to episode.program.name, episode.program}
-                == - #{link_to episode.title, [episode.program, episode]} (#{episode.season_and_episode})
-              %br
-              - if episode.airs_at
-                == Airing on #{l episode.airs_at, :format => :with_day}
+        %ul.program_guide= render :partial => 'episodes/episode', :collection => @upcomming_episodes
       - else
         %p.nothing No upcoming shows
