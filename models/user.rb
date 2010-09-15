@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
     c.login_field           = :email # email is the login field
   end
   
-  validates :login, :presence => true, :uniqueness => true, :format => /^[a-z-]+$/i
+  validates :login, :presence => true, :uniqueness => true, :format => /^[a-z-]+$/
   
   has_and_belongs_to_many :programs, :uniq => true
   has_and_belongs_to_many :episodes
