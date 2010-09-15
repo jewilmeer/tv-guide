@@ -1,9 +1,24 @@
-- program ||= episode.program
-- season  ||= episode.season
-%li[episode]{:class => episode.view_classes}
-  = link_to "#{episode.nr} - #{episode.title} - #{episode.airdate.to_s(:long)}", [@program, @season, @episode]
-  %ul.controls
-    %li= link_to "Search", search_episode_path(episode), :target => '_blank'
-    %li= link_to "HD", search_episode_path(episode, :hd => true), :target => '_blank'
-    - if episode.nzb.file?
-      %li= link_to "Download", download_episode_path(episode), :target => '_blank'
+- addition_info ||= episode.airs_at ? :airdate : :created_at
+%li
+  %strong
+    == #{link_to episode.program.name, episode.program}
+    == - #{link_to episode.title, [episode.program, episode]} (#{episode.season_and_episode})
+  %br
+  - case addition_info
+    - when :airdate
+      - if episode.airs_at.future?
+        == Airing on #{l episode.airs_at, :format => :with_day}
+      - else
+        == Aired on #{l episode.airs_at, :format => :with_day}
+      - if current_user && current_user.trusted? && episode.airs_at.past?
+        %br
+        = link_to 'Search', search_episode_path(episode), :target => '_blank'
+        \|
+        = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
+        - if episode.nzb?
+          \|
+          = link_to 'Download', download_episode_path(episode) 
+    - when :created_at
+      == Added #{distance_of_time_in_words_to_now(episode.created_at)} ago
+      
+    
