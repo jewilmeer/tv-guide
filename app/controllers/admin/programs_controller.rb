@@ -3,7 +3,7 @@ class Admin::ProgramsController < AdminAreaController
   # GET /admin_programs
   # GET /admin_programs.xml
   def index
-    @programs = Program.all
+    @programs = Program.order('status, name').all
 
     respond_to do |format|
       format.html # index.html.erb

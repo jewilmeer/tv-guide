@@ -8,6 +8,7 @@
   .user_nav
     %p== welcome #{link_to current_user.login.humanize, edit_user_path(current_user)}!
     %ul.main_navigation
+      %li= link_to 'Home', root_path
       %li= link_to 'Guide & Programs', [current_user, :programs]
       %li= link_to "Account", edit_user_path(current_user)
       - if current_user.admin?

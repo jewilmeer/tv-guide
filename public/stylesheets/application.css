@@ -84,6 +84,8 @@ body {
   font-size: 12px;
   min-height: 800px;
   padding: 0 10px; }
+  body.normal_font {
+    font-family: Verdana, Arial, sans-serif; }
 
 header {
   padding: 5px 20px; }
@@ -162,7 +164,7 @@ table {
     background-color: #dddddd; }
   table.with_lines td {
     border-bottom: 1px solid #eeeeee; }
-  table tbody th, table tbody td {
+  table tbody th.top, table tbody td.top {
     vertical-align: top; }
   table tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.9); }
@@ -193,6 +195,9 @@ section {
 
 .flt_left {
   float: left; }
+
+.text-center {
+  text-align: center; }
 
 h1, h2, h3, h4, h5, h6 {
   zoom: 1; }
@@ -531,6 +536,12 @@ hgroup {
     padding: 0; }
     #wrapper .content .column-block .body ul.program_guide li {
       padding: 5px; }
+  #wrapper .content .column-block .body ul.mini_guide {
+    margin: 0;
+    padding: 0; }
+    #wrapper .content .column-block .body ul.mini_guide li {
+      padding: 2px 5px;
+      margin: 0 5px; }
 
 .full_width {
   width: 100%; }
