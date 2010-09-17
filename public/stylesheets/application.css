@@ -83,7 +83,10 @@ body {
   font-family: GraublauWeb, arial, sans-serif;
   font-size: 12px;
   min-height: 800px;
-  padding: 0 10px; }
+  padding: 0 10px;
+  background-position: top left;
+  background-repeat: repeat-x;
+  background-image: url("/images/gradient_bg.png"); }
   body.normal_font {
     font-family: Verdana, Arial, sans-serif; }
 
