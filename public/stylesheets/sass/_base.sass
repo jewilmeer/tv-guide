@@ -29,6 +29,8 @@ html, body
     color: $bg_color
 
 body
+  &.normal_font
+    font-family: Verdana, Arial, sans-serif
   font-family: GraublauWeb, arial, sans-serif
   font-size: 12px
   min-height: 800px
@@ -113,7 +115,8 @@ table
       border-bottom: 1px solid ($th_background_color + #111111)
   tbody
     th, td
-      vertical-align: top
+      &.top
+        vertical-align: top
     tr:hover
       background-color: $odd_bg_color + $even_bg_color
       td
@@ -135,3 +138,5 @@ section
   float: right
 .flt_left
   float: left
+.text-center
+  text-align: center
