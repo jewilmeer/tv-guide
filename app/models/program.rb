@@ -8,7 +8,7 @@ class Program < ActiveRecord::Base
   has_many :episodes, :through => :seasons, :dependent => :destroy
   has_many :program_updates, :dependent => :destroy
   has_and_belongs_to_many :users, :uniq => true
-  has_one :configuration
+  has_one :configuration, :dependent => :destroy
   
   validates :name, :presence => true, :uniqueness => true
   # before_validation :guess_correct_name, :on => :create
@@ -186,7 +186,8 @@ class Program < ActiveRecord::Base
   # 
 
   def fill_search_term
-    self.search_term = self.name
+    self.search_term     = self.name
+    self.last_checked_at = Time.now
   end
   
   def retrieve_episodes(save = true)
