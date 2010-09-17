@@ -8,7 +8,7 @@ class User::UsersController < UserAreaController
     @user = User.new(params[:user])
 
     if @user.save!
-      redirect_to(@user, :notice => 'User was successfully created.')
+      redirect_to([@user, :programs], :notice => 'User was successfully created.')
     else
       render :edit
     end
