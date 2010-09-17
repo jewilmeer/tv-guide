@@ -33,7 +33,7 @@ $(function()
   $('table.list tbody tr:visible').reapplyOddEven();
   $('textarea').autoResize({animate: true}).trigger('change');  
   
-  $('input, textarea').placeholder();
+  $('textarea[placeholder], input[placeholder]').placeholder();
   $('.tabs').tabs();
   
   $('button.search').button({
