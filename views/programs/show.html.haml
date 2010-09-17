@@ -52,21 +52,22 @@
     %th{:width => 100} Network
     %td{:width => 150}= @program.network
   %tr
-    %th Airs at
+    %th Next episode
     %td
-      = @program.airs_dayofweek 
-      @
-      = @program.airs_time
+      - if episode = @program.episodes.airs_at_after(Time.now).first
+        = l episode.airs_at, :format => :long
+      - else
+        \-
     %th Thetvdb rating
     %td= @program.tvdb_rating || 'Not available'
     %th Content rating
     %td= @program.contentrating || 'Not available'
   - if @program.actors.any?
     %tr
-      %th Actors
+      %th.top Actors
       %td{:colspan => 5}= @program.actors.to_sentence(:last_word_connector => ' and ')
   %tr
-    %th Overview
+    %th.top Overview
     %td{:colspan => 5}= @program.overview
 
 .row_seperator

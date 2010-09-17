@@ -2,37 +2,43 @@
 
 - if @programs.any?
   %table.list
-    %tr
-      %th Name
-      %th Next episode
-      %th Last update
-      %th Last checked
-      %th Controls
-
-    - @programs.each do |program|
-      %tr[program]
-        %td= program.name
-        %td
-          - if next_aired = program.episodes.airdate_in_future.first
-            = next_aired.airdate.to_s(:long)
-            - if program.episodes.airdate_in_future.count > 1
-              == (+#{program.episodes.airdate_in_future.count - 1})
-          - else
-            \-
-        %td
-          = distance_of_time_in_words_to_now( program.tvdb_last_update )
-          ago
-          == (#{pluralize(program.program_updates.count, 'update')})
-        %td
-          - if program.last_checked_at
-            = distance_of_time_in_words_to_now( program.last_checked_at )
+    %thead
+      %tr
+        %th Name
+        %th Next episode
+        %th Last update
+        %th Last checked
+        %th Controls
+    %tbody
+      - prev_status = nil
+      - @programs.each do |program|
+        - if prev_status != program.status
+          - prev_status = program.status
+          %tr
+            %th.text-center{:colspan => 99}== #{program.status} programs
+        %tr[program]
+          %td= link_to truncate(program.name, :length => 40), [:admin, program]
+          %td
+            - if next_aired = program.episodes.airdate_in_future.first
+              = next_aired.airdate.to_s(:long)
+              - if program.episodes.airdate_in_future.count > 1
+                == (+#{program.episodes.airdate_in_future.count - 1})
+            - else
+              \-
+          %td
+            = distance_of_time_in_words_to_now( program.tvdb_last_update )
             ago
-          - else
-            \-
-        %td
-          = link_to 'Show', [:admin, program]
-          = link_to 'Edit', edit_admin_program_path(program)
-          = link_to 'Destroy', [:admin, program], :confirm => 'Are you sure?', :method => :delete
+            == (#{pluralize(program.program_updates.count, 'update')})
+          %td
+            - if program.last_checked_at
+              = distance_of_time_in_words_to_now( program.last_checked_at )
+              ago
+            - else
+              \-
+          %td
+            = link_to icon_tag('info'), [:admin, program]
+            = link_to icon_tag('page_edit'), edit_admin_program_path(program)
+            = link_to icon_tag('delete'), [:admin, program], :confirm => 'Are you sure?', :method => :delete
 
 %br
 

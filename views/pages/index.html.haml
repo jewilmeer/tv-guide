@@ -1,12 +1,29 @@
-- if current_user
-  %p== Welcome #{current_user.login.humanize}
-- else
-  %p Welcome guest
+.two-third-column
+  - if current_user
+    %p== Welcome #{current_user.login.humanize}
+  - else
+    %p Welcome guest
   
-%p
-  Do you want to be able to follow your 'watched on the internet' series as easy as possible. Just signup for an account and enjoy!
-  All Data will be updated from thetvdb.com and will be as fresh as possible. Keep an eye on the 'program updates' in the footer to see which series are recently updated.
+  %p
+    Do you want to be able to follow your 'watched on the internet' series as easy as possible. Just signup for an account and enjoy!
+    All Data will be updated from thetvdb.com and will be as fresh as possible. Keep an eye on the 'program updates' in the footer to see which series are recently updated.
   
-%p
-  %strong Note
-  This website is a hobby project and may not always work as excepted. Help and suggestions are always welcome. As of the free Heroku hosting, connectivity is limited (only 1 concurrent connection).
+  %p
+    %strong Note
+    This website is a hobby project and may not always work as excepted. Help and suggestions are always welcome. As of the free Heroku hosting, connectivity is limited (only 1 concurrent connection).
+.third-column.flt-right
+  .column-block
+    %h3 Upcomming episodes
+    .body
+      - if @upcoming_episodes.any?
+        %ul.mini_guide= render :partial => 'episodes/episode', :collection => @upcoming_episodes
+      - else
+        %p.nothing No upcoming episodes known
+  .column-block
+    %h3 Last added episodes
+    .body
+      - if @latest_episodes.any?
+        %ul.mini_guide= render :partial => 'episodes/episode', :collection => @latest_episodes, :locals => {:addition_info => :created_at}
+      - else
+        %p.nothing No latest additions found
+      
