@@ -76,17 +76,13 @@ html {
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
   background-color: #cccccc; }
 
 body {
   font-family: GraublauWeb, arial, sans-serif;
   font-size: 12px;
   min-height: 800px;
-  padding: 0 10px;
-  background-position: top left;
-  background-repeat: repeat-x;
-  background-image: url("/images/gradient_bg.png"); }
+  padding: 0 10px; }
   body.normal_font {
     font-family: Verdana, Arial, sans-serif; }
 
