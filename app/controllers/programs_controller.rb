@@ -5,7 +5,7 @@ class ProgramsController < ApplicationController
   def index
     # @programs = Program.by_name
     @future_episodes = Episode.by_airs_at.airs_at_after(Date.today).limited(30)
-    @past_episodes   = Episode.by_airs_at(:desc).airs_at_before(Date.yesterday).limited(30)
+    @past_episodes   = Episode.by_airs_at(:desc).airs_at_before(Date.today).limited(30)
   end
   
   def show
