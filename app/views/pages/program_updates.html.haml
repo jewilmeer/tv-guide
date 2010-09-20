@@ -16,7 +16,7 @@
             -next unless update.real_updates.any?
             .column-block
               %h4
-                %span.header== Update for #{update.program.name}
+                %span.header== Update for #{link_to update.program.name, update.program}
                 .header_link= l(update.created_at, :format => :long)
               .body!= update_description(update)
         - else
