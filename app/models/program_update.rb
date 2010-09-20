@@ -33,7 +33,7 @@ class ProgramUpdate < ActiveRecord::Base
   end
   
   def updated_program_attributes
-    @updated_program_attributes ||= program_update.reject{|k,v| k == 'tvdb_last_update' }   
+    @updated_program_attributes ||= program_update.reject{|k,v| %w(tvdb_last_update overview actors genres).include?(k) }   
   end
   
   def real_updates
