@@ -23,7 +23,7 @@ module ProgramHelper
           if episode == "S01E00"
             buffer << content_tag(:li, "Special episode added")
           else
-            buffer << content_tag(:li, "#{episode} - #{update.program.find_episode_information(episode)} added")
+            buffer << content_tag(:li, "#{link_to "#{episode} - #{update.program.find_episode_information(episode)}".rstrip, episode} added".html_safe)
           end
         end
         buffer << '</ul>'
@@ -32,7 +32,7 @@ module ProgramHelper
         v.map do |id, data|
           begin
             episode = update.program.episodes.find(id)
-            buffer << content_tag(:li, "#{episode.full_episode_title} updated")
+            buffer << content_tag(:li, "#{link_to episode.full_episode_title.rstrip, episode} updated".html_safe)
           rescue ActiveRecord::RecordNotFound
             buffer << content_tag(:li, 'Unknown')
           end
