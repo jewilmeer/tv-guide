@@ -198,7 +198,7 @@ class Program < ActiveRecord::Base
       episode     = season.episodes.find_or_initialize_by_nr(tvdb_episode['EpisodeNumber']) do |e|
         e.program_id = self.id
       end
-      episode.tvdb_info = tvdb_episode 
+      episode.tvdb_info = tvdb_episode
       
       tmp_changes = {(episode.new_record? ? episode.season_and_episode : episode.id) => episode.changes} if episode.changed?
       if save
