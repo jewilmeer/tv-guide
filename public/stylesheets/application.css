@@ -656,3 +656,19 @@ header ul.main_navigation {
     padding: 0 5px 0 20px; }
     header ul.main_navigation li.active {
       text-decoration: none; }
+
+.statusbar {
+  background-color: #eeeeee;
+  border-top: 1px solid #333333;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+  vertical-align: baseline;
+  zoom: 1; }
+  .statusbar:after {
+    content: "";
+    height: 0;
+    clear: both;
+    display: block; }
