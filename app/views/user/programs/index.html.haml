@@ -16,7 +16,11 @@
 
 .half-column.flt-left
   .column-block
-    %h2 Recently aired
+    %h2 
+      %span.header Recently aired
+      - if current_user && current_user.trusted?
+        .header_link
+          = link_to 'rss', aired_user_programs_path(:format => :rss)
     .body
       - if @past_episodes.any?
         %ul.program_guide= render :partial => 'episodes/episode', :collection => @past_episodes

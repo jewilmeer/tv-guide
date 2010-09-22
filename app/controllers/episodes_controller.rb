@@ -3,19 +3,30 @@ class EpisodesController < ApplicationController
   before_filter :require_user, :only => [:download, :search]
   
   def show
+    respond_to do |format|
+      format.html {}
+      format.nzb  do
+        require_user
+        if @episode.nzb?
+          # track donwnloads
+          current_user.episodes << @episode
+
+          # redirect for links living on external storage
+          path = @episode.nzb.path
+          redirect_to(AWS::S3::S3Object.url_for(@episode.nzb.path, @episode.nzb.bucket_name, :expires_in => 10.seconds))
+        else
+          search
+        end
+      end
+    end
   end
 
   def download
-    if @episode.nzb?
-      # track donwnloads
-      current_user.episodes << @episode
-      
-      # redirect for links living on external storage
-      path = @episode.nzb.path
-      redirect_to(AWS::S3::S3Object.url_for(@episode.nzb.path, @episode.nzb.bucket_name, :expires_in => 10.seconds))
-    else
-      search
-    end
+  end
+
+  def download_from_rss
+    
+    render :text => "Current_user: #{current_user.inspect}"
   end
   
   def search
@@ -31,4 +42,8 @@ class EpisodesController < ApplicationController
     @episode = Episode.find(params[:id], :include => [:season, :program])
     raise ActiveRecord::RecordNotFound unless @episode
   end
+  
+  # def single_access_allowed?
+  #   params[:action] == :download
+  # end
 end

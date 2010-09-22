@@ -256,7 +256,7 @@ class Program < ActiveRecord::Base
   def find_episode_information(episode_key)
     season, episode = Episode.episode_season_split(episode_key)
     episode         = self.episodes.season_episode_matches( season, episode ).first
-    episode.title if episode
+    # episode.title if episode
   end
   
   def actors
