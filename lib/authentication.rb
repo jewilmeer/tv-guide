@@ -1,7 +1,7 @@
 module Authentication
   # method to reduce calls
   def default_request_format?
-    !( params[:format] && %w(rss xml jpg mp3 json).include?(params[:format]) )
+    !( params[:format] && %w(rss xml jpg mp3 json nzb).include?(params[:format]) )
   end
   
   # auth-logic
@@ -55,9 +55,13 @@ module Authentication
         return false
       end
     end
+    
+    def require_trust
+      render :file => "public/401.html", :status => 401, :layout => false unless current_user && current_user.trusted?
+    end
         
     def store_location
-      session[:return_to] = request.request_uri if default_request_format?
+      session[:return_to] = request.full_path if default_request_format?
     end
     
     def location_stored?

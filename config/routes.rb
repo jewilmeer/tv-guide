@@ -31,7 +31,9 @@ TvEpisodes::Application.routes.draw do
 
   resources :users, :module => 'user', :path => '/user' do
     resource :settings
-    resources :programs
+    resources :programs do
+      get :aired, :on => :collection
+    end
   end
   
   # match '/oauth/start',     :to => 'oauths#start'
@@ -50,7 +52,8 @@ TvEpisodes::Application.routes.draw do
   #   match 'facebook/callback', :to => 'facebook#callback'
   #   match 'facebook/remove', :to => 'facebook#remove'
   # end
-  
+
+  match "/programs/:program_id/episodes/:id(/:user_credentials)(.:format)" => 'episodes#show', :as => 'episode_download'
   match "/settings(.:format)" => "settings#index", :as => :setting
   root :to => "pages#index"
 end
