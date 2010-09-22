@@ -20,7 +20,7 @@
       %span.header Recently aired
       - if current_user && current_user.trusted?
         .header_link
-          = link_to 'rss', aired_user_programs_path(:format => :rss)
+          = link_to 'rss', tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss)
     .body
       - if @past_episodes.any?
         %ul.program_guide= render :partial => 'episodes/episode', :collection => @past_episodes
