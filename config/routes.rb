@@ -3,6 +3,9 @@ TvEpisodes::Application.routes.draw do
   match '/logout',          :to => 'user_sessions#destroy'
   match '/signup',          :to => 'user/users#new'
   match '/pages/program_updates', :to => 'pages#program_updates'
+  match "user/:user_id/programs/:user_credentials(.:format)" => 'user/programs#aired', :as => 'tokened_user_programs'
+  match "/programs/:program_id/episodes/:id(/:user_credentials)(.:format)" => 'episodes#show', :as => 'episode_download'
+  match "/settings(.:format)" => "settings#index", :as => :setting
 
   resources :programs do 
     collection do
@@ -18,14 +21,7 @@ TvEpisodes::Application.routes.draw do
     end
   end
   
-  resources :episodes do
-    # member do
-    #   get :download
-    #   get :search
-    #   put :mark
-    # end
-  end
-  
+  resources :episodes
   resources :pages, :only => [:index, :show]
   resource :user_session, :only => [:new, :create, :destroy]
 
@@ -53,7 +49,5 @@ TvEpisodes::Application.routes.draw do
   #   match 'facebook/remove', :to => 'facebook#remove'
   # end
 
-  match "/programs/:program_id/episodes/:id(/:user_credentials)(.:format)" => 'episodes#show', :as => 'episode_download'
-  match "/settings(.:format)" => "settings#index", :as => :setting
   root :to => "pages#index"
 end
