@@ -18,7 +18,7 @@
   .column-block
     %h2 
       %span.header Recently aired
-      - if current_user && current_user.trusted?
+      - if current_user && current_user == @user && current_user.trusted?
         .header_link
           = link_to 'rss', tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss)
     .body
