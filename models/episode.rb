@@ -153,7 +153,7 @@ class Episode < ActiveRecord::Base
   def tvdb_info=(tvdb_info)
     self.title       = tvdb_info['EpisodeName']
     self.nr          = tvdb_info['EpisodeNumber']
-    self.description = tvdb_info['Overview'].force_encoding('utf-8')
+    self.description = tvdb_info['Overview'] ? tvdb_info['Overview'].force_encoding('utf-8') : nil
     self.airdate     = tvdb_info['FirstAired'] ? Date.parse(tvdb_info['FirstAired']) : nil
   end
     
@@ -161,7 +161,7 @@ class Episode < ActiveRecord::Base
     self.new({
       :title       => tvdb_hash['EpisodeName'],
       :nr          => tvdb_hash['EpisodeNumber'],
-      :description => tvdb_hash['Overview'].force_encoding('utf-8'),
+      :description => tvdb_hash['Overview'] ? tvdb_hash['Overview'].force_encoding('utf-8') : nil, 
       :airdate     => Date.parse(tvdb_hash['FirstAired'])
     })
   end
