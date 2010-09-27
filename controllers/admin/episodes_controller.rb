@@ -1,15 +1,10 @@
 class Admin::EpisodesController < AdminAreaController
   before_filter :get_episode, :except => :index
   
-  def download
-    if @episode.get_nzb
-      flash[:notice] = "Download completed"
-    else
-      flash[:error]  = "Failed to download nzbfile"
-    end
-    redirect_to [:admin, @episode.program]
+  def index
+    @episodes = Episode.group('episodes.id').includes(:program).joins(:users).by_airs_at(:desc).all
   end
-
+  
   protected
   def get_episode
     @episode = Episode.find(params[:id])
