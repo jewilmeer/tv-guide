@@ -60,9 +60,9 @@
                 = link_to episode.full_episode_title, episode
               %td= l(episode.airs_at, :format => :long)
               %td.trigger
-                %abbr== downloaded by #{pluralize episode.users.count, 'user'}
+                %abbr== downloaded #{pluralize episode.users.count, 'times'} by ...
                 %ul.tooltip{:style => 'display: none'}
-                  - episode.users.each do |user|
+                  - episode.users.uniq.each do |user|
                     %li=user.login
               %td= link_to icon_tag('info'), [:admin, episode]
     - else
