@@ -2,7 +2,7 @@ class Admin::EpisodesController < AdminAreaController
   before_filter :get_episode, :except => :index
   
   def index
-    @episodes = Episode.group('episodes.id').includes(:program).joins(:users).by_airs_at(:desc).all
+    @episodes = Episode.includes(:program).joins(:users).by_airs_at(:desc).limited(30).all
   end
   
   protected
