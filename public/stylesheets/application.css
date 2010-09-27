@@ -166,12 +166,11 @@ table {
   table tbody th.top, table tbody td.top {
     vertical-align: top; }
   table tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.9); }
-    table tbody tr:hover td {
-      border-bottom: 1px solid #999999; }
+    border-bottom: 1px solid transparent;
+    border-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.1); }
   table tbody td {
-    padding: 5px;
-    border-bottom: 1px solid transparent; }
+    padding: 5px; }
 
 section {
   zoom: 1; }

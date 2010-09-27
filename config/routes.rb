@@ -39,9 +39,7 @@ TvEpisodes::Application.routes.draw do
   namespace :admin do
     root :to => 'pages#root'
     resources :programs, :users, :pages, :configurations
-    resources :episodes, :only => :show do
-      get :download, :on => :member
-    end
+    resources :episodes
   end
   
   # namespace :auth do
