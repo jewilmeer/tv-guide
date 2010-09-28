@@ -103,7 +103,7 @@
                   == [#{link_to "Search HD", search_program_episode_path(@program, episode, :hd => true)}]
               %td{:width => 220}
                 - if episode.airs_at
-                  = l(episode.airs_at, :format => :with_day)
+                  = l(episode.airs_at.to_date, :format => :with_day)
                 - else
                   \-
 - else
