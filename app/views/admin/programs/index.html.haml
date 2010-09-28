@@ -19,10 +19,10 @@
         %tr[program]
           %td= link_to truncate(program.name, :length => 40), [:admin, program]
           %td
-            - if next_aired = program.episodes.airdate_in_future.first
-              = next_aired.airdate.to_s(:long)
-              - if program.episodes.airdate_in_future.count > 1
-                == (+#{program.episodes.airdate_in_future.count - 1})
+            - if next_aired = program.episodes.airs_at_in_future.first
+              = next_aired.airs_at.to_s(:long)
+              - if program.episodes.airs_at_in_future.count > 1
+                == (+#{program.episodes.airs_at_in_future.count - 1})
             - else
               \-
           %td
