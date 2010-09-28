@@ -99,11 +99,11 @@
                 - if current_user && current_user.trusted? && episode.airs_at && episode.airs_at.past?
                   - if episode.nzb?
                     == [#{link_to "Download", download_program_episode_path(@program, episode)}]
-                  == [#{link_to "Search", search_program_episode_path(episode)}]
-                  == [#{link_to "Search HD", search_program_episode_path(episode, :hd => true)}]
+                  == [#{link_to "Search", search_program_episode_path(@program, episode)}]
+                  == [#{link_to "Search HD", search_program_episode_path(@program, episode, :hd => true)}]
               %td{:width => 220}
-                - if episode.airdate
-                  = l(episode.airdate, :format => :with_day)
+                - if episode.airs_at
+                  = l(episode.airs_at.to_date, :format => :with_day)
                 - else
                   \-
 - else

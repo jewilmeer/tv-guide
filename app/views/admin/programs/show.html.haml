@@ -21,13 +21,13 @@
           = pluralize(@program.users.count, 'user')
         .form_row
           %label First episode aired at
-          - if @program.episodes.by_airdate.first.airdate
-            = l(@program.episodes.by_airdate.first.airdate, :format => :long)
+          - if @program.episodes.by_airs_at.first.airs_at
+            = l(@program.episodes.by_airs_at.first.airs_at, :format => :long)
           - else
             \-
         .form_row
           %label Last aired
-          = @program.episodes.airdate_in_past.last.airdate.to_s(:long)
+          = @program.episodes.airs_at_in_past.last.airs_at.to_s(:long)
         .form_row
           %label Last episode update
           = @program.episodes.by_created_at.last.created_at.to_s(:long)
@@ -49,7 +49,7 @@
             = f.text_field :search_term
           .form_row
             %label Search term
-            = link_to @program.episodes.airdate_in_past.last.search_query(true), @program.episodes.airdate_in_past.last.search_url
+            = link_to @program.episodes.airs_at_in_past.last.search_query(true), @program.episodes.airs_at_in_past.last.search_url
           %button.save Save
 
       .row_seperator
