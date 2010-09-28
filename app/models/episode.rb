@@ -14,7 +14,7 @@ class Episode < ActiveRecord::Base
   # scope :watched_by_user, lambda{|programs| {:conditions => ['season_id IN (?)', programs.map(&:season_ids).flatten] }}
   scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
   
-  before_save :set_airdate
+  before_save :airs_at
   
   attr_accessor :options, :name, :episode, :filters, :real_filename
   
@@ -171,9 +171,5 @@ class Episode < ActiveRecord::Base
   rescue StandardError => e
     logger.debug e
     nil
-  end
-  
-  def set_airdate
-    self.airdate= self.airdate
   end
 end
