@@ -1,7 +1,7 @@
 %h1== #{@episode.program.name} - Season #{@episode.season.nr} - #{@episode.title}
 %p
   == Airdate: #{l @episode.airs_at, :format => :long} 
-  - if @episode.airdate > Date.today
+  - if @episode.airs_at > 1.day.ago
     == (in about #{distance_of_time_in_words_to_now(@episode.airs_at)})
   - else
     == (#{distance_of_time_in_words_to_now(@episode.airs_at)} ago)
