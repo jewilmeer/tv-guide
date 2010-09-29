@@ -7,6 +7,6 @@ class AddDownloadsTable < ActiveRecord::Migration
   end
 
   def self.down
-    remove_table :episodes_users
+    drop_table :episodes_users
   end
 end

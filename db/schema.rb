@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100913195045) do
+ActiveRecord::Schema.define(:version => 20100925192255) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                            :null => false
@@ -53,9 +53,32 @@ ActiveRecord::Schema.define(:version => 20100913195045) do
     t.datetime "nzb_updated_at"
     t.integer  "program_id"
     t.datetime "airs_at"
+    t.integer  "downloads",        :default => 0
   end
 
   add_index "episodes", ["season_id", "nr"], :name => "chained_index"
+
+  create_table "episodes_users", :id => false, :force => true do |t|
+    t.integer "episode_id"
+    t.integer "user_id"
+  end
+
+  create_table "images", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.string   "string"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "images_programs", :id => false, :force => true do |t|
+    t.integer "image_id"
+    t.integer "program_id"
+  end
+
+  add_index "images_programs", ["program_id", "image_id"], :name => "index_images_programs_on_program_id_and_image_id"
 
   create_table "pages", :force => true do |t|
     t.string   "title"
