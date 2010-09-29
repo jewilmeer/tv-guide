@@ -65,15 +65,17 @@ class ProgramsController < ApplicationController
   
   # 15 minutes cronjob
   def check
-    status = ""
+    status = []
     program = Program.status_equals('Continuing').by_last_checked_at.limit(1).first
     status << "Updated #{program.name}" if program.tvdb_update
-    nzb_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).nzb_file_name_missing.last
-    if nzb_to_get
-      nzb_to_get.get_nzb 
-      status << " Downloaded nzb for #{nzb_to_get.program.name} - #{nzb_to_get.full_episode_title}"
+    nzbs_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).nzb_file_name_missing.by_airs_at(:desc).limited(5)
+    if nzbs_to_get.any?
+      nzbs_to_get.each do |episode|
+        episode.get_nzb 
+        status << "Downloaded nzb for #{nzb_to_get.program.name} - #{nzb_to_get.full_episode_title}"
+      end
     end
-    render :text => status
+    render :text => status * "\n<br />"
   end
   
   def find_program
