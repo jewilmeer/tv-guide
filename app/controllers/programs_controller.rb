@@ -71,7 +71,7 @@ class ProgramsController < ApplicationController
     nzb_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).nzb_file_name_missing.last
     if nzb_to_get
       nzb_to_get.get_nzb 
-      status << " Downloaded nzb for #{episode.program.name} - #{episode.full_episode_title}"
+      status << " Downloaded nzb for #{nzb_to_get.program.name} - #{nzb_to_get.full_episode_title}"
     end
     render :text => status
   end
