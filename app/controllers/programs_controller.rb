@@ -72,7 +72,7 @@ class ProgramsController < ApplicationController
     if nzbs_to_get.any?
       nzbs_to_get.each do |episode|
         episode.get_nzb 
-        status << "Downloaded nzb for #{nzb_to_get.program.name} - #{nzb_to_get.full_episode_title}"
+        status << "Downloaded nzb for #{episode.program.name} - #{episode.full_episode_title}"
       end
     end
     render :text => status * "\n<br />"
