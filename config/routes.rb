@@ -21,7 +21,7 @@ TvEpisodes::Application.routes.draw do
     end
   end
   
-  resources :episodes
+  resources :episodes, :images
   resources :pages, :only => [:index, :show]
   resource :user_session, :only => [:new, :create, :destroy]
 
