@@ -9,6 +9,7 @@ class Program < ActiveRecord::Base
   has_many :program_updates, :dependent => :destroy
   has_and_belongs_to_many :users, :uniq => true
   has_one :configuration, :dependent => :destroy
+  has_and_belongs_to_many :images
   
   validates :name, :presence => true, :uniqueness => true
   # before_validation :guess_correct_name, :on => :create
