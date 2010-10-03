@@ -25,7 +25,7 @@ class Program < ActiveRecord::Base
                     :processors     => [], 
                     :storage        => :s3,
                     :s3_credentials => "#{Rails.root}/config/s3.yml",
-                    :s3_permissions => 'authenticated-read',
+                    :s3_permissions => 'public-read',
                     :s3_protocol    => 'http',
                     :s3_headers     => { :content_type => 'application/octet-stream', :content_disposition => 'attachment' },
                     :bucket         => Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
@@ -59,6 +59,12 @@ class Program < ActiveRecord::Base
     "http://www.thetvdb.com/banners/" + banners.detect{|banner| banner[:subtype] == 'graphical' }[:path]
   rescue StandardError
     false
+  end
+  
+  def tvdb_banner_urls
+    banners.map do |banner|
+      "http://www.thetvdb.com/banners/" + banner[:path]
+    end
   end
   
   def tvdb_banner_filename
