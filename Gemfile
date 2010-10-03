@@ -20,7 +20,7 @@ gem 'annotate'
 # requirement for tvdb
 gem 'hpricot'
 gem 'zip'
-gem 'paperclip', :git => 'git://github.com/dwalters/paperclip.git', :branch => 'rails3'
+gem 'paperclip'
 # gem 'fleximage', :git => 'git://github.com/giovannelli/fleximage.git'
 gem 'aws-s3'
 # gem 'hoptoad_notifier'
