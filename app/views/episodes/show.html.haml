@@ -1,4 +1,9 @@
-%h1== #{@episode.program.name} - Season #{@episode.season.nr} - #{@episode.title}
+%h1
+  %span.header== #{@episode.program.name} - Season #{@episode.season.nr} - #{@episode.title}
+  .header_links
+    / = link_to '< previous', []
+    / \|
+    / = link_to 'next >'
 %p
   == Airdate: #{l @episode.airs_at, :format => :long} 
   - if @episode.airs_at > 1.day.ago
@@ -11,7 +16,7 @@
 %p
   - if current_user && current_user.trusted? && @episode.airs_at && @episode.airs_at.past?
     %button.download= link_to "Download nzb", download_program_episode_path(@episode.program, @episode)
-    %button= link_to 'Search', search_program_episode_path([@episode.program, @episode]), :target => '_blank'
-    %button= link_to 'Search HD', search_program_episode_path([@episode.program, @episode], :hd => true), :target => '_blank'
+    %button= link_to 'Search', search_program_episode_path(@episode.program, @episode), :target => '_blank'
+    %button= link_to 'Search HD', search_program_episode_path(@episode.program, @episode, :hd => true), :target => '_blank'
     or
   = link_to 'go back', :back
