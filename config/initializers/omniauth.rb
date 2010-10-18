@@ -6,19 +6,19 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   if Rails.env.production?
     require 'openid/store/memcache'
     # provider :open_id, OpenID::Store::Memcache.new
-    provider :open_id, OpenID::Store::Memcache.new, :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id'
-    provider :open_id, OpenID::Store::Memcache.new, :name => 'hyves', :identifier => 'https://www.hyves.nl'
-    provider :open_id, OpenID::Store::Memcache.new, :name => 'yahoo', :identifier => 'yahoo.com'
-    provider :open_id, OpenID::Store::Memcache.new, :name => 'myspace', :identifier => 'myspace.com'
-    provider :open_id, OpenID::Store::Memcache.new, :name => 'aol', :identifier => 'aol.com'
+    provider :open_id, :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id'
+    # provider :open_id, OpenID::Store::Memcache.new, :name => 'hyves', :identifier => 'https://www.hyves.nl'
+    # provider :open_id, OpenID::Store::Memcache.new, :name => 'yahoo', :identifier => 'yahoo.com'
+    # provider :open_id, OpenID::Store::Memcache.new, :name => 'myspace', :identifier => 'myspace.com'
+    # provider :open_id, OpenID::Store::Memcache.new, :name => 'aol', :identifier => 'aol.com'
   else
     require 'openid/store/filesystem'
     # provider :open_id, OpenID::Store::Filesystem.new('/tmp')
-    provider :open_id, OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id'
-    provider :open_id, OpenID::Store::Filesystem.new('/tmp'), :name => 'hyves', :identifier => 'https://www.hyves.nl'
-    provider :open_id, OpenID::Store::Filesystem.new('/tmp'), :name => 'yahoo', :identifier => 'yahoo.com'
-    provider :open_id, OpenID::Store::Filesystem.new('/tmp'), :name => 'myspace', :identifier => 'myspace.com'
-    provider :open_id, OpenID::Store::Filesystem.new('/tmp'), :name => 'aol', :identifier => 'aol.com'
+    provider :open_id, :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id'
+    # provider :open_id, :name => 'hyves', :identifier => 'https://www.hyves.nl'
+    # provider :open_id, :name => 'yahoo', :identifier => 'yahoo.com'
+    # provider :open_id, :name => 'myspace', :identifier => 'myspace.com'
+    # provider :open_id, :name => 'aol', :identifier => 'aol.com'
   end
 end
 AUTH_PROVIDERS    = %w(twitter facebook open_id google hyves yahoo myspace)
