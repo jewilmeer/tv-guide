@@ -6,8 +6,8 @@
   - else
     = form_for :user_session, :url => user_session_path do |f|
       .form_row
-        = f.label :email
-        = email_field_tag 'user_session[email]', '',:class => :small, :placeholder => 'e.g. you@email.com ', :autofocus=> 'ok', :required => 'zeker wel'
+        = f.label :email, 'Login / E-mail'
+        = text_field_tag 'user_session[email]', '',:class => :small, :placeholder => 'e.g. you@email.com or klaas', :autofocus => true, :required => true
       .form_row
         = f.label :password
         = password_field_tag 'user_session[password]', '', :class => :small, :placeholder => 'password'
