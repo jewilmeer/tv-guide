@@ -28,10 +28,6 @@
       })
 %h1== Programma: #{@program.name} [#{@program.status}]
 
-- @program.images.all.each do |image|
-  = image_tag image.image.url(:banner)
-
-
 %section
   = image_tag( @program.banner_url, :class => :flt_left ) if @program.banner?
   %ul.flt_right 
