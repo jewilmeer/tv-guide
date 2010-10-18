@@ -29,6 +29,7 @@ gem 'aws-s3'
 
 # authentication
 gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
+gem 'ruby-openid'
 gem 'omniauth'
 
 # Bundle gems for certain environments:
