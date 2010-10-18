@@ -1,5 +1,6 @@
 class UserSession < Authlogic::Session::Base
-  # single_access_allowed_request_types = ['application/x-nzb']
+  find_by_login_method :find_by_email_or_login
+  
   def to_key
      self.keys.to_a
   end

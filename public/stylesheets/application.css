@@ -534,12 +534,14 @@ hgroup {
     padding: 0; }
     #wrapper .content .column-block .body ul.program_guide li {
       padding: 5px; }
-  #wrapper .content .column-block .body ul.mini_guide {
+  #wrapper .content .column-block .body ul.mini_guide, #wrapper .content .column-block .body ul.my_programs {
     margin: 0;
     padding: 0; }
-    #wrapper .content .column-block .body ul.mini_guide li {
+    #wrapper .content .column-block .body ul.mini_guide li, #wrapper .content .column-block .body ul.my_programs li {
       padding: 2px 5px;
       margin: 0 5px; }
+      #wrapper .content .column-block .body ul.mini_guide li a, #wrapper .content .column-block .body ul.my_programs li a {
+        line-height: 30px; }
 
 .full_width {
   width: 100%; }
