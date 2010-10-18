@@ -7,6 +7,7 @@ class ProgramUpdate < ActiveRecord::Base
   validates :revision_data, :presence => true
 
   scope :real_updates, {:conditions => ['LENGTH(parsed_data) > 8']}
+  scope :empty_update, {:conditions => ['LENGTH(parsed_data) <= 8']}
   
   def updates
     all_updates = self.revision_data.reject{|u| !u.first.first.is_a?(Fixnum) }
