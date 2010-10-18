@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    (authentications.empty? || !password.blank?)
+    (!authentications.empty? || !password.blank?)
   end
   
   def to_param
