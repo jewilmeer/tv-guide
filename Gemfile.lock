@@ -170,5 +170,6 @@ DEPENDENCIES
   paperclip
   rails (= 3.0.0)
   rails3-generators
+  ruby-openid
   sqlite3-ruby
   zip
