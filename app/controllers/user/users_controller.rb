@@ -3,11 +3,19 @@ class User::UsersController < UserAreaController
   def show
     @user = User.find_by_login(params[:id], :include => :programs)
   end
+
+  def new
+    @user = User.new
+    if session[:omniauth]
+      @user.apply_omniauth(session[:omniauth]) 
+    end
+  end
   
   def create
     @user = User.new(params[:user])
 
     if @user.save!
+      session[:omniauth] = nil
       redirect_to([@user, :programs], :notice => 'User was successfully created.')
     else
       render :edit

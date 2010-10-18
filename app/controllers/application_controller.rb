@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include Authentication
+  include Sellaband::Authentication
 
   protect_from_forgery
 end

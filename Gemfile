@@ -1,11 +1,10 @@
 source 'http://rubygems.org'
-
 gem 'rails', '3.0.0'
 gem 'bundler'
 
 # Bundle the extra gems:
 # gem 'bj'
-gem 'nokogiri', '1.4.1'
+gem 'nokogiri'
 gem 'mechanize'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'logging'
@@ -38,14 +37,14 @@ group :development do
 end
 
 group :test do
-  gem 'rspec', :git => 'git://github.com/rspec/rspec.git', :branch => 'v2.0.0.beta.8'
-  gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git', :branch => 'v2.0.0.beta.8'
-  gem 'cucumber'
-  gem 'cucumber-rails'
-  gem 'webrat'
-  gem "factory_girl", :branch => 'rails3'
-  gem 'autotest'
-  gem 'autotest-rails'
+  # gem 'rspec', :git => 'git://github.com/rspec/rspec.git', :branch => 'v2.0.0.beta.8'
+  # gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git', :branch => 'v2.0.0.beta.8'
+  # gem 'cucumber'
+  # gem 'cucumber-rails'
+  # gem 'webrat'
+  # gem "factory_girl", :branch => 'rails3'
+  # gem 'autotest'
+  # gem 'autotest-rails'
 end
 
 #backward compatibility

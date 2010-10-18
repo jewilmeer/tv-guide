@@ -34,6 +34,24 @@
           = f.label :password_confirmation
           = f.password_field :password_confirmation, :class => :small, :autocomplete => :off
         %button.save Update
+  .column-block
+    %h2 External services
+    .body
+      %p You can login without a password by connecting with one of the services below
+      .form_row
+        - (AUTH_PROVIDERS - current_user.authentications.map(&:provider)).each do |service|
+          = link_to image_tag("auth_icons/#{service}_64.png"), "/auth/#{service}"
+      - if current_user.authentications.any?
+        %h4 Connected services
+        %ul.auth_providers
+          - current_user.authentications.each do |auth|
+            %li
+              = image_tag("auth_icons/#{auth.provider}_32.png")
+              = auth.provider.humanize
+              = auth.uid
+              = link_to icon_tag('delete'), user_authentications_path(current_user, auth), :method => :delete
+      - else
+        %p.nothing Not connected to any external service yet!
 .half-column.flt-right
   .column-block
     %h2 Watched programs
@@ -43,6 +61,6 @@
           - current_user.programs.each do |program|
             %li
               = link_to program.name, program
-              = link_to 'X', user_program_path(current_user, program), :method => :delete
+              = link_to icon_tag('delete'), user_program_path(current_user, program), :method => :delete
       - else
         %p.nothing No programs watched yet
