@@ -25,7 +25,10 @@ gem 'aws-s3'
 # gem 'hoptoad_notifier'
 
 # caching
-# gem 'memcached'
+# group :production do
+#   # gem "memcache-client"
+#   gem 'memcached-northscale', :require => 'memcached'
+# end
 
 # authentication
 gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
@@ -38,14 +41,14 @@ group :development do
 end
 
 group :test do
-  # gem 'rspec', :git => 'git://github.com/rspec/rspec.git', :branch => 'v2.0.0.beta.8'
-  # gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git', :branch => 'v2.0.0.beta.8'
-  # gem 'cucumber'
-  # gem 'cucumber-rails'
-  # gem 'webrat'
-  # gem "factory_girl", :branch => 'rails3'
-  # gem 'autotest'
-  # gem 'autotest-rails'
+  gem 'rspec', :git => 'git://github.com/rspec/rspec.git', :branch => 'v2.0.0.beta.8'
+  gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git', :branch => 'v2.0.0.beta.8'
+  gem 'cucumber'
+  gem 'cucumber-rails'
+  gem 'webrat'
+  gem "factory_girl", :branch => 'rails3'
+  gem 'autotest'
+  gem 'autotest-rails'
 end
 
 #backward compatibility
