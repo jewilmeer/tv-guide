@@ -3,12 +3,16 @@
   - if current_user
     %p You are already logged in!
   - else
-    - if params[:test] || Rails.env.development?
-      %h3 Sign up using an external service
-      - AUTH_PROVIDERS.each do |service|
-        = link_to image_tag("auth_icons/#{service}_64.png", :size => '64x64', :class => :icon), "/auth/#{service}"
-      %h3 Or use the username / password solution
+    %h3 Sign up using an external service
+    - AUTH_PROVIDERS.each do |service|
+      = link_to image_tag("auth_icons/#{service}_64.png", :size => '64x64', :class => :icon), "/auth/#{service}"
+    %h3 Or use the username / password way
     = form_for(:user, :url => users_path) do |f|
+      - unless @user.valid? && session[:omniauth]
+        - if !@user.email.blank? && !@user.login.blank?
+          %p You probably already have an account. Please login and connect via the account page
+        - else
+          %p Could not retrieve all data. Please supply the required fields
       .form_row
         = f.label :email
         = f.email_field :email, :class => :small, :placeholder => 'e.g. you@email.com ', :autofocus=> 'ok', :required => 'true'

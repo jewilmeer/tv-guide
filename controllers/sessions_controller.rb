@@ -13,10 +13,12 @@ class SessionsController < ApplicationController
     else
       user = User.new
       user.apply_omniauth omniauth
-      if user.save!
+      if user.save
         redirect_to [user, :programs], :notice => 'Registration successful'
       else
-        session[:omniauth] = omniauth
+        # filter the extreme data, keep the usefull ones
+        omniauth['user_hash'] = omniauth['extra']['user_hash'] if omniauth['extra'] && omniauth['extra']['user_hash']
+        session[:omniauth] = omniauth.except('extra')
         redirect_to new_user_path
       end
     end
