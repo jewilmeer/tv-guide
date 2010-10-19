@@ -10,7 +10,8 @@
     %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
     
     %title Digital tv guide
-    = javascript_include_tag 'jquery-1.4.2.min', 'rails', 'jquery-ui-1.8.4.custom.min', 'jquery.dotimeout', 'jquery.select_autocomplete', 'jquery.autoresize.min','jquery.placeholder', 'jquery.application', 'http://connect.facebook.net/en_US/all.js'
+    / - if Rails.env.production?
+    %script{:src => 'http://www.google.com/jsapi?key=ABQIAAAAZ20lqvBNC8rqVuYd86VExhSjF49U_F1OK_kiT6PgH0HHJCssihSGO_C1Xk'}
     = yield :head
   %body
     #wrapper
@@ -20,5 +21,8 @@
         = yield
       = render 'layouts/footer'
     = yield :bottom
+    - unless Rails.env.production?
+      = javascript_include_tag 'jquery-1.4.2.min', 'jquery-ui-1.8.4.custom.min'
+    = javascript_include_tag 'rails', 'jquery.dotimeout', 'jquery.select_autocomplete', 'jquery.autoresize.min','jquery.placeholder', 'jquery.application'
     = render 'layouts/bottom_js'
     
