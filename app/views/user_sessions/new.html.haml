@@ -4,11 +4,10 @@
     %p You are already logged in! 
     %p= link_to 'Logout', user_session_path, :method => :delete
   - else
-    - if params[:test] || Rails.env.development?
-      %h3 With an external service
-      - AUTH_PROVIDERS.each do |service|
-        = link_to image_tag("auth_icons/#{service}_64.png", :size => '64x64', :class => :icon), "/auth/#{service}"
-      %h3 Or go old skool
+    %h3 With an external service
+    - AUTH_PROVIDERS.each do |service|
+      = link_to image_tag("auth_icons/#{service}_64.png", :size => '64x64', :class => :icon), "/auth/#{service}"
+    %h3 Or go old skool
     = form_for :user_session, :url => user_session_path do |f|
       .form_row
         = f.label :email, 'Login / E-mail'
