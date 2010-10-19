@@ -236,8 +236,8 @@ class Program < ActiveRecord::Base
   end
   
   def tvdb_info
-    tvdb_id ||= get_tvdb_id
-    @tvdb_info ||= self.class.tvdb_client.get_program_info(tvdb_id).inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
+    tvdb_id     ||= read_attribute(:tvdb_id) || get_tvdb_id
+    @tvdb_info  ||= self.class.tvdb_client.get_program_info(tvdb_id).inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
   end
   
   def get_tvdb_id
