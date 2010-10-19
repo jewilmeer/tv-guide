@@ -52,7 +52,6 @@ $(function()
         $(this).find('.extra_info').fadeOut(500);
       }
     });
-  
 });
 
 // no user, clear display

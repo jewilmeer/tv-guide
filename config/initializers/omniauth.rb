@@ -21,4 +21,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     provider :open_id, :name => 'aol', :identifier => 'aol.com'
   end
 end
-AUTH_PROVIDERS    = %w(twitter facebook open_id google hyves yahoo myspace)
+# AUTH_PROVIDERS    = %w(twitter facebook open_id google hyves yahoo myspace)
+AUTH_PROVIDERS    = %w(twitter facebook)
