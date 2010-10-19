@@ -49,7 +49,7 @@
               = image_tag("auth_icons/#{auth.provider}_32.png")
               = auth.provider.humanize
               = auth.uid
-              = link_to icon_tag('delete'), user_authentications_path(current_user, auth), :method => :delete
+              = link_to icon_tag('delete'), user_authentication_path(current_user, auth), :method => :delete
       - else
         %p.nothing Not connected to any external service yet!
 .half-column.flt-right
