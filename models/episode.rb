@@ -136,11 +136,15 @@ class Episode < ActiveRecord::Base
     logger.debug "Getting nzbfile from #{search_url}"
     tmp_filepath = "tmp/#{filename}.nzb"
     agent        = Browser.agent
-    first_page   = agent.get(search_url(true)).forms.last.submit
-
-    if (download_links = first_page.links_with(:text => 'Download')).any?
-      file = download_links.last.click.save(tmp_filepath)
-    end
+    
+    # nzbindex
+    # first_page   = agent.get(search_url(true)).forms.last.submit
+    # if (download_links = first_page.links_with(:text => 'Download')).any?
+    #   file = download_links.last.click.save(tmp_filepath)
+    # end
+    
+    # newzleech
+    file = agent.get( search_url(true) ).links_with(:href => /\?m=gen/).last.click.save(tmp_filepath)
     
     return 'failed to download' unless file
     

@@ -4,6 +4,11 @@ class Admin::EpisodesController < AdminAreaController
   def index
     @episodes = Episode.includes(:program).joins(:users).by_airs_at(:desc).limited(30).all
   end
+
+  def update
+    @episode.get_nzb
+    redirect_to :back
+  end
   
   protected
   def get_episode

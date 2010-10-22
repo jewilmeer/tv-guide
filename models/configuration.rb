@@ -4,7 +4,8 @@ class Configuration < ActiveRecord::Base
   serialize :filter_data
   
   def root_search_url
-    filter_data[:nzb][:url]
+    # hard override
+    'http://www.newzleech.com/' || filter_data[:nzb][:url]
   end
   
   def search_params(search, additional_params = {})
@@ -26,7 +27,11 @@ class Configuration < ActiveRecord::Base
   end
   
   def params
-    filter_data[:nzb][:params]
+    # filter_data[:nzb][:params]
+    {
+      :min => '100',
+      :m => 'search'
+    }
   end
   
   def additional_terms
