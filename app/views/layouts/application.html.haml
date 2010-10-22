@@ -10,8 +10,11 @@
     %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
     
     %title Digital tv guide
-    / - if Rails.env.production?
-    %script{:src => 'http://www.google.com/jsapi?key=ABQIAAAAZ20lqvBNC8rqVuYd86VExhSjF49U_F1OK_kiT6PgH0HHJCssihSGO_C1Xk'}
+    - if Rails.env.production?
+      %script{:src => 'http://www.google.com/jsapi?key=ABQIAAAAZ20lqvBNC8rqVuYd86VExhSjF49U_F1OK_kiT6PgH0HHJCssihSGO_C1Xk'}
+      %script
+        google.load('jquery', '1.4')
+        google.load('jqueryui', '1.8')
     = yield :head
   %body
     #wrapper
