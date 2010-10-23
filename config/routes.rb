@@ -7,6 +7,7 @@ TvEpisodes::Application.routes.draw do
   match "/programs/:program_id/episodes/:id(/t:user_credentials)(.:format)" => 'episodes#show', :as => 'episode_download'
   match "/settings(.:format)" => "settings#index", :as => :setting
   match '/auth/:provider/callback', :to => 'sessions#create'
+  match '/sitemap', :to => 'pages#sitemap'
   
   resources :programs do 
     collection do
