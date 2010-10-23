@@ -1,5 +1,8 @@
+- page_title "#{@episode.program.name} - #{@episode.full_episode_title}"
 %h1
-  %span.header== #{@episode.program.name} - Season #{@episode.season.nr} - #{@episode.title}
+  %span.header
+    = link_to @episode.program.name, @episode.program
+    == - Season #{@episode.season.nr} - #{@episode.title}
 %p
   == Airdate: #{l @episode.airs_at, :format => :long} 
   - if @episode.airs_at.past?

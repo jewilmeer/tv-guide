@@ -13,6 +13,9 @@ class PagesController < ApplicationController
     raise ActiveRecord::RecordNotFound unless @page
   end
   
+  def sitemap
+  end
+  
   def program_updates
     @program_updates = ProgramUpdate.real_updates.by_id(:desc).limit(50)
     @new_episodes    = Episode.by_created_at(:desc).limit(30).includes(:program).where(['DATE(programs.created_at) <> DATE(episodes.created_at)'])
