@@ -22,7 +22,7 @@ gem 'zip'
 gem 'paperclip'
 # gem 'fleximage', :git => 'git://github.com/giovannelli/fleximage.git'
 gem 'aws-s3'
-# gem 'hoptoad_notifier'
+gem 'hoptoad_notifier'
 
 # caching
 # group :production do

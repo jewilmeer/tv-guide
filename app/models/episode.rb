@@ -120,18 +120,6 @@ class Episode < ActiveRecord::Base
     "#{id}-#{title.parameterize}"
   end
   
-  def aired?
-    self.airdate < Date.today
-  end
-  
-  def view_classes
-    classes = []
-    classes << 'downloaded' if downloaded
-    classes << 'inactive' unless aired?
-    classes << 'active' if aired?
-    classes * ' '
-  end
-  
   def get_nzb
     logger.debug "Getting nzbfile from #{search_url}"
     tmp_filepath = "tmp/#{filename}.nzb"
