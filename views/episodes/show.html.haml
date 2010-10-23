@@ -1,15 +1,11 @@
 %h1
   %span.header== #{@episode.program.name} - Season #{@episode.season.nr} - #{@episode.title}
-  .header_links
-    / = link_to '< previous', []
-    / \|
-    / = link_to 'next >'
 %p
   == Airdate: #{l @episode.airs_at, :format => :long} 
-  - if @episode.airs_at > 1.day.ago
-    == (in about #{distance_of_time_in_words_to_now(@episode.airs_at)})
-  - else
+  - if @episode.airs_at.past?
     == (#{distance_of_time_in_words_to_now(@episode.airs_at)} ago)
+  - else
+    == (in about #{distance_of_time_in_words_to_now(@episode.airs_at)})
   
 %p= @episode.description
 
