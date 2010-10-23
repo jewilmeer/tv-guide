@@ -2,7 +2,7 @@ class Episode < ActiveRecord::Base
   include Pacecar
   
   belongs_to :season
-  belongs_to :program
+  belongs_to :program, :touch => true
   has_and_belongs_to_many :users
   
   validates :title, :season_id, :program_id, :presence => true
