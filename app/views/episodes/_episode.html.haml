@@ -21,7 +21,7 @@
           = link_to 'Download', program_episode_path(program, episode, :format => :nzb)
         - if current_user.admin?
           \|
-          = link_to 'Redownload', admin_episode_path(episode, :format => :nzb), :method => :put
+          = link_to 'Redownload', admin_episode_path(episode, :format => :nzb), :method => :put, :remote => true
 
     - when :created_at
       == Added #{distance_of_time_in_words_to_now(episode.created_at)} ago
