@@ -98,12 +98,12 @@
                 = link_to episode.full_episode_title, [@program, episode]
                 - if current_user && current_user.trusted? && episode.airs_at && episode.airs_at.past?
                   - if episode.nzb?
-                    == [#{link_to "Download", download_program_episode_path(@program, episode)}]
+                    == [#{link_to "Download", program_episode_path(@program, episode, :format => :nzb)}]
                   == [#{link_to "Search", search_program_episode_path(@program, episode)}]
                   == [#{link_to "Search HD", search_program_episode_path(@program, episode, :hd => true)}]
                   - if current_user.admin?
                     \|
-                    = link_to 'Redownload', admin_episode_path(episode, :format => :nzb), :method => :put
+                    == [#{link_to 'Redownload', admin_episode_path(episode, :format => :nzb), :method => :put, :remote => true}]
                   
               %td{:width => 220}
                 - if episode.airs_at
