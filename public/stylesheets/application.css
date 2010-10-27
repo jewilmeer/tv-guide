@@ -79,12 +79,10 @@ html, body {
   background-color: #cccccc; }
 
 body {
-  font-family: GraublauWeb, arial, sans-serif;
+  font-family: Verdana, Arial, sans-serif;
   font-size: 12px;
   min-height: 800px;
   padding: 0 10px; }
-  body.normal_font {
-    font-family: Verdana, Arial, sans-serif; }
 
 header {
   padding: 5px 20px; }
@@ -92,10 +90,8 @@ header {
     float: left;
     line-height: 22px; }
 
-.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
-  font-family: GraublauWeb, arial, sans-serif !important; }
-.content * {
-  font-family: Verdana, arial, sans-serif; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: GraublauWeb, arial, sans-serif; }
 
 a {
   color: #74323b;
