@@ -5,7 +5,7 @@ class Configuration < ActiveRecord::Base
   
   def root_search_url
     # hard override
-    'http://www.newzleech.com/' || filter_data[:nzb][:url]
+    filter_data[:nzb][:url]
   end
   
   def search_params(search, additional_params = {})

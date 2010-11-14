@@ -3,7 +3,7 @@ class Program < ActiveRecord::Base
   require 'open-uri'
   require 'tvdb'
   require 'aws/s3'
-
+  
   has_many :seasons, :dependent => :destroy
   has_many :episodes, :through => :seasons, :dependent => :destroy
   has_many :program_updates, :dependent => :destroy
@@ -30,8 +30,7 @@ class Program < ActiveRecord::Base
                     :s3_headers     => { :content_type => 'application/octet-stream', :content_disposition => 'attachment' },
                     :bucket         => Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
                     :path           => ':attachment/:id/:style/:filename'
-
-
+  
   def self.tvdb_client
     @tvdb_client ||= TVdb::Client.new(APP_CONFIG[:thetvdb]['api_key'])
   end
