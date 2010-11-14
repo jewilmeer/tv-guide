@@ -126,13 +126,13 @@ class Episode < ActiveRecord::Base
     agent        = Browser.agent
     
     # nzbindex
-    # first_page   = agent.get(search_url(true)).forms.last.submit
-    # if (download_links = first_page.links_with(:text => 'Download')).any?
-    #   file = download_links.last.click.save(tmp_filepath)
-    # end
+    first_page   = agent.get(search_url(true)).forms.last.submit
+    if (download_links = first_page.links_with(:text => 'Download')).any?
+      file = download_links.last.click.save(tmp_filepath)
+    end
     
     # newzleech
-    file = agent.get( search_url(true) ).links_with(:href => /\?m=gen/).last.click.save(tmp_filepath)
+    # file = agent.get( search_url(true) ).links_with(:href => /\?m=gen/).last.click.save(tmp_filepath)
     
     return 'failed to download' unless file
     
