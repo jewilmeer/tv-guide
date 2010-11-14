@@ -27,11 +27,11 @@ class Configuration < ActiveRecord::Base
   end
   
   def params
-    # filter_data[:nzb][:params]
-    {
-      :min => '100',
-      :m => 'search'
-    }
+    filter_data[:nzb][:params]
+    # {
+    #   :min => '100',
+    #   :m => 'search'
+    # }
   end
   
   def additional_terms
