@@ -58,7 +58,7 @@ class Episode < ActiveRecord::Base
   end
   
   def age
-    (airdate - Date.today).to_i.abs.succ
+    (airs_at.to_date - Date.today).to_i.abs.succ
   end
 
   def search_url(hd = false)
