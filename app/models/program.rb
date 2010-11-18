@@ -35,7 +35,7 @@ class Program < ActiveRecord::Base
     @tvdb_client ||= TVdb::Client.new(APP_CONFIG[:thetvdb]['api_key'])
   end
   
-  def self.search(query, options = {})
+  def self.tvdb_search(query, options = {})
     # setup tvdb wrapper client
     self.tvdb_client.search(query.downcase.humanize, options)
   end
@@ -240,7 +240,7 @@ class Program < ActiveRecord::Base
   end
   
   def get_tvdb_id
-    self.class.search(self.name, :match_mode => :exact).first['seriesid']
+    self.class.tvdb_search(self.name, :match_mode => :exact).first['seriesid']
   end
   
   def tvdb_update
