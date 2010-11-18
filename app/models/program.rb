@@ -40,6 +40,14 @@ class Program < ActiveRecord::Base
     self.tvdb_client.search(query.downcase.humanize, options)
   end
 
+  def self.search(query)
+    if query
+      search_for(query, :on => [:name, :search_term, :description])
+    else
+      scoped
+    end
+  end
+
   def active_configuration
     @active_configuration ||= (self.configuration ? self.configuration : Configuration.default)
   end

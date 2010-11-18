@@ -199,6 +199,7 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
+    will_paginate (3.0.pre2)
     xml-simple (1.0.12)
     zip (2.0.2)
 
@@ -234,4 +235,5 @@ DEPENDENCIES
   ruby-openid
   sqlite3-ruby
   webrat
+  will_paginate (= 3.0.pre2)
   zip
