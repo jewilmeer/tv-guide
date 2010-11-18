@@ -15,6 +15,7 @@ class Episode < ActiveRecord::Base
   scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
   
   before_save :airs_at
+  before_update :update_airs_at
   
   attr_accessor :options, :name, :episode, :filters, :real_filename
   
@@ -156,6 +157,10 @@ class Episode < ActiveRecord::Base
       :description => tvdb_hash['Overview'] ? tvdb_hash['Overview'].force_encoding('utf-8') : nil, 
       :airdate     => Date.parse(tvdb_hash['FirstAired'])
     })
+  end
+  
+  def update_airs_at
+    @airs_at = self.airs_at if airdate_changed?
   end
   
   def airs_at
