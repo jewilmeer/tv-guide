@@ -202,7 +202,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block; }
   h1 span.header, h2 span.header, h3 span.header, h4 span.header, h5 span.header, h6 span.header {
     float: left; }
-  h1 .header_link a, h1 .header_links a, h2 .header_link a, h2 .header_links a, h3 .header_link a, h3 .header_links a, h4 .header_link a, h4 .header_links a, h5 .header_link a, h5 .header_links a, h6 .header_link a, h6 .header_links a {
+  h1 .header_link a, h1 .header_link input, h1 .header_links a, h1 .header_links input, h2 .header_link a, h2 .header_link input, h2 .header_links a, h2 .header_links input, h3 .header_link a, h3 .header_link input, h3 .header_links a, h3 .header_links input, h4 .header_link a, h4 .header_link input, h4 .header_links a, h4 .header_links input, h5 .header_link a, h5 .header_link input, h5 .header_links a, h5 .header_links input, h6 .header_link a, h6 .header_link input, h6 .header_links a, h6 .header_links input {
     font-size: 12px; }
   h1 .header_link, h2 .header_link, h3 .header_link, h4 .header_link, h5 .header_link, h6 .header_link {
     float: right; }

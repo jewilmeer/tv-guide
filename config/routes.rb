@@ -12,7 +12,7 @@ TvEpisodes::Application.routes.draw do
   resources :programs do 
     collection do
       post :suggest
-      get :search, :check
+      get :search, :check, :guide
     end
     resources :seasons, :updates
     resources :episodes do

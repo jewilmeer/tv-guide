@@ -1,9 +1,12 @@
 class ProgramsController < ApplicationController
-  
+  helper_method :sort_column, :sort_direction
   before_filter :find_program, :except => [:index, :create, :suggest, :search, :check]
   
   def index
-    # @programs = Program.by_name
+    @programs = Program.search(params[:q]).by_status.order(sort_column + ' ' + sort_direction).paginate :per_page => 30, :page => params[:page]
+  end
+  
+  def guide
     @future_episodes = Episode.by_airs_at.airs_at_after(Time.now).limited(30)
     @past_episodes   = Episode.by_airs_at(:desc).airs_at_before(Time.now).limited(30)
   end
@@ -57,7 +60,7 @@ class ProgramsController < ApplicationController
   end
   
   def search
-    @programs = Program.search_for(params[:term], :on => [:name, :search_term]).all(:select => 'id, name')
+    @programs = Program.search_for(params[:term], :on => [:name, :search_term, :description]).all(:select => 'id, name')
     respond_to do |format|
       format.js { render :json => @programs.map{|p| {:id => p.id, :label => p.name, :value => p.name} } }
     end
@@ -80,4 +83,14 @@ class ProgramsController < ApplicationController
   def find_program
     @program = Program.find(params[:id]) if params[:id]
   end
+  
+  protected
+  def sort_column
+    Program.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+  
 end
