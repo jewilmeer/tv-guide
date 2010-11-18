@@ -13,7 +13,7 @@ class ProgramsController < ApplicationController
   end
     
   def suggest
-    @programs = Program.search(params[:q].downcase)
+    @programs = Program.tvdb_search(params[:q].downcase)
     # exact match?
     if @programs.length == 1 && @programs.first['seriesname'].downcase == params[:q].downcase
       current_user.programs << Program.find_or_create_by_name(@programs.first['seriesname'])
