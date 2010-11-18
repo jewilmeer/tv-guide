@@ -1,0 +1,50 @@
+.half-column.flt-left
+  .column-block
+    %h1 Upcoming episodes
+    .body
+      .row_seperator
+      - if @future_episodes.any?
+        %ul.program_guide
+          - @future_episodes.all(:include => :program).each do |episode|
+            - next unless episode.program
+            %li
+              %strong
+                == #{link_to episode.program.name, episode.program}
+                == - #{link_to episode.title, [episode.program, episode]} (#{episode.season_and_episode})
+              %br
+              - if episode.airs_at
+                - if episode.airs_at.future?
+                  == Airing on #{l episode.airs_at, :format => :with_day}
+                - else
+                  == Aired on #{l episode.airs_at, :format => :with_day}
+      - else
+        %p.nothing No upcoming programs yet
+.half-column.flt-right
+  .column-block
+    %h1 Past episodes
+    .body
+      .row_seperator
+      - if @past_episodes.any?
+        %ul.program_guide
+          = render :partial => 'episodes/episode', :collection => @past_episodes.all(:include => :program)
+          / - @past_episodes.all(:include => :program).each do |episode|
+          /   - next unless episode.program
+          /   %li
+          /     %strong
+          /       == #{link_to episode.program.name, episode.program}
+          /       == - #{link_to episode.title, [episode.program, episode]} (#{episode.season_and_episode})
+          /     %br
+          /     - if episode.airs_at.future?
+          /       == Airing on #{l episode.airs_at, :format => :with_day}
+          /     - else
+          /       == Aired on #{l episode.airs_at, :format => :with_day}
+          /     - if current_user && current_user.trusted? && episode.airs_at.past?
+          /       %br
+          /       = link_to 'Search', search_episode_path(episode), :target => '_blank'
+          /       \|
+          /       = link_to 'Search HD', search_episode_path(episode, :hd => true), :target => '_blank'
+          /       - if episode.nzb?
+          /         \|
+          /         = link_to 'Download', download_episode_path(episode) 
+      - else
+        %p.nothing No programs yet
