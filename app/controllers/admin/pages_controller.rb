@@ -1,12 +1,12 @@
 class Admin::PagesController < AdminAreaController
-  
+  helper_method :sort_column, :sort_direction
   before_filter :get_page, :only => [:edit, :update]
   # admin homepage
   def root
   end
 
   def index
-    @pages = Page.all
+    @pages = Page.order(sort_column + ' ' + sort_direction).paginate :per_page => 30, :page => params[:page]
     @page  = Page.new
   end
   
@@ -25,8 +25,18 @@ class Admin::PagesController < AdminAreaController
     redirect_to([:admin, :pages])
   end
   
+  protected
   def find_page
     @page = Page.find_by_name(params[:id])
     raise ActiveRecord::RecordNotFound unless @page
   end
+
+  def sort_column
+    Page.column_names.include?(params[:sort]) ? params[:sort] : "title"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+  
 end

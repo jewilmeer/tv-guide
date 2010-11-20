@@ -122,7 +122,27 @@ table
       //   border-bottom: 1px solid #999
     td
       padding: 5px
-
+  &.list
+    border: 1px solid #ccc
+    th,td
+      border-left: 1px solid #ccc
+      border-bottom: 1px solid #ccc
+      a
+        color: #000
+        font-weight: bold
+    th
+      font-weight: bold
+      padding: 5px
+      a.sorted
+        padding-right: 12px
+        background-repeat: no-repeat
+        background-position: right center
+        &.asc
+          background-image: url('/images/up_arrow.png')
+        &.desc
+          background-image: url('/images/down_arrow.png')
+    td a
+      text-decoration: none
 section
   +clear
 .odd

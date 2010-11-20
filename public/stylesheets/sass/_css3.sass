@@ -1,3 +1,4 @@
+/* CSS3 */
 =rounded_corners
   -moz-border-radius: 5px 5px
   -webkit-border-radius: 5px 5px
@@ -6,4 +7,16 @@
   -moz-border-bottom-right-radius: 5px
   -webkit-border-bottom-left-radius: 5px
   -webkit-border-bottom-right-radius: 5px
-  
+
+table.list 
+  thead th
+    background: -moz-linear-gradient(top, #ddd,#aaa)
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ddd), color-stop(1.0, #aaa))
+  tbody tr
+    &:nth-child(odd)
+      background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7)
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f2f2f2), color-stop(1.0, #e7e7e7))
+    &:nth-child(even)
+      background: -moz-linear-gradient(top, #f7f7f7, #efefef)
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f7f7f7), color-stop(1.0, #efefef))
+      
