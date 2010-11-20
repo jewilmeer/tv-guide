@@ -30,7 +30,7 @@ $(function()
   $("input:submit").button();
   $('button').button({});
   
-  $('table.list tbody tr:visible').reapplyOddEven();
+  // $('table.list tbody tr:visible').reapplyOddEven();
   $('textarea').autoResize({animate: true}).trigger('change');  
   
   $('textarea[placeholder], input[placeholder]').placeholder();
@@ -52,6 +52,8 @@ $(function()
         $(this).find('.extra_info').fadeOut(500);
       }
     });
+    
+  $('.list [title]').tipsy({fade: true, gravity: 's'})
 });
 
 // no user, clear display

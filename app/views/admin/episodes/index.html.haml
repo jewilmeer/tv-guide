@@ -1,69 +1,28 @@
-%style
-  :sass
-    tr
-      padding: 0
-      margin: 0
-      td
-        line-height: 26px
-    .episode 
-      .trigger
-        position: relative
-        display: inline-block
-        vertical-align: bottom
-        .tooltip
-          li
-            margin: 2px 2px !important
-            padding: 2px 5px
-            background-color: transparent !important
-            border-bottom: 1px solid #ddd
-            &:last-child
-              border: 0px solid black
-          border: 1px solid #ddd
-          // margin: 2px 0
-          // padding: 0
-          -moz-border-radius: 5px
-          -webkit-border-radius: 5px
-          background-color: rgba(255,255,255,.8)
-          position: absolute
-          top: 0
-          left: 100px
-          z-index: 2
-- content_for(:bottom_js_domready) do
-  :plain
-    $('.episode .trigger').live('hover',
-      function(e) {
-        if( e.type == 'mouseover' )
-        {
-          $(this).find('.tooltip').fadeIn(500);
-        } else {
-          $(this).find('.tooltip').fadeOut(200);
-        }
-    });
-
 .column-block
   %h1 Episode Downloads
   .body
     - if @episodes.any?
-      %table  
+      %table.list
         %thead
           %tr
-            %th Episode
-            %th Airdate
+            %th= sortable('title', 'Episode title')
+            %th= sortable('airs_at', 'Airdate')
             %th Nr of downloaders
             %th
         %tbody
           - @episodes.uniq.each do |episode|
             %tr[episode]
               %td
-                = link_to episode.program.name, episode.program 
+                = link_to episode.program.name, episode.program
                 \- 
                 = link_to episode.full_episode_title, episode
               %td= l(episode.airs_at, :format => :long)
               %td.trigger
-                %abbr== downloaded #{pluralize episode.users.count, 'times'} by ...
-                %ul.tooltip{:style => 'display: none'}
-                  - episode.users.uniq.each do |user|
-                    %li=user.login
+                %abbr{:title => "by #{episode.users.uniq.map(&:login).to_sentence}"}== downloaded #{pluralize episode.users.count, 'times'}
+                / %ul.tooltip{:style => 'display: none'}
+                /   - episode.users.uniq.each do |user|
+                /     %li=user.login
               %td= link_to icon_tag('info'), [:admin, episode]
+      = will_paginate @episodes
     - else
       %p.nothing 
