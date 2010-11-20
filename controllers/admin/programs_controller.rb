@@ -77,7 +77,7 @@ class Admin::ProgramsController < AdminAreaController
   end
   
   def sort_column
-    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    Program.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
   
   def sort_direction
