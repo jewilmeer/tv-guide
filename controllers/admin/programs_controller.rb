@@ -1,9 +1,11 @@
 class Admin::ProgramsController < AdminAreaController
+  helper_method :sort_column, :sort_direction
   before_filter :find_program, :except => [:index, :new, :create]
+
   # GET /admin_programs
   # GET /admin_programs.xml
   def index
-    @programs = Program.order('status, name').all
+    @programs = Program.by_status.order(sort_column + ' ' + sort_direction).paginate :per_page => 25, :page => params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -68,8 +70,17 @@ class Admin::ProgramsController < AdminAreaController
     end
   end
   
+  protected
   def find_program
     @program = Program.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @program
+  end
+  
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

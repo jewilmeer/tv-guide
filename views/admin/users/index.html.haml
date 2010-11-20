@@ -4,25 +4,25 @@
   %table.full_width.list
     %thead
       %tr
-        %th Url
-        %th Registerd at
-        %th Last request
-        %th Nr of logins
+        %th= sortable 'login', 'User'
+        %th= sortable 'created_at', 'Registerd at'
+        %th= sortable 'last_request_at', 'Last request'
+        %th= sortable 'login_count', 'Nr of logins'
         %th Nr of programs
         %th.controls
     %tbody
       - @users.each do |user|
         %tr
-          %td= link_to user.login, [user, :programs]
+          %td= link_to user.login, [user, :programs], :title => user.email
           %td= l user.created_at, :format => :long
           %td= user.last_request_at? ? "#{distance_of_time_in_words_to_now(user.last_request_at)} ago" : '-'
-          %td= user.login_count
+          %td= pluralize(user.login_count, 'time')
           %td= pluralize(user.programs.count, 'program')
           %td
-            = link_to icon_tag('info'), [:admin, user]
-            = link_to icon_tag('page_edit'), edit_admin_user_path(user)
-            = link_to icon_tag('delete'), [:admin, user], :confirm => 'Are you sure?', :method => :delete
-  
+            = link_to icon_tag('info'), [:admin, user], :title => 'More information'
+            = link_to icon_tag('page_edit'), edit_admin_user_path(user), :title => 'Edit this user'
+            = link_to icon_tag('delete'), [:admin, user], :confirm => 'Are you sure?', :method => :delete, :title => 'Remove this user'
+  = will_paginate @users
 - else
   %p No users yet!
 %br
