@@ -58,6 +58,17 @@ legend {
 del, ins {
   text-decoration: none; }
 
+/* CSS3 */
+table.list thead th {
+  background: -moz-linear-gradient(top, #dddddd, #aaaaaa);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #aaaaaa)); }
+table.list tbody tr:nth-child(odd) {
+  background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7)); }
+table.list tbody tr:nth-child(even) {
+  background: -moz-linear-gradient(top, #f7f7f7, #efefef);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
+
 @font-face {
   font-family: GraublauWeb;
   src: url("../fonts/GraublauWeb.otf"); }
@@ -167,6 +178,27 @@ table {
     background-color: rgba(0, 0, 0, 0.1); }
   table tbody td {
     padding: 5px; }
+  table.list {
+    border: 1px solid #cccccc; }
+    table.list th, table.list td {
+      border-left: 1px solid #cccccc;
+      border-bottom: 1px solid #cccccc; }
+      table.list th a, table.list td a {
+        color: black;
+        font-weight: bold; }
+    table.list th {
+      font-weight: bold;
+      padding: 5px; }
+      table.list th a.sorted {
+        padding-right: 12px;
+        background-repeat: no-repeat;
+        background-position: right center; }
+        table.list th a.sorted.asc {
+          background-image: url("/images/up_arrow.png"); }
+        table.list th a.sorted.desc {
+          background-image: url("/images/down_arrow.png"); }
+    table.list td a {
+      text-decoration: none; }
 
 section {
   zoom: 1; }
@@ -681,3 +713,62 @@ header ul.main_navigation {
     height: 0;
     clear: both;
     display: block; }
+
+.pagination {
+  margin: 15px 0;
+  text-align: center; }
+  .pagination a, .pagination strong, .pagination span, .pagination em {
+    border: 1px solid #cccccc;
+    padding: 5px 10px;
+    margin: 0 3px 0 0; }
+  .pagination strong {
+    background: #ffcc33;
+    font-weight: bold; }
+  .pagination a:hover {
+    border: 1px solid #777777;
+    background: #eeeeee;
+    text-decoration: none;
+    background: -moz-linear-gradient(top, #fdfcfc, #d7d3d3);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fdfcfc), color-stop(1, #d7d3d3)); }
+  .pagination span {
+    color: #bbbbbb; }
+
+.tipsy {
+  padding: 5px;
+  font-size: 10px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  background-repeat: no-repeat;
+  background-image: url(../images/tipsy.gif); }
+
+.tipsy-inner {
+  padding: 5px 8px 4px 8px;
+  background-color: black;
+  color: white;
+  max-width: 200px;
+  text-align: center;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; }
+
+.tipsy-north {
+  background-position: top center; }
+
+.tipsy-south {
+  background-position: bottom center; }
+
+.tipsy-east {
+  background-position: right center; }
+
+.tipsy-west {
+  background-position: left center; }
+
+/* CSS3 */
+table.list thead th {
+  background: -moz-linear-gradient(top, #dddddd, #aaaaaa);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #aaaaaa)); }
+table.list tbody tr:nth-child(odd) {
+  background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7)); }
+table.list tbody tr:nth-child(even) {
+  background: -moz-linear-gradient(top, #f7f7f7, #efefef);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
