@@ -148,11 +148,9 @@ ActiveRecord::Schema.define(:version => 20101013213328) do
 
   create_table "users", :force => true do |t|
     t.string   "email",                                  :null => false
-    t.string   "password_salt",                          :null => false
-    t.string   "last_sign_in_ip"
+    t.string   "password_salt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "oauth_uid"
     t.boolean  "admin",               :default => false
     t.boolean  "trusted",             :default => false
     t.string   "login"
