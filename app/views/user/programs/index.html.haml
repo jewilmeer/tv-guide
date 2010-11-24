@@ -14,17 +14,17 @@
     Your episode guide
   - else
     == #{@user.login.humanize}'s episode guide
-
+.row_seperator
 .half-column.flt-left
   .column-block
-    %h2 
+    %h2.no_bottom_margin
       %span.header Recently aired
       - if current_user && current_user == @user && current_user.trusted?
         .header_link
-          = link_to 'rss', tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss)
+          = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss)
     .body
       - if @past_episodes.any?
-        %ul.program_guide= render :partial => 'episodes/episode', :collection => @past_episodes
+        %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @past_episodes
       - else
         %p.nothing No previous shows
 .half-column.flt-right
@@ -51,6 +51,6 @@
     %h2 Upcoming episodes
     .body
       - if @upcomming_episodes.any?
-        %ul.program_guide= render :partial => 'episodes/episode', :collection => @upcomming_episodes
+        %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @upcomming_episodes
       - else
         %p.nothing No upcoming shows

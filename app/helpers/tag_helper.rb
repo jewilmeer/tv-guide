@@ -1,5 +1,7 @@
 module TagHelper
   def icon_tag(icon, options = {})
-    image_tag("icons/combined/16x16/#{icon}.png", options.merge({:size => '16x16', :class => :icon}))
+    default_options = {:size => '16x16'}
+    options = default_options.merge(options)
+    image_tag("icons/combined/#{options[:size]}/#{icon}.png", options.merge({:size => options[:size], :class => :icon}))
   end
 end

@@ -59,13 +59,21 @@ del, ins {
   text-decoration: none; }
 
 /* CSS3 */
-table.list thead th {
+.content h1, .content h2, .content h3, .content h4 {
+  background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7));
+  -moz-border-top-left-radius: 5px;
+  -moz-border-top-right-radius: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px; }
+
+.list thead th {
   background: -moz-linear-gradient(top, #dddddd, #aaaaaa);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #aaaaaa)); }
-table.list tbody tr:nth-child(odd) {
+.list tbody tr:nth-child(odd), .list li:nth-child(odd) {
   background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7)); }
-table.list tbody tr:nth-child(even) {
+.list tbody tr:nth-child(even), .list li:nth-child(even) {
   background: -moz-linear-gradient(top, #f7f7f7, #efefef);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
 
@@ -200,6 +208,19 @@ table {
     table.list td a {
       text-decoration: none; }
 
+ol.list, ul.list {
+  margin: 0 !important; }
+  ol.list li, ul.list li {
+    border-bottom: 1px solid #999999;
+    margin: 0 !important;
+    padding: 5px; }
+    ol.list li:nth-child(odd), ul.list li:nth-child(odd) {
+      background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7)); }
+    ol.list li:nth-child(even), ul.list li:nth-child(even) {
+      background: -moz-linear-gradient(top, #f7f7f7, #efefef);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
+
 section {
   zoom: 1; }
   section:after {
@@ -234,8 +255,10 @@ h1, h2, h3, h4, h5, h6 {
     display: block; }
   h1 span.header, h2 span.header, h3 span.header, h4 span.header, h5 span.header, h6 span.header {
     float: left; }
-  h1 .header_link a, h1 .header_link input, h1 .header_links a, h1 .header_links input, h2 .header_link a, h2 .header_link input, h2 .header_links a, h2 .header_links input, h3 .header_link a, h3 .header_link input, h3 .header_links a, h3 .header_links input, h4 .header_link a, h4 .header_link input, h4 .header_links a, h4 .header_links input, h5 .header_link a, h5 .header_link input, h5 .header_links a, h5 .header_links input, h6 .header_link a, h6 .header_link input, h6 .header_links a, h6 .header_links input {
-    font-size: 12px; }
+  h1 .header_link, h1 .header_links, h2 .header_link, h2 .header_links, h3 .header_link, h3 .header_links, h4 .header_link, h4 .header_links, h5 .header_link, h5 .header_links, h6 .header_link, h6 .header_links {
+    padding-right: 10px; }
+    h1 .header_link a, h1 .header_link input, h1 .header_links a, h1 .header_links input, h2 .header_link a, h2 .header_link input, h2 .header_links a, h2 .header_links input, h3 .header_link a, h3 .header_link input, h3 .header_links a, h3 .header_links input, h4 .header_link a, h4 .header_link input, h4 .header_links a, h4 .header_links input, h5 .header_link a, h5 .header_link input, h5 .header_links a, h5 .header_links input, h6 .header_link a, h6 .header_link input, h6 .header_links a, h6 .header_links input {
+      font-size: 12px; }
   h1 .header_link, h2 .header_link, h3 .header_link, h4 .header_link, h5 .header_link, h6 .header_link {
     float: right; }
     h1 .header_link a, h2 .header_link a, h3 .header_link a, h4 .header_link a, h5 .header_link a, h6 .header_link a {
@@ -311,7 +334,7 @@ h1 small, h1 small a {
     .column-block .body ul, .column-block .body ol {
       margin-left: 10px; }
       .column-block .body ul li, .column-block .body ol li {
-        margin: 2px 0px;
+        margin: 0px;
         line-height: 20px;
         border-bottom: 1px solid #bbbbbb; }
     .column-block .body p {
@@ -570,16 +593,15 @@ hgroup {
       top: 0;
       right: 10px; }
   #wrapper .content .column-block .body ul.program_guide {
-    margin: 10px;
     padding: 0; }
     #wrapper .content .column-block .body ul.program_guide li {
-      padding: 5px; }
+      padding: 10px; }
   #wrapper .content .column-block .body ul.mini_guide, #wrapper .content .column-block .body ul.my_programs {
     margin: 0;
     padding: 0; }
     #wrapper .content .column-block .body ul.mini_guide li, #wrapper .content .column-block .body ul.my_programs li {
-      padding: 2px 5px;
-      margin: 0 5px; }
+      padding: 2px 10px;
+      margin: 0; }
       #wrapper .content .column-block .body ul.mini_guide li a, #wrapper .content .column-block .body ul.my_programs li a {
         line-height: 30px; }
 
@@ -588,6 +610,10 @@ hgroup {
 
 .content {
   padding: 10px; }
+  .content h1, .content h2, .content h3, .content h4 {
+    padding: 10px 0 10px 10px; }
+    .content h1.no_bottom_margin, .content h2.no_bottom_margin, .content h3.no_bottom_margin, .content h4.no_bottom_margin {
+      padding-bottom: 0; }
 
 p.nothing {
   margin: 50px auto;
@@ -763,12 +789,20 @@ header ul.main_navigation {
   background-position: left center; }
 
 /* CSS3 */
-table.list thead th {
+.content h1, .content h2, .content h3, .content h4 {
+  background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7));
+  -moz-border-top-left-radius: 5px;
+  -moz-border-top-right-radius: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px; }
+
+.list thead th {
   background: -moz-linear-gradient(top, #dddddd, #aaaaaa);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #aaaaaa)); }
-table.list tbody tr:nth-child(odd) {
+.list tbody tr:nth-child(odd), .list li:nth-child(odd) {
   background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7)); }
-table.list tbody tr:nth-child(even) {
+.list tbody tr:nth-child(even), .list li:nth-child(even) {
   background: -moz-linear-gradient(top, #f7f7f7, #efefef);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
