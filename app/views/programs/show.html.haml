@@ -92,7 +92,7 @@
               %th Title
               %th{:width => 150} Airdate
           %tbody
-          - season.episodes.by_id(:desc).each do |episode|
+          - season.episodes.by_nr(:desc).each do |episode|
             %tr[episode]
               %td
                 = link_to episode.full_episode_title, [@program, episode]
