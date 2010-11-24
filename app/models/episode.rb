@@ -8,7 +8,6 @@ class Episode < ActiveRecord::Base
   validates :title, :season_id, :program_id, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_id, :program_id]}
   
-  scope :by_nr, lambda {|nr| {:conditions => {:nr => nr} } }
   scope :downloaded, {:conditions => {:downloaded => true} }
   scope :season_episode_matches, lambda{|season, episode| {:include => :season, :conditions => ['episodes.nr = :episode AND seasons.nr = :season ', {:episode => episode, :season => season}] } }
   # scope :watched_by_user, lambda{|programs| {:conditions => ['season_id IN (?)', programs.map(&:season_ids).flatten] }}
