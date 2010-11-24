@@ -160,14 +160,10 @@ class Episode < ActiveRecord::Base
   end
   
   def update_airs_at(forced=false)
-    if forced
-      if airdate
-        @airs_at = Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + '-6' )
-      else
-        @airs_at = nil 
-      end
+    if airdate
+      @airs_at = Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + '-6' )
     else
-      @airs_at = self.airs_at if airdate_changed?
+      @airs_at = nil 
     end
   end
   
