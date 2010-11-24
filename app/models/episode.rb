@@ -59,6 +59,7 @@ class Episode < ActiveRecord::Base
   end
   
   def age
+    0 unless airs_at
     (airs_at.to_date - Date.today).to_i.abs.succ
   end
 
