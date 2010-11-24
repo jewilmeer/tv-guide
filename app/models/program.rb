@@ -43,7 +43,7 @@ class Program < ActiveRecord::Base
   def self.search(query)
     if query
       if %w(development test).include?(Rails.env)
-        where(query , :on => [:name, :search_term, :description]) 
+        search_for(query , :on => [:name, :search_term, :description]) 
       else
         where(['name ILIKE :query OR search_term ILIKE :query OR overview ILIKE :query', {:query => "%#{query}%"}])
       end

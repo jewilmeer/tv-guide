@@ -143,6 +143,20 @@ table
           background-image: url('/images/down_arrow.png')
     td a
       text-decoration: none
+ol, ul
+  &.list
+    margin: 0 !important
+    li
+      border-bottom: 1px solid #999
+      margin: 0 !important
+      padding: 5px
+      &:nth-child(odd)
+        background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7)
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f2f2f2), color-stop(1.0, #e7e7e7))
+      &:nth-child(even)
+        background: -moz-linear-gradient(top, #f7f7f7, #efefef)
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f7f7f7), color-stop(1.0, #efefef))
+    
 section
   +clear
 .odd

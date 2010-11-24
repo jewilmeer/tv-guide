@@ -4,13 +4,14 @@
       %h2 New episodes
       .body
         - if @new_episodes.any?
-          %ol= render :partial => 'episodes/episode', :collection => @new_episodes, :locals => { :addition_info => :created_at }
+          %ol.list= render :partial => 'episodes/episode', :collection => @new_episodes, :locals => { :addition_info => :created_at }
         - else
           %p.nothing No new episodes found, huh!?
   .half-column.flt-right
     .column-block
       %h2 Program updates
       .body
+        .row_seperator
         - if @program_updates.any?
           - @program_updates.each do |update|
             -next unless update.real_updates.any?

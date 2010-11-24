@@ -16,14 +16,14 @@
     %h3 Upcomming episodes
     .body
       - if @upcoming_episodes.any?
-        %ul.mini_guide= render :partial => 'episodes/episode', :collection => @upcoming_episodes
+        %ul.list.mini_guide= render :partial => 'episodes/episode', :collection => @upcoming_episodes
       - else
         %p.nothing No upcoming episodes known
   .column-block
     %h3 Last added episodes
     .body
       - if @latest_episodes.any?
-        %ul.mini_guide= render :partial => 'episodes/episode', :collection => @latest_episodes, :locals => {:addition_info => :created_at}
+        %ul.list.mini_guide= render :partial => 'episodes/episode', :collection => @latest_episodes, :locals => {:addition_info => :created_at}
       - else
         %p.nothing No latest additions found
       
