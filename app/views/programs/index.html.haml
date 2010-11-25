@@ -27,7 +27,11 @@
           - @programs.each do |program|
             %tr
               %td= link_to program.name, program
-              %td= pluralize(program.users.count, 'watcher')
+              %td
+                - if program.users.any?
+                  %abbr{:title => program.users.map(&:login).to_sentence}= pluralize(program.users.count, 'watcher')
+                - else
+                  no watchers
               %td= program.status
               %td
                 - if next_episode = program.episodes.airs_at_in_future.first
