@@ -166,6 +166,9 @@ p {
   margin: 10px 5px;
   line-height: 16px; }
 
+abbr, acronym {
+  border-bottom: 0.1em dotted; }
+
 .hidden {
   display: none; }
 

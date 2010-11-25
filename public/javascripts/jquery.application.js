@@ -53,7 +53,7 @@ $(function()
       }
     });
     
-  $('.list [title]').tipsy({fade: true, gravity: 's'})
+  $('[title]').tipsy({fade: true, gravity: 's'})
 });
 
 // no user, clear display
