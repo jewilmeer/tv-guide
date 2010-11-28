@@ -21,7 +21,7 @@
       %span.header Recently aired
       - if current_user && current_user == @user && current_user.trusted?
         .header_link
-          = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss)
+          = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)'
     .body
       - if @past_episodes.any?
         %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @past_episodes
