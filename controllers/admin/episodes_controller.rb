@@ -22,7 +22,7 @@ class Admin::EpisodesController < AdminAreaController
   end
   
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
   
 end
