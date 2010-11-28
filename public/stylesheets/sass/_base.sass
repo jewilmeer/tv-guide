@@ -148,6 +148,7 @@ ol, ul
   &.list
     margin: 0 !important
     li
+      position: relative
       border-bottom: 1px solid #999
       margin: 0 !important
       padding: 5px
@@ -157,6 +158,10 @@ ol, ul
       &:nth-child(even)
         background: -moz-linear-gradient(top, #f7f7f7, #efefef)
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f7f7f7), color-stop(1.0, #efefef))
+      .right_top
+        position: absolute
+        top: 10px
+        right: 10px
     
 section
   +clear
