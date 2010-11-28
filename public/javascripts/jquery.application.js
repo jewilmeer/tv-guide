@@ -43,13 +43,13 @@ $(function()
     text: false
   })
   
-  $('.program_update').live('hover', 
+  $('.program_update, .list li').live('hover', 
     function(e) {
       if( e.type == 'mouseover' )
       {
-        $(this).find('.extra_info').fadeIn(200);
+        $(this).find('.extra_info, .hover').fadeIn(200);
       } else {
-        $(this).find('.extra_info').fadeOut(500);
+        $(this).find('.extra_info, .hover').fadeOut(500);
       }
     });
     
