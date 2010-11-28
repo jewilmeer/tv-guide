@@ -45,8 +45,7 @@ $(function()
   
   $('.program_update, .list li').live('hover', 
     function(e) {
-      console.log(e.type);
-      if( e.type == 'mouseover' )
+      if( e.type == 'mouseover' || e.type == 'mouseenter' )
       {
         $(this).find('.extra_info, .hover').fadeIn(200);
       } else {
