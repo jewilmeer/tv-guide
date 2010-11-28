@@ -214,6 +214,7 @@ table {
 ol.list, ul.list {
   margin: 0 !important; }
   ol.list li, ul.list li {
+    position: relative;
     border-bottom: 1px solid #999999;
     margin: 0 !important;
     padding: 5px; }
@@ -223,6 +224,10 @@ ol.list, ul.list {
     ol.list li:nth-child(even), ul.list li:nth-child(even) {
       background: -moz-linear-gradient(top, #f7f7f7, #efefef);
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
+    ol.list li .right_top, ul.list li .right_top {
+      position: absolute;
+      top: 10px;
+      right: 10px; }
 
 section {
   zoom: 1; }
@@ -595,17 +600,18 @@ hgroup {
       position: absolute;
       top: 0;
       right: 10px; }
-  #wrapper .content .column-block .body ul.program_guide {
+  #wrapper ul.program_guide {
     padding: 0; }
-    #wrapper .content .column-block .body ul.program_guide li {
+    #wrapper ul.program_guide li {
+      position: relative;
       padding: 10px; }
-  #wrapper .content .column-block .body ul.mini_guide, #wrapper .content .column-block .body ul.my_programs {
+  #wrapper ul.mini_guide, #wrapper ul.my_programs {
     margin: 0;
     padding: 0; }
-    #wrapper .content .column-block .body ul.mini_guide li, #wrapper .content .column-block .body ul.my_programs li {
+    #wrapper ul.mini_guide li, #wrapper ul.my_programs li {
       padding: 2px 10px;
       margin: 0; }
-      #wrapper .content .column-block .body ul.mini_guide li a, #wrapper .content .column-block .body ul.my_programs li a {
+      #wrapper ul.mini_guide li a, #wrapper ul.my_programs li a {
         line-height: 30px; }
 
 .full_width {
