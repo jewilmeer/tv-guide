@@ -4,6 +4,7 @@ class Episode < ActiveRecord::Base
   belongs_to :season
   belongs_to :program, :touch => true
   has_and_belongs_to_many :users
+  has_many :interactions, :dependent => :nullify
   
   validates :title, :season_id, :program_id, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_id, :program_id]}
@@ -75,14 +76,6 @@ class Episode < ActiveRecord::Base
   
   def season_and_episode
     "S#{"%02d" % season.to_i}E#{episode}"
-  #   if self.program.active_configuration.roman?
-  #     "pt #{nr.to_s_roman}"
-  #   else
-  #     
-  #   end
-  # rescue StandardError => e
-  #   logger.debug e
-  #   "S#{"%02d" % season.to_i}E#{episode}"
   end
   
   def full_episode_title
