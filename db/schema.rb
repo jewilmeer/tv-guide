@@ -10,23 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101013213328) do
-
-  create_table "admins", :force => true do |t|
-    t.string   "email",                                            :null => false
-    t.string   "encrypted_password", :limit => 128,                :null => false
-    t.string   "password_salt",                                    :null => false
-    t.integer  "sign_in_count",                     :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.integer  "failed_attempts",                   :default => 0
-    t.string   "unlock_token"
-    t.datetime "locked_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20101129182725) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -88,6 +72,17 @@ ActiveRecord::Schema.define(:version => 20101013213328) do
 
   add_index "images_programs", ["program_id", "image_id"], :name => "index_images_programs_on_program_id_and_image_id"
 
+  create_table "interactions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "episode_id"
+    t.integer  "program_id"
+    t.string   "format",           :default => "nzb"
+    t.string   "interaction_type"
+    t.string   "end_point"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.string   "permalink"
@@ -107,7 +102,6 @@ ActiveRecord::Schema.define(:version => 20101013213328) do
 
   create_table "programs", :force => true do |t|
     t.string   "name"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "search_term"
@@ -148,9 +142,11 @@ ActiveRecord::Schema.define(:version => 20101013213328) do
 
   create_table "users", :force => true do |t|
     t.string   "email",                                  :null => false
-    t.string   "password_salt"
+    t.string   "password_salt",                          :null => false
+    t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "oauth_uid"
     t.boolean  "admin",               :default => false
     t.boolean  "trusted",             :default => false
     t.string   "login"

@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :programs, :uniq => true
   has_and_belongs_to_many :episodes
   has_many :authentications
+  has_many :interactions, :dependent => :nullify
   
   # attr_accessible :login, :password, :password_confirmation
   

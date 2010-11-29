@@ -13,9 +13,9 @@
         == Aired on #{l episode.airs_at, :format => :with_day}
       - if current_user && current_user.trusted? && episode.airs_at.past?
         %br
-        = link_to 'Search', search_program_episode_path(program, episode), :target => '_blank'
+        = link_to 'Search', search_program_episode_path(program, episode, :format => :nzb), :target => '_blank'
         \|
-        = link_to 'Search HD', search_program_episode_path(program, episode, :hd => true), :target => '_blank'
+        = link_to 'Search HD', search_program_episode_path(program, episode, :hd => true, :format => :nzb), :target => '_blank'
         - if episode.nzb?
           \|
           = link_to 'Download', program_episode_path(program, episode, :format => :nzb)
