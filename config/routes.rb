@@ -42,7 +42,7 @@ TvEpisodes::Application.routes.draw do
   namespace :admin do
     root :to => 'pages#root'
     resources :programs, :users, :pages, :configurations
-    resources :episodes, :authentications
+    resources :episodes, :authentications, :interactions
   end
   
   root :to => "pages#index"
