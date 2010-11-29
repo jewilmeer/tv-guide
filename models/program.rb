@@ -7,6 +7,7 @@ class Program < ActiveRecord::Base
   has_many :seasons, :dependent => :destroy
   has_many :episodes, :through => :seasons, :dependent => :destroy
   has_many :program_updates, :dependent => :destroy
+  has_many :interactions, :dependent => :nullify
   has_and_belongs_to_many :users, :uniq => true
   has_one :configuration, :dependent => :destroy
   has_and_belongs_to_many :images
@@ -59,13 +60,7 @@ class Program < ActiveRecord::Base
   def banners
     @banners ||= self.class.tvdb_client.get_banners(self.tvdb_id)
   end
-  
-  # def banner
-  #   @banner ||= (
-  #     read_attribute(:banner) || get_banner
-  #   )
-  # end
-  
+
   def tvdb_banner_url
     "http://www.thetvdb.com/banners/" + banners.detect{|banner| banner[:subtype] == 'graphical' }[:path]
   rescue StandardError

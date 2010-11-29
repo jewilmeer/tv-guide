@@ -13,7 +13,15 @@ class EpisodesController < ApplicationController
 
           # redirect for links living on external storage
           path = @episode.nzb.path
-          redirect_to(AWS::S3::S3Object.url_for(@episode.nzb.path, @episode.nzb.bucket_name, :expires_in => 10.seconds))
+          current_user.interactions.create({
+            :user => current_user, 
+            :program => @episode.program, 
+            :episode => @episode, 
+            :interaction_type => 'download',
+            :format => params[:format] || 'nzb',
+            :end_point => path
+          })
+          redirect_to(AWS::S3::S3Object.url_for(path, @episode.nzb.bucket_name, :expires_in => 10.seconds))
         else
           search
         end
@@ -25,12 +33,19 @@ class EpisodesController < ApplicationController
   end
 
   def download_from_rss
-    
-    render :text => "Current_user: #{current_user.inspect}"
   end
   
   def search
-    redirect_to @episode.search_url(params[:hd])
+    end_point = @episode.search_url(params[:hd])
+    current_user.interactions.create({
+      :user => current_user, 
+      :program => @episode.program, 
+      :episode => @episode, 
+      :interaction_type => params[:hd] ? 'search HD' : 'search',
+      :format => params[:format] || 'nzb',
+      :end_point => end_point
+    })
+    redirect_to end_point
   end
   
   def mark
