@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/odorcicd/authlogic.git
-  revision: a087ad0cba3c165ba22fcf176c28b6f7517931e8
+  revision: a087ad0
   branch: rails3
   specs:
     authlogic (2.1.3)
@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/thoughtbot/pacecar.git
-  revision: beba2773b1db61943d85bd93f50f973e85ad2190
+  revision: beba277
   branch: rails3
   specs:
     pacecar (1.2.0)
