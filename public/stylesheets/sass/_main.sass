@@ -25,6 +25,7 @@ hgroup
     li
       position: relative
       padding: 10px
+      +clear
   ul
     &.mini_guide, &.my_programs
       margin: 0
@@ -34,7 +35,32 @@ hgroup
         margin: 0
         a
           line-height: 30px
-
+    &.options_bar
+      margin: 0
+      padding: 0
+      position: relative
+      width: 48%
+      float: left
+      li
+        background: transparent
+        -webkit-box-shadow: #CCC 1px 1px 3px
+        -moz-box-shadow: #CCC 1px 1px 3px
+        +rounded-corners
+        border: 1px solid #eee
+        display: inline-block
+        padding: 2px
+        &:hover
+          background-color: rgba(0,0,0,0.2)
+          -webkit-box-shadow: #AAA 1px 1px 3px
+          -moz-box-shadow: #AAA 1px 1px 3px
+          border: 1px solid #999
+        a img
+          vertical-align: bottom
+.episode
+  .comments
+    float: right
+    width: 100px
+    text-align: right
 .full_width
   width: 100%
 
