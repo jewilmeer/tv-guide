@@ -1,17 +1,18 @@
 class Episode < ActiveRecord::Base
   include Pacecar
+  include ActionView::Helpers::SanitizeHelper
   
   belongs_to :season
   belongs_to :program, :touch => true
   has_and_belongs_to_many :users
   has_many :interactions, :dependent => :nullify
+  has_many :downloads, :dependent => :destroy
   
   validates :title, :season_id, :program_id, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_id, :program_id]}
   
   scope :downloaded, {:conditions => {:downloaded => true} }
   scope :season_episode_matches, lambda{|season, episode| {:include => :season, :conditions => ['episodes.nr = :episode AND seasons.nr = :season ', {:episode => episode, :season => season}] } }
-  # scope :watched_by_user, lambda{|programs| {:conditions => ['season_id IN (?)', programs.map(&:season_ids).flatten] }}
   scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
   
   before_save :airs_at
@@ -114,26 +115,43 @@ class Episode < ActiveRecord::Base
     "#{id}-#{title.parameterize}"
   end
   
-  def get_nzb
+  def get_nzb( options = {} )
+    default_options = {
+      :format => :nzb,
+      :hd => true
+    }
+    options       = default_options.merge(options)
+    download_type = "#{options[:format]}_#{options[:hd] ? 'hd' : 'sd'}"
+
     logger.debug "Getting nzbfile from #{search_url}"
     tmp_filepath = "tmp/#{filename}.nzb"
     agent        = Browser.agent
+
+    download = self.downloads.find_or_initialize_by_download_type(download_type)
     
     # nzbindex
-    first_page   = agent.get(search_url(true)).forms.last.submit
-    if (download_links = first_page.links_with(:text => 'Download')).any?
+    next_page   = agent.get(search_url(true)).forms.last.submit
+    if (download_links = next_page.links_with(:text => 'Download')).any?
+      download.origin = strip_tags(Nokogiri::HTML(next_page.body).css('td label').last.to_s)
       file = download_links.last.click.save(tmp_filepath)
+      download.file   = file
+      download.site   = 'nzbindex.nl'
+      download.save!
     end
-    
+
     # newzleech
     # file = agent.get( search_url(true) ).links_with(:href => /\?m=gen/).last.click.save(tmp_filepath)
     
-    return 'failed to download' unless file
+    # 
+    # TODO ADD THE DOWNLOAD AT THE RIGHT PLACE
+    # 
     
-    File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file  }
-    return 'failed to download (empty file)' unless self.nzb.size > 0
-    self.save
-    File.delete(tmp_filepath)
+    # return 'failed to download' unless file
+    # 
+    # File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file  }
+    # return 'failed to download (empty file)' unless self.nzb.size > 0
+    # self.save
+    # File.delete(tmp_filepath)
   end
   
   def tvdb_info=(tvdb_info)
@@ -165,5 +183,11 @@ class Episode < ActiveRecord::Base
   rescue StandardError => e
     logger.debug e
     nil
+  end
+  
+  def working?
+    last_blame = self.interactions.interaction_type_is('blame').last
+    return true unless last_blame
+    false
   end
 end

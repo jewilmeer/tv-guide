@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101129182725) do
+ActiveRecord::Schema.define(:version => 20101130174533) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                            :null => false
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(:version => 20101129182725) do
     t.integer  "program_id"
     t.boolean  "active",      :default => true
     t.text     "filter_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "downloads", :force => true do |t|
+    t.integer  "episode_id"
+    t.string   "download_type"
+    t.string   "download_file_name"
+    t.string   "download_content_type"
+    t.integer  "download_file_size"
+    t.string   "origin"
+    t.string   "site"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

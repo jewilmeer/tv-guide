@@ -10,11 +10,9 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'logging'
 gem 'file-utils'
 gem 'haml'
-gem 'rails3-generators'
-gem 'pacecar', :git => 'git://github.com/thoughtbot/pacecar.git', :branch => 'rails3'
+gem 'pacecar', '~>1.3.0'
 gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 gem 'will_paginate', '3.0.pre2'
-gem 'annotate'
 
 # search
 # gem 'thinkingtank'

@@ -123,8 +123,14 @@ h1, h2, h3, h4 {
   color: #ff6600;
   padding: 10px;
     padding-left: 0; }
-  h1 a, h2 a, h3 a, h4 a {
-    color: #ff6600; }
+  h1 a, h1 span.header a, h2 a, h2 span.header a, h3 a, h3 span.header a, h4 a, h4 span.header a {
+    color: #ff6600;
+    font-weight: bold;
+    text-decoration: none; }
+  h1 .header_link a, h1 .header_link a, h2 .header_link a, h2 .header_link a, h3 .header_link a, h3 .header_link a, h4 .header_link a, h4 .header_link a {
+    color: #ff6600;
+    font-weight: normal;
+    text-decoration: underline; }
 
 h1 {
   font-size: 18px; }
@@ -227,7 +233,8 @@ ol.list, ul.list {
     ol.list li .right_top, ul.list li .right_top {
       position: absolute;
       top: 10px;
-      right: 10px; }
+      right: 10px;
+      text-align: right; }
 
 section {
   zoom: 1; }
@@ -283,8 +290,6 @@ h1, h2, h3, h4, h5, h6 {
 
 h1.with_margin {
   margin: 2px; }
-h1 a {
-  color: white; }
 h1 small, h1 small a {
   font-size: 80%;
   color: #dddddd; }
@@ -604,7 +609,13 @@ hgroup {
     padding: 0; }
     #wrapper ul.program_guide li {
       position: relative;
-      padding: 10px; }
+      padding: 10px;
+      zoom: 1; }
+      #wrapper ul.program_guide li:after {
+        content: "";
+        height: 0;
+        clear: both;
+        display: block; }
   #wrapper ul.mini_guide, #wrapper ul.my_programs {
     margin: 0;
     padding: 0; }
@@ -613,6 +624,33 @@ hgroup {
       margin: 0; }
       #wrapper ul.mini_guide li a, #wrapper ul.my_programs li a {
         line-height: 30px; }
+  #wrapper ul.options_bar {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 48%;
+    float: left; }
+    #wrapper ul.options_bar li {
+      background: transparent;
+      -webkit-box-shadow: #cccccc 1px 1px 3px;
+      -moz-box-shadow: #cccccc 1px 1px 3px;
+      -moz-border-radius: 5px 5px;
+      -webkit-border-radius: 5px 5px;
+      border: 1px solid #eeeeee;
+      display: inline-block;
+      padding: 2px; }
+      #wrapper ul.options_bar li:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: #aaaaaa 1px 1px 3px;
+        -moz-box-shadow: #aaaaaa 1px 1px 3px;
+        border: 1px solid #999999; }
+      #wrapper ul.options_bar li a img {
+        vertical-align: bottom; }
+
+.episode .comments {
+  float: right;
+  width: 100px;
+  text-align: right; }
 
 .full_width {
   width: 100%; }

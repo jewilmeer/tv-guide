@@ -24,7 +24,7 @@
           = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)'
     .body
       - if @past_episodes.any?
-        %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @past_episodes
+        %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @past_episodes, :locals => {:comments => true}
       - else
         %p.nothing No previous shows
 .half-column.flt-right
@@ -51,6 +51,18 @@
     %h2 Upcoming episodes
     .body
       - if @upcomming_episodes.any?
-        %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @upcomming_episodes
+        %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @upcomming_episodes, :locals => {:comments => true}
       - else
         %p.nothing No upcoming shows
+:javascript
+  /*** CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE ***/
+  var disqus_shortname = 'digitaltvguide'; // required: replace example with your forum shortname
+
+  /*** DON'T EDIT BELOW THIS LINE ***/
+  (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+  
