@@ -10,8 +10,12 @@
     %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
     
     %title TV guide Admin
-    = javascript_include_tag 'jquery-1.4.2.min', 'rails', 'jquery-ui-1.8.4.custom.min', 'jquery.dotimeout', 'jquery.select_autocomplete', 'jquery.autoresize.min','jquery.placeholder', 'jquery.tipsy', 'jquery.application', 'http://connect.facebook.net/en_US/all.js'
-    
+    = javascript_include_tag 'modernizr-1.6.min'
+    - if Rails.env.production?
+      %script{:src => 'http://www.google.com/jsapi?key=ABQIAAAAZ20lqvBNC8rqVuYd86VExhSjF49U_F1OK_kiT6PgH0HHJCssihSGO_C1Xk'}
+      %script
+        google.load('jquery', '1.4')
+        google.load('jqueryui', '1.8')
     = yield :head
   %body
     #wrapper
