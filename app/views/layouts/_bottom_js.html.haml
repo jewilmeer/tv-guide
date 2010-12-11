@@ -1,3 +1,7 @@
+- unless Rails.env.production?
+  = javascript_include_tag 'jquery-1.4.2.min', 'jquery-ui-1.8.4.custom.min'
+= javascript_include_tag 'rails', 'jquery.dotimeout', 'jquery.select_autocomplete', 'jquery.autoresize.min','jquery.placeholder', 'jquery.tipsy', 'jquery.rotate', 'jquery.application', 'http://connect.facebook.net/en_US/all.js'
+
 :javascript
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-151290-3']);
@@ -8,25 +12,17 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+
+  var disqus_shortname = 'digitaltvguide'; // required: replace example with your forum shortname
+  (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
 :javascript
   #{yield :bottom_js}
 
   $(function() {
     #{yield :bottom_js_domready}
   });
-
-#fb-root
-:javascript
-  window.fbAsyncInit = function() {
-    FB.init({appId: '#{APP_CONFIG[:facebook]['app_id']}', status: true, cookie: true, xfbml: true});
-    FB.Event.subscribe('auth.sessionChange', function(response) {
-      if (response.session) {
-        console.log('welcome!');
-        // A user has logged in, and a new cookie has been saved
-      } else {
-        console.log('Bye bye, zwaai zwaai');
-        // The user has logged out, and the cookie has been cleared
-      }
-    });
-  };
-  

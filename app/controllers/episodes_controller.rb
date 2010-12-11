@@ -13,6 +13,7 @@ class EpisodesController < ApplicationController
 
           # redirect for links living on external storage
           path = @episode.nzb.path
+
           current_user.interactions.create({
             :user => current_user, 
             :program => @episode.program, 

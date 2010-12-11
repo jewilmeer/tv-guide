@@ -43,7 +43,7 @@ h1,h2,h3,h4,h5,h6
   font-family: GraublauWeb, arial, sans-serif
 
 a
-  color: #74323b
+  color: $link_color
   text-decoration: underline
 
 a:hover
@@ -51,8 +51,14 @@ a:hover
 
 h1,h2,h3,h4
   color= $header_color
-  a
-    color = $header_link_color
+  a, span.header a
+    color = $header_color
+    font-weight: bold
+    text-decoration: none
+  .header_link a, .header_link a
+    color: $header_color
+    font-weight: normal
+    text-decoration: underline
   padding: 10px
     left: 0
 
@@ -162,6 +168,7 @@ ol, ul
         position: absolute
         top: 10px
         right: 10px
+        text-align: right
     
 section
   +clear

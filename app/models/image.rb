@@ -2,7 +2,7 @@ class Image < ActiveRecord::Base
   
   has_and_belongs_to_many :programs
   
-  has_attached_file :image, 
+  has_attached_file :image,
     :styles => { :banner => "642x220#", :thumb => "100x100>" },
     :storage        => :s3,
     :s3_credentials => "#{Rails.root}/config/s3.yml",

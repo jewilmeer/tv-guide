@@ -54,16 +54,9 @@ $(function()
     });
     
   $('[title]').tipsy({fade: true, gravity: 's'})
+  
+  $('.episode .options_bar a.refresh').Jrotate();
 });
-
-// no user, clear display
-function clearDisplay() {
-  $('#user-info').hide('fast');
-}
-
-// handle a session response from any of the auth related calls
-function handleSessionResponse(response) {  
-}
 
 (function($) {
   // currently this function is accepting a set of tr elements or a tbody element (set)
