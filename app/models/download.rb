@@ -1,0 +1,29 @@
+class Download < ActiveRecord::Base
+  include Pacecar
+  
+  belongs_to :episode
+  
+  validates_presence_of :origin, :site, :download_type
+  
+  has_attached_file :download,
+    :storage        => :s3,
+    :s3_credentials => "#{Rails.root}/config/s3.yml",
+    :s3_permissions => 'public-read',
+    :s3_protocol    => 'http',
+    :bucket         => Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
+    :path           => ':attachment/:id/:style/:filename'
+
+  def filename
+    'download'
+  end
+  
+  def file=(file)
+    tmp_filepath = "tmp/#{filename}.nzb"
+    tmp_file = file.save(tmp_filepath)
+    File.open(tmp_filepath) do |nzb_file| 
+      self.download = nzb_file  
+    end
+    File.delete(tmp_filepath)
+  end
+  
+end
