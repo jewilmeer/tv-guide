@@ -23,9 +23,6 @@ $(function()
     }
   });
   
-  // turn select boxes to auto completes
-  // $('select.autocomplete').autocomplete();
-  
   // jquery-ui fancy buttons
   $("input:submit").button();
   $('button').button({});
@@ -56,6 +53,13 @@ $(function()
   $('[title]').tipsy({fade: true, gravity: 's'})
   
   $('.episode .options_bar a.refresh').Jrotate();
+  
+  $('.mainmenu a').each( function() {
+    var $this = $(this);
+    if( $this.attr('href') == document.location.pathname ) {
+      $this.parent('li').addClass('current');
+    }
+  });
 });
 
 (function($) {

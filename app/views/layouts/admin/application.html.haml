@@ -18,19 +18,20 @@
         google.load('jqueryui', '1.8')
     = yield :head
   %body
-    #wrapper
-      %header
-        %hgroup
-          %h1 The admin
-        .user_nav
-          %p== welcome #{link_to current_user.login.humanize, edit_admin_user_path(current_user)}! #{link_to 'Back to the website', root_path} 
+    %header
+      .content
+        %h1 The admin
+        %nav
+          = render 'layouts/admin/navigation'
+          %ul.user_nav
+            %li== welcome #{link_to current_user.login.humanize, edit_admin_user_path(current_user)}! 
+            %li= link_to 'Back to the website', root_path
         .loading.hidden
           Loading
           = image_tag 'spinner.gif'
-      = render 'layouts/admin/navigation'
-      .content
-        = render :partial => 'layouts/notifications_and_errors'
-        = yield
-      #footer
+    %section
+      = render :partial => 'layouts/notifications_and_errors'
+      = yield
+    %footer
     = yield :bottom
     = render 'layouts/bottom_js'
