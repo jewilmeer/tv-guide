@@ -13,11 +13,11 @@
   -webkit-border-top-left-radius: 5px
   -webkit-border-top-right-radius: 5px
 
-.content
+section
   h1,h2,h3,h4
-    background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7)
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f2f2f2), color-stop(1.0, #e7e7e7))
-    +rounded_tops
+    background: -moz-linear-gradient(top, $head_bg_color_start, $head_bg_color_inner)
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, $head_bg_color_start), color-stop(1.0, $head_bg_color_inner))
+    +rounded_corners
 .list 
   thead th
     background: -moz-linear-gradient(top, #ddd,#aaa)
