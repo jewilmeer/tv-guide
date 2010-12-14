@@ -1,13 +1,29 @@
+html
+  background-color: $body_bg_color_end
+body
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($body_bg_color_start), to($body_bg_color_end))
+  background: -moz-linear-gradient(top, $body_bg_color_start, $body_bg_color_end)
+  background-color: $body_bg_color_end
+
 hgroup
   +clear
-#wrapper
+
+header 
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($header_gradient_outer_color), color-stop(0.45, $header_gradient_inner_color), color-stop(0.55, $header_gradient_inner_color), to($header_gradient_outer_color))
+  background: -moz-linear-gradient( top, $header_gradient_outer_color, $header_gradient_inner_color 45%, $header_gradient_inner_color 55%, $header_gradient_outer_color )
+  -webkit-box-shadow: black 0 1px 2px
+  -moz-box-shadow: black 0 1px 2px
+  .content
+    margin: 0 auto
+    min-width: 600px
+    max-width: 1024px
+    
+
+section
   +rounded_corners
-  -webkit-box-shadow: #999 1px 1px 8px
-  -moz-box-shadow: #999 1px 1px 8px
   min-width: 600px
   max-width: 1024px
-  background-color: white
-  margin: 10px auto
+  margin: 20px auto 0
   header
     position: relative
     padding: 10px
@@ -15,10 +31,6 @@ hgroup
       position: absolute
       top: 40px
       left: 10px
-    .user_nav
-      position: absolute
-      top: 0
-      right: 10px
 
   ul.program_guide
     padding: 0
@@ -64,12 +76,13 @@ hgroup
 .full_width
   width: 100%
 
-.content
+section
   padding: 10px
   h1,h2,h3,h4
     padding: 10px 0 10px 10px
+    margin-bottom: 20px
     &.no_bottom_margin
-      padding-bottom: 0
+      margin-bottom: 0
 p.nothing
   margin: 50px auto
   font-size: 18px

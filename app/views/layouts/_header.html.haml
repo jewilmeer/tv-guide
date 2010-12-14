@@ -1,19 +1,22 @@
-%hgroup
-  %h1 Digital TV Guide
-  %h2 - The best of all ;-)
+%h1 Digital TV Guide
 .loading{:style => 'display: none'}
   Loading remote content
   = image_tag 'spinner.gif'
-- if current_user
-  .user_nav
-    %p== welcome #{link_to current_user.login.humanize, edit_user_path(current_user)}!
-    %ul.main_navigation
-      %li= link_to 'Home', root_path
+%nav
+  %ul.mainmenu
+    %li= link_to 'Home', root_path
+    %li= link_to 'Guide', guide_programs_path
+    %li= link_to 'Programs', :programs
+    %li= link_to 'Programs updates', pages_program_updates_path
+    
+  %ul.user_nav
+    - if current_user
       %li= link_to 'Guide & Programs', [current_user, :programs]
       %li= link_to "Account", edit_user_path(current_user)
       - if current_user.admin?
         %li= link_to "Admin", admin_root_path
       %li= link_to "Logout", logout_path
-- else
-  .user_nav
-    %p== Welcome guest, please #{link_to 'login', login_path} 
+    - else
+      %li= link_to 'Register', signup_path
+      %li= link_to 'Login', login_path
+        

@@ -16,8 +16,6 @@
   font-weight: bold
   src: url('../fonts/GraublauWebBold.otf')
 
-header, footer, article, section, nav, menu, hgroup //html5
-  display: block
 html
   font-size: 12px
 
@@ -28,13 +26,13 @@ html, body
     color: $bg_color
 
 body
-  //&.normal_font
   font-family: Verdana, Arial, sans-serif
   font-size: 12px
   min-height: 800px
-  padding: 0 10px
+  padding: 0
 header
-  padding: 5px 20px
+  margin: 0
+  padding: 0
   hgroup *
     float: left
     line-height: 22px
@@ -64,16 +62,12 @@ h1,h2,h3,h4
 
 h1
   font-size: 18px
-
 h2
   font-size: 15px
-
 h3
   font-size: 14px
-
 h4
   font-size: 14px
-
 p, label, li
   color: $default_text_color
   line-height: 18px
