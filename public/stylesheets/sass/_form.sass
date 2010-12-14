@@ -13,18 +13,17 @@
     &.required
       font-weight: bold
 
-#columnized-layout
-  .column-block
-    form
-      .entry
-        padding:
-          top: 5px
-        fieldset
-          legend
-            font-size: 12px
-            font-weight: bolder
-          border: none
-            top: 1px solid #cccccc
+.column-block
+  form
+    .entry
+      padding:
+        top: 5px
+      fieldset
+        legend
+          font-size: 12px
+          font-weight: bolder
+        border: none
+          top: 1px solid #cccccc
 
 .form_row
   +form_row_basics
@@ -77,6 +76,10 @@
     width: 200px
   .input_medium, input.medium
     width: 264px
+h1, h2, h3, h4 
+  .form_row 
+    margin-bottom: 0
+    padding-bottom: 0
 
 .form_row_checkbox
   +form_row_basics
