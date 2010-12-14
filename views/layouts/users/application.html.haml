@@ -17,12 +17,12 @@
         google.load('jqueryui', '1.8')
     = yield :head
   %body
-    #wrapper
-      %header= render 'layouts/header'
+    %header
+      .content= render 'layouts/header'
+    %section
       .content
         = render :partial => 'layouts/notifications_and_errors'
         = yield
-      = render 'layouts/footer'
 
     = yield :bottom
     = render 'layouts/bottom_js'
