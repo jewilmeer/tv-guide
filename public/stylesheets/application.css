@@ -443,12 +443,12 @@ section .full-column {
   section .full-column.flt-right {
     float: right; }
 
-#columnized-layout .column-block form .entry {
+.column-block form .entry {
   padding-top: 5px; }
-  #columnized-layout .column-block form .entry fieldset {
+  .column-block form .entry fieldset {
     border: none;
       border-top: 1px solid #cccccc; }
-    #columnized-layout .column-block form .entry fieldset legend {
+    .column-block form .entry fieldset legend {
       font-size: 12px;
       font-weight: bolder; }
 
@@ -518,6 +518,10 @@ section .full-column {
     width: 200px; }
   .form_row .input_medium, .form_row input.medium {
     width: 264px; }
+
+h1 .form_row, h2 .form_row, h3 .form_row, h4 .form_row {
+  margin-bottom: 0;
+  padding-bottom: 0; }
 
 .form_row_checkbox {
   overflow: hidden;
