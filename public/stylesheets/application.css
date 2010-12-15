@@ -118,7 +118,7 @@ a:hover {
 h1, h2, h3, h4 {
   color: #ff6600;
   padding: 10px;
-    padding-left: 0; }
+    padding-bottom: 5px; }
   h1 a, h1 span.header a, h2 a, h2 span.header a, h3 a, h3 span.header a, h4 a, h4 span.header a {
     color: #ff6600;
     font-weight: bold;
@@ -267,7 +267,12 @@ h1, h2, h3, h4, h5, h6 {
   h1 span.header, h2 span.header, h3 span.header, h4 span.header, h5 span.header, h6 span.header {
     float: left; }
   h1 .header_link, h1 .header_links, h2 .header_link, h2 .header_links, h3 .header_link, h3 .header_links, h4 .header_link, h4 .header_links, h5 .header_link, h5 .header_links, h6 .header_link, h6 .header_links {
-    padding-right: 10px; }
+    zoom: 1; }
+    h1 .header_link:after, h1 .header_links:after, h2 .header_link:after, h2 .header_links:after, h3 .header_link:after, h3 .header_links:after, h4 .header_link:after, h4 .header_links:after, h5 .header_link:after, h5 .header_links:after, h6 .header_link:after, h6 .header_links:after {
+      content: "";
+      height: 0;
+      clear: both;
+      display: block; }
     h1 .header_link a, h1 .header_link input, h1 .header_links a, h1 .header_links input, h2 .header_link a, h2 .header_link input, h2 .header_links a, h2 .header_links input, h3 .header_link a, h3 .header_link input, h3 .header_links a, h3 .header_links input, h4 .header_link a, h4 .header_link input, h4 .header_links a, h4 .header_links input, h5 .header_link a, h5 .header_link input, h5 .header_links a, h5 .header_links input, h6 .header_link a, h6 .header_link input, h6 .header_links a, h6 .header_links input {
       font-size: 12px; }
   h1 .header_link, h2 .header_link, h3 .header_link, h4 .header_link, h5 .header_link, h6 .header_link {
@@ -295,13 +300,13 @@ section .row_seperator {
   line-height: 20px; }
 section .column-block {
   zoom: 1;
+  -webkit-box-shadow: #cccccc 1px 1px 3px;
+  -moz-box-shadow: #cccccc 1px 1px 3px;
   -moz-border-radius: 5px 5px 5px 0;
   border-radius: 5px 5px 5px 0;
   background: white;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eeeeee), color-stop(1, white));
-  background: -moz-linear-gradient(top, #eeeeee, #dddddd);
-  -webkit-box-shadow: #cccccc 1px 1px 3px;
-  -moz-box-shadow: #cccccc 1px 1px 3px;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, white), color-stop(0.4, white), color-stop(1, #eeeeee));
+  background: -moz-linear-gradient(top, white, white, #eeeeee);
   margin-bottom: 20px; }
   section .column-block:after {
     content: "";
@@ -317,23 +322,19 @@ section .column-block {
     background-color: #f5f5ee;
     background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7)); }
-  section .column-block h1, section .column-block h2, section .column-block h3, section .column-block h4, section .column-block h5, section .column-block h6 {
-    padding: 5px; }
-    section .column-block h1.no_bg, section .column-block h2.no_bg, section .column-block h3.no_bg, section .column-block h4.no_bg, section .column-block h5.no_bg, section .column-block h6.no_bg {
-      margin: 5px;
-      background-color: transparent;
-      border-bottom: 1px solid #dddddd; }
+  section .column-block h1.no_bg, section .column-block h2.no_bg, section .column-block h3.no_bg, section .column-block h4.no_bg, section .column-block h5.no_bg, section .column-block h6.no_bg {
+    margin: 5px;
+    background-color: transparent;
+    border-bottom: 1px solid #dddddd; }
   section .column-block h2, section .column-block h3 {
     background: -moz-linear-gradient(top, #eeeeee, #dddddd);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eeeeee), color-stop(1, #dddddd));
     border-bottom: 1px solid #d5d5d5; }
   section .column-block h3 {
-    padding: 10px;
     height: 18px;
     font-size: 14px;
     line-height: 18px; }
   section .column-block h4 {
-    padding: 10px;
     line-height: 16px; }
   section .column-block .body {
     padding: 0; }
@@ -630,8 +631,8 @@ section {
       section ul.mini_guide li a, section ul.my_programs li a {
         line-height: 30px; }
   section ul.options_bar {
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     position: relative;
     width: 48%;
     float: left; }
@@ -652,6 +653,9 @@ section {
       section ul.options_bar li a img {
         vertical-align: bottom; }
 
+.program_options {
+  padding: 10px; }
+
 .episode .comments {
   float: right;
   width: 100px;
@@ -663,10 +667,11 @@ section {
 section {
   padding: 10px; }
   section h1, section h2, section h3, section h4 {
-    padding: 10px 0 10px 10px;
     margin-bottom: 20px; }
     section h1.no_bottom_margin, section h2.no_bottom_margin, section h3.no_bottom_margin, section h4.no_bottom_margin {
       margin-bottom: 0; }
+  section h5 {
+    padding: 10px; }
 
 p.nothing {
   margin: 50px auto;
@@ -920,3 +925,30 @@ section h1, section h2, section h3, section h4 {
 .list tbody tr:nth-child(even), .list li:nth-child(even) {
   background: -moz-linear-gradient(top, #f7f7f7, #efefef);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
+
+ul.dsq-widget-list li {
+  -moz-border-radius: 5px 5px;
+  -webkit-border-radius: 5px 5px;
+  -webkit-box-shadow: #cccccc 1px 1px 3px;
+  -moz-box-shadow: #cccccc 1px 1px 3px;
+  background-color: white;
+  margin: 10px;
+  padding: 5px; }
+
+#disqus_thread {
+  zoom: 1;
+  padding: 0 5px; }
+  #disqus_thread:after {
+    content: "";
+    height: 0;
+    clear: both;
+    display: block; }
+  #disqus_thread.flt-left {
+    float: left; }
+  #disqus_thread.flt-right {
+    float: right; }
+
+.dsq-tooltip label {
+  color: white;
+  padding-left: 5px;
+  font-size: 12px; }

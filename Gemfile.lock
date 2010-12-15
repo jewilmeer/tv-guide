@@ -106,8 +106,8 @@ GEM
       oa-enterprise (= 0.1.6)
       oa-oauth (= 0.1.6)
       oa-openid (= 0.1.6)
-    pacecar (1.3.0)
-    paperclip (2.3.6)
+    pacecar (1.4.4)
+    paperclip (2.3.7)
       activerecord
       activesupport
     polyglot (0.3.1)
@@ -166,7 +166,7 @@ DEPENDENCIES
   mysql
   nokogiri
   omniauth
-  pacecar (~> 1.3.0)
+  pacecar
   paperclip
   rails (~> 3.0)
   ruby-openid

@@ -1,17 +1,25 @@
 .full-column
   .half-column.flt-left
+    %h2 New episodes
     .column-block
-      %h2 New episodes
+      
       .body
         - if @new_episodes.any?
-          %ol.list= render :partial => 'episodes/episode', :collection => @new_episodes, :locals => { :addition_info => :created_at }
+          %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @new_episodes, :locals => { :addition_info => :created_at }
         - else
           %p.nothing No new episodes found, huh!?
   .half-column.flt-right
-    .column-block
-      %h2 Program updates
-      .body
-        .row_seperator
+    %h2 Program updates
+    - if @program_updates.any?
+      - @program_updates.each do |update|
+        -next unless update.real_updates.any?
+    
+        .column-block
+          %h3
+            %span.header== Update for #{link_to update.program.name, update.program}
+            .header_link= l(update.created_at, :format => :long)
+          .body!= update_description(update)
+      -#  
         - if @program_updates.any?
           - @program_updates.each do |update|
             -next unless update.real_updates.any?
