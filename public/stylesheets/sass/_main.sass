@@ -48,8 +48,8 @@ section
         a
           line-height: 30px
     &.options_bar
-      margin: 0
-      padding: 0
+      margin: 0 !important
+      padding: 0 !important
       position: relative
       width: 48%
       float: left
@@ -68,6 +68,8 @@ section
           border: 1px solid #999
         a img
           vertical-align: bottom
+.program_options
+  padding: 10px
 .episode
   .comments
     float: right
@@ -79,10 +81,12 @@ section
 section
   padding: 10px
   h1,h2,h3,h4
-    padding: 10px 0 10px 10px
     margin-bottom: 20px
     &.no_bottom_margin
       margin-bottom: 0
+  h5
+    padding: 10px
+    
 p.nothing
   margin: 50px auto
   font-size: 18px

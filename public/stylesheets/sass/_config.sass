@@ -7,7 +7,9 @@
   &:after
     +clear_after
   zoom: 1
-
+=simple_box_shadow
+  -webkit-box-shadow: #CCC 1px 1px 3px
+  -moz-box-shadow: #CCC 1px 1px 3px  
 //$body_bg_color_start         = #FF6600 /* orange */
 $body_bg_color_start         = #64AAd0 /* blue */
 //$body_bg_color_start         = #ff0593 /* pink */
@@ -18,6 +20,8 @@ $section_bg_color            = #eee
 $head_bg_color_start         = darken($body_bg_color_start, 20%)
 $head_bg_color_inner         = darken($body_bg_color_start, 40%)
 $main_nav_hover_bg_color     = $body_bg_color_start
+$column_bg_gradient_start    = #fff
+$column_bg_gradient_stop     = #eee
 
 $link_color         = #74323b
 $link_visited_color = lighten($link_color, 5%)

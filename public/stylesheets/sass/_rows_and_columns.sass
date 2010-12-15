@@ -10,7 +10,7 @@ h1,h2,h3,h4,h5,h6
   span.header
     float: left
   .header_link, .header_links
-    padding-right: 10px
+    +clear
     a, input
       font-size: 12px
   .header_link
@@ -40,13 +40,12 @@ section
 
   .column-block
     +clear
+    +simple_box_shadow
     -moz-border-radius: 5px 5px 5px 0
     border-radius: 5px 5px 5px 0
     background: #fff
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #eee), color-stop(1.0, #fff))
-    background: -moz-linear-gradient(top, #eee,#ddd)
-    -webkit-box-shadow: #CCC 1px 1px 3px
-    -moz-box-shadow: #CCC 1px 1px 3px
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, $column_bg_gradient_start), color-stop(0.4, $column_bg_gradient_start), color-stop(1.0, $column_bg_gradient_stop))
+    background: -moz-linear-gradient(top, $column_bg_gradient_start, $column_bg_gradient_start, $column_bg_gradient_stop)
     margin:
       bottom: 20px
     &.gray, &.grey
@@ -59,7 +58,6 @@ section
       background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7)
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f2f2f2), color-stop(1.0, #e7e7e7))
     h1,h2,h3,h4,h5,h6
-      padding: 5px
       &.no_bg
         margin: 5px
         background-color: transparent
@@ -70,12 +68,10 @@ section
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #eee), color-stop(1.0, #ddd))
       border-bottom: 1px solid #d5d5d5
     h3
-      padding: 10px
       height: 18px
       font-size: 14px
       line-height: 18px
     h4
-      padding: 10px
       line-height: 16px
     .body
       padding: 0
