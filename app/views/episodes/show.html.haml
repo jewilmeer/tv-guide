@@ -3,39 +3,28 @@
   %h1
     = link_to @episode.program.name, @episode.program
     == - Season #{@episode.season.nr} - #{@episode.title}
-%p
-  == Airdate: #{l @episode.airs_at, :format => :long} 
-  - if @episode.airs_at.past?
-    == (#{distance_of_time_in_words_to_now(@episode.airs_at)} ago)
-  - else
-    == (in about #{distance_of_time_in_words_to_now(@episode.airs_at)})
+  .body
+    %p
+      == Airdate: #{l @episode.airs_at, :format => :long} 
+      - if @episode.airs_at.past?
+        == (#{distance_of_time_in_words_to_now(@episode.airs_at)} ago)
+      - else
+        == (in about #{distance_of_time_in_words_to_now(@episode.airs_at)})
   
-%p= @episode.description
+    %p= @episode.description
 
-%p
-  - if current_user && current_user.trusted? && @episode.airs_at && @episode.airs_at.past?
-    %button.download= link_to "Download nzb", download_program_episode_path(@episode.program, @episode)
-    %button= link_to 'Search', search_program_episode_path(@episode.program, @episode), :target => '_blank'
-    %button= link_to 'Search HD', search_program_episode_path(@episode.program, @episode, :hd => true), :target => '_blank'
-    or
-  = link_to 'go back', :back
-  
-:plain
-  <div id="disqus_thread"></div>
-  <script type="text/javascript">
-      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-      var disqus_shortname = 'digitaltvguide'; // required: replace example with your forum shortname
+    %p
+      - if current_user && current_user.trusted? && @episode.airs_at && @episode.airs_at.past?
+        %button.download= link_to "Download nzb", download_program_episode_path(@episode.program, @episode)
+        %button= link_to 'Search', search_program_episode_path(@episode.program, @episode), :target => '_blank'
+        %button= link_to 'Search HD', search_program_episode_path(@episode.program, @episode, :hd => true), :target => '_blank'
+        or
+      = link_to 'go back', :back
 
-      // The following are highly recommended additional parameters. Remove the slashes in front to use.
-      var disqus_identifier = '#{dom_id(@episode)}';
-      #{ "var disqus_developer = 1;" if Rails.env.development?  }
-      var disqus_url = '#{program_episode_url(@episode)}';
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+.column-block
+  %h2 Comments
+  .body
+    #disqus_thread
+:javascript
+  var disqus_identifier = '#{dom_id(@episode)}';
+  var disqus_url        = '#{program_episode_url(@episode)}';

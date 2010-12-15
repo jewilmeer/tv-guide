@@ -29,52 +29,50 @@
 %h1== Programma: #{@program.name} [#{@program.status}]
 
 %section
-  = image_tag( @program.banner_url, :class => :flt_left ) if @program.banner?
-  %ul.flt_right 
-    %li
-      - if @program.users.any?
-        %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
-      - else
-        No watchers
-    %li== Last updated #{distance_of_time_in_words_to_now(@program.tvdb_last_update)} ago
-    %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
-    %li= link_to 'View update list', program_updates_path(@program)
-    - if current_user
-      %li= link_to 'Check for updates', edit_program_path(@program), :id => :check_update, :remote => true, :'ajax:loading' => 'checking...'
-      - if current_user.programs.include?(@program)
-        %li= link_to 'Remove from your episode guide', user_program_path(current_user, @program), :method => :delete
-      - else
-        %li= link_to 'Add to your episode guide', user_programs_path(current_user, :id => @program.id), :method => :post
-
-.row_seperator
-%table
-  %tr
-    %th{:width => 100} Runtime
-    %td= pluralize( @program.runtime, 'minute')
-    %th{:width => 100} Genres
-    %td= @program.genres.to_sentence(:last_word_connector => ' and ')
-    %th{:width => 100} Network
-    %td{:width => 150}= @program.network
-  %tr
-    %th Next episode
-    %td
-      - if episode = @program.episodes.airs_at_after(Time.now).first
-        = l episode.airs_at, :format => :long
-      - else
-        \-
-    %th Thetvdb rating
-    %td= @program.tvdb_rating || 'Not available'
-    %th Content rating
-    %td= @program.contentrating || 'Not available'
-  - if @program.actors.any?
-    %tr
-      %th.top Actors
-      %td{:colspan => 5}= @program.actors.to_sentence(:last_word_connector => ' and ')
-  %tr
-    %th.top Overview
-    %td{:colspan => 5}= @program.overview
-
-.row_seperator
+  .column-block
+    .body
+      = image_tag( @program.banner_url, :class => :flt_left ) if @program.banner?
+      %ul.program_options.flt_right 
+        %li
+          - if @program.users.any?
+            %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
+          - else
+            No watchers
+        %li== Last updated #{distance_of_time_in_words_to_now(@program.tvdb_last_update)} ago
+        %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
+        %li= link_to 'View update list', program_updates_path(@program)
+        - if current_user
+          %li= link_to 'Check for updates', edit_program_path(@program), :id => :check_update, :remote => true, :'ajax:loading' => 'checking...'
+          - if current_user.programs.include?(@program)
+            %li= link_to 'Remove from your episode guide', user_program_path(current_user, @program), :method => :delete
+          - else
+            %li= link_to 'Add to your episode guide', user_programs_path(current_user, :id => @program.id), :method => :post
+      %table
+        %tr
+          %th{:width => 100} Runtime
+          %td= pluralize( @program.runtime, 'minute')
+          %th{:width => 100} Genres
+          %td= @program.genres.to_sentence(:last_word_connector => ' and ')
+          %th{:width => 100} Network
+          %td{:width => 150}= @program.network
+        %tr
+          %th Next episode
+          %td
+            - if episode = @program.episodes.airs_at_after(Time.now).first
+              = l episode.airs_at, :format => :long
+            - else
+              \-
+          %th Thetvdb rating
+          %td= @program.tvdb_rating || 'Not available'
+          %th Content rating
+          %td= @program.contentrating || 'Not available'
+        - if @program.actors.any?
+          %tr
+            %th.top Actors
+            %td{:colspan => 5}= @program.actors.to_sentence(:last_word_connector => ' and ')
+        %tr
+          %th.top Overview
+          %td{:colspan => 5}= @program.overview
 
 - if @program.seasons.any?
   .tabs
@@ -115,25 +113,15 @@
                 - else
                   \-
 - else
-  %p.nothing No seasons yet!
-
-:plain
-  <div id="disqus_thread"></div>
-  <script type="text/javascript">
-      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-      var disqus_shortname = 'digitaltvguide'; // required: replace example with your forum shortname
-
-      // The following are highly recommended additional parameters. Remove the slashes in front to use.
-      var disqus_identifier = '#{dom_id(@program)}';
-      #{ "var disqus_developer = 1;" if Rails.env.development?  }
-      var disqus_url = '#{program_url(@program)}';
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  .column-block
+    .body
+      %p.nothing No seasons yet!
+.row_seperator
   
+.column-block
+  %h2 Comments
+  .body
+    #disqus_thread
+:javascript
+  var disqus_identifier = '#{dom_id(@program)}';
+  var disqus_url = '#{program_url(@program)}';

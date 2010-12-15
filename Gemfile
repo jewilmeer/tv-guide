@@ -10,7 +10,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'logging'
 gem 'file-utils'
 gem 'haml'
-gem 'pacecar', '~>1.3.0'
+gem 'pacecar'
 gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 gem 'will_paginate', '3.0.pre2'
 
@@ -39,6 +39,8 @@ gem 'omniauth'
 # Bundle gems for certain environments:
 group :development do
   gem 'mysql'
+  # gem 'rack-bug', :branch => 'rails3', :require => 'rack/bug'
+  # gem 'rails-footnotes', :git => 'git://github.com/irjudson/rails-footnotes.git'
   # gem 'rspec', :git => 'git://github.com/rspec/rspec.git', :branch => 'v2.0.0.beta.8'
   # gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git', :branch => 'v2.0.0.beta.8'
   # gem 'cucumber'
