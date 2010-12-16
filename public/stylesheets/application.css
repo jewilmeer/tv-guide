@@ -834,6 +834,8 @@ header {
         header nav ul.user_nav li {
           padding: 2px 10px;
           border-right: 1px solid #1d485f; }
+          header nav ul.user_nav li.current {
+            font-weight: bold; }
           header nav ul.user_nav li:last-child {
             border-right: 0px solid transparent; }
 
