@@ -3,7 +3,8 @@ class Download < ActiveRecord::Base
   
   belongs_to :episode
   
-  validates_presence_of :origin, :site, :download_type
+  validates_presence_of :origin, :site, :download_type, :download_file_name
+  validate :download_type, :uniqueness => { :scope => [:episode_id, :origin] }
   
   has_attached_file :download,
     :storage        => :s3,
@@ -19,7 +20,7 @@ class Download < ActiveRecord::Base
   
   def file=(file)
     tmp_filepath = "tmp/#{filename}.nzb"
-    tmp_file = file.save(tmp_filepath)
+    tmp_file     = file.save(tmp_filepath)
     File.open(tmp_filepath) do |nzb_file| 
       self.download = nzb_file  
     end
