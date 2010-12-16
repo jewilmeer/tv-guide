@@ -54,7 +54,7 @@ $(function()
   
   $('.episode .options_bar a.refresh').Jrotate();
   
-  $('.mainmenu a').each( function() {
+  $('.mainmenu a, .user_nav a').each( function() {
     var $this = $(this);
     if( $this.attr('href') == document.location.pathname ) {
       $this.parent('li').addClass('current');
