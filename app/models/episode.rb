@@ -133,10 +133,12 @@ class Episode < ActiveRecord::Base
     next_page   = agent.get(search_url(true)).forms.last.submit
     if (download_links = next_page.links_with(:text => 'Download')).any?
       download.origin = strip_tags(Nokogiri::HTML(next_page.body).css('td label').last.to_s)
-      file = download_links.last.click.save(tmp_filepath)
+      file = download_links.last.click#.save(tmp_filepath)
       download.file   = file
       download.site   = 'nzbindex.nl'
       download.save!
+    else
+      logger.debug "No downloads found at #{search_url(true)}"
     end
 
     # newzleech
