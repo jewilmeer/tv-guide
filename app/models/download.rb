@@ -28,5 +28,4 @@ class Download < ActiveRecord::Base
     end
     File.delete(tmp_filepath)
   end
-  
 end
