@@ -7,12 +7,14 @@ class Download < ActiveRecord::Base
   validate :download_type, :uniqueness => { :scope => [:episode_id, :origin] }
   
   has_attached_file :download,
+    :processors => [], 
     :storage        => :s3,
     :s3_credentials => "#{Rails.root}/config/s3.yml",
     :s3_permissions => 'public-read',
     :s3_protocol    => 'http',
+    :s3_headers     => { :content_type => 'application/octet-stream', :content_disposition => 'attachment' },
     :bucket         => Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
-    :path           => ':attachment/:id/:style/:filename'
+    :path           => ':attachment/:id/:style/:filename.nzb'
 
   def filename
     'download'
