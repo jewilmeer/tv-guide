@@ -21,7 +21,7 @@ class User::ProgramsController < UserAreaController
     @programs           = @user.programs.by_name
     basic_episodes      = Episode.watched_by_user(@user.programs)
     @upcomming_episodes = basic_episodes.by_airs_at.airs_at_after(Time.now).limit(6)
-    @past_episodes      = basic_episodes.by_airs_at(:desc).airs_at_before(Time.now).limit(20)
+    @past_episodes      = basic_episodes.by_airs_at(:desc).airs_at_before(Time.now).includes(:downloads).limit(20)
   end
 
   def aired
