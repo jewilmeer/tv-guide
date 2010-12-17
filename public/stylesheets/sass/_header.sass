@@ -7,6 +7,10 @@ header
   h1
     width: 300px
     float: left
+    a
+      font-weight: normal
+      &:hover
+        text-decoration: none
   nav
     +clear
     height: 100%
@@ -45,6 +49,7 @@ header
         bottom: -18px
         right: 0
         border-radius: 4px
+        -moz-border-radius: 4px
         background-color: $header_gradient_outer_color
         margin: 0
         padding: 0 5px
