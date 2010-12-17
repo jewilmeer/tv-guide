@@ -17,7 +17,7 @@ class Download < ActiveRecord::Base
     :path           => ':attachment/:id/:style/:filename.nzb'
 
   def filename
-    'download'
+    episode.filename
   end
   
   def file=(file)
