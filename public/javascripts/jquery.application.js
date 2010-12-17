@@ -52,7 +52,7 @@ $(function()
     
   $('[title]').tipsy({fade: true, gravity: 's'})
   
-  $('.episode .options_bar a.refresh').Jrotate();
+  $('.episode .icon.refresh').Jrotate();
   
   $('.mainmenu a, .user_nav a').each( function() {
     var $this = $(this);

@@ -1,31 +1,42 @@
 (function($) {
   $.fn.Jrotate = function(options) {
     var defaults = {
-      speed: 30
+      degrees: 10, //degrees that should be rotated
+      speed: 30 //degrees that should be rotated
     }
     options = $.extend({}, defaults, options);
     
     return this.each(function() {
       // init the index      
       var $this = $(this);
-      $this.data('Jindex', 0);
       $this.data('options', options);
-      
-      $this.click( function() {
+      $this.data('current_degrees', 0);
+      $this.hover( function() {
         $this.data('cancel.jrotate', false);
-        $this.doTimeout((speed/3), function() {
-          if( $this.data('cancel.jrotate') == true ) return;
-          var index = $(this).data('Jindex');
-          if ( index >= $(this).data('options').degrees.length ) {
-            index = 0;
-          }
-        
-          $this.css('-webkit-transform', 'rotate('+ $this.data('options').degrees[index]  +'deg)');
-          $(this).data('Jindex', index + 1);
+        $this.doTimeout((options['speed']), function() {
+          // cancel the loop
+          if( $this.data('cancel.jrotate') == true ) return false;
+          
+          // set the new current_degrees and apply them
+          var current_degrees = $this.data('current_degrees') + options['degrees'];
+          $this.data('current_degrees', current_degrees );
+          $this.css('-webkit-transform', 'rotate('+ current_degrees +'deg)');
+          $this.css('-moz-transform', 'rotate('+ current_degrees +'deg)');
           return true;
         });
+      }, function() {
+        $this.data('cancel.jrotate', true);
       });
-      
     });
   };
+  $.fn.Jrotate.rotate_start = function() {
+    
+  },
+  $.fn.Jrotate.rotate_step = function() {
+    
+  },
+  $.fn.Jrotate.rotate_stop = function() {
+    
+  }
+  
 })(jQuery);

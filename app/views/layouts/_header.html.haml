@@ -1,4 +1,4 @@
-%h1 Digital TV Guide
+%h1= link_to_unless_current 'Digital TV Guide', root_path
 .loading{:style => 'display: none'}
   Loading remote content
   = image_tag 'spinner.gif'
