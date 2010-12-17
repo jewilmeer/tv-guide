@@ -11,10 +11,10 @@ class Episode < ActiveRecord::Base
   validates :title, :season_id, :program_id, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_id, :program_id]}
   
-  scope :downloaded, {:conditions => {:downloaded => true} }
+  scope :downloaded, where(['downloaded=?', true])
   scope :season_episode_matches, lambda{|season, episode| {:include => :season, :conditions => ['episodes.nr = :episode AND seasons.nr = :season ', {:episode => episode, :season => season}] } }
-  scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
-  
+  # scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
+  scope :no_downloads_present, includes(:downloads).where('downloads.id IS NULL')
   before_save :airs_at
   before_update :update_airs_at
   
@@ -136,9 +136,10 @@ class Episode < ActiveRecord::Base
       file = download_links.last.click#.save(tmp_filepath)
       download.file   = file
       download.site   = 'nzbindex.nl'
-      download.save!
+      download.save
     else
       logger.debug "No downloads found at #{search_url(true)}"
+      false
     end
 
     # newzleech
@@ -191,5 +192,9 @@ class Episode < ActiveRecord::Base
     last_blame = self.interactions.interaction_type_is('blame').last
     return true unless last_blame
     false
+  end
+  
+  def self.watched_by_user(program_ids)
+    where('episodes.program_id IN (?)', program_ids)
   end
 end

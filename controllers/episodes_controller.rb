@@ -7,22 +7,20 @@ class EpisodesController < ApplicationController
       format.html {}
       format.nzb  do
         require_user
-        if @episode.nzb?
-          # track donwnloads
-          current_user.episodes << @episode
-
+        if @episode.downloads.any?
           # redirect for links living on external storage
-          path = @episode.nzb.path
+          download = @episode.downloads.last
+          path     = download.download.path
 
           current_user.interactions.create({
-            :user => current_user, 
-            :program => @episode.program, 
-            :episode => @episode, 
+            :user             => current_user, 
+            :program          => @episode.program, 
+            :episode          => @episode, 
             :interaction_type => 'download',
-            :format => params[:format] || 'nzb',
-            :end_point => path
+            :format           => params[:format] || 'nzb',
+            :end_point        => path
           })
-          redirect_to(AWS::S3::S3Object.url_for(path, @episode.nzb.bucket_name, :expires_in => 10.seconds))
+          redirect_to(AWS::S3::S3Object.url_for(path, download.download.bucket_name, :expires_in => 10.seconds))
         else
           search
         end
