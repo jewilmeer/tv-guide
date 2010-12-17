@@ -7,8 +7,11 @@ class Admin::EpisodesController < AdminAreaController
   end
 
   def update
-    @episode.get_nzb
-    redirect_to :back
+    success = @episode.get_nzb
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js   { render :status => :ok, :text => success}
+    end
   end
   
   protected
