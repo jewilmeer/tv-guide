@@ -71,7 +71,7 @@ class ProgramsController < ApplicationController
     status = []
     program = Program.status_equals('Continuing').by_last_checked_at.limit(1).first
     status << "Updated #{program.name}" if program.tvdb_update
-    nzbs_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).no_downlaods_present.limited(5)
+    nzbs_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).no_downloads_present.limited(5)
     if nzbs_to_get.any?
       nzbs_to_get.each do |episode|
         status << "Downloading nzb #{episode.program.name} - #{episode.full_episode_title}: #{episode.get_nzb}"
