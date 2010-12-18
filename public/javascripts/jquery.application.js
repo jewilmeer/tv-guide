@@ -44,9 +44,9 @@ $(function()
     function(e) {
       if( e.type == 'mouseover' || e.type == 'mouseenter' )
       {
-        $(this).find('.extra_info, .hover').fadeIn(200);
+        $(this).find('.extra_info, .hover').show();
       } else {
-        $(this).find('.extra_info, .hover').fadeOut(500);
+        $(this).find('.extra_info, .hover').hide();
       }
     });
     
