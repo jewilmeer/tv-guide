@@ -14,7 +14,7 @@
     %p= @episode.description
 
     %p
-      - if current_user && current_user.trusted? && @episode.airs_at && @episode.airs_at.past?
+      - if current_user.try(:trusted?) && @episode.airs_at.try(:past?)
         %button.download= link_to "Download nzb", download_program_episode_path(@episode.program, @episode)
         %button= link_to 'Search', search_program_episode_path(@episode.program, @episode), :target => '_blank'
         %button= link_to 'Search HD', search_program_episode_path(@episode.program, @episode, :hd => true), :target => '_blank'
