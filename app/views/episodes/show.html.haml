@@ -26,5 +26,5 @@
   .body
     #disqus_thread
 :javascript
-  var disqus_identifier = '#{dom_id(@episode)}#{"_development" if Rails.env.development?}';
+  var disqus_identifier = '#{dom_id(@episode)}_#{Rails.env}';
   var disqus_url        = '#{program_episode_url(@episode)}';
