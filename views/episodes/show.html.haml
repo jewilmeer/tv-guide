@@ -5,7 +5,7 @@
     == - Season #{@episode.season.nr} - #{@episode.title}
   .body
     %p
-      == Airdate: #{l @episode.airs_at, :format => :long} 
+      == Airdate: #{l @episode.airs_at, :format => :long}
       - if @episode.airs_at.past?
         == (#{distance_of_time_in_words_to_now(@episode.airs_at)} ago)
       - else
@@ -26,5 +26,5 @@
   .body
     #disqus_thread
 :javascript
-  var disqus_identifier = '#{dom_id(@episode)}';
+  var disqus_identifier = '#{dom_id(@episode)}#{"_development" if Rails.env.development?}';
   var disqus_url        = '#{program_episode_url(@episode)}';
