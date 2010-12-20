@@ -27,7 +27,7 @@ gem 'hoptoad_notifier'
 
 # caching
 # group :production do
-#   # gem "memcache-client"
+  gem "dalli"
 #   gem 'memcached-northscale', :require => 'memcached'
 # end
 
