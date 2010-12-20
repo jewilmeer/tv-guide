@@ -73,11 +73,14 @@ module Sellaband
         redirect_to(session[:return_to] || default || '/')
         session[:return_to] = nil
       end
-
+      
+      def logged_in?
+        !!current_user
+      end
       # Inclusion hook to make #current_user and #logged_in?
       # available as ActionView helper methods.
       def self.included(base)
-        base.send :helper_method, :current_user_session, :current_user, :is_admin?
+        base.send :helper_method, :current_user_session, :current_user, :is_admin?, :logged_in?
       end
     end
 end
