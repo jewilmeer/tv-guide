@@ -711,6 +711,21 @@ footer {
       display: inline-block;
       margin: 5px 20px; }
 
+.episode h5 {
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  font-size: 12px; }
+
+.nowrap {
+  font-family: Verdana, Arial, sans-serif;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  -webkit-text-overflow: ellipsis;
+  -moz-text-overflow: ellipsis;
+  text-overflow: ellipsis; }
+
 ul.dropdown {
   zoom: 1;
   position: relative;
