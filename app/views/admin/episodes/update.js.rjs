@@ -1,0 +1,2 @@
+page << "$('##{dom_id(@episode)}').replaceWith('#{escape_javascript(@episode_template)}')"
+page << "$('##{dom_id(@episode)}').show('highlight', 'slow')"
