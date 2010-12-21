@@ -31,7 +31,6 @@ module TvEpisodes
     # config.i18n.default_locale = :de
 
     config.encoding = "utf-8"
-    config.action_controller.logger = Logger.new(STDOUT)
 
     # # Configure generators values. Many other options are available, be sure to check the documentation.
     # config.generators do |g|
