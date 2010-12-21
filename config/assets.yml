@@ -1,0 +1,11 @@
+embed_assets: on
+javascripts:
+  base:
+    - public/javascripts/base/*.js
+    - public/javascripts/vendor/*.js
+    - public/javascripts/jquery.application.js
+stylesheets:
+  base:
+    - public/stylesheets/jquery-ui-1.8.custom.css
+    - public/stylesheets/tipsy.css
+    - public/stylesheets/application.css
