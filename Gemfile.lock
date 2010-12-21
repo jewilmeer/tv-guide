@@ -52,7 +52,7 @@ GEM
       multipart-post (~> 1.0.1)
       rack (>= 1.1.0, < 2)
     file-utils (0.1.1)
-    haml (3.0.24)
+    haml (3.0.25)
     hoptoad_notifier (2.3.12)
       activesupport
       builder
