@@ -1,6 +1,8 @@
-- unless Rails.env.production?
-  = javascript_include_tag 'jquery-1.4.2.min', 'jquery-ui-1.8.4.custom.min'
-= javascript_include_tag 'rails', 'jquery.dotimeout', 'jquery.select_autocomplete', 'jquery.autoresize.min','jquery.placeholder', 'jquery.tipsy', 'jquery.rotate', 'jquery.application', 'http://connect.facebook.net/en_US/all.js'
+-#
+  - unless Rails.env.production?
+    = javascript_include_tag 'jquery-1.4.2.min', 'jquery-ui-1.8.4.custom.min'
+  = javascript_include_tag 'rails', 'jquery.dotimeout', 'jquery.select_autocomplete', 'jquery.autoresize.min','jquery.placeholder', 'jquery.tipsy', 'jquery.rotate', 'jquery.application', 'http://connect.facebook.net/en_US/all.js'
+= include_javascripts :base  
 
 :javascript
   var _gaq = _gaq || [];
