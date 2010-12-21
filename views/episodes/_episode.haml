@@ -1,5 +1,6 @@
 - addition_info ||= episode.airs_at ? :airdate : :created_at
 - program = episode.program
+- simple ||= false
 %li[episode]
   %h5.nowrap
     == #{link_to episode.program.name, episode.program}
@@ -28,15 +29,16 @@
       == Added #{distance_of_time_in_words_to_now(episode.created_at)} ago
   - if defined? comments
     = link_to '', program_episode_url(episode.program, episode, :anchor => :disqus_thread), :class => :'comments hover', :style => 'display: none'
-  .right_top
-    %span.hover{:style => 'display: none'}
-      - if current_user
-        - if current_user.programs.include?(episode.program)
-          = link_to icon_tag('delete', {:title => 'Remove this program from my guide'}), user_program_path(current_user, episode.program), :method => :delete
+  - unless simple
+    .right_top
+      %span.hover{:style => 'display: none'}
+        - if current_user
+          - if current_user.programs.include?(episode.program)
+            = link_to icon_tag('delete', {:title => 'Remove this program from my guide'}), user_program_path(current_user, episode.program), :method => :delete
+          - else
+            = link_to icon_tag('add', {:title => 'Add this program to my guide'}), user_programs_path(current_user, :id => episode.program.id), :method => :post
         - else
-          = link_to icon_tag('add', {:title => 'Add this program to my guide'}), user_programs_path(current_user, :id => episode.program.id), :method => :post
-      - else
-        = link_to icon_tag('add', {:title => 'Login to create your personal guide'}), login_path
-      - unless episode.working?
-        = icon_tag('warning', :title => 'This episode has been blamed and may not download properly')
+          = link_to icon_tag('add', {:title => 'Login to create your personal guide'}), login_path
+        - unless episode.working?
+          = icon_tag('warning', :title => 'This episode has been blamed and may not download properly')
     
