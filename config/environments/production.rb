@@ -16,6 +16,7 @@ TvEpisodes::Application.configure do
   # config.log_level = :debug
 
   # Use a different logger for distributed setups
+  config.logger = Logger.new(STDOUT)
   # config.logger = SyslogLogger.new
 
   # Use a different cache store in production
