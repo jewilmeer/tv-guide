@@ -18,22 +18,24 @@
     :plain
       <div id="recentcomments" class="dsq-widget"><h2 class="dsq-widget-title">Recent Comments</h2><script type="text/javascript" src="http://digitaltvguide.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script></div><a href="http://disqus.com/">Powered by Disqus</a>
 .third-column.flt-right
-  .column-block
-    %h3.no_bottom_margin
-      %span.header Upcomming episodes
-      .header_link= link_to 'Full Guide', guide_programs_path
-    .body
-      - if @upcoming_episodes.any?
-        %ul.list.mini_guide= render :partial => 'episodes/episode', :collection => @upcoming_episodes
-      - else
-        %p.nothing No upcoming episodes known
-  .column-block
-    %h3.no_bottom_margin
-      %span.header Last added episodes
-      .header_link= link_to 'More updates', pages_program_updates_path
-    .body
-      - if @latest_episodes.any?
-        %ul.list.mini_guide= render :partial => 'episodes/episode', :collection => @latest_episodes, :locals => {:addition_info => :created_at}
-      - else
-        %p.nothing No latest additions found
+  - cache([:upcomming_5, Program.by_updated_at.last, Episode.next_airing.first]) do # program cache key will expire this fragment if any update is received
+    .column-block
+      %h3.no_bottom_margin
+        %span.header Upcomming episodes
+        .header_link= link_to 'Full Guide', guide_programs_path
+      .body
+        - if @upcoming_episodes.any?
+          %ul.list.mini_guide= render :partial => 'episodes/episode', :collection => @upcoming_episodes, :locals => {:simple => true}
+        - else
+          %p.nothing No upcoming episodes known
+  - cache([:last_5_added, Episode.by_created_at.last]) do
+    .column-block
+      %h3.no_bottom_margin
+        %span.header Last added episodes
+        .header_link= link_to 'More updates', pages_program_updates_path
+      .body
+        - if @latest_episodes.any?
+          %ul.list.mini_guide= render :partial => 'episodes/episode', :collection => @latest_episodes, :locals => {:addition_info => :created_at, :simple => true}
+        - else
+          %p.nothing No latest additions found
       

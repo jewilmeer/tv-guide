@@ -15,6 +15,9 @@ class Episode < ActiveRecord::Base
   scope :season_episode_matches, lambda{|season, episode| {:include => :season, :conditions => ['episodes.nr = :episode AND seasons.nr = :season ', {:episode => episode, :season => season}] } }
   # scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
   scope :no_downloads_present, includes(:downloads).where('downloads.id IS NULL')
+  scope :next_airing, airs_at_in_future.order('episodes.airs_at asc')
+  scope :last_aired, airs_at_in_past.order('episodes.airs_at desc')
+  
   before_save :airs_at
   before_update :update_airs_at
   

@@ -16,7 +16,7 @@ class Program < ActiveRecord::Base
   # before_validation :guess_correct_name, :on => :create
   before_create :find_additional_info, :fill_search_term, :get_banner
   after_create :retrieve_episodes
-    
+
   scope :by_name, :order => 'name ASC'
   
   attr_accessor :active_configuration, :banners, :banner
@@ -44,7 +44,7 @@ class Program < ActiveRecord::Base
   def self.search(query)
     if query
       if %w(development test).include?(Rails.env)
-        search_for(query , :on => [:name, :search_term, :description]) 
+        search_for(query , :on => [:name, :search_term, :overview]) 
       else
         where(['name ILIKE :query OR search_term ILIKE :query OR overview ILIKE :query', {:query => "%#{query}%"}])
       end
