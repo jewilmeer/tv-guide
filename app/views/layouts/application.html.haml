@@ -2,7 +2,7 @@
 %html{html_attrs('en'), 'xmlns:fb' => 'http://www.facebook.com/2008/fbml'}
   %head
     %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
-    = stylesheet_link_tag "application", 'jquery-ui-1.8.custom'
+    = include_stylesheets :base
     %meta{:name=>"robots",        :content=>"index, follow"}
     %meta{:name=>"revisit-after", :content=>"1 days"}
     %meta{:name=>"author",        :content=>"Jan-Willem van der Meer"}
@@ -10,12 +10,13 @@
     %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
     
     %title== Digital tv guide #{yield(:title)}
-    = javascript_include_tag 'modernizr-1.6.min'
-    - if Rails.env.production?
-      %script{:src => 'http://www.google.com/jsapi?key=ABQIAAAAZ20lqvBNC8rqVuYd86VExhSjF49U_F1OK_kiT6PgH0HHJCssihSGO_C1Xk'}
-      %script
-        google.load('jquery', '1.4')
-        google.load('jqueryui', '1.8')
+    -#
+      = javascript_include_tag 'modernizr-1.6.min'
+      - if Rails.env.production?
+        %script{:src => 'http://www.google.com/jsapi?key=ABQIAAAAZ20lqvBNC8rqVuYd86VExhSjF49U_F1OK_kiT6PgH0HHJCssihSGO_C1Xk'}
+        %script
+          google.load('jquery', '1.4')
+          google.load('jqueryui', '1.8')
     = yield :head
   %body
     %header
