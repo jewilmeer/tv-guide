@@ -28,7 +28,7 @@
           %ul.list.mini_guide= render :partial => 'episodes/episode', :collection => @upcoming_episodes, :locals => {:simple => true}
         - else
           %p.nothing No upcoming episodes known
-  - cache([:last_5_added, Episode.by_created_at.last]) do
+  - cache([:last_5_added, Episode.by_created_at.last], :expires_in => 10.minutes) do
     .column-block
       %h3.no_bottom_margin
         %span.header Last added episodes
