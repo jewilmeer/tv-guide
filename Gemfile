@@ -24,7 +24,7 @@ gem 'paperclip'
 # gem 'fleximage', :git => 'git://github.com/giovannelli/fleximage.git'
 gem 'aws-s3'
 gem 'hoptoad_notifier'
-
+gem 'newrelic_rpm'
 # caching
 # group :production do
   gem "dalli"

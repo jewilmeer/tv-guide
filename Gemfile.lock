@@ -77,6 +77,7 @@ GEM
     multipart-post (1.0.1)
     mysql (2.8.1)
     net-ldap (0.1.1)
+    newrelic_rpm (2.13.4)
     nokogiri (1.4.4)
     oa-basic (0.1.6)
       multi_json (~> 0.0.2)
@@ -172,6 +173,7 @@ DEPENDENCIES
   logging
   mechanize
   mysql
+  newrelic_rpm
   nokogiri
   omniauth
   pacecar
