@@ -1,7 +1,8 @@
 class ProgramsController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_filter :find_program, :except => [:index, :create, :suggest, :search, :check]
-  
+  newrelic_ignore :only => :check
+
   def index
     @programs = Program.search(params[:q]).by_status.order(sort_column + ' ' + sort_direction).paginate :per_page => 30, :page => params[:page]
   end
