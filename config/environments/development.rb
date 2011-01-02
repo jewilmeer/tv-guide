@@ -23,3 +23,4 @@ TvEpisodes::Application.configure do
   # config.cache_store = :mem_cache_store
   config.active_support.deprecation = :log
 end
+Sass::Plugin.options[:style] = :compact
