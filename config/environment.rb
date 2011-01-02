@@ -4,6 +4,8 @@ require File.expand_path('../application', __FILE__)
 # Initialize the rails application
 TvEpisodes::Application.initialize!
 
+Sass::Plugin.options[:style] = :compressed
+
 ActiveSupport::Dependencies.log_activity = true
 
 ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
