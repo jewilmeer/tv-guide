@@ -1,5 +1,5 @@
 embed_assets: on
-package_assets: off
+package_assets: always
 javascripts:
   base:
     - public/javascripts/base/*.js
