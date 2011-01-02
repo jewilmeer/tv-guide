@@ -8,10 +8,15 @@ class Admin::EpisodesController < AdminAreaController
 
   def update
     success = @episode.get_nzb
-    @episode_template = render_to_string(:partial => '/episodes/episode', :locals => {:episode => @episode})
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js   { }
+      format.js do
+        if params[:row]
+          @episode_template = render_to_string(:partial => '/episodes/episodes', :locals => {:episode => @episode})
+        else
+          @episode_template = render_to_string(:partial => '/episodes/episode', :locals => {:episode => @episode})
+        end
+      end
     end
   end
   
