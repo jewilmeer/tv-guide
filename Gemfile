@@ -52,5 +52,12 @@ group :development do
   # gem 'autotest-rails'
 end
 
+group :test do
+  gem "rspec", "~> 2.4"
+  gem "rspec-rails", "~> 2.4"
+end
+
+
+
 #backward compatibility
 # gem 'sanitize'
