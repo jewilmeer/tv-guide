@@ -11,7 +11,7 @@ class Episode < ActiveRecord::Base
   validates :title, :season_id, :program_id, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_id, :program_id]}
   
-  scope :downloaded, where(['downloaded=?', true])
+  scope :downloaded, includes(:downloads).where('downloads.id IS NOT NULL')
   scope :season_episode_matches, lambda{|season, episode| {:include => :season, :conditions => ['episodes.nr = :episode AND seasons.nr = :season ', {:episode => episode, :season => season}] } }
   # scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
   scope :no_downloads_present, includes(:downloads).where('downloads.id IS NULL')
