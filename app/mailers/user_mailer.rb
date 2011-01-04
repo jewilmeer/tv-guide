@@ -1,6 +1,7 @@
 class UserMailer < ActionMailer::Base
   default :from => "Digital TV Guide <mail@jewilmeer.com>"
-  
+  default :host => 'http://www.jewilmeer.com'
+
   def pretty_name user
     "#{user.login} <#{user.email}>"
   end
