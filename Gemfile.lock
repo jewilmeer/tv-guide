@@ -185,6 +185,7 @@ DEPENDENCIES
   hpricot
   jammit
   logging
+  mail (~> 2.2)
   mechanize
   mysql
   newrelic_rpm
