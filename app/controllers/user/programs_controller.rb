@@ -27,7 +27,7 @@ class User::ProgramsController < UserAreaController
   end
 
   def aired
-    @episodes           = Episode.watched_by_user(@user.programs).airs_at_in_past.nzb_file_name_present.by_airs_at(:desc).limit(30).includes(:program)
+    @episodes           = Episode.watched_by_user(@user.programs).airs_at_in_past.downloaded.by_airs_at(:desc).limit(30).includes(:program)
   end
   
   def destroy
