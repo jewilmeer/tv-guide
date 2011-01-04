@@ -5,12 +5,15 @@
     == - Season #{@episode.season.nr} - #{@episode.title}
   .body
     %p
-      == Airdate: #{l @episode.airs_at, :format => :long}
-      - if @episode.airs_at.past?
-        == (#{distance_of_time_in_words_to_now(@episode.airs_at)} ago)
+      Airdate: 
+      - if @episode.airs_at
+        = l @episode.airs_at, :format => :long
+        - if @episode.airs_at.past?
+          == (#{distance_of_time_in_words_to_now(@episode.airs_at)} ago)
+        - else
+          == (in about #{distance_of_time_in_words_to_now(@episode.airs_at)})
       - else
-        == (in about #{distance_of_time_in_words_to_now(@episode.airs_at)})
-  
+        Unknown
     %p= @episode.description
 
     %p
