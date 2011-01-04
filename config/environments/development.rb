@@ -19,6 +19,15 @@ TvEpisodes::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => 'tv-episodes.local' }
+  config.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'tv-epsisodes.local',
+    :user_name            => 'jewilmeer',
+    :password             => '1Bananen',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
   
   # config.cache_store = :mem_cache_store
   config.active_support.deprecation = :log
