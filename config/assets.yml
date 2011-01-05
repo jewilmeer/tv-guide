@@ -1,8 +1,10 @@
 embed_assets: on
-package_assets: always
+# package_assets: always
 javascripts:
   base:
-    - public/javascripts/base/*.js
+    - public/javascripts/jquery.js
+    - public/javascripts/jquery-ui.js
+    - public/javascripts/rails.js
     - public/javascripts/vendor/*.js
     - public/javascripts/jquery.application.js
 stylesheets:

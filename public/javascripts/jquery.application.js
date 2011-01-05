@@ -22,6 +22,21 @@ $(function()
       $('.loading').fadeOut();
     }
   });
+ 
+  // enable data-disable-with for a elements
+  $('a[data-disable-with]').each( function() {
+    var link = $(this);
+    link.data('enable-with', link.html());
+  }).live('click.rails', function(e) {
+    var link = $(this);
+    link.html( link.attr('data-disable-with') );
+    if ( link.attr('disabled') != 'disabled' )
+      link.attr('disabled', 'disabled').callRemote();
+    e.preventDefault();
+  }).live('ajax:complete', function(e) {
+    var link = $(this);
+    link.removeAttr('disabled').html( link.data('enable-with') );
+  });
   
   // jquery-ui fancy buttons
   $("input:submit").button();
