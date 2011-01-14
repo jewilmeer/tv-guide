@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   end
   
   def apply_omniauth omni_auth 
+    return false unless omni_auth['provider'] && omni_auth['uid']
     authentications.build( :provider => omni_auth['provider'], :uid => omni_auth['uid'] )
     # apply additional userinfo
     user_info  = omni_auth['user_info']
