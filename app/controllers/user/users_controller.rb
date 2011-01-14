@@ -13,7 +13,7 @@ class User::UsersController < UserAreaController
   
   def create
     @user = User.new(params[:user])
-    @user.apply_omniauth(session[:omniauth]) if session[:omniauth]
+    @user.apply_omniauth(session[:omniauth]) if session[:omniauth].present?
     if @user.save
       session[:omniauth] = nil
       redirect_to([@user, :programs], :notice => 'User was successfully created.')
