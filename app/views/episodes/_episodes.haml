@@ -2,7 +2,7 @@
 %tr[episode]
   %td
     = link_to episode.full_episode_title, [@program, episode]
-    - if current_user && current_user.trusted? && episode.airs_at && episode.airs_at.past?
+    - if current_user.try(:trusted?) && episode.airs_at.try(:past?)
       - if episode.downloads.any?
         == [#{link_to "Download", program_episode_path(@program, episode, :format => :nzb)}]
       == [#{link_to "Search", search_program_episode_path(@program, episode)}]
