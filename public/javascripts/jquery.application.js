@@ -16,10 +16,6 @@ $(function()
     beforeSend: function(xhr) 
     {
       xhr.setRequestHeader("Accept", "text/javascript");
-      $('.loading').fadeIn();
-    },
-    complete: function(req, status) {
-      $('.loading').fadeOut();
     }
   });
  
