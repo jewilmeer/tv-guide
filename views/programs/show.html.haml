@@ -12,8 +12,7 @@
       })
       .bind('ajax:success', function(xhr,data,status) {
         var $this = $(this);
-        data      = data.replace(/\W/, '');
-        if( data == 'true' ) {
+        if( data ) {
           $this.html('Update found, updating...')
           $.ajax({
             url: '#{program_path(@program)}', 
