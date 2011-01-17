@@ -37,7 +37,8 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    (authentications.empty? || !password.blank?)
+    return false if crypted_password.present?
+    (authentications.empty? || password.present?)
   end
   
   def to_param
