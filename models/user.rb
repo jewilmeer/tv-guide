@@ -45,12 +45,12 @@ class User < ActiveRecord::Base
   end
   
   def notify_of_registration
-    AdminMailer.notify_of_registration( self )
+    AdminMailer.notify_of_registration( self ).deliver
   end
   
   # send an email to the user as they have been trusted. 
   # This will instruct them how to use the download functionality
   def notify_of_special_features
-    
+    UserMailer.trusted_notification( self ).deliver if self.trusted_changed? && self.trusted_was == false
   end
 end
