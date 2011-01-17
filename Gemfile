@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 gem 'rails', '~>3.0'
 gem 'mail', '~>2.2'
 gem 'jquery-rails'
-gem 'bundler'
+gem 'bundler', '~>1.0'
 
 # Bundle the extra gems:
 # gem 'bj'
