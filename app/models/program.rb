@@ -258,6 +258,10 @@ class Program < ActiveRecord::Base
     self.save!
   end
   
+  def airs_time
+    @airs_time || '00:00'
+  end
+  
   def to_s
     self.name
   end
