@@ -1,0 +1,4 @@
+%p== #{@registered_user.login.humanize} (#{@registered_user.email}) just created an account. Do you want to trust him?
+%p 
+  You can edit the user details 
+  = link_to 'here', edit_admin_user_url(@registered_user)

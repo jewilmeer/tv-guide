@@ -1,6 +1,4 @@
-- form_for [:admin, @user] do |f|
-  = f.error_messages
-  
+= form_for [:admin, @user] do |f|
   = f.error_messages
   .form_row
     = f.label :email
@@ -9,17 +7,22 @@
     = f.label :login, 'Username'
     = f.text_field :login, :class => :small
   .form_row
-    = f.label :password
-    = f.password_field :password, :class => :small, :autocomplete => :off
-  .form_row
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation, :class => :small, :autocomplete => :off
-  .form_row
     = f.label :trusted, 'Trusted?'
     = f.check_box :trusted
   .form_row
     = f.label :admin, 'Admin rights'
     = f.check_box :admin
     
+  .actions
+    %button.save Save
+
+= form_for [:admin, @user] do |f|
+  = f.error_messages
+  .form_row
+    = f.label :password
+    = f.password_field :password, :class => :small, :autocomplete => :off
+  .form_row
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, :class => :small, :autocomplete => :off
   .actions
     %button.save Save
