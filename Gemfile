@@ -24,16 +24,12 @@ gem 'typhoeus'
 gem 'hpricot'
 gem 'zip'
 gem 'paperclip'
-# gem 'fleximage', :git => 'git://github.com/giovannelli/fleximage.git'
 gem 'aws-s3'
 gem 'hoptoad_notifier'
 gem 'newrelic_rpm'
 # caching
-# group :production do
-  gem "dalli"
-  gem "jammit"
-#   gem 'memcached-northscale', :require => 'memcached'
-# end
+gem "dalli"
+gem "jammit"
 
 # authentication
 gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
@@ -41,27 +37,21 @@ gem 'ruby-openid'
 gem 'omniauth'
 
 # Bundle gems for certain environments:
-group :development do
+group :development, :test do
   gem 'mysql'
   gem 'annotate-models'
-  # gem 'rack-bug', :branch => 'rails3', :require => 'rack/bug'
-  # gem 'rails-footnotes', :git => 'git://github.com/irjudson/rails-footnotes.git'
-  # gem 'rspec', :git => 'git://github.com/rspec/rspec.git', :branch => 'v2.0.0.beta.8'
-  # gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git', :branch => 'v2.0.0.beta.8'
-  # gem 'cucumber'
-  # gem 'cucumber-rails'
-  # gem 'webrat'
-  # gem "factory_girl", :branch => 'rails3'
-  # gem 'autotest'
-  # gem 'autotest-rails'
 end
 
 group :test do
   gem "rspec", "~> 2.4"
   gem "rspec-rails", "~> 2.4"
+  gem 'capybara'
+  gem 'shoulda'
+  gem 'cucumber'
+  gem 'cucumber-rails'
+  gem "factory_girl"
+  gem "factory_girl_rails"
+  gem 'autotest'
 end
 
 
-
-#backward compatibility
-# gem 'sanitize'
