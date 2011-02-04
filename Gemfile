@@ -15,6 +15,7 @@ gem 'haml'
 gem 'pacecar'
 gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 gem 'will_paginate', '3.0.pre2'
+gem 'typhoeus'
 
 # search
 # gem 'thinkingtank'
@@ -42,6 +43,7 @@ gem 'omniauth'
 # Bundle gems for certain environments:
 group :development do
   gem 'mysql'
+  gem 'annotate-models'
   # gem 'rack-bug', :branch => 'rails3', :require => 'rack/bug'
   # gem 'rails-footnotes', :git => 'git://github.com/irjudson/rails-footnotes.git'
   # gem 'rspec', :git => 'git://github.com/rspec/rspec.git', :branch => 'v2.0.0.beta.8'

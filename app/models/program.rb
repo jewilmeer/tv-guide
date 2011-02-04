@@ -1,3 +1,33 @@
+# == Schema Information
+# Schema version: 20101130174533
+#
+# Table name: programs
+#
+#  id                  :integer(4)      not null, primary key
+#  name                :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  search_term         :string(255)
+#  overview            :text
+#  status              :string(255)
+#  tvdb_id             :integer(4)
+#  tvdb_last_update    :datetime
+#  imdb_id             :string(255)
+#  airs_dayofweek      :string(255)
+#  airs_time           :string(255)
+#  banner_file_name    :string(255)
+#  banner_content_type :string(255)
+#  banner_file_size    :integer(4)
+#  banner_updated_at   :datetime
+#  runtime             :integer(4)
+#  genres              :string(255)
+#  network             :string(255)
+#  contentrating       :string(255)
+#  actors              :text
+#  tvdb_rating         :integer(4)
+#  last_checked_at     :datetime
+#
+
 class Program < ActiveRecord::Base
   include Pacecar
   require 'open-uri'
@@ -54,7 +84,8 @@ class Program < ActiveRecord::Base
   end
 
   def active_configuration
-    @active_configuration ||= (self.configuration ? self.configuration : Configuration.default)
+    Configuration.default( self.configuration )
+    # @active_configuration ||= (self.configuration ? self.configuration : Configuration.default)
   end
   
   def banners
@@ -252,14 +283,15 @@ class Program < ActiveRecord::Base
   
   def tvdb_update
     self.find_additional_info
-    changed?
-    needs_update? && retrieve_episodes
+    # changed?
+    # needs_update? && 
+    retrieve_episodes
     self.last_checked_at = Time.now
     self.save!
   end
   
   def airs_time
-    @airs_time || '00:00'
+    read_attribute(:airs_time) || '00:00'
   end
   
   def to_s
