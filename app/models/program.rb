@@ -291,7 +291,7 @@ class Program < ActiveRecord::Base
   end
   
   def airs_time
-    read_attribute(:airs_time) || '00:00'
+    read_attribute(:airs_time) || '9:00 PM'
   end
   
   def to_s
