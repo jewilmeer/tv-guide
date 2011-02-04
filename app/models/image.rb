@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20101130174533
+#
+# Table name: images
+#
+#  id                 :integer(4)      not null, primary key
+#  image_file_name    :string(255)
+#  image_content_type :string(255)
+#  string             :string(255)
+#  image_file_size    :integer(4)
+#  image_updated_at   :datetime
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
 class Image < ActiveRecord::Base
   
   has_and_belongs_to_many :programs

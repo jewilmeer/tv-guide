@@ -37,6 +37,7 @@ GEM
       activesupport (= 3.0.3)
     activesupport (3.0.3)
     addressable (2.2.2)
+    annotate-models (1.0.4)
     arel (2.0.6)
     aws-s3 (0.6.2)
       builder
@@ -167,6 +168,8 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
+    typhoeus (0.2.1)
+      mime-types
     tzinfo (0.3.23)
     will_paginate (3.0.pre2)
     xml-simple (1.0.12)
@@ -177,6 +180,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate-models
   authlogic!
   aws-s3
   bundler (~> 1.0)
@@ -202,5 +206,6 @@ DEPENDENCIES
   rspec-rails (~> 2.4)
   ruby-openid
   sqlite3-ruby
+  typhoeus
   will_paginate (= 3.0.pre2)
   zip

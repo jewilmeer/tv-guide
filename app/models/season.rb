@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20101130174533
+#
+# Table name: seasons
+#
+#  id         :integer(4)      not null, primary key
+#  nr         :integer(4)
+#  program_id :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Season < ActiveRecord::Base
   include Pacecar
   
