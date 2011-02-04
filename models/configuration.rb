@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20101130174533
+#
+# Table name: configurations
+#
+#  id          :integer(4)      not null, primary key
+#  program_id  :integer(4)
+#  active      :boolean(1)      default(TRUE)
+#  filter_data :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class Configuration < ActiveRecord::Base
   belongs_to :program
   
@@ -22,8 +35,10 @@ class Configuration < ActiveRecord::Base
   end
   
   # cache the result to avoid database calls
-  def self.default
-    @default ||= Configuration.first
+  def self.default custom_options = {}
+    @c = self.first
+    @c.filter_data.merge!( custom_options )
+    @c
   end
   
   def params
@@ -47,5 +62,10 @@ class Configuration < ActiveRecord::Base
       return true if v.keys.include?(:roman)
     end
     false
+  end
+  
+  def season_episode_param(season, episode)
+    default_pattern = "S%{season}E%{episode}"
+    
   end
 end

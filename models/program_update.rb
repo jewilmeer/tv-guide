@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20101130174533
+#
+# Table name: program_updates
+#
+#  id            :integer(4)      not null, primary key
+#  program_id    :integer(4)
+#  revision_data :text
+#  parsed_data   :text
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 class ProgramUpdate < ActiveRecord::Base
   include Pacecar
   belongs_to :program

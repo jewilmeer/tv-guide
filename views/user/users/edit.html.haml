@@ -60,7 +60,7 @@
     .body
       - if current_user.programs.any?
         %ul.my_programs
-          - current_user.programs.each do |program|
+          - current_user.programs.by_name.each do |program|
             %li
               = link_to program.name, program
               = link_to icon_tag('delete'), user_program_path(current_user, program), :method => :delete
