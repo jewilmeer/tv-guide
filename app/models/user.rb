@@ -1,3 +1,31 @@
+# == Schema Information
+# Schema version: 20101130174533
+#
+# Table name: users
+#
+#  id                  :integer(4)      not null, primary key
+#  email               :string(255)     not null
+#  password_salt       :string(255)     not null
+#  last_sign_in_ip     :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  oauth_uid           :string(255)
+#  admin               :boolean(1)
+#  trusted             :boolean(1)
+#  login               :string(255)
+#  crypted_password    :string(255)
+#  persistence_token   :string(255)
+#  single_access_token :string(255)
+#  perishable_token    :string(255)
+#  login_count         :integer(4)      default(0), not null
+#  failed_login_count  :integer(4)      default(0), not null
+#  last_request_at     :datetime
+#  current_login_at    :datetime
+#  last_login_at       :datetime
+#  current_login_ip    :string(255)
+#  last_login_ip       :string(255)
+#
+
 class User < ActiveRecord::Base
   include Pacecar
   

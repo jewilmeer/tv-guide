@@ -1,3 +1,20 @@
+# == Schema Information
+# Schema version: 20101130174533
+#
+# Table name: episodes
+#
+#  id          :integer(4)      not null, primary key
+#  title       :string(255)
+#  description :text
+#  nr          :integer(4)
+#  airdate     :date
+#  season_id   :integer(4)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  program_id  :integer(4)
+#  airs_at     :datetime
+#
+
 class Episode < ActiveRecord::Base
   include Pacecar
   include ActionView::Helpers::SanitizeHelper
