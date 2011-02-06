@@ -37,7 +37,7 @@ class Configuration < ActiveRecord::Base
   # cache the result to avoid database calls
   def self.default custom_options = {}
     @c = self.first
-    (@c.filter_data || {}).merge!( custom_options )
+    (@c.filter_data || {}).merge!( custom_options || {} )
     @c
   end
   
