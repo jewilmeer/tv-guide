@@ -80,6 +80,7 @@ class Episode < ActiveRecord::Base
   end
   
   def age
+    logger.debug "airs_at: #{airs_at.inspect}"
     0 unless airs_at
     (airs_at.to_date - Date.today).to_i.abs.succ
   end
@@ -204,7 +205,7 @@ class Episode < ActiveRecord::Base
   def airs_at
     @airs_at ||= read_attribute(:airs_at) || Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + '-6' )
   rescue StandardError => e
-    logger.debug e
+    logger.debug "airs_at error: #{e}"
     nil
   end
   
