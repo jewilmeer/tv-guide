@@ -36,7 +36,6 @@ class Configuration < ActiveRecord::Base
   
   # cache the result to avoid database calls
   def self.default custom_options = {}
-    logger.debug "custom_options #{custom_options.inspect}"
     @c = self.first
     (@c.filter_data || {}).merge!( custom_options || {} )
     @c

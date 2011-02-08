@@ -84,7 +84,7 @@ class Program < ActiveRecord::Base
   end
 
   def active_configuration
-    Configuration.default( self.configuration.filter_data )
+    Configuration.default( self.configuration.try(:filter_data) )
     # @active_configuration ||= (self.configuration ? self.configuration : Configuration.default)
   end
   
