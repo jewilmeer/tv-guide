@@ -2,6 +2,7 @@
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 development:
   adapter: mysql
+  host: 127.0.0.1
   database: tv-guide
   user: root
   password: hurdle
