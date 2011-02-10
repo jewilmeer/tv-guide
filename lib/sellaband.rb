@@ -62,7 +62,7 @@ module Sellaband
       end
         
       def store_location
-        session[:return_to] = request.full_path if default_request_format?
+        # session[:return_to] = request.full_path if default_request_format?
       end
     
       def location_stored?

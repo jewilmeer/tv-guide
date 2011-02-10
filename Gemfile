@@ -43,15 +43,14 @@ group :development, :test do
 end
 
 group :test do
-  gem "rspec", "~> 2.4"
   gem "rspec-rails", "~> 2.4"
   gem 'capybara'
   gem 'shoulda'
-  gem 'cucumber'
   gem 'cucumber-rails'
-  gem "factory_girl"
   gem "factory_girl_rails"
   gem 'autotest'
+  gem 'heroku'
+  gem 'taps'
 end
 
 
