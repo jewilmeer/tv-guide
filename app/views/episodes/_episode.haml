@@ -18,7 +18,7 @@
           %Li= link_to icon_tag('search_hd', :size => '24x24'), search_program_episode_path(program, episode, :hd => true, :format => :nzb), :target => '_blank', :title => 'Search for this episode\'s .nzb in HD (720p)'
           - if episode.downloads.any?
             %li= link_to icon_tag('download', :size => '24x24'), program_episode_path(program, episode, :format => :nzb), :title => 'Download this episode'
-            - unless current_user.admin?
+            - if false && !current_user.admin?
               %li= link_to icon_tag('warning', :size => '24x24'), admin_episode_path(episode, :format => :nzb), :method => :put, :remote => true, :title => 'Hey, this episode is not working!'
           - if current_user.admin?
             %li= link_to icon_tag('refresh', :size => '24x24'), admin_episode_path(episode, :format => :js), :method => :put, :remote => true, :title => 'Redownload this episode'
