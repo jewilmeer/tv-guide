@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   
   # hompage
   def index
-    @upcoming_episodes = Episode.airs_at_in_future.by_airs_at.limit(5)
+    @upcoming_episodes = Episode.next_airing.limit(5)
     @latest_episodes   = Episode.by_created_at(:desc).limit(5).includes(:program).where(['DATE(programs.created_at) <> DATE(episodes.created_at)'])
     # response.headers['Cache-Control'] = "public, max-age=#{5.minutes}" if Rails.env.production?
   end
