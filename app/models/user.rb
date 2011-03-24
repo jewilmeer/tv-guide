@@ -54,8 +54,9 @@ class User < ActiveRecord::Base
   end
   
   def apply_omniauth omni_auth 
-    return false unless omni_auth && omni_auth['provider'] && omni_auth['uid']
-    authentications.build( :provider => omni_auth['provider'], :uid => omni_auth['uid'] )
+    Rails.logger.debug omni_auth.inspect
+    return false unless omni_auth && omni_auth['provider']
+    authentications.build( :provider => omni_auth['provider'], :uid => (omni_auth['uid'] || nil) )
     # apply additional userinfo
     user_info  = omni_auth['user_info']
     self.email = user_info['email'] if email.blank?
