@@ -10,7 +10,7 @@
         %th= sortable 'interaction_type', 'Actie'
         %th= sortable 'created_at'
     %tbody
-      - @interactions.each do |interaction|
+      - @interactions.each do |interaction|x
         %tr[interaction]
           %td= interaction.user.login
           %td= interaction.program.name
