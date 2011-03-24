@@ -40,8 +40,8 @@ class Episode < ActiveRecord::Base
   scope :season_episode_matches, lambda{|season, episode| {:include => :season, :conditions => ['episodes.nr = :episode AND seasons.nr = :season ', {:episode => episode, :season => season}] } }
   # scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
   scope :no_downloads_present, includes(:downloads).where('downloads.id IS NULL')
-  scope :airs_at_in_future, where('episodes.airs_at > ?', Time.zone.now)
-  scope :airs_at_in_past, where('episodes.airs_at < ?', Time.zone.now)
+  scope :airs_at_in_future, lambda{ where('episodes.airs_at > ?', Time.zone.now) }
+  scope :airs_at_in_past, lambda{ where('episodes.airs_at < ?', Time.zone.now) }
   scope :next_airing, airs_at_in_future.order('episodes.airs_at asc')
   scope :last_aired, airs_at_in_past.order('episodes.airs_at desc')
   
