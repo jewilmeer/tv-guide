@@ -3,16 +3,24 @@
 #
 # Table name: episodes
 #
-#  id          :integer(4)      not null, primary key
-#  title       :string(255)
-#  description :text
-#  nr          :integer(4)
-#  airdate     :date
-#  season_id   :integer(4)
-#  created_at  :datetime
-#  updated_at  :datetime
-#  program_id  :integer(4)
-#  airs_at     :datetime
+#  id               :integer(4)      not null, primary key
+#  title            :string(255)
+#  description      :text
+#  path             :string(255)
+#  nr               :integer(4)
+#  airdate          :date
+#  downloaded       :boolean(1)
+#  watched          :boolean(1)
+#  season_id        :integer(4)
+#  created_at       :datetime
+#  updated_at       :datetime
+#  nzb_file_name    :string(255)
+#  nzb_content_type :string(255)
+#  nzb_file_size    :integer(4)
+#  nzb_updated_at   :datetime
+#  program_id       :integer(4)
+#  airs_at          :datetime
+#  downloads        :integer(4)      default(0)
 #
 
 class Episode < ActiveRecord::Base
@@ -32,6 +40,8 @@ class Episode < ActiveRecord::Base
   scope :season_episode_matches, lambda{|season, episode| {:include => :season, :conditions => ['episodes.nr = :episode AND seasons.nr = :season ', {:episode => episode, :season => season}] } }
   # scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
   scope :no_downloads_present, includes(:downloads).where('downloads.id IS NULL')
+  scope :airs_at_in_future, where('airs_at > ?', Time.zone.now)
+  scope :airs_at_in_past, where('airs_at < ?', Time.zone.now)
   scope :next_airing, airs_at_in_future.order('episodes.airs_at asc')
   scope :last_aired, airs_at_in_past.order('episodes.airs_at desc')
   
