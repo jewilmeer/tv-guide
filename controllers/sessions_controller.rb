@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
       @user_session = UserSession.create( authentication.user )
       redirect_to [authentication.user, :programs], :notice => 'Login successful'
     elsif current_user #create new connection
+      logger.debug "CREATE NEW CONNECTION"
       current_user.apply_omniauth omniauth
       current_user.save
       redirect_to [current_user, :programs], :notice => 'External service added'
