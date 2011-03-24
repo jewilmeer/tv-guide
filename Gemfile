@@ -38,7 +38,7 @@ gem 'omniauth'
 
 # Bundle gems for certain environments:
 group :development, :test do
-  gem 'mysql'
+  gem 'mysql2'
   gem 'annotate-models'
 end
 
