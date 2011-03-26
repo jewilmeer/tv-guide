@@ -206,14 +206,14 @@ class Episode < ActiveRecord::Base
   
   def update_airs_at(forced=false)
     if airdate
-      self.airs_at = Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + '-6' )
+      self.airs_at = Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + self.program.time_zone_offset )
     else
       self.airs_at = nil 
     end
   end
   
   def airs_at
-    @airs_at ||= read_attribute(:airs_at) || Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + '-6' )
+    @airs_at ||= read_attribute(:airs_at) || Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + self.program.time_zone_offset )
   rescue StandardError => e
     logger.debug "airs_at error: #{e}"
     nil
