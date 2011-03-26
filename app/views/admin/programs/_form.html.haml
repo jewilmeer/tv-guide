@@ -1,4 +1,4 @@
-- form_for [:admin, @program] do |f|
+= form_for [:admin, @program] do |f|
   = f.error_messages
   
   - @program.attributes.each  do |k,v|
@@ -10,6 +10,9 @@
       - when :text
         = f.text_area k
       - else
-        = f.text_field k
+        - if k.to_sym == :time_zone_offset
+          = f.time_zone_select k
+        - else
+          = f.text_field k
   .actions
     = f.submit 'Save'

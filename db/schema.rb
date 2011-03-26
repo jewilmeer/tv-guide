@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101130174533) do
+ActiveRecord::Schema.define(:version => 20110326132117) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                            :null => false
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(:version => 20101130174533) do
     t.text     "actors"
     t.integer  "tvdb_rating"
     t.datetime "last_checked_at"
+    t.string   "time_zone_offset",    :default => "Central Time (US & Canada)"
   end
 
   create_table "programs_users", :id => false, :force => true do |t|

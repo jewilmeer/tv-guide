@@ -1,7 +1,9 @@
 %h1 Editing program
 
-= render 'form'
+.column-block
+  .body
+    = render 'form'
 
-= link_to 'Show', @program
-\|
-= link_to 'Back', programs_path
+    = link_to 'Show', @program
+    \|
+    = link_to 'Back', programs_path
