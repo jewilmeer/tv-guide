@@ -34,10 +34,6 @@
         .form_row
           %label Custom conifiguration?
           = @program.configuration ? 'yes' : 'no'
-        - unless @last_episode.nzb?
-          .form_row
-            %label Download last nzb
-            = link_to 'just do it', download_admin_episode_path(@last_episode)
 .full-column
   .half-column.flt-left
     .column-block
