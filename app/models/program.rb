@@ -35,7 +35,7 @@ class Program < ActiveRecord::Base
   require 'aws/s3'
   
   has_many :seasons, :dependent => :destroy
-  has_many :episodes, :through => :seasons, :dependent => :destroy
+  has_many :episodes#, :through => :seasons, :dependent => :destroy
   has_many :program_updates, :dependent => :destroy
   has_many :interactions, :dependent => :nullify
   has_and_belongs_to_many :users, :uniq => true
@@ -135,8 +135,8 @@ class Program < ActiveRecord::Base
     changes = changed? ? [{:program => self.changes}] : []
     self.episode_list.each do |tvdb_episode|
       tmp_changes = nil
-      season      = self.seasons.find_or_create_by_nr(tvdb_episode['SeasonNumber'])
-      episode     = season.episodes.find_or_initialize_by_nr(tvdb_episode['EpisodeNumber']) do |e|
+      # season      = self.seasons.find_or_create_by_nr(tvdb_episode['SeasonNumber'])
+      episode     = self.episodes.find_or_initialize_by_season_nr_and_nr(tvdb_episode['SeasonNumber'], tvdb_episode['EpisodeNumber']) do |e|
         e.program_id = self.id
       end
       episode.tvdb_info = tvdb_episode

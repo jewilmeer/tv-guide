@@ -15,7 +15,7 @@
           %label Nr of episodes
           = pluralize( @program.episodes.count, 'episode')
           in
-          = pluralize( @program.seasons.count, 'season')
+          = pluralize( @program.max_season_nr, 'season')
         .form_row
           %label Nr of watchers
           = pluralize(@program.users.count, 'user')

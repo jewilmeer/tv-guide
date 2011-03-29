@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110326132117) do
+ActiveRecord::Schema.define(:version => 20110329164543) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                            :null => false
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20110326132117) do
     t.integer  "program_id"
     t.datetime "airs_at"
     t.integer  "downloads",        :default => 0
+    t.integer  "season_nr"
   end
 
   add_index "episodes", ["season_id", "nr"], :name => "chained_index"
@@ -152,6 +153,8 @@ ActiveRecord::Schema.define(:version => 20110326132117) do
     t.integer  "tvdb_rating"
     t.datetime "last_checked_at"
     t.string   "time_zone_offset",    :default => "Central Time (US & Canada)"
+    t.integer  "max_season_nr",       :default => 1
+    t.integer  "current_season_nr",   :default => 1
   end
 
   create_table "programs_users", :id => false, :force => true do |t|

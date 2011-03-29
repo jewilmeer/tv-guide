@@ -47,17 +47,9 @@ class EpisodesController < ApplicationController
     redirect_to end_point
   end
   
-  def mark
-    # @episode.update_attribute(:downloaded, true)
-    # @header_title = "Season #{@episode.season.nr} ( #{@episode.season.episodes.downloaded.count} / #{@episode.season.episodes.aired.count} / #{@episode.season.episodes.count} )"
-  end
 
   def get_episode
-    @episode = Episode.find(params[:id], :include => [:season, :program])
+    @episode = Episode.find(params[:id], :include => :program)
     raise ActiveRecord::RecordNotFound unless @episode
   end
-  
-  # def single_access_allowed?
-  #   params[:action] == :download
-  # end
 end
