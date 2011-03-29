@@ -10,11 +10,11 @@
         %th= sortable 'interaction_type', 'Actie'
         %th= sortable 'created_at'
     %tbody
-      - @interactions.each do |interaction|x
+      - @interactions.each do |interaction|
         %tr[interaction]
           %td= interaction.user.login
           %td= interaction.program.name
-          %td= interaction.episode.title
+          %td= interaction.try(:episode).try(:title) || '-'
           %td= interaction.interaction_type.humanize
           %td= l interaction.created_at, :format => :long
 - else
