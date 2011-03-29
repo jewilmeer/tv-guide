@@ -33,17 +33,16 @@ class Episode < ActiveRecord::Base
   has_many :interactions, :dependent => :nullify
   has_many :downloads, :dependent => :destroy
   
-  validates :title, :season_id, :program_id, :presence => true
-  validates :nr, :presence => true, :uniqueness => {:scope => [:season_id, :program_id]}
+  validates :title, :season_nr, :program_id, :presence => true
+  validates :nr, :presence => true, :uniqueness => {:scope => [:season_nr, :program_id]}
   
-  scope :downloaded, includes(:downloads).where('downloads.id IS NOT NULL')
-  scope :season_episode_matches, lambda{|season, episode| {:include => :season, :conditions => ['episodes.nr = :episode AND seasons.nr = :season ', {:episode => episode, :season => season}] } }
-  # scope :watched_by_user, lambda{|programs| {:conditions => ['program_id IN (?)', programs.map(&:id)] }}
-  scope :no_downloads_present, includes(:downloads).where('downloads.id IS NULL')
-  scope :airs_at_in_future, lambda{ where('episodes.airs_at > ?', Time.zone.now) }
-  scope :airs_at_in_past, lambda{ where('episodes.airs_at < ?', Time.zone.now) }
-  scope :next_airing, airs_at_in_future.order('episodes.airs_at asc')
-  scope :last_aired, airs_at_in_past.order('episodes.airs_at desc')
+  scope :downloaded,              includes(:downloads).where('downloads.id IS NOT NULL')
+  scope :season_episode_matches,  lambda{|season, episode| {:conditions => ['episodes.nr = :episode AND episodes.season_nr = :season ', {:episode => episode, :season => season}] } }
+  scope :no_downloads_present,    includes(:downloads).where('downloads.id IS NULL')
+  scope :airs_at_in_future,       lambda{ where('episodes.airs_at > ?', Time.zone.now) }
+  scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
+  scope :next_airing,             airs_at_in_future.order('episodes.airs_at asc')
+  scope :last_aired,              airs_at_in_past.order('episodes.airs_at desc')
   
   before_save :airs_at
   before_update :update_airs_at
@@ -64,7 +63,7 @@ class Episode < ActiveRecord::Base
     program_comp = self.program.name <=> o.program.name
     return program_comp unless program_comp == 0
 
-    season_comp = self.season.to_i <=> o.season.to_i
+    season_comp = self.season_nr <=> o.season_nr
     return season_comp unless season_comp == 0
 
     episode_comp = self.episode <=> o.episode
@@ -107,7 +106,7 @@ class Episode < ActiveRecord::Base
   end
   
   def season_and_episode
-    "S#{"%02d" % season.to_i}E#{episode}"
+    "S#{"%02d" % season_nr}E#{episode}"
   end
   
   def full_episode_title
@@ -138,7 +137,7 @@ class Episode < ActiveRecord::Base
   end
   
   def self.to_i(season, filename)
-    match = filename.match(Regexp.new("[#{season.to_i}]{1,2}[Ex]*(\\d{1,2})", Regexp::IGNORECASE))
+    match = filename.match(Regexp.new("[#{season_nr}]{1,2}[Ex]*(\\d{1,2})", Regexp::IGNORECASE))
     match ? match[1].to_i : nil
   end
 
