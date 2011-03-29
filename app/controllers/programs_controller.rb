@@ -8,14 +8,12 @@ class ProgramsController < ApplicationController
   end
   
   def guide
-    @future_episodes = Episode.by_airs_at.airs_at_after(Time.now).limited(30)#.includes([:program, :season])
-    @past_episodes   = Episode.by_airs_at(:desc).airs_at_before(Time.now).limited(30)#.includes([:program, :season])
-    # response.headers['Cache-Control'] = "public, max-age=#{5.minutes}" if Rails.env.production?
+    @future_episodes = Episode.by_airs_at.airs_at_after(Time.now).limited(30)
+    @past_episodes   = Episode.by_airs_at(:desc).airs_at_before(Time.now).limited(30)
   end
   
   def show
-    @program = Program.find(params[:id], :include => {:seasons => :episodes})
-    # response.headers['Cache-Control'] = "public, max-age=#{1.hour}" if Rails.env.production?
+    @program = Program.find(params[:id], :include => :episodes)
   end
     
   def suggest
