@@ -41,10 +41,10 @@
       .body
         = form_for([:admin, @program]) do |f|
           .form_row
-            = f.label :search_term, 'Custom search term'
-            = f.text_field :search_term
+            = f.label :search_name, 'Custom search term'
+            = f.text_field :search_name
           .form_row
-            %label Search term
+            %label Search name
             = link_to @program.episodes.airs_at_in_past.last.search_query(true), @program.episodes.airs_at_in_past.last.search_url
           %button.save Save
 

@@ -30,7 +30,10 @@
 
 .column-block
   .body
-    = image_tag( @program.banner_url, :class => :flt_left ) if @program.banner?
+    - if @program.images.series.any?
+      %img{:src => image_url( @program.images.series.random.first ) }
+    - else
+      = image_tag( @program.banner_url, :class => :flt_left ) if @program.banner?
     %ul.program_options.flt_right 
       %li
         - if @program.users.any?
@@ -52,13 +55,13 @@
         %th{:width => 100} Runtime
         %td= pluralize( @program.runtime, 'minute')
         %th{:width => 100} Genres
-        %td= @program.genres.to_sentence(:last_word_connector => ' and ')
+        %td= @program.genres.map(&:name).to_sentence
         %th{:width => 100} Network
         %td{:width => 150}= @program.network
       %tr
         %th Next episode
         %td
-          - if episode = @program.episodes.airs_at_after(Time.now).first
+          - if episode = @program.episodes.next_airing.first
             = l episode.airs_at, :format => :long
           - else
             \-

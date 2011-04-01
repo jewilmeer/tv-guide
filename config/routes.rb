@@ -14,6 +14,10 @@ TvEpisodes::Application.routes.draw do
       post :suggest
       get :search, :check, :guide
     end
+    member do
+      get :banners
+    end
+  
     resources :seasons, :updates
     resources :episodes do
       member do
@@ -23,10 +27,11 @@ TvEpisodes::Application.routes.draw do
     end
   end
   
-  resources :episodes, :images
+  resources :images, :only => :show
+  resources :episodes
   resources :pages, :only => [:index, :show]
   resource :user_session, :only => [:new, :create, :destroy]
-
+  
   resources :users, :module => 'user', :path => '/user' do
     resource :settings
     resources :programs do

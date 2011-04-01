@@ -1,0 +1,9 @@
+%h1== Banners for #{@program.name}
+
+.column-block
+  .body
+    - if @banners.any?
+      %ul
+        - @banners.each do |banner|
+          %li
+            %img{:src => image_path(banner, :format => :jpg) }
