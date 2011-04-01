@@ -31,7 +31,7 @@
 .column-block
   .body
     - if @program.images.series.any?
-      %img{:src => image_url( @program.images.series.random.first ) }
+      = image_tag("#{@program.images.series.random.first.id}.jpg", :size => '758x140', :class => :flt_left)
     - else
       = image_tag( @program.banner_url, :class => :flt_left ) if @program.banner?
     %ul.program_options.flt_right 
