@@ -19,32 +19,36 @@ class ProgramsController < ApplicationController
   def suggest
     @programs = Program.tvdb_search(params[:q].downcase)
     # exact match?
-    if @programs.length == 1 && @programs.first['seriesname'].downcase == params[:q].downcase
-      current_user.programs << Program.find_or_create_by_name(@programs.first['seriesname'])
+    if @programs.length == 1 && @programs.first["SeriesName"].downcase == params[:q].downcase
+      current_user.programs << Program.find_or_create_by_name(@programs.first["SeriesName"])
       redirect_to :back
     end
+    
   end
     
   def create
-    program_name = Program.new(params[:program]).guess_correct_name
-    @program     = Program.find_or_create_by_name(program_name, params[:program])
-    current_user.programs << @program if @program && current_user
-    if @program.save
-      flash[:notice] = "#{@program.name} added to watchlist"
-      redirect_to :programs
-    else
-      @programs = Program.all
-      render :index
-    end
+    # @program = current_user.programs.build(:tvdb_id => params[:tvdb_id])
+    # program_name = Program.new(params[:program]).guess_correct_name
+    # @program     = Program.find_or_create_by_name(program_name, params[:program])
+    # current_user.programs << @program if @program && current_user
+    # 
+    # if @program.save
+    #   flash[:notice] = "#{@program.name} added to watchlist"
+    #   redirect_to :programs
+    # else
+    #   @programs = Program.all
+    #   render :index
+    # end
   end
   
   def edit
-    @needs_update = @program.needs_update?
-    render :json => @needs_update
+    # @needs_update = @program.needs_update?
+    # render :json => @needs_update
+    render :json => true
   end
   
   def update
-    @program.tvdb_update
+    @program.tvdb_full_update
     render :nothing => true
   end
   
@@ -71,14 +75,18 @@ class ProgramsController < ApplicationController
   def check
     status = []
     program = Program.status_equals('Continuing').by_last_checked_at.limit(1).first
-    status << "Updated #{program.name}" if program.tvdb_update
-    nzbs_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).no_downloads_present.limited(5)
+    status << "Updated #{program.name}" if program.tvdb_full_update
+    nzbs_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).no_downloads_present.limited(2).random
     if nzbs_to_get.any?
       nzbs_to_get.each do |episode|
         status << "Downloading nzb #{episode.program.name} - #{episode.full_episode_title}: #{episode.get_nzb}"
       end
     end
     render :text => status * "\n<br />"
+  end
+  
+  def banners
+    @banners = @program.images#.series
   end
   
   def find_program

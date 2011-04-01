@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101130174533
+# Schema version: 20110329213820
 #
 # Table name: episodes
 #
@@ -21,6 +21,10 @@
 #  program_id       :integer(4)
 #  airs_at          :datetime
 #  downloads        :integer(4)      default(0)
+#  season_nr        :integer(4)
+#  tvdb_id          :integer(4)
+#  program_name     :string(255)
+#  tvdb_program_id  :integer(4)
 #
 
 class Episode < ActiveRecord::Base
@@ -43,9 +47,11 @@ class Episode < ActiveRecord::Base
   scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
   scope :next_airing,             airs_at_in_future.order('episodes.airs_at asc')
   scope :last_aired,              airs_at_in_past.order('episodes.airs_at desc')
+  scope :tvdb_id,                 select("id, tvdb_id")
+  scope :random,                  lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
   
-  before_save :airs_at
-  before_update :update_airs_at
+  # before_save :airs_at
+  # before_update :update_airs_at
   
   attr_accessor :options, :name, :episode, :filters, :real_filename
   
@@ -89,7 +95,6 @@ class Episode < ActiveRecord::Base
   end
   
   def age
-    logger.debug "airs_at: #{airs_at.inspect}"
     0 unless airs_at
     (airs_at.to_date - Date.today).to_i.abs.succ
   end
@@ -100,7 +105,7 @@ class Episode < ActiveRecord::Base
   
   def search_query(hd)
     terms = []
-    terms << program.search_term << season_and_episode 
+    terms << program.search_name << season_and_episode 
     terms << program.active_configuration.hd_terms if hd
     terms * ' '
   end
@@ -187,32 +192,34 @@ class Episode < ActiveRecord::Base
     # File.delete(tmp_filepath)
   end
   
-  def tvdb_info=(tvdb_info)
-    self.title       = tvdb_info['EpisodeName']
-    self.nr          = tvdb_info['EpisodeNumber']
-    self.description = tvdb_info['Overview'] ? tvdb_info['Overview'].force_encoding('utf-8') : nil
-    self.airdate     = tvdb_info['FirstAired'] ? Date.parse(tvdb_info['FirstAired']) : nil
-  end
-    
-  def self.from_tvdb tvdb_hash
-    self.new({
-      :title       => tvdb_hash['EpisodeName'],
-      :nr          => tvdb_hash['EpisodeNumber'],
-      :description => tvdb_hash['Overview'] ? tvdb_hash['Overview'].force_encoding('utf-8') : nil, 
-      :airdate     => Date.parse(tvdb_hash['FirstAired'])
-    })
-  end
+  # def tvdb_info=(tvdb_info)
+  #   self.title       = tvdb_info['EpisodeName']
+  #   self.nr          = tvdb_info['EpisodeNumber']
+  #   self.description = tvdb_info['Overview'] ? tvdb_info['Overview'].force_encoding('utf-8') : nil
+  #   self.airdate     = tvdb_info['FirstAired'] ? Date.parse(tvdb_info['FirstAired']) : nil
+  # end
+  #   
+  # def self.from_tvdb tvdb_hash
+  #   self.new({
+  #     :title       => tvdb_hash['EpisodeName'],
+  #     :nr          => tvdb_hash['EpisodeNumber'],
+  #     :description => tvdb_hash['Overview'] ? tvdb_hash['Overview'].force_encoding('utf-8') : nil, 
+  #     :airdate     => Date.parse(tvdb_hash['FirstAired'])
+  #   })
+  # end
   
-  def update_airs_at(forced=false)
-    if airdate && self.program.try(:airs_time)
-      self.airs_at = Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + self.program.time_zone_offset )
+  def airs_at=(airdate, forced=false)
+    if airdate.present? && self.program.try(:airs_time)
+      Time.zone = self.program.time_zone_offset
+      write_attribute(:airs_at, Time.zone.parse( airdate.to_s(:db) + ' ' + self.program.airs_time ))
     else
-      self.airs_at = nil 
+      write_attribute(:airs_at, nil)
     end
   end
   
   def airs_at
-    @airs_at ||= read_attribute(:airs_at) || Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time + self.program.time_zone_offset )
+    Time.zone = self.program.time_zone_offset
+    @airs_at ||= read_attribute(:airs_at) || Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time )
   rescue StandardError => e
     logger.debug "airs_at error: #{e}"
     nil
@@ -226,5 +233,48 @@ class Episode < ActiveRecord::Base
   
   def self.watched_by_user(program_ids)
     where('episodes.program_id IN (?)', program_ids)
+  end
+  
+  # api methods
+  def self.tvdb_client
+    TvdbParty::Search.new(TVDB_API)
+  end
+  def tvdb_client
+    self.class.tvdb_client
+  end
+  def apply_tvdb_attributes tvdb_result, program=nil
+    self.tvdb_id      = tvdb_result.id
+    self.nr           = tvdb_result.number
+    self.season_nr    = tvdb_result.season_number
+    self.title        = tvdb_result.name || 'TBA'
+    self.description  = tvdb_result.overview
+    self.airdate      = tvdb_result.air_date
+    self.airs_at      = tvdb_result.air_date
+    self.program      = program if program
+    self.program_name = program.name if program
+    self
+  end
+  
+  def self.from_tvdb tvdb_result, program=nil
+    self.new.apply_tvdb_attributes tvdb_result, program
+  end
+  
+  def self.tvdb_ids
+    @tvdb_ids ||= tvdb_id.all
+  end
+  
+  def self.updates timestamp=Time.now, only_existing = true
+    updates = tvdb_client.get_episodes_updates( timestamp.to_i )['Episode']
+    only_existing ? updates.reject{|tvdb_id| !tvdb_ids.include?(tvdb_id.to_s) } : updates
+  end
+  
+  def tvdb_update
+    e = tvdb_client.get_episode_by_id self.tvdb_id
+    logger.debug "e: #{e.inspect}"
+    self.apply_tvdb_attributes e 
+    save
+  end
+  def self.get_episodes_by_tvdb_id tvdb_id
+    tvdb_client.get_all_episodes_by_id( tvdb_id ).reject{|e| e.season_number.to_i == 0}
   end
 end
