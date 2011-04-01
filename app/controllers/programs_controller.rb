@@ -86,7 +86,7 @@ class ProgramsController < ApplicationController
   end
   
   def banners
-    @banners = @program.images#.series
+    @banners = @program.images.series
   end
   
   def find_program
