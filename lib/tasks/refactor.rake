@@ -13,6 +13,7 @@ namespace :refactor do
     end
   end
   
+  desc 'add tvdb_ids to episodes'
   task :add_tvdb_id_for_episodes => :environment do 
     Program.all.each do |program|
       result = Episode.tvdb_client.get_all_episodes_by_id( program.tvdb_id )
@@ -37,7 +38,8 @@ namespace :refactor do
   task :init_program_images => :environment do
     Program.all.map(&:get_images)
   end
-  
+
+  desc 'Upgrade to new api'
   task :new_api_update => [:add_tvdb_id_for_episodes, :remove_unwanted_episodes, :init_program_images]
 end
 
