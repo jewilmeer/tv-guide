@@ -37,6 +37,8 @@ namespace :refactor do
   task :init_program_images => :environment do
     Program.all.map(&:get_images)
   end
+  
+  task :new_api_update => [:add_tvdb_id_for_episodes, :remove_unwanted_episodes, :init_program_images]
 end
 
 namespace :program do
