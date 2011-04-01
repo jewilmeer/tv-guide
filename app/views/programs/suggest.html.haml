@@ -6,10 +6,10 @@
       %ul
         - @programs.each do |program|
           %li
-            = link_to(program['seriesname'], user_programs_path(current_user, :name => program['seriesname']), :method => :post, :remote => true)
-            - if program['overview'].blank?
+            = link_to(program.name, user_programs_path(current_user, :tvdb_id => program.tvdb_id), :method => :post, :remote => true)
+            - if program.overview.blank?
               %p.nothing No description available
             - else
-              %p= program['overview']
+              %p= program.overview
 - else
   %p.nothing No programs found

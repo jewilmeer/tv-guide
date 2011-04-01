@@ -4,9 +4,27 @@ class User::ProgramsController < UserAreaController
     if params[:id]
       current_user.programs << @program = Program.find(params[:id])
     else
-      @program = Program.find_or_create_by_name(params[:name])
-      raise ActiveRecord::RecordNotFound unless @program
-      current_user.programs << @program
+      @program = current_user.programs.build(:tvdb_id => params[:tvdb_id])
+      if @program.valid?
+        
+        begin
+          #some logic
+          @program.save!
+        rescue ActiveRecord::RecordNotSaved => e
+          logger.debug @program.errors.full_messages
+          logger.debug @program.errors.full_messages
+          logger.debug @program.errors.full_messages
+          logger.debug @program.errors.full_messages
+          logger.debug @program.errors.full_messages
+        end
+        
+        # @program.save!
+      else
+        logger.debug @program.errors.full_messages.inspect
+      end
+      # @program = Program.find_or_create_by_name(params[:name])
+      # raise ActiveRecord::RecordNotFound unless @program
+      # current_user.programs << @program
     end
     @program.touch # Expire cache keys
     respond_to do |format|

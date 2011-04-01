@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110329164543) do
+ActiveRecord::Schema.define(:version => 20110401104841) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                            :null => false
@@ -75,6 +75,9 @@ ActiveRecord::Schema.define(:version => 20110329164543) do
     t.datetime "airs_at"
     t.integer  "downloads",        :default => 0
     t.integer  "season_nr"
+    t.integer  "tvdb_id"
+    t.string   "program_name"
+    t.integer  "tvdb_program_id"
   end
 
   add_index "episodes", ["season_id", "nr"], :name => "chained_index"
@@ -84,14 +87,27 @@ ActiveRecord::Schema.define(:version => 20110329164543) do
     t.integer "user_id"
   end
 
+  create_table "genres", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "genres_programs", :id => false, :force => true do |t|
+    t.integer "genre_id"
+    t.integer "program_id"
+  end
+
   create_table "images", :force => true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.string   "string"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "url"
+    t.string   "image_type"
+    t.boolean  "downloaded",         :default => false
   end
 
   create_table "images_programs", :id => false, :force => true do |t|
@@ -133,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20110329164543) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "search_term"
+    t.string   "search_name"
     t.text     "overview"
     t.string   "status"
     t.integer  "tvdb_id"
@@ -155,6 +171,7 @@ ActiveRecord::Schema.define(:version => 20110329164543) do
     t.string   "time_zone_offset",    :default => "Central Time (US & Canada)"
     t.integer  "max_season_nr",       :default => 1
     t.integer  "current_season_nr",   :default => 1
+    t.string   "tvdb_name"
   end
 
   create_table "programs_users", :id => false, :force => true do |t|
