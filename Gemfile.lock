@@ -1,17 +1,17 @@
 GIT
+  remote: git://github.com/jewilmeer/tvdb_party.git
+  revision: 0101c9c1686d3901c0970dee080966f75ea3588c
+  specs:
+    tvdb_party (0.6.0)
+      httparty (>= 0.6.1)
+
+GIT
   remote: git://github.com/odorcicd/authlogic.git
   revision: a087ad0cba3c165ba22fcf176c28b6f7517931e8
   branch: rails3
   specs:
     authlogic (2.1.3)
       activesupport
-
-GIT
-  remote: git@github.com:jewilmeer/tvdb_party.git
-  revision: 0101c9c1686d3901c0970dee080966f75ea3588c
-  specs:
-    tvdb_party (0.6.0)
-      httparty (>= 0.6.1)
 
 GEM
   remote: http://rubygems.org/
