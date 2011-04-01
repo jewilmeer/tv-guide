@@ -15,7 +15,17 @@ namespace :refactor do
   
   desc 'add tvdb_ids to episodes'
   task :add_tvdb_id_for_episodes => :environment do 
+    puts "==="*20
+    puts "==="*20
+    puts "=== ADDING TVDB IDS"
+    puts "==="*20
+    puts "==="*20
     Program.all.each do |program|
+      puts "==="*20
+      puts "==="*20
+      puts "=== ADDING TVDB IDS FOR #{program.name}"
+      puts "==="*20
+      puts "==="*20
       result = Episode.tvdb_client.get_all_episodes_by_id( program.tvdb_id )
       result.each do |tvdb_episode|
         next if tvdb_episode.season_number.to_i == 0 || tvdb_episode.number.to_i == 0
@@ -36,7 +46,15 @@ namespace :refactor do
     Episode.delete_all('nr = 0')
   end
   task :init_program_images => :environment do
-    Program.all.map(&:get_images)
+    Program.all.map do |p|
+      puts "==="*20
+      puts "==="*20
+      puts "=== GETTING IMAGES FOR #{p.name}"
+      puts "==="*20
+      puts "==="*20
+      
+      p.get_images
+    end
   end
 
   desc 'Upgrade to new api'
@@ -45,6 +63,14 @@ end
 
 namespace :program do
   task :full_update => :environment do
-    Program.all.map(&:tvdb_full_update)
+    Program.all.map do |p|
+      puts "==="*20
+      puts "==="*20
+      puts "=== UPDATING #{p.name}"
+      puts "==="*20
+      puts "==="*20
+      
+      p.tvdb_full_update
+    end
   end
 end
