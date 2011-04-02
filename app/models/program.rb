@@ -331,11 +331,11 @@ class Program < ActiveRecord::Base
   end
   
   def max_season_nr
-    @max_season_nr ||= program.episodes.by_season_nr(:desc).first.season_nr
+    @max_season_nr ||= self.episodes.by_season_nr(:desc).first.season_nr
   end
   
   def current_season_nr 
-    @current_season_nr ||= program.episodes.last_aired.first.try(:season_nr) || 1
+    @current_season_nr ||= self.episodes.last_aired.first.try(:season_nr) || 1
   end
   
   def update_episode_counters
