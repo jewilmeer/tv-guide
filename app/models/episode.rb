@@ -53,7 +53,7 @@ class Episode < ActiveRecord::Base
   # before_save :airs_at
   # before_update :update_airs_at
   
-  attr_accessor :options, :name, :episode, :filters, :real_filename
+  attr_accessor :options, :name, :episode, :filters
   
   has_attached_file :nzb, 
                     :processors => [], 
@@ -122,19 +122,12 @@ class Episode < ActiveRecord::Base
     "#{program.name}_#{season_and_episode}_-_#{title}".parameterize
   end
 
-  def renamed_filename
-    renamed = season_and_episode
-    renamed << " - #{title}" if title && !title.empty?
-    renamed.gsub!(/[^a-z0-9\-_\+]+/i, '_')
-    renamed << ( filename ? File.extname(filename) : '.mkv' )
-  end
-
   def filters
     @filters || APP_CONFIG[:filters].split(/ /)
   end
   
   def to_s
-    renamed_filename || filename
+    filename
   end
     
   def to_i
