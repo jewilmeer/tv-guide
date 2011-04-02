@@ -312,7 +312,7 @@ class Program < ActiveRecord::Base
   end
 
   def tvdb_full_update
-    self.tvdb_update(false) && tvdb_full_episode_update && get_images
+    self.tvdb_update(false) && tvdb_full_episode_update && get_images && update_episode_counters
   end
   
   def tvdb_full_episode_update
@@ -328,5 +328,17 @@ class Program < ActiveRecord::Base
     tvdb_serie.banners.reject{|banner| current_image_urls.include?(banner.url) || banner.url.blank? }.map do |banner| 
       self.images.create( :url => banner.url, :image_type => banner.banner_type )
     end
+  end
+  
+  def max_season_nr
+    @max_season_nr ||= program.episodes.by_season_nr(:desc).first.season_nr
+  end
+  
+  def current_season_nr 
+    @current_season_nr ||= program.episodes.last_aired.first.try(:season_nr) || 1
+  end
+  
+  def update_episode_counteres
+    max_season_nr && current_season_nr
   end
 end

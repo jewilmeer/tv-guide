@@ -23,7 +23,6 @@ class ProgramsController < ApplicationController
       current_user.programs << Program.find_or_create_by_tvdb_id(@programs.first.tvdb_id)
       redirect_to :back
     end
-    
   end
     
   def create
