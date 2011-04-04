@@ -42,7 +42,7 @@
           No watchers
       %li== Last updated #{distance_of_time_in_words_to_now(@program.tvdb_last_update)} ago
       %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
-      %li= link_to 'View update list', program_updates_path(@program)
+      / %li= link_to 'View update list', program_updates_path(@program)
       - if current_user
         %li= link_to 'Check for updates', edit_program_path(@program), :id => :check_update, :remote => true, :'ajax:loading' => 'checking...'
         - if current_user.programs.include?(@program)
@@ -98,11 +98,3 @@
     .body
       %p.nothing No seasons yet!
 .row_seperator
-  
-.column-block
-  %h2 Comments
-  .body
-    #disqus_thread
-:javascript
-  var disqus_identifier = '#{dom_id(@program)}';
-  var disqus_url = '#{program_url(@program)}';
