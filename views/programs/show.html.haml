@@ -30,8 +30,8 @@
 
 .column-block
   .body
-    - if @program.images.series.any?
-      = image_tag("#{@program.images.series.random.first.id}.jpg", :size => '758x140', :class => :flt_left)
+    - if @featured_image
+      = image_tag("#{@featured_image.id}.jpg", :size => '758x140', :class => :flt_left)
     - else
       = image_tag( @program.banner_url, :class => :flt_left ) if @program.banner?
     %ul.program_options.flt_right 

@@ -47,6 +47,9 @@ class Program < ActiveRecord::Base
   has_one :configuration, :dependent => :destroy
   has_and_belongs_to_many :images
   
+  belongs_to :series_image, :class_name => 'Image'
+  belongs_to :fanart_image, :class_name => 'Image'
+  
   validates :name, :presence => true, :uniqueness => true
   validates :tvdb_name, :presence => true, :if => :has_tvdb_connection?
   validates :tvdb_id, :uniqueness => true, :if => :has_tvdb_connection?
@@ -70,15 +73,6 @@ class Program < ActiveRecord::Base
                     :bucket         => Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
                     :path           => ':attachment/:id/:style/:filename'
   
-  # def self.tvdb_client
-  #   @tvdb_client ||= TVdb::Client.new(APP_CONFIG[:thetvdb]['api_key'])
-  # end
-  # 
-  # def self.tvdb_search(query, options = {})
-  #   # setup tvdb wrapper client
-  #   self.tvdb_client.search(query.downcase.humanize, options)
-  # end
-
   def self.search(query)
     if query
       if %w(development test).include?(Rails.env)
@@ -129,72 +123,7 @@ class Program < ActiveRecord::Base
   def banner_url
     AWS::S3::S3Object.url_for(self.banner.path, self.banner.bucket_name)
   end
-  
-  # def episode_list
-  #   @episode_list ||= self.class.tvdb_client.get_episodes(self.tvdb_id)
-  # end
-  # 
-  # def fill_search_term
-  #   self.search_term     = self.name
-  #   self.last_checked_at = Time.now
-  # end
-  # 
-  # def retrieve_episodes(save = true)
-  #   changes = changed? ? [{:program => self.changes}] : []
-  #   self.episode_list.each do |tvdb_episode|
-  #     tmp_changes = nil
-  #     # season      = self.seasons.find_or_create_by_nr(tvdb_episode['SeasonNumber'])
-  #     episode     = self.episodes.find_or_initialize_by_season_nr_and_nr(tvdb_episode['SeasonNumber'], tvdb_episode['EpisodeNumber']) do |e|
-  #       e.program_id = self.id
-  #     end
-  #     episode.tvdb_info = tvdb_episode
-  #     
-  #     tmp_changes = {(episode.new_record? ? episode.season_and_episode : episode.id) => episode.changes} if episode.changed?
-  #     if save
-  #        changes << tmp_changes if episode.save && tmp_changes
-  #     end
-  #   end
-  #   if save
-  #     self.program_updates.create(:revision_data => changes) if changes.any?
-  #   else
-  #     self.program_updates.build(:revision_data => changes)
-  #   end
-  #   changes
-  # end
-  # 
-  # def find_additional_info
-  #   self.attributes       = tvdb_info.reject{|k,v| !self.attributes.keys.include?(k) }
-  #   self.name             = tvdb_info['seriesname']
-  #   self.tvdb_id          = tvdb_info['id']
-  #   self.tvdb_last_update = Time.at(tvdb_info['lastupdated'].to_i)
-  #   self.overview         = tvdb_info['overview'].force_encoding("utf-8") if tvdb_info['overview']
-  #   self.genres           = tvdb_info['genre']
-  #   self.tvdb_rating      = tvdb_info['rating']
-  #   self
-  # end
-  # 
-  # def needs_update?
-  #   return true if !self.last_checked_at || (self.last_checked_at + 1.hour).past?
-  # end
-  # 
-  # def tvdb_info
-  #   tvdb_id     ||= read_attribute(:tvdb_id) || get_tvdb_id
-  #   @tvdb_info  ||= self.class.tvdb_client.get_program_info(tvdb_id).inject({}){|sum,item| sum[item.first.downcase]= item.last; sum }
-  # end
-  # 
-  # def get_tvdb_id
-  #   self.class.tvdb_search(self.name, :match_mode => :exact).first['seriesid']
-  # end
-  # 
-  # def tvdb_update
-  #   self.find_additional_info
-  #   # changed?
-  #   # needs_update? && 
-  #   retrieve_episodes
-  #   self.last_checked_at = Time.now
-  #   self.save!
-  # end
-  
+
   def airs_time
     read_attribute(:airs_time) || '9:00 PM'
   end
@@ -262,6 +191,7 @@ class Program < ActiveRecord::Base
   end
   
   def apply_tvdb_attributes tvdb_result
+    return unless tvdb_result
     self.tvdb_serie     = tvdb_result #cache the object
     self.tvdb_id        = tvdb_result.id
     self.name           = self.search_name = self.tvdb_name = tvdb_result.name

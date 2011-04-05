@@ -2,8 +2,16 @@
 
 .column-block
   .body
-    - if @banners.any?
-      %ul
-        - @banners.each do |banner|
-          %li
-            %img{:src => image_path(banner, :format => :jpg) }
+    %nav
+      %ul.menu#page_menu
+        %li{:class => (:active if params[:per_page].to_i == 5)}= link_to '5', url_for(params.merge(:per_page => 5, :page => 1))
+        %li{:class => (:active if params[:per_page].to_i == 10)}= link_to '10', url_for(params.merge(:per_page => 10, :page => 1))
+        %li{:class => (:active if params[:per_page].to_i == 25)}= link_to '25', url_for(params.merge(:per_page => 25, :page => 1))
+        - @image_types.each do |image_type|
+          %li{:class => (:active if image_type == @image_type)}= link_to image_type, banners_program_path(@program, :image_type => image_type)
+    = form_for @program, :remote => true do |f|
+      - if @images.any?
+        %ul
+          = render :partial => 'images/image', :collection => @images, :locals => {:f => f}
+      = submit_tag 'Save'
+    = will_paginate @images        
