@@ -13,7 +13,8 @@ class ProgramsController < ApplicationController
   end
   
   def show
-    @program = Program.find(params[:id], :include => :episodes)
+    @program        = Program.find(params[:id], :include => :episodes)
+    @featured_image = @program.series_image || @program.images.series.random.first
   end
     
   def suggest
@@ -26,18 +27,6 @@ class ProgramsController < ApplicationController
   end
     
   def create
-    # @program = current_user.programs.build(:tvdb_id => params[:tvdb_id])
-    # program_name = Program.new(params[:program]).guess_correct_name
-    # @program     = Program.find_or_create_by_name(program_name, params[:program])
-    # current_user.programs << @program if @program && current_user
-    # 
-    # if @program.save
-    #   flash[:notice] = "#{@program.name} added to watchlist"
-    #   redirect_to :programs
-    # else
-    #   @programs = Program.all
-    #   render :index
-    # end
   end
   
   def edit
@@ -47,8 +36,14 @@ class ProgramsController < ApplicationController
   end
   
   def update
-    @program.tvdb_full_update
-    render :nothing => true
+    if params[:program]
+      @program.update_attributes(params[:program])
+      # check if we can find the image
+      @image_id = params[:program].detect{|k,v| k.include?('_image_id')}.try(:last)
+    else
+      @program.tvdb_full_update
+      render :nothing => true
+    end
   end
   
   def destroy
@@ -85,7 +80,9 @@ class ProgramsController < ApplicationController
   end
   
   def banners
-    @banners = @program.images.series
+    @image_types = Image.group('image_type').all.map(&:image_type)
+    @image_type  = params[:image_type] || @image_types.last
+    @images      = @program.images.image_type(@image_type).paginate :per_page => params[:per_page] ||= 5, :page => params[:page]
   end
   
   def find_program

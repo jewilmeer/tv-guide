@@ -27,8 +27,6 @@
             
     - when :created_at
       == Added #{distance_of_time_in_words_to_now(episode.created_at)} ago
-  - if defined? comments
-    = link_to '', program_episode_url(episode.program, episode, :anchor => :disqus_thread), :class => :'comments hover', :style => 'display: none'
   - unless simple
     .right_top
       %span.hover{:style => 'display: none'}
