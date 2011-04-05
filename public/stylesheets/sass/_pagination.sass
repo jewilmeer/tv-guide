@@ -19,4 +19,52 @@
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #fdfcfc), color-stop(1.0, #d7d3d3))
   span
     color: #bbb
-  
+.simple_pagination
+  +clear
+  margin: 26px auto 0
+  width: 100px
+  li
+    +clear
+    float: left
+    margin: 0 1px
+    list-style :none
+    a
+      display: block
+      width: 12px
+      height: 0
+      padding-top: 12px
+      background-image: url(/img/pagination.png)
+      background-position: 0 0
+      float: left
+      overflow: hidden
+
+    &.current a
+      background-position: 0 -12px
+
+
+// .simple_pagination
+//   +clear
+//   margin: 10px auto 0
+//   width: 100px
+//   li
+//     float: left
+//     margin: 0 .5em
+//     height: 12px
+//     width: 12px
+//     a
+//       display: block
+//       width: 12px
+//       height: 12px
+//       padding: 5px
+//       font-size: 12px
+//       text-align: center
+//       line-height: 12px
+//       background-color: #eee
+//       box-shadow: 2px 2px 1px rgba(100, 100, 100, 0.4)
+//       border-radius: 10px
+//       overflow: hidden
+//       &:link, &:visited
+//         background-color: rgba(0,0,0,0.5)
+//         color: white
+//         text-shadow: 1px 1px 1px #000
+//         text-decoration: none

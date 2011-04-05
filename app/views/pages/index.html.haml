@@ -1,4 +1,17 @@
 .two-third-column
+  .slides
+    .slides_container
+      - @featured_programs.each do |program|
+        - image = program.fanart_image || program.images.fanart.random.first
+        .slide
+          = link_to program do
+            = image_tag "#{image.id}.jpg", :alt => program.name, :size => '655x368'
+      
+      -# Program.by_updated_at.limit(2).map(&:images).map(&:fanart).map(&:random).map(&:only_id).map(&:first).each do |image|
+        .slide
+          = link_to image.programs.first do
+            = image_tag "#{image.id}.jpg", :alt => image.programs.first.name, :size => '655x368'
+  .row_seperator
   .column-block
     %h1 
       - if current_user
@@ -9,14 +22,9 @@
       %p
         Do you want to be able to follow your 'watched on the internet' series as easy as possible? Just signup for an account and enjoy!
         All Data will be updated from thetvdb.com and will be as fresh as possible. Keep an eye on the 'program updates' in the footer to see which series are recently updated.
-  
       %p
         %strong Note
         This website is a hobby project and may not always work as excepted. Help and suggestions are always welcome. As of the free Heroku hosting, connectivity is limited (only 1 concurrent connection).
-  .column-block
-  .body
-    :plain
-      <div id="recentcomments" class="dsq-widget"><h2 class="dsq-widget-title">Recent Comments</h2><script type="text/javascript" src="http://digitaltvguide.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script></div><a href="http://disqus.com/">Powered by Disqus</a>
 .third-column.flt-right
   - cache([:upcomming_5, Program.by_updated_at.last, Episode.next_airing.first]) do # program cache key will expire this fragment if any update is received
     .column-block

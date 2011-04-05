@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110402130049) do
+ActiveRecord::Schema.define(:version => 20110405165548) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                            :null => false
@@ -157,20 +157,20 @@ ActiveRecord::Schema.define(:version => 20110402130049) do
     t.string   "imdb_id"
     t.string   "airs_dayofweek"
     t.string   "airs_time"
-    t.string   "banner_file_name"
-    t.string   "banner_content_type"
-    t.integer  "banner_file_size"
-    t.datetime "banner_updated_at"
     t.integer  "runtime"
     t.string   "network"
     t.string   "contentrating"
     t.text     "actors"
     t.integer  "tvdb_rating"
     t.datetime "last_checked_at"
-    t.string   "time_zone_offset",    :default => "Central Time (US & Canada)"
-    t.integer  "max_season_nr",       :default => 1
-    t.integer  "current_season_nr",   :default => 1
+    t.string   "time_zone_offset",  :default => "Central Time (US & Canada)"
+    t.integer  "max_season_nr",     :default => 1
+    t.integer  "current_season_nr", :default => 1
     t.string   "tvdb_name"
+    t.integer  "fanart_image_id"
+    t.integer  "poster_image_id"
+    t.integer  "season_image_id"
+    t.integer  "series_image_id"
   end
 
   create_table "programs_users", :id => false, :force => true do |t|
