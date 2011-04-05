@@ -49,7 +49,7 @@ class Episode < ActiveRecord::Base
   scope :last_aired,              airs_at_in_past.order('episodes.airs_at desc')
   scope :tvdb_id,                 select("id, tvdb_id")
   scope :random,                  lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
-  scope :distinct_program_id,     lambda{ select('DISTINCT episodes.program_id') }
+  scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
   # before_save :airs_at
   # before_update :update_airs_at
   
