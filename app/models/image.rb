@@ -27,6 +27,7 @@ class Image < ActiveRecord::Base
   scope :url, select('images.id, images.url')
   scope :only_id, select('images.id')
   scope :random, lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
+  scope :distinctly, lambda{|columns| select("DISTINCT #{columns}") }
   
   has_attached_file :image,
     :styles => { :banner => "642x220#", :thumb => "100x100>", :slide => '655x368>' },
