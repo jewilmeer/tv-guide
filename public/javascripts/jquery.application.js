@@ -71,6 +71,37 @@ $(function()
       $this.parent('li').addClass('current');
     }
   });
+
+
+  // align: "center"
+  // length: 2
+  // padding: 4
+  // segments: 6
+  // space: 1
+  // speed: 1
+  // steps: 5
+  // valign: "center"
+  // width: 2
+  $.fn.activity.defaults.align   = 'center'
+  $.fn.activity.defaults.padding = 8
+  $.fn.activity.defaults.length  = 2
+  $.fn.activity.defaults.space   = 2
+  $.fn.activity.defaults.width   = 2
+  // $.fn.activity.defaults.width = 2
+  
+  $('.slides').slides({
+    preload: true,
+    preloadImage: '/images/spinner.gif',
+    crossfade: true,
+    play: 5000,
+    pause: 2500,
+    hoverPause: true,
+    slideEasing: "fadeOut",
+    effect: "fade",
+    fadeSpeed: 1500,
+    generatePagination: false,
+    paginationClass: 'simple_pagination'
+  });
 });
 
 (function($) {
