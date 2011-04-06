@@ -6,7 +6,9 @@
         .slide
           = link_to program do
             = image_tag "#{image.id}.jpg", :alt => program.name, :size => '655x368'
-      
+            .caption
+              %h4= program.name
+              %p= truncate(program.overview, :length => 150)
       -# Program.by_updated_at.limit(2).map(&:images).map(&:fanart).map(&:random).map(&:only_id).map(&:first).each do |image|
         .slide
           = link_to image.programs.first do
