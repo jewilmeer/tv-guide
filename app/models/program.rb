@@ -194,7 +194,9 @@ class Program < ActiveRecord::Base
     return unless tvdb_result
     self.tvdb_serie     = tvdb_result #cache the object
     self.tvdb_id        = tvdb_result.id
-    self.name           = self.search_name = self.tvdb_name = tvdb_result.name
+    self.name           = tvdb_result.name unless self.name.present?
+    self.search_name    = tvdb_result.name unless self.search_name.present?
+    self.tvdb_name      = tvdb_result.name
     self.airs_dayofweek = tvdb_result.airs_dayofweek
     self.airs_time      = tvdb_result.air_time
     self.status         = tvdb_result.status
