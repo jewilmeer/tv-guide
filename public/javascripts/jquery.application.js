@@ -100,7 +100,21 @@ $(function()
     effect: "fade",
     fadeSpeed: 1500,
     generatePagination: false,
-    paginationClass: 'simple_pagination'
+    paginationClass: 'simple_pagination',
+    animationStart: function(){
+      $('.caption').animate({
+        bottom:-120
+      },300);
+    },
+    animationComplete: function(current){
+      $('.caption').animate({
+        bottom:0
+      },200);
+     // if (window.console && console.log) {
+     //   // example return of current slide number
+     //   console.log(current);
+     // };
+    }
   });
 });
 

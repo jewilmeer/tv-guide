@@ -4,11 +4,40 @@
   height: 364px
   border: 12px solid white
   box-shadow: 2px 2px 20px rgba(0,0,0,.6)
+  .slide a
+    text-decoration: none !important
   div
     +clear
     width: 631px
     height: 364px
     display: block
-    border-radius: 10px 0 0 0
-    border-color: green
-    border-width: 20px
+    // border-radius: 10px 0 0 0
+    // border-color: green
+    // border-width: 20px
+    .caption
+      z-index: 500
+      position: absolute
+      // bottom: -80px
+      bottom: 0
+      left: 0
+      height: 80px
+      padding: 5px 10px 0 10px
+      background: #000
+      background: rgba(0,0,0,.5)
+      width: 611px
+      font-size: 1.3em
+      line-height: 1.33
+      color: #fff
+      border-top: 1px solid #000
+      text-shadow: none
+      text-decoration: none !important
+      h1,h2,h3,h4,h5,h6
+        background: transparent
+        color: white
+        margin: 5px
+        padding: 0
+      p
+        margin: 5px
+        padding: 0
+        font-size: 12px
+        color: white
