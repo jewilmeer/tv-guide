@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101130174533
+# Schema version: 20110406203743
 #
 # Table name: users
 #
@@ -24,6 +24,7 @@
 #  last_login_at       :datetime
 #  current_login_ip    :string(255)
 #  last_login_ip       :string(255)
+#  programs_count      :integer(4)      default(0)
 #
 
 class User < ActiveRecord::Base
@@ -39,7 +40,9 @@ class User < ActiveRecord::Base
   validates :password, :presence => true, :confirmation => true, :if => :password_required?
   validates :password_confirmation, :presence => true, :if => :password_required?
   
-  has_and_belongs_to_many :programs, :uniq => true
+  # has_and_belongs_to_many :programs, :uniq => true
+  has_many :programs_users
+  has_many :programs, :through => :programs_users
   has_and_belongs_to_many :episodes
   has_many :authentications
   has_many :interactions, :dependent => :nullify
