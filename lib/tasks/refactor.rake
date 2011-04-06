@@ -74,3 +74,23 @@ namespace :program do
     end
   end
 end
+
+namespace :app do
+  task :update_counters => :cleanup_duplicates do
+    Program.all.each do |program|
+      program.update_attribute(:users_count, program.users.count)
+      Program.reset_counters program.id, :interactions
+    end
+    User.all.each do |user|
+      user.update_attribute :programs_count, user.programs.count
+    end
+  end
+  
+  task :cleanup_duplicates => :environment do
+    puts 'checking duplicates'
+    ProgramsUser.connection.select_all("SELECT user_id, program_id, COUNT(*) as count FROM programs_users GROUP BY program_id, user_id HAVING count > 1").each do |program_user|
+      puts "removing duplicate: #{program_user['program_id']}::#{program_user['user_id']}"
+      ProgramsUser.connection.delete("DELETE FROM programs_users WHERE program_id=#{program_user['program_id']} AND user_id=#{program_user['user_id']} LIMIT 1")
+    end 
+  end
+end

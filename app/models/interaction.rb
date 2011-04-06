@@ -19,7 +19,7 @@ class Interaction < ActiveRecord::Base
   
   belongs_to :user, :touch => true
   belongs_to :episode, :touch => true
-  belongs_to :program, :touch => true
+  belongs_to :program, :touch => true, :counter_cache => true
 
   validates :interaction_type, :presence => true
   validates :format, :presence => true

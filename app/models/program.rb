@@ -1,35 +1,36 @@
 # == Schema Information
-# Schema version: 20110329213820
+# Schema version: 20110406203743
 #
 # Table name: programs
 #
-#  id                  :integer(4)      not null, primary key
-#  name                :string(255)
-#  created_at          :datetime
-#  updated_at          :datetime
-#  search_name         :string(255)
-#  overview            :text
-#  status              :string(255)
-#  tvdb_id             :integer(4)
-#  tvdb_last_update    :datetime
-#  imdb_id             :string(255)
-#  airs_dayofweek      :string(255)
-#  airs_time           :string(255)
-#  banner_file_name    :string(255)
-#  banner_content_type :string(255)
-#  banner_file_size    :integer(4)
-#  banner_updated_at   :datetime
-#  runtime             :integer(4)
-#  genres              :string(255)
-#  network             :string(255)
-#  contentrating       :string(255)
-#  actors              :text
-#  tvdb_rating         :integer(4)
-#  last_checked_at     :datetime
-#  time_zone_offset    :string(255)     default("Central Time (US & Canada)")
-#  max_season_nr       :integer(4)      default(1)
-#  current_season_nr   :integer(4)      default(1)
-#  tvdb_name           :string(255)
+#  id                 :integer(4)      not null, primary key
+#  name               :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  search_name        :string(255)
+#  overview           :text
+#  status             :string(255)
+#  tvdb_id            :integer(4)
+#  tvdb_last_update   :datetime
+#  imdb_id            :string(255)
+#  airs_dayofweek     :string(255)
+#  airs_time          :string(255)
+#  runtime            :integer(4)
+#  network            :string(255)
+#  contentrating      :string(255)
+#  actors             :text
+#  tvdb_rating        :integer(4)
+#  last_checked_at    :datetime
+#  time_zone_offset   :string(255)     default("Central Time (US & Canada)")
+#  max_season_nr      :integer(4)      default(1)
+#  current_season_nr  :integer(4)      default(1)
+#  tvdb_name          :string(255)
+#  fanart_image_id    :integer(4)
+#  poster_image_id    :integer(4)
+#  season_image_id    :integer(4)
+#  series_image_id    :integer(4)
+#  users_count        :integer(4)      default(0)
+#  interactions_count :integer(4)      default(0)
 #
 
 class Program < ActiveRecord::Base
@@ -43,9 +44,11 @@ class Program < ActiveRecord::Base
   has_many :episodes#, :through => :seasons, :dependent => :destroy
   has_many :program_updates, :dependent => :destroy
   has_many :interactions, :dependent => :nullify
-  has_and_belongs_to_many :users, :uniq => true
   has_one :configuration, :dependent => :destroy
   has_and_belongs_to_many :images
+
+  has_many :programs_users
+  has_many :users, :through => :programs_users
   
   belongs_to :series_image, :class_name => 'Image'
   belongs_to :fanart_image, :class_name => 'Image'

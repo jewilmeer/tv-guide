@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110405165548) do
+ActiveRecord::Schema.define(:version => 20110406203743) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                            :null => false
@@ -163,14 +163,16 @@ ActiveRecord::Schema.define(:version => 20110405165548) do
     t.text     "actors"
     t.integer  "tvdb_rating"
     t.datetime "last_checked_at"
-    t.string   "time_zone_offset",  :default => "Central Time (US & Canada)"
-    t.integer  "max_season_nr",     :default => 1
-    t.integer  "current_season_nr", :default => 1
+    t.string   "time_zone_offset",   :default => "Central Time (US & Canada)"
+    t.integer  "max_season_nr",      :default => 1
+    t.integer  "current_season_nr",  :default => 1
     t.string   "tvdb_name"
     t.integer  "fanart_image_id"
     t.integer  "poster_image_id"
     t.integer  "season_image_id"
     t.integer  "series_image_id"
+    t.integer  "users_count",        :default => 0
+    t.integer  "interactions_count", :default => 0
   end
 
   create_table "programs_users", :id => false, :force => true do |t|
@@ -209,6 +211,7 @@ ActiveRecord::Schema.define(:version => 20110405165548) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
+    t.integer  "programs_count",      :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
