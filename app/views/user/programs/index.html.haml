@@ -2,7 +2,10 @@
 - content_for(:bottom_js_domready) do
   :plain
     $('.autocomplete').autocomplete({
-      source: '/programs/search',
+      // source: '/programs/search',
+      source: function(req, response) {
+        $.getJSON('/programs/search', {query: req.term}, function(data){ response(data) } );
+      },
       minlength: 2,
       select: function(event, ui) {
         $.post('#{user_programs_path(current_user)}', {id: ui.item.id});
