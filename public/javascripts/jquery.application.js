@@ -116,8 +116,6 @@ $(function()
      // };
     }
   });
-  
-  $('window').infinitescroll({url: window.location.href});
 });
 
 (function($) {
