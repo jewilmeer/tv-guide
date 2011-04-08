@@ -1,3 +1,13 @@
+- content_for :bottom_js_domready do
+  :plain
+    $('.list tbody').infinitescroll({
+      navSelector: '.content_navigation',
+      nextSelector: function(next) { return $('.content_navigation a').attr('href').replace(/page=\d+\b/, 'page='+next); },
+      itemSelector: null,
+      loadingText: 'Loading new content...',
+      donetext: 'Done loading, no more content to be laoded!'
+    });
+
 %h1 Episode Downloads
 .column-block
   .body
@@ -10,19 +20,8 @@
             %th Nr of downloaders
             %th
         %tbody
-          - @episodes.uniq.each do |episode|
-            %tr[episode]
-              %td
-                = link_to episode.program.name, episode.program
-                \- 
-                = link_to episode.full_episode_title, episode
-              %td= l(episode.airs_at, :format => :long)
-              %td.trigger
-                %abbr{:title => "by #{episode.users.uniq.map(&:login).to_sentence}"}== downloaded #{pluralize episode.users.count, 'times'}
-                / %ul.tooltip{:style => 'display: none'}
-                /   - episode.users.uniq.each do |user|
-                /     %li=user.login
-              %td= link_to icon_tag('info'), [:admin, episode]
-      = will_paginate @episodes
+          = render @episodes
+      .content_navigation
+        = link_to :next_page, url_for( params.merge( :format => :js, :page => (params[:page] || 1).succ) )
     - else
       %p.nothing 

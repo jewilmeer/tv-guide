@@ -1,0 +1,25 @@
+%tr[program]
+  %td= link_to truncate(program.name, :length => 40), [:admin, program]
+  %td
+    - if next_aired = program.episodes.airs_at_in_future.first
+      %abbr{:title => next_aired.full_episode_title}
+        = next_aired.airs_at.to_s(:long)
+      - if program.episodes.airs_at_in_future.count > 1
+        == (+#{program.episodes.airs_at_in_future.count - 1})
+    - else
+      \-
+  %td= program.status
+  %td
+    %abbr{:title => pluralize(program.program_updates.real_updates.count, 'update')}
+      = distance_of_time_in_words_to_now( program.tvdb_last_update )
+      ago
+  %td
+    - if program.last_checked_at
+      = distance_of_time_in_words_to_now( program.last_checked_at )
+      ago
+    - else
+      \-
+  %td
+    = link_to icon_tag('info'), [:admin, program]
+    = link_to icon_tag('page_edit'), edit_admin_program_path(program)
+    = link_to icon_tag('delete'), [:admin, program], :confirm => 'Are you sure?', :method => :delete
