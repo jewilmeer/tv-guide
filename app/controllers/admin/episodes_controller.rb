@@ -3,7 +3,20 @@ class Admin::EpisodesController < AdminAreaController
   before_filter :get_episode, :except => :index
   
   def index
-    @episodes = Episode.order(sort_column + ' ' + sort_direction).includes(:program).joins(:users).paginate :per_page => 25, :page => params[:page]
+    basic_scope = Episode.order(sort_column + ' ' + sort_direction).includes(:program)
+    basic_scope = basic_scope.airs_at_in_past unless params[:include_future]
+
+    logger.debug "page: #{params[:page]}"
+
+    @episodes = basic_scope.paginate :per_page => 25, :page => params[:page]
+
+    respond_to do |format|
+      format.html
+      format.js do 
+        content = render_to_string( @episodes )
+        render :text => content, :status => 200
+      end
+    end
   end
 
   def update
