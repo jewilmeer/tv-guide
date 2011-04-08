@@ -5,11 +5,12 @@ class Admin::ProgramsController < AdminAreaController
   # GET /admin_programs
   # GET /admin_programs.xml
   def index
-    @programs = Program.by_status.order(sort_column + ' ' + sort_direction).paginate :per_page => 25, :page => params[:page]
+    @programs = Program.by_status.order(sort_column + ' ' + sort_direction).paginate :per_page => 22, :page => params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @programs }
+      format.js   { render :text => render_to_string( @programs ) }
     end
   end
 
