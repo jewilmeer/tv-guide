@@ -9,10 +9,6 @@
             .caption
               %h4= program.name
               %p= truncate(program.overview, :length => 190)
-      -# Program.by_updated_at.limit(2).map(&:images).map(&:fanart).map(&:random).map(&:only_id).map(&:first).each do |image|
-        .slide
-          = link_to image.programs.first do
-            = image_tag "#{image.id}.jpg", :alt => image.programs.first.name, :size => '655x368'
   .row_seperator
   .column-block
     %h1 

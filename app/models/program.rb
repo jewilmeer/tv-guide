@@ -64,17 +64,6 @@ class Program < ActiveRecord::Base
   scope :tvdb_id, select('id, tvdb_id')
   
   attr_accessor :active_configuration, :banners, :banner, :tvdb_serie
-  # cattr_accessor :tvdb_client
-  
-  has_attached_file :banner, 
-                    :processors     => [], 
-                    :storage        => :s3,
-                    :s3_credentials => "#{Rails.root}/config/s3.yml",
-                    :s3_permissions => 'public-read',
-                    :s3_protocol    => 'http',
-                    :s3_headers     => { :content_type => 'application/octet-stream', :content_disposition => 'attachment' },
-                    :bucket         => Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
-                    :path           => ':attachment/:id/:style/:filename'
   
   def self.search(query)
     if query
