@@ -21,11 +21,22 @@
   %h2 All programs
   .body
     - if @programs.any?
-      - cache([logged_in?, @user.id, @program_cache_key]) do 
-        - if current_user == @user
-          %p!== You are currently following #{@programs.uniq.map{|p| link_to p.name, p}.to_sentence}
-        - else
-          %p!== #{@user.login} is currently following #{@programs.uniq.map{|p| link_to p.name, p}.to_sentence}
+      %p 
+        you are currently following 
+        != @programs.map{|p| link_to p.name, p}.to_sentence
+      
+      -#
+        .slides
+          .slides_container
+            - cache([logged_in?, @user.id, @program_cache_key]) do 
+              - @programs.each do |program|
+                - image = program.fanart_image || program.images.fanart.random.first
+                .slide
+                  = link_to program do
+                    = image_tag "#{image.id}.jpg", :alt => program.name, :size => '655x368'
+                    .caption
+                      %h4= program.name
+                      %p= truncate(program.overview, :length => 190)
     - else
       %p.nothing No programs following yet
 .half-column.flt-left
