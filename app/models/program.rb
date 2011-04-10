@@ -45,7 +45,7 @@ class Program < ActiveRecord::Base
   has_many :program_updates, :dependent => :destroy
   has_many :interactions, :dependent => :nullify
   has_one :configuration, :dependent => :destroy
-  has_and_belongs_to_many :images
+  has_and_belongs_to_many :images, :dependent => :destroy
 
   has_many :programs_users
   has_many :users, :through => :programs_users
