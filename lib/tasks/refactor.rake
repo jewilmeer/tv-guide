@@ -1,3 +1,4 @@
+require 'progress_bar'
 namespace :refactor do
   task :migrate_season_nrs_to_episodes => :environment do
     Program.update_all(['time_zone_offset = ?', 'Central Time (US & Canada)'])
@@ -63,14 +64,12 @@ end
 
 namespace :program do
   task :full_update => :environment do
+    puts Program.count
+    bar = ProgressBar.new( Program.count, :bar, :counter, :rate )
+
     Program.all.map do |p|
-      puts "==="*20
-      puts "==="*20
-      puts "=== UPDATING #{p.name}"
-      puts "==="*20
-      puts "==="*20
-      
       p.tvdb_full_update
+      bar.increment!
     end
   end
 end
@@ -78,11 +77,12 @@ end
 namespace :app do
   task :update_counters => :cleanup_duplicates do
     Program.all.each do |program|
-      program.update_attribute(:users_count, program.users.count)
-      Program.reset_counters program.id, :interactions
+      # program.update_attribute(:users_count, program.users.count)
+      Program.reset_counters program.id, :interactions, :program_preferences
     end
     User.all.each do |user|
-      user.update_attribute :programs_count, user.programs.count
+      User.reset_counters user.id, :interactions, :program_preferences
+      # user.update_attribute :programs_count, user.programs.count
     end
   end
   
@@ -92,5 +92,23 @@ namespace :app do
       puts "removing duplicate: #{program_user['program_id']}::#{program_user['user_id']}"
       ProgramsUser.connection.delete("DELETE FROM programs_users WHERE program_id=#{program_user['program_id']} AND user_id=#{program_user['user_id']} LIMIT 1")
     end 
+  end
+end
+
+namespace :search_term do
+  desc 'add default search terms'
+  task :add_default_terms => :environment do
+    SearchTermType.create( :name => 'HD (720p)',        :search_term => '720',        :code => 'hd')
+    SearchTermType.create( :name => 'Full HD (1080p)',  :search_term => '1080 -720',  :code => 'full_hd')
+    SearchTermType.create( :name => 'Low Resolution',   :search_term => '',           :code => 'low_res')
+  end
+  
+  desc 'convert all program<->user connections to new setup'
+  task :add_program_preferences => :add_default_terms do
+    User.all.each do |user|
+      user.programs.each do |program|
+        program.program_preferences.create( :user => user, :search_term_type => SearchTermType.default)
+      end
+    end
   end
 end

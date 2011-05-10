@@ -1,0 +1,31 @@
+- content_for :bottom_js_domready do
+  :plain
+    $('.list tbody').infinitescroll({
+      navSelector: '.content_navigation',
+      nextSelector: function(next) { return $('.content_navigation a').attr('href').replace(/page=\d+\b/, 'page='+next); },
+      itemSelector: null,
+      loadingText: 'Loading new content...',
+      donetext: 'Done loading, no more content to be laoded!',
+      extraScrollPx: '150px',
+      bufferPx: 150
+    });
+
+%h1== Search term types (#{SearchTermType.count})
+
+- if @search_term_types.any?
+  .column-block
+    .body
+      %table.list
+        %thead
+          %tr
+            %th= sortable 'name'
+            %th Nr of programs
+            %th Controls
+        %tbody= render @search_term_types
+      .content_navigation
+        = link_to :next_page, url_for( params.merge( :format => :js, :page => (params[:page] || 1).succ) )
+
+.column-block
+  %h2 New Search term
+  .body
+    = render 'form'

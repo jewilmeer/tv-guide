@@ -116,6 +116,7 @@ $(function()
      // };
     }
   });
+  $('.radio_group').buttonset();
 });
 
 (function($) {

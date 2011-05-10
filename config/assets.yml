@@ -1,4 +1,4 @@
-embed_assets: on
+# embed_assets: on
 # package_assets: always
 javascripts:
   base:

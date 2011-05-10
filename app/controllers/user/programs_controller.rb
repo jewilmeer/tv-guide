@@ -12,10 +12,6 @@ class User::ProgramsController < UserAreaController
           @program.save!
         rescue ActiveRecord::RecordNotSaved => e
           logger.debug @program.errors.full_messages
-          logger.debug @program.errors.full_messages
-          logger.debug @program.errors.full_messages
-          logger.debug @program.errors.full_messages
-          logger.debug @program.errors.full_messages
         end
         
         # @program.save!
@@ -39,7 +35,7 @@ class User::ProgramsController < UserAreaController
   def index
     @programs          = @user.programs.by_name
     basic_episodes     = Episode.watched_by_user(@user.programs)
-    @upcoming_episodes = basic_episodes.by_airs_at.airs_at_after(Time.now).limit(6)
+    @upcoming_episodes = basic_episodes.by_airs_at.airs_at_after(Time.now).limit(20)
     @past_episodes     = basic_episodes.by_airs_at(:desc).airs_at_before(Time.now).includes(:downloads).limit(20)
     @program_cache_key = @user.programs.by_updated_at.last
     # response.headers['Cache-Control'] = "public, max-age=#{5.minutes.seconds}" if Rails.env.production?

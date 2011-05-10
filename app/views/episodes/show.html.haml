@@ -4,6 +4,8 @@
     = link_to @episode.program.name, @episode.program
     == - Season #{@episode.season_nr} - #{@episode.title}
   .body
+    - if image = @episode.image || @episode.program.images.saved.random.first
+      = image_tag image.s3_url(:episode), {:align => :left, :class => :fancy}
     %p
       Airdate: 
       - if @episode.airs_at
@@ -23,11 +25,3 @@
         %button= link_to 'Search HD', search_program_episode_path(@episode.program, @episode, :hd => true), :target => '_blank'
         or
       = link_to 'go back', :back
-
-.column-block
-  %h2 Comments
-  .body
-    #disqus_thread
-:javascript
-  var disqus_identifier = '#{dom_id(@episode)}_#{Rails.env}';
-  var disqus_url        = '#{program_episode_url(@episode.program, @episode)}';

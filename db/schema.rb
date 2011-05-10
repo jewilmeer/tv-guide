@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110406203743) do
+ActiveRecord::Schema.define(:version => 20110503064359) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                            :null => false
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20110406203743) do
     t.integer  "tvdb_id"
     t.string   "program_name"
     t.integer  "tvdb_program_id"
+    t.integer  "image_id"
   end
 
   add_index "episodes", ["season_id", "nr"], :name => "chained_index"
@@ -137,6 +138,15 @@ ActiveRecord::Schema.define(:version => 20110406203743) do
     t.datetime "updated_at"
   end
 
+  create_table "program_preferences", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "program_id"
+    t.boolean  "download",            :default => true
+    t.integer  "search_term_type_id", :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "program_updates", :force => true do |t|
     t.integer  "program_id"
     t.text     "revision_data"
@@ -183,6 +193,14 @@ ActiveRecord::Schema.define(:version => 20110406203743) do
   add_index "programs_users", ["program_id", "user_id"], :name => "index_programs_users_on_program_id_and_user_id"
   add_index "programs_users", ["user_id", "program_id"], :name => "index_programs_users_on_user_id_and_program_id"
 
+  create_table "search_term_types", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "search_term"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "seasons", :force => true do |t|
     t.integer  "nr"
     t.integer  "program_id"
@@ -212,6 +230,7 @@ ActiveRecord::Schema.define(:version => 20110406203743) do
     t.string   "current_login_ip"
     t.string   "last_login_ip"
     t.integer  "programs_count",      :default => 0
+    t.integer  "interactions_count",  :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
