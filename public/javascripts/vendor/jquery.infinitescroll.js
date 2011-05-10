@@ -109,6 +109,14 @@
             debug('heading into ajax',nextPath);
             
             // if we're dealing with a table we can't use DIVs
+            if( $(opts.contentSelector).is('tabel') ) {
+              box = $('<tbody/>');
+            } else if ($(opts.contentSelector).is('tbody')) {
+              box = $('<tr/>');
+            } else {
+              box = $('<div/>');
+            }
+            
             box = $(opts.contentSelector).is('table') ? $('<tbody/>') : $('<div/>');
             frag = document.createDocumentFragment();
             
@@ -237,8 +245,8 @@
     
         
     // define loading msg
-    props.loadingMsg = $('<div id="infscr-loading" style="text-align: center;"><img alt="Loading..." src="'+
-                                  opts.loadingImg+'" /><div>'+opts.loadingText+'</div></div>');    
+    props.loadingMsg = $('<tr id="infscr-loading" style="text-align: center;"><td colspan="99""><img alt="Loading..." src="'+
+                                  opts.loadingImg+'" /></td></tr>');    
      // preload the image
     (new Image()).src    = opts.loadingImg;
     //Check if its HTML (window scroll)

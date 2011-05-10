@@ -97,6 +97,7 @@ GEM
       addressable (~> 2.2.4)
       multipart-post (~> 1.1.0)
       rack (< 2, >= 1.1.0)
+    fattr (2.2.0)
     ffi (1.0.7)
       rake (>= 0.8.7)
     file-utils (0.1.1)
@@ -107,6 +108,7 @@ GEM
       activesupport (>= 2.1.0)
       launchy (~> 0.3.2)
       rest-client (< 1.7.0, >= 1.4.0)
+    highline (1.6.1)
     hoptoad_notifier (2.4.9)
       activesupport
       builder
@@ -181,11 +183,16 @@ GEM
       oa-oauth (= 0.2.0)
       oa-openid (= 0.2.0)
     open4 (1.0.1)
+    options (2.3.0)
+      fattr
     pacecar (1.4.5)
     paperclip (2.3.8)
       activerecord
       activesupport
     polyglot (0.3.1)
+    progress_bar (0.3.4)
+      highline (~> 1.6.1)
+      options (~> 2.3.0)
     pyu-ruby-sasl (0.0.3.2)
     rack (1.2.2)
     rack-mount (0.6.14)
@@ -294,6 +301,7 @@ DEPENDENCIES
   omniauth
   pacecar
   paperclip
+  progress_bar
   rails (~> 3.0)
   rspec-rails (~> 2.4)
   ruby-openid

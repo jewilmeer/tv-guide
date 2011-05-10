@@ -24,7 +24,12 @@
             %li= link_to icon_tag('refresh', :size => '24x24'), admin_episode_path(episode, :format => :js), :method => :put, :remote => true, :title => 'Redownload this episode'
             - unless episode.working?
               %li= link_to icon_tag('accept', :size => '24x24'), '#', :title => 'Check this episode as fixed'
-            
+      %ul.downloads
+        - episode.downloads.includes(:search_term_type).each do |download|
+          - next unless download.search_term_type
+          %li
+            = link_to download.search_term_type.name, '#'
+            = link_to '(i)', '#', :title => download.origin
     - when :created_at
       == Added #{distance_of_time_in_words_to_now(episode.created_at)} ago
   - unless simple

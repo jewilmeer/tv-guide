@@ -17,6 +17,9 @@ gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 gem 'will_paginate', '3.0.pre2'
 gem 'typhoeus'
 
+# terminal
+gem 'progress_bar'
+
 # search
 # gem 'thinkingtank'
 

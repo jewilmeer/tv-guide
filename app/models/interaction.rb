@@ -17,7 +17,7 @@
 class Interaction < ActiveRecord::Base
   include Pacecar
   
-  belongs_to :user, :touch => true
+  belongs_to :user, :touch => true, :counter_cache => true
   belongs_to :episode, :touch => true
   belongs_to :program, :touch => true, :counter_cache => true
 

@@ -4,7 +4,7 @@ require File.expand_path('../application', __FILE__)
 # Initialize the rails application
 TvEpisodes::Application.initialize!
 
-Sass::Plugin.options[:style] = :compressed
+# Sass::Plugin.options[:style] = :compressed
 
 ActiveSupport::Dependencies.log_activity = true
 

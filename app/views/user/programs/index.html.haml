@@ -1,72 +1,133 @@
 - page_title "#{@user.login.humanize}'s episode guide"
-- content_for(:bottom_js_domready) do
-  :plain
-    $('.autocomplete').autocomplete({
-      // source: '/programs/search',
-      source: function(req, response) {
-        $.getJSON('/programs/search', {query: req.term}, function(data){ response(data) } );
-      },
-      minlength: 2,
-      select: function(event, ui) {
-        $.post('#{user_programs_path(current_user)}', {id: ui.item.id});
-        return true;
-      }
-    });
-%h1
-  - if @user == current_user
-    Your episode guide
-  - else
-    == #{@user.login.humanize}'s episode guide
-.column-block
-  %h2 All programs
+
+%h1== Personal guide for #{@user.login} 
+
+.column-block.just_aired
+  %h2 Recently aired
   .body
-    - if @programs.any?
-      %p 
-        you are currently following 
-        != @programs.map{|p| link_to p.name, p}.to_sentence
-      
-      -#
-        .slides
-          .slides_container
-            - cache([logged_in?, @user.id, @program_cache_key]) do 
-              - @programs.each do |program|
-                - image = program.fanart_image || program.images.fanart.random.first
-                .slide
-                  = link_to program do
-                    = image_tag "#{image.id}.jpg", :alt => program.name, :size => '655x368'
-                    .caption
-                      %h4= program.name
-                      %p= truncate(program.overview, :length => 190)
-    - else
-      %p.nothing No programs following yet
-.half-column.flt-left
+    %ul.imagebar
+      - @past_episodes.take(3).each do |episode|
+        %li
+          = link_to episode do
+            = image_tag episode.thumb.s3_url(:episode), :width => 335, :alt => episode.full_title
+          %h5== #{episode.program_name} - #{episode.full_episode_title}
+      - @past_episodes = @past_episodes.drop(3)
+
+.two-third-column.flt-left
   .column-block
-    %h2.no_bottom_margin
-      %span.header Recently aired
-      - if current_user.try(:trusted?) && current_user == @user
-        .header_link
-          = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)'
+    %h1 Other recently aired
     .body
-      - cache([:past_episodes, logged_in?, @user.id, @program_cache_key, @past_episodes.first]) do
+      %ul.personal_guide{:style => 'margin: 0; padding:0'}
         - if @past_episodes.any?
-          %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @past_episodes, :locals => {:comments => true}
+          %ul.list
+            - last_date = nil
+            - @past_episodes.each do |episode|
+              - unless last_date == episode.airs_at.to_date
+                - last_date = episode.airs_at.to_date
+                %li
+                  %h3= l last_date, :format => :with_day
+              %li
+                - if image = episode.image || episode.program.images.saved.random.first
+                  = image_tag image.s3_url(:episode), :alt => episode.full_title
+                %h5
+                  = link_to episode.program_name, episode.program 
+                  %br
+                  = link_to episode.full_episode_title, episode
+                %ul.downloads
+                  - if episode.downloads.any?
+                    %li.label Downloads:
+                    - episode.downloads.includes(:search_term_type).each do |download|
+                      - next unless download.search_term_type
+                      %li
+                        = link_to download.search_term_type.name, '#'
+                        = link_to '(i)', '#', :title => download.origin
         - else
           %p.nothing No previous shows
-.half-column.flt-right
-  - if current_user == @user
+.third-column.flt-right
+  .column-block
+    %h1 Next airing episodes
+    .body
+      %ul.mini_guide.list
+        - last_date = nil
+        - @upcoming_episodes.each do |episode|
+          - unless last_date == episode.airs_at.to_date
+            - last_date = episode.airs_at.to_date
+            %li
+              %h4{:style => 'padding: 10px 0'}= l last_date, :format => :with_day
+          %li
+            = link_to episode.program_name, episode.program
+            \-
+            = link_to episode.title, episode 
+            == (#{episode.season_and_episode})
+-#
+  - content_for(:bottom_js_domready) do
+    :plain
+      $('.autocomplete').autocomplete({
+        // source: '/programs/search',
+        source: function(req, response) {
+          $.getJSON('/programs/search', {query: req.term}, function(data){ response(data) } );
+        },
+        minlength: 2,
+        select: function(event, ui) {
+          $.post('#{user_programs_path(current_user)}', {id: ui.item.id});
+          return true;
+        }
+      });
+  %h1
+    - if @user == current_user
+      Your episode guide
+    - else
+      == #{@user.login.humanize}'s episode guide
+  .column-block
+    %h2 All programs
+    .body
+      - if @programs.any?
+        %p 
+          you are currently following 
+          != @programs.map{|p| link_to p.name, p}.to_sentence
+      
+        -#
+          .slides
+            .slides_container
+              - cache([logged_in?, @user.id, @program_cache_key]) do 
+                - @programs.each do |program|
+                  - image = program.fanart_image || program.images.fanart.random.first
+                  .slide
+                    = link_to program do
+                      = image_tag "#{image.id}.jpg", :alt => program.name, :size => '655x368'
+                      .caption
+                        %h4= program.name
+                        %p= truncate(program.overview, :length => 190)
+      - else
+        %p.nothing No programs following yet
+  .half-column.flt-left
     .column-block
-      %h2 Follow a new program
+      %h2.no_bottom_margin
+        %span.header Recently aired
+        - if current_user.try(:trusted?) && current_user == @user
+          .header_link
+            = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)'
       .body
-        = form_for(:program, :url => suggest_programs_path) do |f|
-          .form_row.one_line_form
-            %label Add new program
-            = text_field_tag :q, params[:q] || '', :class => :autocomplete
-            %button.search ?
-  - cache([:upcoming, @user.id, @program_cache_key, @upcoming_episodes.first]) do
-    .column-block
-      %h2 Upcoming episodes
-      .body
-        - if @upcoming_episodes.any?
-          %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @upcoming_episodes, :locals => {:comments => true}
-        - else
-          %p.nothing No upcoming shows  
+        - cache([:past_episodes, logged_in?, @user.id, @program_cache_key, @past_episodes.first]) do
+          - if @past_episodes.any?
+            %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @past_episodes, :locals => {:comments => true}
+          - else
+            %p.nothing No previous shows
+  .half-column.flt-right
+    - if current_user == @user
+      .column-block
+        %h2 Follow a new program
+        .body
+          = form_for(:program, :url => suggest_programs_path) do |f|
+            .form_row.one_line_form
+              %label Add new program
+              = text_field_tag :q, params[:q] || '', :class => :autocomplete
+              %button.search ?
+    - cache([:upcoming, @user.id, @program_cache_key, @upcoming_episodes.first]) do
+      .column-block
+        %h2 Upcoming episodes
+        .body
+          - if @upcoming_episodes.any?
+            %ul.list.program_guide= render :partial => 'episodes/episode', :collection => @upcoming_episodes, :locals => {:comments => true}
+          - else
+            %p.nothing No upcoming shows  
