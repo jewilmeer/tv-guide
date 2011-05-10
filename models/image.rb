@@ -30,8 +30,12 @@ class Image < ActiveRecord::Base
   scope :distinctly, lambda{|columns| select("DISTINCT #{columns}") }
   scope :saved, where('image_file_name IS NOT NULL')
   
+  before_save :save_image, :if => Proc.new{|i| i.url.present? && i.should_save == true }
+  
+  attr_accessor :should_save
+  
   has_attached_file :image,
-    :styles => { :banner => "642x220#", :thumb => "100x100>", :slide => '655x368>' },
+    :styles => { :banner => "642x220#", :thumb => "100x100>", :slide => '655x368>', :episode => '300x180^', :mini_episode => '140x80#' },
     :storage        => :s3,
     :s3_credentials => "#{Rails.root}/config/s3.yml",
     :s3_permissions => 'public-read',
@@ -49,6 +53,7 @@ class Image < ActiveRecord::Base
   end
 
   def s3_url(image_format = 'banner')
+    save_image unless image?
     AWS::S3::S3Object.url_for(self.image.path(image_format), self.image.bucket_name)
   end
   

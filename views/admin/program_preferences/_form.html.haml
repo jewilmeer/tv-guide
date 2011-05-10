@@ -1,0 +1,24 @@
+= form_for [:admin, @program_preference] do |f|
+  = f.error_messages
+  
+  - @program_preference.attributes.reject{|k,v| %w(created_at updated_at id).include?(k) }.each  do |k,v|
+    .form_row
+      = f.label k
+      - case ProgramPreference.columns_hash[k].type
+      - when :datetime
+        = v ? l(v, :format => :long) : '-'
+      - when :text
+        = f.text_area k
+      - when :boolean
+        .radio_group
+          = f.radio_button k, true, :id => "#{k}_true"
+          %label{:for => "#{k}_true"} True 
+          = f.radio_button k, false, :id => "#{k}_false"
+          %label{:for => "#{k}_false"} False
+      - else
+        - if k.to_sym == :time_zone_offset
+          = f.time_zone_select k
+        - else
+          = f.text_field k
+  .actions
+    = f.submit 'Save'

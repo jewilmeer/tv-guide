@@ -36,20 +36,23 @@
 class Program < ActiveRecord::Base
   include Pacecar
   require 'open-uri'
-  require 'tvdb'
   require 'aws/s3'
   
-  has_and_belongs_to_many :genres, :uniq => true
-  has_many :seasons, :dependent => :destroy
   has_many :episodes#, :through => :seasons, :dependent => :destroy
-  has_many :program_updates, :dependent => :destroy
   has_many :interactions, :dependent => :nullify
-  has_one :configuration, :dependent => :destroy
-  has_and_belongs_to_many :images, :dependent => :destroy
-
+  has_many :program_preferences
   has_many :programs_users
-  has_many :users, :through => :programs_users
+  has_many :program_updates, :dependent => :destroy
+  has_many :seasons, :dependent => :destroy
   
+  has_many :users, :through => :programs_users
+  has_many :search_term_types, :through => :program_preferences, :uniq => true
+  
+  has_one :configuration, :dependent => :destroy
+  
+  has_and_belongs_to_many :images
+  has_and_belongs_to_many :genres, :uniq => true
+
   belongs_to :series_image, :class_name => 'Image'
   belongs_to :fanart_image, :class_name => 'Image'
   
