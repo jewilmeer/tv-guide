@@ -1,0 +1,7 @@
+%tr[program_preference]
+  %td= program_preference.try(:user).try(:login) || '-'
+  %td= program_preference.try(:program).try(:name) || '-'
+  %td= program_preference.try(:search_term_type).try(:name) || '-'
+  %td= program_preference.download ? 'Yes' : 'No'
+  %td
+    = link_to icon_tag('info'), [:admin, program_preference]

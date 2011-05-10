@@ -1,5 +1,6 @@
 %h1 New program
-
-= render 'form'
-
-= link_to 'Back', programs_path
+.column-block
+  .body
+    = render 'form'
+    
+    = link_to 'Back', [:admin, :programs]

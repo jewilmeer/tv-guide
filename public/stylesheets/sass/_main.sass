@@ -37,7 +37,36 @@ section
       position: absolute
       top: 40px
       left: 10px
-
+  .just_aired
+    
+  ul.imagebar
+    padding: 0
+    margin: 0 auto
+      left: 0 !important
+    +clear
+    
+    $image_width = 341px
+    li
+      position: relative
+      display: inline
+      border-width: 0
+      padding: 0
+      margin: 0
+      width: $image_width !important
+      float: left
+      h5
+        width: $image_width - 20px
+        padding: 10px
+        color: black
+      >a
+        text-decoration: none
+        padding: 0
+        margin: 0
+        +clear
+        img
+          display: block
+          width: $image_width !important
+      
   ul.program_guide
     padding: 0
     li
@@ -74,6 +103,23 @@ section
           border: 1px solid #999
         a img
           vertical-align: bottom
+    &.downloads
+      +clear
+      li
+        +clear
+        float: left
+        border-bottom: 0 none transparent !important
+        padding: 0 5px
+        margin: 0 2px !important
+        &:not(.label)
+          background: $link_color !important
+          border-radius: 3px
+          a
+            font-size: 11px
+            text-decoration: none !important
+            color: white
+            font-weight: bold
+        
 .program_options
   padding: 10px
 .episode
@@ -138,3 +184,6 @@ footer
   -webkit-text-overflow: ellipsis
   -moz-text-overflow: ellipsis
   text-overflow: ellipsis
+.fancy
+  border: 5px solid white
+  margin-right: 10px

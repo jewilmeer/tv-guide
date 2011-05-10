@@ -36,6 +36,7 @@ class Episode < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :interactions, :dependent => :nullify
   has_many :downloads, :dependent => :destroy
+  belongs_to :image
   
   validates :title, :season_nr, :program_id, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_nr, :program_id]}
@@ -53,7 +54,7 @@ class Episode < ActiveRecord::Base
   # before_save :airs_at
   # before_update :update_airs_at
   
-  attr_accessor :options, :name, :episode, :filters
+  attr_accessor :options, :name, :episode, :filters, :thumb
   
   has_attached_file :nzb, 
                     :processors => [], 
@@ -99,15 +100,12 @@ class Episode < ActiveRecord::Base
     (airs_at.to_date - Date.today).to_i.abs.succ
   end
 
-  def search_url(hd = false)
-    program.active_configuration.search_url(search_query(hd), {:age => self.age})
+  def search_url( extra_terms )
+    program.active_configuration.search_url( extra_terms, {:age => self.age})
   end
   
-  def search_query(hd)
-    terms = []
-    terms << program.search_name << season_and_episode 
-    terms << program.active_configuration.hd_terms if hd
-    terms * ' '
+  def search_query(extra_terms)
+    ([] << program.search_name << season_and_episode << extra_terms) * ' '
   end
   
   def season_and_episode
@@ -116,6 +114,10 @@ class Episode < ActiveRecord::Base
   
   def full_episode_title
     "#{season_and_episode} - #{title}"
+  end
+  
+  def full_title
+    "#{program.name} - #{full_episode_title}"
   end
   
   def filename
@@ -142,47 +144,76 @@ class Episode < ActiveRecord::Base
   def to_param
     "#{id}-#{title.parameterize}"
   end
-  
-  def get_nzb( options = {} )
-    default_options = {
-      :format => :nzb,
-      :hd => true
-    }
-    options       = default_options.merge(options)
-    download_type = "#{options[:format]}_#{options[:hd] ? 'hd' : 'sd'}"
 
-    logger.debug "Getting nzbfile from #{search_url}"
-    tmp_filepath = "tmp/#{filename}.nzb"
-    agent        = Browser.agent
+  def download_types
+    program.search_term_types
+  end
 
-    download = self.downloads.find_or_initialize_by_download_type(download_type)
+  def download_all
+    download_types.map{|dt| self.download dt}
+  end
+
+  def download search_term_type
+    search_url = search_url( search_term_type.search_term )
+    download   = downloads.find_or_initialize_by_download_type( search_term_type.code )
+
+    logger.debug "Getting #{search_term_type.name} from #{search_url}"
     
     # nzbindex
-    next_page   = agent.get(search_url(true)).forms.last.submit
+    next_page   = Browser.agent.get( search_url ).forms.last.submit
     if (download_links = next_page.links_with(:text => 'Download')).any?
       download.origin = strip_tags(Nokogiri::HTML(next_page.body).css('td label').last.to_s)
-      file            = download_links.last.click#.save(tmp_filepath)
+      file            = download_links.last.click
       download.file   = file
       download.site   = 'nzbindex.nl'
       download.save
     else
-      logger.debug "No downloads found at #{search_url(true)}"
+      logger.debug "No downloads found at #{search_url}"
       false
     end
-
-    # newzleech
-    # file = agent.get( search_url(true) ).links_with(:href => /\?m=gen/).last.click.save(tmp_filepath)
-    
+  end
+  
+  def get_nzb( options = {} )
+    download_all
+    # default_options = {
+    #   :format => :nzb,
+    #   :hd => true
+    # }
+    # options       = default_options.merge(options)
+    # download_type = "#{options[:format]}_#{options[:hd] ? 'hd' : 'sd'}"
     # 
-    # TODO ADD THE DOWNLOAD AT THE RIGHT PLACE
+    # logger.debug "Getting nzbfile from #{search_url}"
+    # tmp_filepath = "tmp/#{filename}.nzb"
+    # agent        = Browser.agent
     # 
-    
-    # return 'failed to download' unless file
+    # download = self.downloads.find_or_initialize_by_download_type(download_type)
     # 
-    # File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file  }
-    # return 'failed to download (empty file)' unless self.nzb.size > 0
-    # self.save
-    # File.delete(tmp_filepath)
+    # # nzbindex
+    # next_page   = agent.get(search_url(true)).forms.last.submit
+    # if (download_links = next_page.links_with(:text => 'Download')).any?
+    #   download.origin = strip_tags(Nokogiri::HTML(next_page.body).css('td label').last.to_s)
+    #   file            = download_links.last.click#.save(tmp_filepath)
+    #   download.file   = file
+    #   download.site   = 'nzbindex.nl'
+    #   download.save
+    # else
+    #   logger.debug "No downloads found at #{search_url(true)}"
+    #   false
+    # end
+    # 
+    # # newzleech
+    # # file = agent.get( search_url(true) ).links_with(:href => /\?m=gen/).last.click.save(tmp_filepath)
+    # 
+    # # 
+    # # TODO ADD THE DOWNLOAD AT THE RIGHT PLACE
+    # # 
+    # 
+    # # return 'failed to download' unless file
+    # # 
+    # # File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file  }
+    # # return 'failed to download (empty file)' unless self.nzb.size > 0
+    # # self.save
+    # # File.delete(tmp_filepath)
   end
   
   # def tvdb_info=(tvdb_info)
@@ -218,6 +249,15 @@ class Episode < ActiveRecord::Base
     nil
   end
   
+  def thumb=url
+    return false unless url.present?
+    self.image || self.build_image( :url => url, :should_save => true, :image_type => :episode )
+  end
+
+  def thumb
+    self.image || self.program.images.saved.fanart.random.first || self.program.images.fanart.random.first
+  end
+  
   def working?
     last_blame = self.interactions.interaction_type_is('blame').last
     return true unless last_blame
@@ -235,7 +275,7 @@ class Episode < ActiveRecord::Base
   def tvdb_client
     self.class.tvdb_client
   end
-  def apply_tvdb_attributes tvdb_result, program=nil
+  def apply_tvdb_attributes tvdb_result, _program=nil
     self.tvdb_id      = tvdb_result.id
     self.nr           = tvdb_result.number
     self.season_nr    = tvdb_result.season_number
@@ -243,8 +283,9 @@ class Episode < ActiveRecord::Base
     self.description  = tvdb_result.overview
     self.airdate      = tvdb_result.air_date
     self.airs_at      = tvdb_result.air_date
-    self.program      = program if program
-    self.program_name = program.name if program
+    self.program      = _program if _program
+    self.program_name = _program.name if _program
+    self.thumb        = tvdb_result.try(:thumb)
     self
   end
   
@@ -263,7 +304,6 @@ class Episode < ActiveRecord::Base
   
   def tvdb_update
     e = tvdb_client.get_episode_by_id self.tvdb_id
-    logger.debug "e: #{e.inspect}"
     self.apply_tvdb_attributes e 
     save
   end

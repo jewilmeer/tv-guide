@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, :presence => true, :if => :password_required?
   
   # has_and_belongs_to_many :programs, :uniq => true
+  has_many :program_preferences
   has_many :programs_users
   has_many :programs, :through => :programs_users
   has_and_belongs_to_many :episodes
