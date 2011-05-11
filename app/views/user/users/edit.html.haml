@@ -59,7 +59,7 @@
     %h2 Watched programs
     .body
       - if current_user.programs.any?
-        %ul.my_programs
+        %ul.my_programs.list
           - current_user.programs.by_name.each do |program|
             %li
               = link_to program.name, program
