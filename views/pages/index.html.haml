@@ -26,7 +26,7 @@
 .third-column.flt-right
   - cache([:next_airing, Episode.next_airing.first]) do # program cache key will expire this fragment if any update is received
     .column-block
-      %h3.no_bottom_margin
+      %h2.no_bottom_margin
         %span.header Next Airing Episodes
         .header_link= link_to 'Full Guide', guide_programs_path
       .body
@@ -37,7 +37,7 @@
               - unless last_date == episode.airs_at.to_date
                 - last_date = episode.airs_at.to_date
                 %li
-                  %h4{:style => 'padding: 10px 0'}= l last_date, :format => :with_day
+                  %h4.small_spacing= l last_date, :format => :with_day
               %li
                 = link_to episode.program_name, program_path(episode.program_id)
                 \-
@@ -48,7 +48,7 @@
           %p.nothing No upcoming episodes known
   - cache([:last_aired, Episode.last_aired.first]) do
     .column-block
-      %h3.no_bottom_margin
+      %h2.no_bottom_margin
         %span.header Last Aired Episodes
         .header_link= link_to 'Full Guide', guide_programs_path
       .body
@@ -59,7 +59,7 @@
               - unless last_date == episode.airs_at.to_date
                 - last_date = episode.airs_at.to_date
                 %li
-                  %h4{:style => 'padding: 10px 0'}= l last_date, :format => :with_day
+                  %h4.small_spacing= l last_date, :format => :with_day
               %li
                 = link_to episode.program_name, program_path(episode.program_id)
                 \-
