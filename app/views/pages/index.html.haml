@@ -24,24 +24,47 @@
         %strong Note
         This website is a hobby project and may not always work as excepted. Help and suggestions are always welcome. As of the free Heroku hosting, connectivity is limited (only 1 concurrent connection).
 .third-column.flt-right
-  - cache([:upcomming_5, Program.by_updated_at.last, Episode.next_airing.first]) do # program cache key will expire this fragment if any update is received
+  - cache([:next_airing, Episode.next_airing.first]) do # program cache key will expire this fragment if any update is received
     .column-block
       %h3.no_bottom_margin
-        %span.header Upcomming episodes
+        %span.header Next Airing Episodes
         .header_link= link_to 'Full Guide', guide_programs_path
       .body
-        - if @upcoming_episodes.any?
-          %ul.list.mini_guide= render :partial => 'episodes/episode', :collection => @upcoming_episodes, :locals => {:simple => true}
+        - if @next_airing.any?
+          - last_date = nil
+          %ul.list.mini_guide
+            - @next_airing.each do |episode|
+              - unless last_date == episode.airs_at.to_date
+                - last_date = episode.airs_at.to_date
+                %li
+                  %h4{:style => 'padding: 10px 0'}= l last_date, :format => :with_day
+              %li
+                = link_to episode.program_name, program_path(episode.program_id)
+                \-
+                = link_to episode.title
+                == (#{episode.season_and_episode})
+              
         - else
           %p.nothing No upcoming episodes known
-  - cache([:last_5_added, Episode.by_created_at.last], :expires_in => 10.minutes) do
+  - cache([:last_aired, Episode.last_aired.first]) do
     .column-block
       %h3.no_bottom_margin
-        %span.header Last added episodes
-        .header_link= link_to 'More updates', pages_program_updates_path
+        %span.header Last Aired Episodes
+        .header_link= link_to 'Full Guide', guide_programs_path
       .body
-        - if @latest_episodes.any?
-          %ul.list.mini_guide= render :partial => 'episodes/episode', :collection => @latest_episodes, :locals => {:addition_info => :created_at, :simple => true}
+        - if @last_aired.any?
+          - last_date = nil
+          %ul.list.mini_guide
+            - @last_aired.each do |episode|
+              - unless last_date == episode.airs_at.to_date
+                - last_date = episode.airs_at.to_date
+                %li
+                  %h4{:style => 'padding: 10px 0'}= l last_date, :format => :with_day
+              %li
+                = link_to episode.program_name, program_path(episode.program_id)
+                \-
+                = link_to episode.title
+                == (#{episode.season_and_episode})
         - else
           %p.nothing No latest additions found
       

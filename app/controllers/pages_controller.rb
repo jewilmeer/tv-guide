@@ -4,9 +4,8 @@ class PagesController < ApplicationController
   # hompage
   def index
     @featured_programs = (Episode.next_airing.distinct_program_id('episodes.airs_at').limit(3).map(&:program) | Episode.by_created_at(:desc).distinct_program_id('episodes.created_at').limit(3).map(&:program))
-    @upcoming_episodes = Episode.next_airing.limit(5)
-    @latest_episodes   = Episode.by_created_at(:desc).limit(5).includes(:program).where(['DATE(programs.created_at) <> DATE(episodes.created_at)'])
-    # response.headers['Cache-Control'] = "public, max-age=#{5.minutes}" if Rails.env.production?
+    @next_airing       = Episode.next_airing.limit(5)
+    @last_aired        = Episode.by_created_at(:desc).limit(5).includes(:program).where(['DATE(programs.created_at) <> DATE(episodes.created_at)'])
   end
   
   def show
