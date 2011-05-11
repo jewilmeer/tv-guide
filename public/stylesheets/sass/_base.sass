@@ -69,10 +69,12 @@ h3
   font-size: 12px
 h4
   font-size: 12px
-  &.small_spacing
-    padding: 4px 5px 2px !important
 h5
-  font-size: 12em
+  font-size: 12px
+h1,h2,h3,h4,h5,h6
+  &.small_spacing
+    margin: 0
+    padding: 4px 5px 2px !important
 p, label, li
   color: $default_text_color
   line-height: 18px
@@ -155,7 +157,7 @@ ol, ul
     margin: 0 !important
     > li
       position: relative
-      border-bottom: 1px solid #999
+      border-bottom: 1px solid $list_border_color
       margin: 0 !important
       padding: 5px
       &:nth-child(odd)
@@ -184,3 +186,5 @@ section
   float: left
 .text-center
   text-align: center
+.smaller
+  font-size: 0.85em

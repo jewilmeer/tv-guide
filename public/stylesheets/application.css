@@ -144,11 +144,13 @@ h3 {
 
 h4 {
   font-size: 12px; }
-  h4.small_spacing {
-    padding: 4px 5px 2px !important; }
 
 h5 {
-  font-size: 12em; }
+  font-size: 12px; }
+
+h1.small_spacing, h2.small_spacing, h3.small_spacing, h4.small_spacing, h5.small_spacing, h6.small_spacing {
+  margin: 0;
+  padding: 4px 5px 2px !important; }
 
 p, label, li {
   color: #333333;
@@ -228,7 +230,7 @@ ol.list, ul.list {
   margin: 0 !important; }
   ol.list > li, ul.list > li {
     position: relative;
-    border-bottom: 1px solid #999999;
+    border-bottom: 1px solid #cccccc;
     margin: 0 !important;
     padding: 5px; }
     ol.list > li:nth-child(odd), ul.list > li:nth-child(odd) {
@@ -267,6 +269,9 @@ section {
 
 .text-center {
   text-align: center; }
+
+.smaller {
+  font-size: 0.85em; }
 
 h1, h2, h3, h4, h5, h6 {
   zoom: 1; }
@@ -357,12 +362,6 @@ section .column-block {
     section .column-block .body ol li {
       list-style-type: decimal;
       padding-left: 5px; }
-    section .column-block .body ul, section .column-block .body ol {
-      margin-left: 10px; }
-      section .column-block .body ul li, section .column-block .body ol li {
-        margin: 0px;
-        line-height: 20px;
-        border-bottom: 1px solid #bbbbbb; }
     section .column-block .body p {
       padding: 5px !important; }
     section .column-block .body .entry {
@@ -643,7 +642,7 @@ section {
       height: 0;
       clear: both;
       display: block; }
-    section ul.imagebar li {
+    section ul.imagebar > li {
       position: relative;
       display: inline;
       border-width: 0;
@@ -651,23 +650,29 @@ section {
       margin: 0;
       width: 341px !important;
       float: left; }
-      section ul.imagebar li h5 {
+      section ul.imagebar > li h5 {
         width: 321px;
         padding: 10px;
         color: black; }
-      section ul.imagebar li > a {
+      section ul.imagebar > li > a {
         text-decoration: none;
         padding: 0;
         margin: 0;
         zoom: 1; }
-        section ul.imagebar li > a:after {
+        section ul.imagebar > li > a:after {
           content: "";
           height: 0;
           clear: both;
           display: block; }
-        section ul.imagebar li > a img {
+        section ul.imagebar > li > a img {
           display: block;
-          width: 341px !important; }
+          width: 341px !important;
+          height: 180px; }
+    section ul.imagebar p {
+      margin-bottom: 0; }
+    section ul.imagebar ul.downloads {
+      padding-left: 10px;
+      margin-bottom: 5px; }
   section ul.program_guide {
     padding: 0; }
     section ul.program_guide li {
@@ -709,32 +714,57 @@ section {
         border: 1px solid #999999; }
       section ul.options_bar li a img {
         vertical-align: bottom; }
-  section ul.downloads {
-    zoom: 1; }
-    section ul.downloads:after {
+
+ul.downloads {
+  display: inline-block;
+  margin: 0;
+    margin-top: 5px;
+  padding: 0;
+  min-width: 250px;
+  zoom: 1; }
+  ul.downloads:after {
+    content: "";
+    height: 0;
+    clear: both;
+    display: block; }
+  ul.downloads li {
+    zoom: 1;
+    float: left;
+    border-bottom: 0 none transparent; }
+    ul.downloads li:after {
       content: "";
       height: 0;
       clear: both;
       display: block; }
-    section ul.downloads li {
-      zoom: 1;
-      float: left;
-      border-bottom: 0 none transparent !important;
+    ul.downloads li:not(.label) {
+      background: #74323b;
+      border-radius: 3px;
       padding: 0 5px;
-      margin: 0 2px !important; }
-      section ul.downloads li:after {
-        content: "";
-        height: 0;
-        clear: both;
-        display: block; }
-      section ul.downloads li:not(.label) {
-        background: #74323b !important;
-        border-radius: 3px; }
-        section ul.downloads li:not(.label) a {
-          font-size: 11px;
-          text-decoration: none !important;
-          color: white;
-          font-weight: bold; }
+      margin: 0 2px; }
+      ul.downloads li:not(.label) a {
+        font-size: 11px;
+        text-decoration: none;
+        color: white;
+        font-weight: bold; }
+
+.large_column_guide ul.list {
+  padding: 0;
+  margin: 0; }
+  .large_column_guide ul.list > li {
+    zoom: 1; }
+    .large_column_guide ul.list > li:after {
+      content: "";
+      height: 0;
+      clear: both;
+      display: block; }
+    .large_column_guide ul.list > li img.episode {
+      float: left;
+      margin: 10px; }
+    .large_column_guide ul.list > li .episode_information {
+      padding: 10px; }
+      .large_column_guide ul.list > li .episode_information h1, .large_column_guide ul.list > li .episode_information h2, .large_column_guide ul.list > li .episode_information h3, .large_column_guide ul.list > li .episode_information h4, .large_column_guide ul.list > li .episode_information h5, .large_column_guide ul.list > li .episode_information h6 {
+        display: inline-block;
+        max-width: 280px; }
 
 .program_options {
   padding: 10px; }
@@ -771,6 +801,10 @@ p.nothing {
   font-size: 18px;
   color: #cccccc;
   text-align: center; }
+
+li.nothing {
+  color: #cccccc;
+  background-color: transparent; }
 
 footer {
   -moz-border-bottom-left-radius: 5px;
