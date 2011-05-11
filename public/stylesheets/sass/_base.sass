@@ -17,10 +17,8 @@ $normal_font_family= "Verdana, Arial, sans-serif"
   font-weight: bold
   src: local('Graublau Web Bold'), local('GraublauWebBold'), url('/fonts/GraublauWebBold.otf')
 
-html
-  font-size: 12px
-
 html, body
+  font-size: 12px
   margin: 0
   padding: 0
   background:
@@ -28,7 +26,6 @@ html, body
 
 body
   font-family: $normal_font_family
-  font-size: 12px
   min-height: 400px
   padding: 0
 header
@@ -38,9 +35,10 @@ header
     float: left
     line-height: 22px
 
-h1,h2,h3,h4,h5,h6
+h1,h2
   font-family: GraublauWeb, arial, sans-serif
-
+h3,h4,h5,h6
+  font-weight: bold
 a
   color: $link_color
   text-decoration: underline
@@ -49,7 +47,6 @@ a:hover
   text-decoration: underline
 
 h1,h2,h3,h4
-  color: $header_color
   padding: 10px
     bottom: 5px
   a, span.header a
@@ -60,15 +57,22 @@ h1,h2,h3,h4
     color: $header_color
     font-weight: normal
     text-decoration: underline
-
+h1,h2
+  color: $header_color
+h3,h4
+  color: black
 h1
-  font-size: 18px
+  font-size: 16px
 h2
-  font-size: 15px
+  font-size: 14px
 h3
-  font-size: 14px
+  font-size: 12px
 h4
-  font-size: 14px
+  font-size: 12px
+  &.small_spacing
+    padding: 4px 5px 2px !important
+h5
+  font-size: 12em
 p, label, li
   color: $default_text_color
   line-height: 18px

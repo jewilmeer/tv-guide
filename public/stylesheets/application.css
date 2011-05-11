@@ -77,24 +77,21 @@ section h1, section h2, section h3, section h4 {
 
 @font-face {
   font-family: GraublauWeb;
-  src: local("Graublau Web"),local("GraublauWeb"),url("/fonts/GraublauWeb.otf"); }
+  src: local("Graublau Web"), local("GraublauWeb"), url("/fonts/GraublauWeb.otf"); }
 
 @font-face {
   font-family: GraublauWeb;
   font-weight: bold;
-  src: local("Graublau Web Bold"),local("GraublauWebBold"),url("/fonts/GraublauWebBold.otf"); }
-
-html {
-  font-size: 12px; }
+  src: local("Graublau Web Bold"), local("GraublauWebBold"), url("/fonts/GraublauWebBold.otf"); }
 
 html, body {
+  font-size: 12px;
   margin: 0;
   padding: 0;
   background-color: #cccccc; }
 
 body {
   font-family: Verdana, Arial, sans-serif;
-  font-size: 12px;
   min-height: 400px;
   padding: 0; }
 
@@ -105,8 +102,11 @@ header {
     float: left;
     line-height: 22px; }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: GraublauWeb,arial,sans-serif; }
+h1, h2 {
+  font-family: GraublauWeb, arial, sans-serif; }
+
+h3, h4, h5, h6 {
+  font-weight: bold; }
 
 a {
   color: #74323b;
@@ -116,7 +116,6 @@ a:hover {
   text-decoration: underline; }
 
 h1, h2, h3, h4 {
-  color: #ff6600;
   padding: 10px;
     padding-bottom: 5px; }
   h1 a, h1 span.header a, h2 a, h2 span.header a, h3 a, h3 span.header a, h4 a, h4 span.header a {
@@ -128,17 +127,28 @@ h1, h2, h3, h4 {
     font-weight: normal;
     text-decoration: underline; }
 
+h1, h2 {
+  color: #ff6600; }
+
+h3, h4 {
+  color: black; }
+
 h1 {
-  font-size: 18px; }
+  font-size: 16px; }
 
 h2 {
-  font-size: 15px; }
+  font-size: 14px; }
 
 h3 {
-  font-size: 14px; }
+  font-size: 12px; }
 
 h4 {
-  font-size: 14px; }
+  font-size: 12px; }
+  h4.small_spacing {
+    padding: 4px 5px 2px !important; }
+
+h5 {
+  font-size: 12em; }
 
 p, label, li {
   color: #333333;
@@ -182,23 +192,23 @@ table {
     text-align: left;
     background-color: #dddddd; }
   table.with_lines td {
-    border-bottom: 1px solid #eee; }
+    border-bottom: 1px solid #eeeeee; }
   table tbody th.top, table tbody td.top {
     vertical-align: top; }
   table tbody tr:hover {
     border-bottom: 1px solid transparent;
-    border-color: rgba(255,255,255,0.9);
-    background-color: rgba(0,0,0,0.1); }
+    border-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.1); }
   table tbody td {
     padding: 5px; }
   table.list {
-    border: 1px solid #ccc; }
+    border: 1px solid #cccccc; }
     table.list th, table.list td {
-      border-left: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #cccccc;
+      border-bottom: 1px solid #cccccc;
       line-height: 18px; }
       table.list th a, table.list td a {
-        color: #000;
+        color: black;
         font-weight: bold; }
     table.list th {
       font-weight: bold;
@@ -218,7 +228,7 @@ ol.list, ul.list {
   margin: 0 !important; }
   ol.list > li, ul.list > li {
     position: relative;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #999999;
     margin: 0 !important;
     padding: 5px; }
     ol.list > li:nth-child(odd), ul.list > li:nth-child(odd) {
@@ -333,7 +343,6 @@ section .column-block {
     border-bottom: 1px solid #d5d5d5; }
   section .column-block h3 {
     height: 18px;
-    font-size: 14px;
     line-height: 18px; }
   section .column-block h4 {
     line-height: 16px; }
