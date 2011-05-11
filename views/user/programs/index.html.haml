@@ -10,39 +10,60 @@
         %li
           = link_to episode do
             = image_tag episode.thumb.s3_url(:episode), :width => 335, :alt => episode.full_title
-          %h5== #{episode.program_name} - #{episode.full_episode_title}
+          %p
+            = link_to episode.program_name, program_path(episode.program_id)
+            \- 
+            = link_to episode.full_episode_title, episode
+          - if true || current_user.try(:trusted)
+            %ul.downloads
+              %li.label Downloads:
+              - if episode.downloads.any?
+                - episode.downloads.includes(:search_term_type).each do |download|
+                  - next unless download.search_term_type
+                  %li
+                    = link_to download.search_term_type.name, '#'
+                    = link_to '(i)', '#', :title => download.origin
+              - else
+                %li.nothing No downloads available (yet)
+        
       - @past_episodes = @past_episodes.drop(3)
 
 .two-third-column.flt-left
-  .column-block
+  .column-block.large_column_guide
     %h1 Other recently aired
     .body
-      %ul.personal_guide{:style => 'margin: 0; padding:0'}
-        - if @past_episodes.any?
-          %ul.list
-            - last_date = nil
-            - @past_episodes.each do |episode|
-              - unless last_date == episode.airs_at.to_date
-                - last_date = episode.airs_at.to_date
-                %li
-                  %h3= l last_date, :format => :with_day
+      - if @past_episodes.any?
+        %ul.list
+          - last_date = nil
+          - @past_episodes.each do |episode|
+            - unless last_date == episode.airs_at.to_date
+              - last_date = episode.airs_at.to_date
               %li
-                - if image = episode.image || episode.program.images.saved.random.first
-                  = image_tag image.s3_url(:episode), :alt => episode.full_title
-                %h5
+                %h4.small_spacing= l last_date, :format => :with_day
+            %li[episode]
+              - if episode.thumb
+                = image_tag episode.thumb.s3_url(:episode), :alt => episode.full_title, :class => :episode, :size => '320x180'
+              .episode_information
+                %h6
                   = link_to episode.program_name, episode.program 
                   %br
                   = link_to episode.full_episode_title, episode
-                %ul.downloads
-                  - if episode.downloads.any?
+                - if true || current_user.try(:trusted)
+                  %ul.downloads
                     %li.label Downloads:
-                    - episode.downloads.includes(:search_term_type).each do |download|
-                      - next unless download.search_term_type
-                      %li
-                        = link_to download.search_term_type.name, '#'
-                        = link_to '(i)', '#', :title => download.origin
-        - else
-          %p.nothing No previous shows
+                    - if episode.downloads.any?
+                      - episode.downloads.includes(:search_term_type).each do |download|
+                        - next unless download.search_term_type
+                        %li
+                          = link_to download.search_term_type.name, '#'
+                          = link_to '(i)', '#', :title => download.origin
+                    - else
+                      %li.nothing No downloads available (yet)
+                %p= episode.description
+                
+
+      - else
+        %p.nothing No previous shows
 .third-column.flt-right
   .column-block
     %h1 Next airing episodes
@@ -53,12 +74,12 @@
           - unless last_date == episode.airs_at.to_date
             - last_date = episode.airs_at.to_date
             %li
-              %h4{:style => 'padding: 10px 0'}= l last_date, :format => :with_day
+              %h4.small_spacing= l last_date, :format => :with_day
           %li
             = link_to episode.program_name, episode.program
             \-
             = link_to episode.title, episode 
-            == (#{episode.season_and_episode})
+            %span.smaller== (#{episode.season_and_episode})
 -#
   - content_for(:bottom_js_domready) do
     :plain
