@@ -46,7 +46,7 @@ section
     +clear
     
     $image_width = 341px
-    li
+    >li
       position: relative
       display: inline
       border-width: 0
@@ -66,7 +66,12 @@ section
         img
           display: block
           width: $image_width !important
-      
+          height: 180px
+    p
+      margin-bottom: 0
+    ul.downloads
+      padding-left: 10px
+      margin-bottom: 5px
   ul.program_guide
     padding: 0
     li
@@ -103,22 +108,42 @@ section
           border: 1px solid #999
         a img
           vertical-align: bottom
-    &.downloads
+ul.downloads
+  display: inline-block
+  margin: 0
+    top: 5px
+  padding: 0
+  min-width: 250px
+  +clear
+  li
+    +clear
+    float: left
+    border-bottom: 0 none transparent
+    &:not(.label)
+      background: $link_color
+      border-radius: 3px
+      padding: 0 5px
+      margin: 0 2px
+      a
+        font-size: 11px
+        text-decoration: none
+        color: white
+        font-weight: bold
+
+.large_column_guide
+  ul.list
+    padding: 0
+    margin: 0
+    >li
       +clear
-      li
-        +clear
+      img.episode
         float: left
-        border-bottom: 0 none transparent !important
-        padding: 0 5px
-        margin: 0 2px !important
-        &:not(.label)
-          background: $link_color !important
-          border-radius: 3px
-          a
-            font-size: 11px
-            text-decoration: none !important
-            color: white
-            font-weight: bold
+        margin: 10px
+      .episode_information
+        h1,h2,h3,h4,h5,h6
+          display: inline-block
+          max-width: 280px
+        padding: 10px
         
 .program_options
   padding: 10px
@@ -156,7 +181,10 @@ p.nothing
   font-size: 18px
   color: $grey
   text-align: center
-
+li.nothing
+  color: $grey
+  background-color: transparent
+  
 footer
   +rounded_bottoms
   margin: 20px 0
