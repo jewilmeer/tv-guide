@@ -9,8 +9,8 @@ class EpisodesController < ApplicationController
         require_user
         if @episode.downloads.any?
           # redirect for links living on external storage
-          
-          download_type = current_user.program_preferences.with_program(@episode.program).includes(:search_term_type).first.search_term_type
+          download_type = SearchTermType.find_by_code(params[:download_type])
+          download_type ||= current_user.program_preferences.with_program(@episode.program).includes(:search_term_type).first.search_term_type
           
           download = @episode.downloads.with_download_type( download_type.code ).first
           path     = download.download.path
@@ -38,12 +38,12 @@ class EpisodesController < ApplicationController
   end
   
   def search
-    end_point = @episode.search_url(params[:hd])
+    end_point = @episode.search_url( params[:search_type])
     current_user.interactions.create({
       :user => current_user, 
       :program => @episode.program, 
       :episode => @episode, 
-      :interaction_type => params[:hd] ? 'search HD' : 'search',
+      :interaction_type => "Search #{params[:search_type]}",
       :format => params[:format] || 'nzb',
       :end_point => end_point
     })

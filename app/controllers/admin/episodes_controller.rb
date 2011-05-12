@@ -20,15 +20,25 @@ class Admin::EpisodesController < AdminAreaController
   end
 
   def update
-    success = @episode.get_nzb
+    success = @episode.get_nzb && @episode.tvdb_update
+    
     respond_to do |format|
       format.html { redirect_to :back }
       format.js do
-        if params[:row]
-          @episode_template = render_to_string(:partial => '/episodes/episodes', :locals => {:episode => @episode})
+        partial = case params[:partial]
+        when 'episodes'
+          'episodes'
+        when 'episode'
+          'episode'
+        when 'past_episode'
+          @search_terms = SearchTermType.all
+          'past_episode'
+        when 'image_strip'
+          @search_terms = SearchTermType.all
+          'image_strip'
         else
-          @episode_template = render_to_string(:partial => '/episodes/episode', :locals => {:episode => @episode})
         end
+        @episode_template = render_to_string(:partial => "/episodes/#{partial}", :locals => {:episode => @episode})
       end
     end
   end

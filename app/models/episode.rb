@@ -100,8 +100,10 @@ class Episode < ActiveRecord::Base
     (airs_at.to_date - Date.today).to_i.abs.succ
   end
 
-  def search_url( extra_terms )
-    program.active_configuration.search_url( extra_terms, {:age => self.age})
+  def search_url( search_term_type_code )
+    stt = SearchTermType.find_by_code(search_term_type_code)
+    extra_terms = stt.try(:search_term) || ''
+    program.active_configuration.search_url( search_query(extra_terms), {:age => self.age})
   end
   
   def search_query(extra_terms)
