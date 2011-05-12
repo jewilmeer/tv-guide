@@ -20,6 +20,8 @@ class SearchTermType < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   
   cattr_accessor :default
+
+  scope :with_program, lambda{|program| where('program_id', program.id) }
   
   def self.default
     @default ||= self.find_by_code('hd')

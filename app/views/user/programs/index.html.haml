@@ -3,7 +3,12 @@
 %h1== Personal guide for #{@user.login} 
 
 .column-block.just_aired
-  %h2 Recently aired
+  %h2
+    %span.header Recently aired
+    - if current_user.try(:trusted?) && current_user == @user
+      .header_link
+        = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)'
+    
   .body
     %ul.imagebar
       - @past_episodes.take(3).each do |episode|
@@ -14,7 +19,7 @@
             = link_to episode.program_name, program_path(episode.program_id)
             \- 
             = link_to episode.full_episode_title, episode
-          - if true || current_user.try(:trusted)
+          - if current_user.try(:trusted)
             %ul.downloads
               %li.label Downloads:
               - if episode.downloads.any?
@@ -38,8 +43,8 @@
           - @past_episodes.each do |episode|
             - unless last_date == episode.airs_at.to_date
               - last_date = episode.airs_at.to_date
-              %li
-                %h4.small_spacing= l last_date, :format => :with_day
+              %li.header
+                %h4= l last_date, :format => :with_day
             %li[episode]
               - if episode.thumb
                 = image_tag episode.thumb.s3_url(:episode), :alt => episode.full_title, :class => :episode, :size => '320x180'
@@ -48,7 +53,7 @@
                   = link_to episode.program_name, episode.program 
                   %br
                   = link_to episode.full_episode_title, episode
-                - if true || current_user.try(:trusted)
+                - if current_user.try(:trusted)
                   %ul.downloads
                     %li.label Downloads:
                     - if episode.downloads.any?
@@ -73,8 +78,8 @@
         - @upcoming_episodes.each do |episode|
           - unless last_date == episode.airs_at.to_date
             - last_date = episode.airs_at.to_date
-            %li
-              %h4.small_spacing= l last_date, :format => :with_day
+            %li.header
+              %h4= l last_date, :format => :with_day
           %li
             = link_to episode.program_name, episode.program
             \-

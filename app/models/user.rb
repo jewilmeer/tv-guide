@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   
   # has_and_belongs_to_many :programs, :uniq => true
   has_many :program_preferences
+  has_many :search_term_types, :through => :program_preferences
   has_many :programs_users
   has_many :programs, :through => :programs_users
   has_and_belongs_to_many :episodes

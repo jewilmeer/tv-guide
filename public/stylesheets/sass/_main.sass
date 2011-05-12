@@ -109,21 +109,22 @@ section
         a img
           vertical-align: bottom
 ul.downloads
-  display: inline-block
   margin: 0
     top: 5px
   padding: 0
   min-width: 250px
+  max-width: 280px
+  display: inline-block
   +clear
   li
     +clear
-    float: left
+    display: inline-block
     border-bottom: 0 none transparent
+    margin: 1px 2px
     &:not(.label)
       background: $link_color
       border-radius: 3px
       padding: 0 5px
-      margin: 0 2px
       a
         font-size: 11px
         text-decoration: none
@@ -134,16 +135,23 @@ ul.downloads
   ul.list
     padding: 0
     margin: 0
-    >li
+    li.episode
       +clear
       img.episode
         float: left
         margin: 10px
+        box-shadow: 0 0 8px rgba(0,0,0,0.8)
+        -moz-box-shadow: 0 0 8px rgba(0,0,0,0.8)
+        
       .episode_information
         h1,h2,h3,h4,h5,h6
           display: inline-block
           max-width: 280px
         padding: 10px
+      &:hover 
+        img.episode
+          box-shadow: 0 0 12px rgba(0,0,0,0.8)
+          -moz-box-shadow: 0 0 12px rgba(0,0,0,0.8)
         
 .program_options
   padding: 10px

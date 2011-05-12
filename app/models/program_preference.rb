@@ -20,4 +20,6 @@ class ProgramPreference < ActiveRecord::Base
   validates :search_term_type_id, :presence => true
   validates :user_id,             :presence => true
   validates :program_id,          :presence => true, :uniqueness => {:scope => :user_id}
+  
+  scope :with_program, lambda{|program| where('program_id=?', program.id) }
 end

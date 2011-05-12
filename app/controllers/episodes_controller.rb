@@ -9,7 +9,10 @@ class EpisodesController < ApplicationController
         require_user
         if @episode.downloads.any?
           # redirect for links living on external storage
-          download = @episode.downloads.last
+          
+          download_type = current_user.program_preferences.with_program(@episode.program).includes(:search_term_type).first.search_term_type
+          
+          download = @episode.downloads.with_download_type( download_type.code ).first
           path     = download.download.path
 
           current_user.interactions.create({
