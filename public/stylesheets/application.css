@@ -68,10 +68,10 @@ section h1, section h2, section h3, section h4 {
 .list thead th {
   background: -moz-linear-gradient(top, #dddddd, #aaaaaa);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #aaaaaa)); }
-.list tbody tr:nth-child(odd), .list li:nth-child(odd) {
+.list tbody tr:nth-child(odd), .list > li:nth-child(odd) {
   background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7)); }
-.list tbody tr:nth-child(even), .list li:nth-child(even) {
+.list tbody tr:nth-child(even), .list > li:nth-child(even) {
   background: -moz-linear-gradient(top, #f7f7f7, #efefef);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
 
@@ -233,12 +233,21 @@ ol.list, ul.list {
     border-bottom: 1px solid #cccccc;
     margin: 0 !important;
     padding: 5px; }
+    ol.list > li.header, ul.list > li.header {
+      background: -moz-linear-gradient(top, #bbbbbb, #dddddd) !important;
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fefefe), color-stop(0.6, #dddddd), color-stop(1, #eeeeee)) !important; }
+      ol.list > li.header h1, ol.list > li.header h2, ol.list > li.header h3, ol.list > li.header h4, ol.list > li.header h5, ol.list > li.header h6, ul.list > li.header h1, ul.list > li.header h2, ul.list > li.header h3, ul.list > li.header h4, ul.list > li.header h5, ul.list > li.header h6 {
+        background: transparent;
+        padding: 4px 5px 2px; }
     ol.list > li:nth-child(odd), ul.list > li:nth-child(odd) {
-      background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7)); }
+      background: -moz-linear-gradient(top, #cccccc, #eeeeee);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fefefe), color-stop(0.8, #eeeeee), color-stop(1, #fefefe)); }
     ol.list > li:nth-child(even), ul.list > li:nth-child(even) {
       background: -moz-linear-gradient(top, #f7f7f7, #efefef);
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
+    ol.list > li:hover:nth-child(odd), ol.list > li:hover:nth-child(even), ul.list > li:hover:nth-child(odd), ul.list > li:hover:nth-child(even) {
+      background: -moz-linear-gradient(top, #e7e7e7, #dfdfdf);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e7e7e7), color-stop(1, #dfdfdf)); }
     ol.list > li .right_top, ul.list > li .right_top {
       position: absolute;
       top: 10px;
@@ -291,6 +300,8 @@ h1, h2, h3, h4, h5, h6 {
       display: block; }
     h1 .header_link a, h1 .header_link input, h1 .header_links a, h1 .header_links input, h2 .header_link a, h2 .header_link input, h2 .header_links a, h2 .header_links input, h3 .header_link a, h3 .header_link input, h3 .header_links a, h3 .header_links input, h4 .header_link a, h4 .header_link input, h4 .header_links a, h4 .header_links input, h5 .header_link a, h5 .header_link input, h5 .header_links a, h5 .header_links input, h6 .header_link a, h6 .header_link input, h6 .header_links a, h6 .header_links input {
       font-size: 12px; }
+    h1 .header_link img, h1 .header_links img, h2 .header_link img, h2 .header_links img, h3 .header_link img, h3 .header_links img, h4 .header_link img, h4 .header_links img, h5 .header_link img, h5 .header_links img, h6 .header_link img, h6 .header_links img {
+      display: block; }
   h1 .header_link, h2 .header_link, h3 .header_link, h4 .header_link, h5 .header_link, h6 .header_link {
     float: right; }
     h1 .header_link a, h2 .header_link a, h3 .header_link a, h4 .header_link a, h5 .header_link a, h6 .header_link a {
@@ -716,11 +727,12 @@ section {
         vertical-align: bottom; }
 
 ul.downloads {
-  display: inline-block;
   margin: 0;
     margin-top: 5px;
   padding: 0;
   min-width: 250px;
+  max-width: 280px;
+  display: inline-block;
   zoom: 1; }
   ul.downloads:after {
     content: "";
@@ -729,8 +741,9 @@ ul.downloads {
     display: block; }
   ul.downloads li {
     zoom: 1;
-    float: left;
-    border-bottom: 0 none transparent; }
+    display: inline-block;
+    border-bottom: 0 none transparent;
+    margin: 1px 2px; }
     ul.downloads li:after {
       content: "";
       height: 0;
@@ -739,8 +752,7 @@ ul.downloads {
     ul.downloads li:not(.label) {
       background: #74323b;
       border-radius: 3px;
-      padding: 0 5px;
-      margin: 0 2px; }
+      padding: 0 5px; }
       ul.downloads li:not(.label) a {
         font-size: 11px;
         text-decoration: none;
@@ -750,21 +762,26 @@ ul.downloads {
 .large_column_guide ul.list {
   padding: 0;
   margin: 0; }
-  .large_column_guide ul.list > li {
+  .large_column_guide ul.list li.episode {
     zoom: 1; }
-    .large_column_guide ul.list > li:after {
+    .large_column_guide ul.list li.episode:after {
       content: "";
       height: 0;
       clear: both;
       display: block; }
-    .large_column_guide ul.list > li img.episode {
+    .large_column_guide ul.list li.episode img.episode {
       float: left;
-      margin: 10px; }
-    .large_column_guide ul.list > li .episode_information {
+      margin: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+      -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8); }
+    .large_column_guide ul.list li.episode .episode_information {
       padding: 10px; }
-      .large_column_guide ul.list > li .episode_information h1, .large_column_guide ul.list > li .episode_information h2, .large_column_guide ul.list > li .episode_information h3, .large_column_guide ul.list > li .episode_information h4, .large_column_guide ul.list > li .episode_information h5, .large_column_guide ul.list > li .episode_information h6 {
+      .large_column_guide ul.list li.episode .episode_information h1, .large_column_guide ul.list li.episode .episode_information h2, .large_column_guide ul.list li.episode .episode_information h3, .large_column_guide ul.list li.episode .episode_information h4, .large_column_guide ul.list li.episode .episode_information h5, .large_column_guide ul.list li.episode .episode_information h6 {
         display: inline-block;
         max-width: 280px; }
+    .large_column_guide ul.list li.episode:hover img.episode {
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+      -moz-box-shadow: 0 0 12px rgba(0, 0, 0, 0.8); }
 
 .program_options {
   padding: 10px; }
@@ -1105,10 +1122,10 @@ section h1, section h2, section h3, section h4 {
 .list thead th {
   background: -moz-linear-gradient(top, #dddddd, #aaaaaa);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #aaaaaa)); }
-.list tbody tr:nth-child(odd), .list li:nth-child(odd) {
+.list tbody tr:nth-child(odd), .list > li:nth-child(odd) {
   background: -moz-linear-gradient(top, #f2f2f2, #e7e7e7);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f2f2), color-stop(1, #e7e7e7)); }
-.list tbody tr:nth-child(even), .list li:nth-child(even) {
+.list tbody tr:nth-child(even), .list > li:nth-child(even) {
   background: -moz-linear-gradient(top, #f7f7f7, #efefef);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
 
