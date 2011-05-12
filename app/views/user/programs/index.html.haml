@@ -12,25 +12,7 @@
   .body
     %ul.imagebar
       - @past_episodes.take(3).each do |episode|
-        %li
-          = link_to episode do
-            = image_tag episode.thumb.s3_url(:episode), :width => 335, :alt => episode.full_title
-          %p
-            = link_to episode.program_name, program_path(episode.program_id)
-            \- 
-            = link_to episode.full_episode_title, episode
-          - if current_user.try(:trusted)
-            %ul.downloads
-              %li.label Downloads:
-              - if episode.downloads.any?
-                - episode.downloads.includes(:search_term_type).each do |download|
-                  - next unless download.search_term_type
-                  %li
-                    = link_to download.search_term_type.name, '#'
-                    = link_to '(i)', '#', :title => download.origin
-              - else
-                %li.nothing No downloads available (yet)
-        
+        = render 'episodes/image_strip', :episode => episode
       - @past_episodes = @past_episodes.drop(3)
 
 .two-third-column.flt-left
@@ -45,28 +27,7 @@
               - last_date = episode.airs_at.to_date
               %li.header
                 %h4= l last_date, :format => :with_day
-            %li[episode]
-              - if episode.thumb
-                = image_tag episode.thumb.s3_url(:episode), :alt => episode.full_title, :class => :episode, :size => '320x180'
-              .episode_information
-                %h6
-                  = link_to episode.program_name, episode.program 
-                  %br
-                  = link_to episode.full_episode_title, episode
-                - if current_user.try(:trusted)
-                  %ul.downloads
-                    %li.label Downloads:
-                    - if episode.downloads.any?
-                      - episode.downloads.includes(:search_term_type).each do |download|
-                        - next unless download.search_term_type
-                        %li
-                          = link_to download.search_term_type.name, '#'
-                          = link_to '(i)', '#', :title => download.origin
-                    - else
-                      %li.nothing No downloads available (yet)
-                %p= episode.description
-                
-
+            = render 'episodes/past_episode', {:episode => episode}
       - else
         %p.nothing No previous shows
 .third-column.flt-right

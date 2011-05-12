@@ -38,6 +38,7 @@ class User::ProgramsController < UserAreaController
     @upcoming_episodes = basic_episodes.by_airs_at.airs_at_after(Time.now).limit(20)
     @past_episodes     = basic_episodes.by_airs_at(:desc).airs_at_before(Time.now).includes(:downloads).limit(20)
     @program_cache_key = @user.programs.by_updated_at.last
+    @search_terms      = SearchTermType.all
     # response.headers['Cache-Control'] = "public, max-age=#{5.minutes.seconds}" if Rails.env.production?
   end
 
