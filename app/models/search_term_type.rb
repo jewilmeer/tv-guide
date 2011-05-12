@@ -18,6 +18,7 @@ class SearchTermType < ActiveRecord::Base
   has_many :downloads, :foreign_key => :download_type, :primary_key => :code
   
   validates :name, :presence => true, :uniqueness => true
+  validates :code, :presence => true, :uniqueness => true
   
   cattr_accessor :default
 

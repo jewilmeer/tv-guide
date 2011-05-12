@@ -98,9 +98,13 @@ end
 namespace :search_term do
   desc 'add default search terms'
   task :add_default_terms => :environment do
-    SearchTermType.create( :name => 'HD (720p)',        :search_term => '720',        :code => 'hd')
-    SearchTermType.create( :name => 'Full HD (1080p)',  :search_term => '1080 -720',  :code => 'full_hd')
-    SearchTermType.create( :name => 'Low Resolution',   :search_term => '',           :code => 'low_res')
+    SearchTermType.create( :name => 'Low Res',    :search_term => '-720 -1080', :code => 'low_res')
+    SearchTermType.create( :name => 'HD (720p)',  :search_term => '720',        :code => 'hd')
+    SearchTermType.create( :name => 'Full HD',    :search_term => '1080 -720',  :code => 'full_hd')
+    Download.update_all(['download_type=?', 'hd'], {:download_type => 'nzb_hd'})
+    c = Configuration.default
+    c.filter_data[:nzb][:params]['minsize'] = 100
+    c.save!
   end
   
   desc 'convert all program<->user connections to new setup'
@@ -110,6 +114,6 @@ namespace :search_term do
         program.program_preferences.create( :user => user, :search_term_type => SearchTermType.default)
       end
     end
-    Download.update_all(['download_type=?', 'hd'], {:download_type => 'nzb_hd'})
   end
 end
+task :search_term => 'search_term:add_program_preferences'
