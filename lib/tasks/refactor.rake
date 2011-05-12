@@ -62,8 +62,9 @@ namespace :refactor do
   task :new_api_update => [:add_tvdb_id_for_episodes, :remove_unwanted_episodes, :init_program_images]
 end
 
-namespace :program do
-  task :full_update => :environment do
+namespace :update do
+  desc 'update all programs'
+  task :programs => :environment do
     puts Program.count
     bar = ProgressBar.new( Program.count, :bar, :counter, :rate )
 
@@ -72,7 +73,30 @@ namespace :program do
       bar.increment!
     end
   end
+  
+  desc 'update the aired episodes'
+  task :aired_episodes do
+    puts "updating #{Episodes.last_aired.count} episodes"
+    Episodes.last_aired.each do |episode|
+      puts "updating #{episode.program_name} - #{episode.season_and_episode} - #{episode.title}"
+      episode.tvdb_update
+      puts "Downloading nzbs #{episode.program_name} - #{episode.season_and_episode} - #{episode.title}"
+      episode.get_nzb
+    end
+  end
+
+  desc 'update the 50 last aired episodes'
+  task :last_aired_episodes do
+    Episodes.last_aired.limited(50).each do |episode|
+      puts "updating #{episode.program_name} - #{episode.season_and_episode} - #{episode.title}"
+      episode.tvdb_update
+      puts "Downloading nzbs #{episode.program_name} - #{episode.season_and_episode} - #{episode.title}"
+      episode.get_nzb
+    end
+  end
 end
+
+
 
 namespace :app do
   task :update_counters => :cleanup_duplicates do
