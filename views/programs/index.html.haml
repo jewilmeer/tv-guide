@@ -34,7 +34,7 @@
                   no watchers
               %td= program.status
               %td
-                - if next_episode = program.episodes.airs_at_in_future.first
+                - if next_episode = program.episodes.next_airing.first
                   = l next_episode.airs_at, :format => :long
                 - else
                   \-
