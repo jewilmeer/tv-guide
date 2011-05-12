@@ -110,5 +110,6 @@ namespace :search_term do
         program.program_preferences.create( :user => user, :search_term_type => SearchTermType.default)
       end
     end
+    Download.update_all(['download_type=?', 'hd'], {:download_type => 'nzb_hd'})
   end
 end

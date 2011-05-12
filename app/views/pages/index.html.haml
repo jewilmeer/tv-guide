@@ -36,8 +36,8 @@
             - @next_airing.each do |episode|
               - unless last_date == episode.airs_at.to_date
                 - last_date = episode.airs_at.to_date
-                %li
-                  %h4.small_spacing= l last_date, :format => :with_day
+                %li.header
+                  %h4= l last_date, :format => :with_day
               %li
                 = link_to episode.program_name, program_path(episode.program_id)
                 \-
@@ -58,8 +58,8 @@
             - @last_aired.each do |episode|
               - unless last_date == episode.airs_at.to_date
                 - last_date = episode.airs_at.to_date
-                %li
-                  %h4.small_spacing= l last_date, :format => :with_day
+                %li.header
+                  %h4= l last_date, :format => :with_day
               %li
                 = link_to episode.program_name, program_path(episode.program_id)
                 \-
