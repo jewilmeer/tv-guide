@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   def index
     @featured_programs = (Episode.next_airing.distinct_program_id('episodes.airs_at').limit(3).map(&:program) | Episode.by_created_at(:desc).distinct_program_id('episodes.created_at').limit(3).map(&:program))
     @next_airing       = Episode.next_airing.limit(5)
-    @last_aired        = Episode.by_created_at(:desc).limit(5).includes(:program).where(['DATE(programs.created_at) <> DATE(episodes.created_at)'])
+    @last_aired        = Episode.last_aired.limit(5)
   end
   
   def show
