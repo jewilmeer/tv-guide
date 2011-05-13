@@ -12,7 +12,7 @@ class Admin::ProgramPreferencesController < AdminAreaController
   end
   
   protected
-  def get_object
+  def find_object
     @program_preference = ProgramPreference.find( params[:id] )
   end
   
