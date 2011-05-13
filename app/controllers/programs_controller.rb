@@ -10,7 +10,7 @@ class ProgramsController < ApplicationController
   def guide
     @search_terms    = SearchTermType.all
     @upcoming_episodes = Episode.next_airing
-    @past_episodes     = Episode.last_aired.includes(:downloads).limit(20)
+    @past_episodes     = Episode.last_aired.includes(:downloads).limit(10)
 
     # @future_episodes = Episode.by_airs_at.airs_at_after(Time.now).limited(30)
     # @past_episodes   = Episode.by_airs_at(:desc).airs_at_before(Time.now).limited(30)
@@ -78,6 +78,7 @@ class ProgramsController < ApplicationController
     if nzbs_to_get.any?
       nzbs_to_get.each do |episode|
         status << "Downloading nzb #{episode.program.name} - #{episode.full_episode_title}: #{episode.get_nzb}"
+        episode.tvdb_update #update coverimage as well
       end
     end
     render :text => status * "\n<br />"
