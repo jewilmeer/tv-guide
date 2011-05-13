@@ -5,3 +5,4 @@
   %td= program_preference.download ? 'Yes' : 'No'
   %td
     = link_to icon_tag('info'), [:admin, program_preference]
+    = link_to icon_tag('page_edit'), edit_admin_program_preference_path( program_preference )
