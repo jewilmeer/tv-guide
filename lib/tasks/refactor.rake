@@ -77,7 +77,7 @@ namespace :update do
   desc 'find missing episode images'
   task :missing_episode_images => :environment do
     puts "Found #{Episode.where('image_id IS NULL').last_aired.count} episodes missing episode images"
-    Episode.where('image_id IS NULL').last_aired.find_in_batches(:size => 100).each do |batch|
+    Episode.where('image_id IS NULL').last_aired.find_in_batches(:batch_size => 100).each do |batch|
       puts '============'
       puts '= NEXT 100 ='
       puts '============'
