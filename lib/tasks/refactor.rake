@@ -68,7 +68,7 @@ namespace :update do
     puts Program.count
     bar = ProgressBar.new( Program.count, :bar, :counter, :rate )
 
-    Program.all.map do |p|
+    Program.by_updated_at(:asc).all.map do |p|
       p.tvdb_full_update
       bar.increment!
     end
