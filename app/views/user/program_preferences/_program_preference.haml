@@ -1,13 +1,9 @@
-= form_for [current_user, program_preference] do |f|
+= semantic_form_for [current_user, program_preference] do |f|
   %tr[program_preference]
     %td= program_preference.program.name
     %td
-      %label{:for => "program_preference_#{program_preference.id}_download_true"} Yes
-      = f.radio_button :download, true, :id => "program_preference_#{program_preference.id}_download_true"#, :name => "download_pref_#{program_preference.id}"
-      %label{:for => "program_preference_#{program_preference.id}_download_false"} No
-      = f.radio_button :download, false, :id => "program_preference_#{program_preference.id}_download_false"#, :name => "download_pref_#{program_preference.id}"
+      = f.input :download
     %td
-      - @search_term_types.all.each do |search_term|
-      = program_preference.search_term_type.name
+      = f.input :search_term_type, :as => :radio
     %td= program_preference.program.search_name
   
