@@ -75,7 +75,7 @@ namespace :update do
   end
   
   desc 'update the aired episodes'
-  task :aired_episodes do
+  task :aired_episodes => :environment do
     puts "updating #{Episode.last_aired.count} episodes"
     Episode.last_aired.each do |episode|
       puts "updating #{episode.program_name} - #{episode.season_and_episode} - #{episode.title}"
@@ -86,7 +86,7 @@ namespace :update do
   end
 
   desc 'update the 50 last aired episodes'
-  task :last_aired_episodes do
+  task :last_aired_episodes => :environment do
     Episode.last_aired.limited(50).each do |episode|
       puts "updating #{episode.program_name} - #{episode.season_and_episode} - #{episode.title}"
       episode.tvdb_update
