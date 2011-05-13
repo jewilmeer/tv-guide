@@ -78,7 +78,7 @@ namespace :update do
   task :missing_episode_images => :environment do
     puts "Found #{Episode.where('image_id IS NULL').last_aired.count} episodes missing episode images"
     Episode.where('image_id IS NULL').last_aired.limited(300).each do |episode|
-      puts "episode: #{epsiode.id}"
+      puts "episode: #{episode.id}"
       episode.tvdb_update
     end
   end
