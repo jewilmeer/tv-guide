@@ -1,22 +1,3 @@
 - semantic_form_for [:admin, @program] do |f|
   = f.inputs
   = f.buttons
--#
-  = form_for [:admin, @program] do |f|
-    = f.error_messages
-  
-    - @program.attributes.each  do |k,v|
-      .form_row
-        = f.label k
-        - case Program.columns_hash[k].type
-        - when :datetime
-          = v ? l(v, :format => :long) : '-'
-        - when :text
-          = f.text_area k
-        - else
-          - if k.to_sym == :time_zone_offset
-            = f.time_zone_select k
-          - else
-            = f.text_field k
-    .actions
-      = f.submit 'Save'
