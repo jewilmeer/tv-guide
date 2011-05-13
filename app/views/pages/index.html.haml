@@ -2,7 +2,7 @@
   .slides
     .slides_container
       - @featured_programs.each do |program|
-        - image = program.fanart_image || program.images.fanart.random.first
+        - image = program.episodes.last_aired.first.try(:thumb) || program.fanart_image || program.images.fanart.random.first
         .slide
           = link_to program do
             = image_tag "#{image.id}.jpg", :alt => program.name, :size => '655x368'
