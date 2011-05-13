@@ -76,22 +76,22 @@ namespace :update do
   
   desc 'update the aired episodes'
   task :aired_episodes do
-    puts "updating #{Episodes.last_aired.count} episodes"
-    Episodes.last_aired.each do |episode|
+    puts "updating #{Episode.last_aired.count} episodes"
+    Episode.last_aired.each do |episode|
       puts "updating #{episode.program_name} - #{episode.season_and_episode} - #{episode.title}"
       episode.tvdb_update
       puts "Downloading nzbs #{episode.program_name} - #{episode.season_and_episode} - #{episode.title}"
-      episode.get_nzb
+      episode.download_all
     end
   end
 
   desc 'update the 50 last aired episodes'
   task :last_aired_episodes do
-    Episodes.last_aired.limited(50).each do |episode|
+    Episode.last_aired.limited(50).each do |episode|
       puts "updating #{episode.program_name} - #{episode.season_and_episode} - #{episode.title}"
       episode.tvdb_update
       puts "Downloading nzbs #{episode.program_name} - #{episode.season_and_episode} - #{episode.title}"
-      episode.get_nzb
+      episode.download_all
     end
   end
 end
