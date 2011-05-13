@@ -41,7 +41,7 @@ TvEpisodes::Application.routes.draw do
     resources :programs do
       get :aired, :on => :collection
     end
-    resources :authentications
+    resources :authentications, :program_preferences
   end
   
   # match '/oauth/start',     :to => 'oauths#start'
