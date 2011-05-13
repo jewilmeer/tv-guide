@@ -1,18 +1,61 @@
-.half-column.flt-left
-  .column-block
-    %h1 Upcoming episodes
-    .body
-      - if @future_episodes.any?
-        %ul.list.program_guide
-          = render :partial => 'episodes/episode', :collection => @future_episodes.all(:include => :program)#, :locals => {:addition_info => :created_at}
-      - else
-        %p.nothing No upcoming programs yet
-.half-column.flt-right
-  .column-block
-    %h1 Past episodes
+.column-block.just_aired
+  %h2
+    %span.header Recently aired
+    
+  .body
+    %ul.imagebar
+      - @past_episodes.take(3).each do |episode|
+        = render 'episodes/image_strip', :episode => episode
+      - @past_episodes = @past_episodes.drop(3)
+
+.two-third-column.flt-left
+  .column-block.large_column_guide
+    %h1 Other recently aired
     .body
       - if @past_episodes.any?
-        %ul.list.program_guide
-          = render :partial => 'episodes/episode', :collection => @past_episodes.all(:include => :program)
+        %ul.list
+          - last_date = nil
+          - @past_episodes.each do |episode|
+            - unless last_date == episode.airs_at.to_date
+              - last_date = episode.airs_at.to_date
+              %li.header
+                %h4= l last_date, :format => :with_day
+            = render 'episodes/past_episode', {:episode => episode}
       - else
-        %p.nothing No programs yet
+        %p.nothing No previous shows
+.third-column.flt-right
+  .column-block
+    %h1 Next airing episodes
+    .body
+      %ul.mini_guide.list
+        - last_date = nil
+        - @upcoming_episodes.each do |episode|
+          - unless last_date == episode.airs_at.to_date
+            - last_date = episode.airs_at.to_date
+            %li.header
+              %h4= l last_date, :format => :with_day
+          %li
+            = link_to episode.program_name, episode.program
+            \-
+            = link_to episode.title, episode 
+            %span.smaller== (#{episode.season_and_episode})
+
+-#
+  .half-column.flt-left
+    .column-block
+      %h1 Upcoming episodes
+      .body
+        - if @future_episodes.any?
+          %ul.list.program_guide
+            = render :partial => 'episodes/episode', :collection => @future_episodes.all(:include => :program)#, :locals => {:addition_info => :created_at}
+        - else
+          %p.nothing No upcoming programs yet
+  .half-column.flt-right
+    .column-block
+      %h1 Past episodes
+      .body
+        - if @past_episodes.any?
+          %ul.list.program_guide
+            = render :partial => 'episodes/episode', :collection => @past_episodes.all(:include => :program)
+        - else
+          %p.nothing No programs yet
