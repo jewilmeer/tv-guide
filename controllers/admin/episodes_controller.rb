@@ -20,7 +20,7 @@ class Admin::EpisodesController < AdminAreaController
   end
 
   def update
-    success = @episode.get_nzb && @episode.tvdb_update
+    success = @episode.download_all && @episode.tvdb_update
     
     respond_to do |format|
       format.html { redirect_to :back }
