@@ -16,6 +16,7 @@ gem 'pacecar'
 gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 gem 'will_paginate', '3.0.pre2'
 gem 'typhoeus'
+gem 'formtastic'
 
 # terminal
 gem 'progress_bar'

@@ -12,3 +12,4 @@ stylesheets:
     - public/stylesheets/jquery-ui-1.8.custom.css
     - public/stylesheets/tipsy.css
     - public/stylesheets/application.css
+    - public/stylesheets/formtastic.css
