@@ -110,7 +110,8 @@ h3, h4, h5, h6 {
 
 a {
   color: #74323b;
-  text-decoration: underline; }
+  text-decoration: underline;
+  outline: none; }
 
 a:hover {
   text-decoration: underline; }
@@ -234,19 +235,28 @@ ol.list, ul.list {
     margin: 0 !important;
     padding: 5px; }
     ol.list > li.header, ul.list > li.header {
-      background: -moz-linear-gradient(top, #bbbbbb, #dddddd) !important;
+      background: -moz-linear-gradient(left top, left bottom, #fefefe 0%, #dddddd 60%, #eeeeee 100%) !important;
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fefefe), color-stop(0.6, #dddddd), color-stop(1, #eeeeee)) !important; }
       ol.list > li.header h1, ol.list > li.header h2, ol.list > li.header h3, ol.list > li.header h4, ol.list > li.header h5, ol.list > li.header h6, ul.list > li.header h1, ul.list > li.header h2, ul.list > li.header h3, ul.list > li.header h4, ul.list > li.header h5, ul.list > li.header h6 {
         background: transparent;
         padding: 4px 5px 2px; }
     ol.list > li:nth-child(odd), ul.list > li:nth-child(odd) {
-      background: -moz-linear-gradient(top, #cccccc, #eeeeee);
+      background: -moz-linear-gradient(left top, left bottom, #fefefe 0%, #eeeeee 80%, #fefefe 100%);
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fefefe), color-stop(0.8, #eeeeee), color-stop(1, #fefefe)); }
     ol.list > li:nth-child(even), ul.list > li:nth-child(even) {
-      background: -moz-linear-gradient(top, #f7f7f7, #efefef);
+      background: -moz-linear-gradient(left top, left bottom, #f7f7f7, #efefef);
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(1, #efefef)); }
     ol.list > li:hover:nth-child(odd), ol.list > li:hover:nth-child(even), ul.list > li:hover:nth-child(odd), ul.list > li:hover:nth-child(even) {
-      background: -moz-linear-gradient(top, #e7e7e7, #dfdfdf);
+      background-color: green;
+      background: -moz-linear-gradient(left top, left bottom, blue, green);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e7e7e7), color-stop(1, #dfdfdf)); }
+    ol.list > li:focus:nth-child(odd), ol.list > li:focus:nth-child(even), ul.list > li:focus:nth-child(odd), ul.list > li:focus:nth-child(even) {
+      background-color: green;
+      background: -moz-linear-gradient(left top, left bottom, blue, green);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e7e7e7), color-stop(1, #dfdfdf)); }
+    ol.list > li:active:nth-child(odd), ol.list > li:active:nth-child(even), ul.list > li:active:nth-child(odd), ul.list > li:active:nth-child(even) {
+      background-color: green;
+      background: -moz-linear-gradient(left top, left bottom, blue, green);
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e7e7e7), color-stop(1, #dfdfdf)); }
     ol.list > li .right_top, ul.list > li .right_top {
       position: absolute;
@@ -313,7 +323,7 @@ h1, h2, h3, h4, h5, h6 {
       padding-right: 10px;
       margin-right: 10px;
       border-right: 1px solid #dddddd; }
-      h1 .header_links a.last, h2 .header_links a.last, h3 .header_links a.last, h4 .header_links a.last, h5 .header_links a.last, h6 .header_links a.last {
+      h1 .header_links a.last, h1 .header_links a:nth-child(last), h2 .header_links a.last, h2 .header_links a:nth-child(last), h3 .header_links a.last, h3 .header_links a:nth-child(last), h4 .header_links a.last, h4 .header_links a:nth-child(last), h5 .header_links a.last, h5 .header_links a:nth-child(last), h6 .header_links a.last, h6 .header_links a:nth-child(last) {
         border-right: none; }
 
 h1.with_margin {
@@ -384,6 +394,8 @@ section .column-block {
         height: 0;
         clear: both;
         display: block; }
+    section .column-block .body > form {
+      padding: 10px; }
   section .column-block div.header {
     zoom: 1; }
     section .column-block div.header:after {

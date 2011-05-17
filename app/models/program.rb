@@ -226,7 +226,7 @@ class Program < ActiveRecord::Base
   end
   
   def add_episodes
-    tvdb_episodes.map{|episode| self.episodes << Episode.from_tvdb( episode ) }
+    tvdb_episodes.map{|episode| self.episodes << Episode.from_tvdb( episode, self ) }
   end
   
   def tvdb_episodes(only_new=false)
