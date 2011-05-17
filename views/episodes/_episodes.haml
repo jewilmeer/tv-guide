@@ -14,7 +14,7 @@
       %ul.downloads
         %li.label Search:
         - SearchTermType.all.each do |search_term|
-          %li= link_to search_term.name, search_episode_path(episode, {:search_term => search_term.code})
+          %li= link_to search_term.name, search_episode_path(episode, {:search_type => search_term.code})
       - if current_user.admin?
         \|
         = link_to 'Redownload', admin_episode_path(episode, {:partial => :episodes, :format => :js}), :method => :put, :remote => true, :disable_with => 'Downloading...'
