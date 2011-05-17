@@ -11,6 +11,11 @@ class Admin::ProgramPreferencesController < AdminAreaController
     end
   end
   
+  def update
+    @program_preference.update_attributes params[:program_preference]
+    redirect_to :back, :notice => 'Updated'
+  end
+  
   protected
   def find_object
     @program_preference = ProgramPreference.find( params[:id] )

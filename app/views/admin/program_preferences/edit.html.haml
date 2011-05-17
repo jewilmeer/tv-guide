@@ -1,6 +1,4 @@
 .column-block
   %h1 Edit program preference
   .body
-    - semantic_form_for :admin, @program_preference do |f|
-      = f.inputs
-      = f.buttons
+    = render 'form'
