@@ -10,6 +10,11 @@ class Admin::ProgramPreferencesController < AdminAreaController
       format.js   { render :text => render_to_string( @program_preferences ) }
     end
   end
+
+  def create
+    pp = ProgramPreference.create(params[:program_preference])
+    redirect_to edit_admin_program_preferences_path, :notice => "Created succesfully!"
+  end
   
   def update
     @program_preference.update_attributes params[:program_preference]
