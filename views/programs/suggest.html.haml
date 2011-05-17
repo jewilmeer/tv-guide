@@ -3,13 +3,18 @@
     %h2== Found #{pluralize(@programs.count,'matched program')}
     .body
       %p Which of these where you looking for?
-      %ul
-        - @programs.each do |program|
-          %li
-            = link_to(program.name, user_programs_path(current_user, :tvdb_id => program.tvdb_id), :method => :post, :remote => true)
+      - @programs.each do |program|
+        .column-block
+          %h4= program.name
+          .body
             - if program.overview.blank?
               %p.nothing No description available
             - else
               %p= program.overview
+            %p 
+              Add in 
+              - links = SearchTermType.all.map do |search_term|
+                - link_to search_term.name, user_program_preferences_path(current_user, :tvdb_id => program.tvdb_id, :search_term_type_id => search_term.id), :remote => true, :method => :post, :disable_with => 'Adding...'
+              = links.to_sentence.html_safe
 - else
   %p.nothing No programs found
