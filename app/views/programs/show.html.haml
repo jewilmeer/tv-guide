@@ -33,7 +33,7 @@
 %h1
   %span.header== Programma: #{@program.name} [#{@program.status}]
   - if current_user.try(:trusted?)
-    .header_link= link_to icon_tag('rss', :size => '24x24'), program_path(@program, :format => :rss)
+    .header_link= link_to icon_tag('rss', :size => '24x24'), tokened_program_path(:id => @program.id, :user_credentials => current_user.single_access_token, :format => :rss)
 
 .column-block
   .body
