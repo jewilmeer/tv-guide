@@ -4,6 +4,7 @@ TvEpisodes::Application.routes.draw do
   match '/signup',          :to => 'user/users#new'
   match '/pages/program_updates', :to => 'pages#program_updates'
   match "/user/:user_id/programs/t:user_credentials(.:format)" => 'user/programs#aired', :as => 'tokened_user_programs'
+  match "/programs/:id/t:user_credentials(.:format)" => 'programs#index', :as => 'tokened_program'
   match "/programs/:program_id/episodes/:id(/t:user_credentials)(.:format)" => 'episodes#show', :as => 'episode_download'
   match "/settings(.:format)" => "settings#index", :as => :setting
   match '/auth/:provider/callback', :to => 'sessions#create'
