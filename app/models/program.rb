@@ -45,7 +45,7 @@ class Program < ActiveRecord::Base
   has_many :program_updates, :dependent => :destroy
   has_many :seasons, :dependent => :destroy
   
-  has_many :users, :through => :programs_users
+  has_many :users, :through => :program_preferences
   has_many :search_term_types, :through => :program_preferences, :uniq => true
   
   has_one :configuration, :dependent => :destroy
