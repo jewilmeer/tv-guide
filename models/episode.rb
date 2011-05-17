@@ -154,7 +154,7 @@ class Episode < ActiveRecord::Base
   end
 
   def download search_term_type
-    search_url = search_url( search_term_type.search_term )
+    search_url = search_url( search_term_type.code )
     download   = downloads.find_or_initialize_by_download_type( search_term_type.code )
 
     logger.debug "Getting #{search_term_type.name} from #{search_url}"
