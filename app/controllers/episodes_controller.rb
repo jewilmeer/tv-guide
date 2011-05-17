@@ -38,7 +38,7 @@ class EpisodesController < ApplicationController
   end
   
   def search
-    end_point = @episode.search_url( params[:search_type])
+    end_point = @episode.search_url( params[:search_type] )
     current_user.interactions.create({
       :user => current_user, 
       :program => @episode.program, 
