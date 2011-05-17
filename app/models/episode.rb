@@ -51,9 +51,7 @@ class Episode < ActiveRecord::Base
   scope :tvdb_id,                 select("id, tvdb_id")
   scope :random,                  lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
-  # before_save :airs_at
-  # before_update :update_airs_at
-  
+
   attr_accessor :options, :name, :episode, :filters, :thumb
   
   has_attached_file :nzb, 
@@ -177,62 +175,7 @@ class Episode < ActiveRecord::Base
   
   def get_nzb( options = {} )
     download_all
-    # default_options = {
-    #   :format => :nzb,
-    #   :hd => true
-    # }
-    # options       = default_options.merge(options)
-    # download_type = "#{options[:format]}_#{options[:hd] ? 'hd' : 'sd'}"
-    # 
-    # logger.debug "Getting nzbfile from #{search_url}"
-    # tmp_filepath = "tmp/#{filename}.nzb"
-    # agent        = Browser.agent
-    # 
-    # download = self.downloads.find_or_initialize_by_download_type(download_type)
-    # 
-    # # nzbindex
-    # next_page   = agent.get(search_url(true)).forms.last.submit
-    # if (download_links = next_page.links_with(:text => 'Download')).any?
-    #   download.origin = strip_tags(Nokogiri::HTML(next_page.body).css('td label').last.to_s)
-    #   file            = download_links.last.click#.save(tmp_filepath)
-    #   download.file   = file
-    #   download.site   = 'nzbindex.nl'
-    #   download.save
-    # else
-    #   logger.debug "No downloads found at #{search_url(true)}"
-    #   false
-    # end
-    # 
-    # # newzleech
-    # # file = agent.get( search_url(true) ).links_with(:href => /\?m=gen/).last.click.save(tmp_filepath)
-    # 
-    # # 
-    # # TODO ADD THE DOWNLOAD AT THE RIGHT PLACE
-    # # 
-    # 
-    # # return 'failed to download' unless file
-    # # 
-    # # File.open(tmp_filepath) {|nzb_file| self.nzb = nzb_file  }
-    # # return 'failed to download (empty file)' unless self.nzb.size > 0
-    # # self.save
-    # # File.delete(tmp_filepath)
   end
-  
-  # def tvdb_info=(tvdb_info)
-  #   self.title       = tvdb_info['EpisodeName']
-  #   self.nr          = tvdb_info['EpisodeNumber']
-  #   self.description = tvdb_info['Overview'] ? tvdb_info['Overview'].force_encoding('utf-8') : nil
-  #   self.airdate     = tvdb_info['FirstAired'] ? Date.parse(tvdb_info['FirstAired']) : nil
-  # end
-  #   
-  # def self.from_tvdb tvdb_hash
-  #   self.new({
-  #     :title       => tvdb_hash['EpisodeName'],
-  #     :nr          => tvdb_hash['EpisodeNumber'],
-  #     :description => tvdb_hash['Overview'] ? tvdb_hash['Overview'].force_encoding('utf-8') : nil, 
-  #     :airdate     => Date.parse(tvdb_hash['FirstAired'])
-  #   })
-  # end
   
   def airs_at=(airdate, forced=false)
     if airdate.present? && self.program.try(:airs_time)
@@ -253,11 +196,11 @@ class Episode < ActiveRecord::Base
   
   def thumb=url
     return false unless url.present?
-    self.image || self.build_image( :url => url, :should_save => true, :image_type => :episode )
+    self.image || self.build_image( :url => url, :image_type => :episode )
   end
 
   def thumb
-    self.image || self.program.images.saved.fanart.random.first || self.program.images.fanart.random.first
+    self.image || self.program.images.saved.fanart.random.first || (image = self.program.images.fanart.random.first; image.save_image; image.save; image)
   end
   
   def working?
@@ -278,6 +221,9 @@ class Episode < ActiveRecord::Base
     self.class.tvdb_client
   end
   def apply_tvdb_attributes tvdb_result, _program=nil
+    self.program      = _program if _program
+    self.program_name = _program.name if _program
+    self.program_name = program.name if program
     self.tvdb_id      = tvdb_result.id
     self.nr           = tvdb_result.number
     self.season_nr    = tvdb_result.season_number
@@ -285,14 +231,17 @@ class Episode < ActiveRecord::Base
     self.description  = tvdb_result.overview
     self.airdate      = tvdb_result.air_date
     self.airs_at      = tvdb_result.air_date
-    self.program      = _program if _program
-    self.program_name = _program.name if _program
     self.thumb        = tvdb_result.try(:thumb)
     self
   end
   
   def self.from_tvdb tvdb_result, program=nil
-    self.new.apply_tvdb_attributes tvdb_result, program
+    if program
+      _new = self.new( :program_id => program.id )
+    else
+      _new = self.new
+    end
+    _new.apply_tvdb_attributes tvdb_result
   end
   
   def self.tvdb_ids

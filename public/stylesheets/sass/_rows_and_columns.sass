@@ -26,7 +26,7 @@ h1,h2,h3,h4,h5,h6
       padding-right: 10px
       margin-right: 10px
       border-right: 1px solid #dddddd
-      &.last
+      &.last, &:nth-child(last)
         border-right: none
         
 h1
@@ -89,6 +89,8 @@ section
           bottom: 5px
         margin:
           bottom: 5px
+      >form
+        padding: 10px
     div.header
       +clear
 
