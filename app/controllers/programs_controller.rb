@@ -8,7 +8,7 @@ class ProgramsController < ApplicationController
   end
   
   def guide
-    @search_terms    = SearchTermType.all
+    @search_terms      = SearchTermType.all
     @upcoming_episodes = Episode.next_airing
     @past_episodes     = Episode.last_aired.includes(:downloads).limit(20)
 
@@ -24,10 +24,10 @@ class ProgramsController < ApplicationController
   def suggest
     @programs = Program.tvdb_search(params[:q].downcase)
     # exact match?
-    if @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
-      current_user.programs << Program.find_or_create_by_tvdb_id(@programs.first.tvdb_id)
-      redirect_to :back
-    end
+    # if @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
+    #   current_user.programs << Program.find_or_create_by_tvdb_id(@programs.first.tvdb_id)
+    #   redirect_to :back
+    # end
   end
     
   def create
@@ -63,7 +63,7 @@ class ProgramsController < ApplicationController
   end
   
   def search
-    @programs = Program.search(params[:query]).limit(25).all(:select => 'id, name')
+    @programs = Program.search(params[:term]).limit(25).all(:select => 'id, name')
     respond_to do |format|
       format.js { render :json => @programs.map{|p| {:id => p.id, :label => p.name, :value => p.name} } }
     end

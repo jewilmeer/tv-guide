@@ -11,8 +11,8 @@ TvEpisodes::Application.routes.draw do
   
   resources :programs do 
     collection do
-      post :suggest
-      get :search, :check, :guide
+      post :search
+      get :check, :guide, :suggest
     end
     member do
       get :banners

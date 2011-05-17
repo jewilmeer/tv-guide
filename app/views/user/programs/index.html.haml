@@ -1,7 +1,23 @@
 - page_title "#{@user.login.humanize}'s episode guide"
+- content_for(:bottom_js_domready) do
+  :plain
+    $('.autocomplete').autocomplete({
+      source: '/programs/search',
+      minlength: 2
+    });
 
-%h1== Personal guide for #{@user.login} 
+%h1
+  %span.header== Personal guide for #{@user.login} 
+  .header_link= link_to_function icon_tag('add', {:size => '24x24'}), "$('#add_program').toggle(500)"
 
+.column-block#add_program{:style => 'display:none'}
+  %h2 Add new program
+  .body
+    - form_for [current_user, @program_preference], :remote => true do |f|
+      .form_row
+        = text_field_tag :q, params[:q] || '', :class => :autocomplete
+        = f.collection_select :search_term_type, SearchTermType.all, :id, :name
+        %button.save Add
 .column-block.just_aired
   %h2
     %span.header Recently aired
