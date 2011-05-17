@@ -4,7 +4,7 @@ xml.rss :version => "2.0" do
     xml.title "Digital tv guide - #{@program.name}"
     xml.description "Whole episode download"
     xml.url program_url( @program )
-    @program.episodes.downloaded.each do |episode|
+    @program.episodes.order('season_nr desc, nr desc').downloaded.each do |episode|
       xml.item do
         xml.title "#{episode.program.name} - #{episode.full_episode_title}"
         xml.description episode.description
