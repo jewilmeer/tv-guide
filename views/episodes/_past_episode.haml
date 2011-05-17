@@ -14,13 +14,13 @@
           - episode.downloads.includes(:search_term_type).each do |download|
             - next unless download.search_term_type
             %li
-              = link_to download.search_term_type.name, episode_path(episode, :format => :nzb), :title => download.origin
+              = link_to download.search_term_type.name, episode_path(episode, :download_type => download.download_type ,:format => :nzb), :title => download.origin
         - else
           %li.nothing No downloads available (yet)
       %ul.downloads
         %li.label Search:
         - @search_terms.each do |search_term|
-          %li= link_to search_term.name, search_episode_path(episode, :search_type => search_term)
+          %li= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
     %p= episode.description
   .controls
     - if current_user.try(:admin)
