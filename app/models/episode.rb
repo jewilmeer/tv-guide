@@ -46,8 +46,8 @@ class Episode < ActiveRecord::Base
   scope :no_downloads_present,    includes(:downloads).where('downloads.id IS NULL')
   scope :airs_at_in_future,       lambda{ where('episodes.airs_at > ?', Time.zone.now) }
   scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
-  scope :next_airing,             airs_at_in_future.order('episodes.airs_at asc')
-  scope :last_aired,              airs_at_in_past.order('episodes.airs_at desc')
+  scope :next_airing,             lambda{ airs_at_in_future.order('episodes.airs_at asc') }
+  scope :last_aired,              lambda{ airs_at_in_past.order('episodes.airs_at desc') }
   scope :tvdb_id,                 select("id, tvdb_id")
   scope :random,                  lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
