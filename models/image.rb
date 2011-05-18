@@ -21,14 +21,14 @@ class Image < ActiveRecord::Base
   
   validates :url, :uniqueness => true
 
-  scope :image_type, lambda{|type| where('images.image_type = ?', type)}
-  scope :fanart, where('images.image_type = ?', 'fanart')
-  scope :series, where('images.image_type = ?', 'series')
-  scope :url, select('images.id, images.url')
-  scope :only_id, select('images.id')
-  scope :random, lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
-  scope :distinctly, lambda{|columns| select("DISTINCT #{columns}") }
-  scope :saved, where('image_file_name IS NOT NULL')
+  scope :image_type,  lambda{|type| where('images.image_type = ?', type)}
+  scope :fanart,      where('images.image_type = ?', 'fanart')
+  scope :series,      where('images.image_type = ?', 'series')
+  scope :url,         select('images.id, images.url')
+  scope :only_id,     select('images.id')
+  scope :random,      lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
+  scope :distinctly,  lambda{|columns| select("DISTINCT #{columns}") }
+  scope :saved,       where('image_file_name IS NOT NULL')
   
   before_save :save_image, :if => Proc.new{|i| i.url.present? && i.should_save == true }
   
