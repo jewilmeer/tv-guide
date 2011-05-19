@@ -15,6 +15,11 @@ ActiveAdmin::Dashboards.build do
     end
   end
 
+  section "Recently active users" do
+    render 'recently_active_users'
+  end
+  
+
   # == Render Partial Section
   # The block is rendererd within the context of the view, so you can
   # easily render a partial rather than build content in ruby.
