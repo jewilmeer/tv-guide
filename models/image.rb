@@ -18,7 +18,8 @@
 class Image < ActiveRecord::Base
   
   has_and_belongs_to_many :programs, :uniq => true
-  
+  has_one :episode
+
   validates :url, :uniqueness => true
 
   scope :image_type,  lambda{|type| where('images.image_type = ?', type)}
@@ -29,7 +30,8 @@ class Image < ActiveRecord::Base
   scope :random,      lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
   scope :distinctly,  lambda{|columns| select("DISTINCT #{columns}") }
   scope :saved,       where('image_file_name IS NOT NULL')
-  
+  default_scope order('id desc')
+
   before_save :save_image, :if => Proc.new{|i| i.url.present? && i.should_save == true }
   
   attr_accessor :should_save

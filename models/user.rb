@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110406203743
+# Schema version: 20110518202259
 #
 # Table name: users
 #
@@ -25,6 +25,7 @@
 #  current_login_ip    :string(255)
 #  last_login_ip       :string(255)
 #  programs_count      :integer(4)      default(0)
+#  interactions_count  :integer(4)      default(0)
 #
 
 class User < ActiveRecord::Base

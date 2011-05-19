@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110329213820
+# Schema version: 20110518202259
 #
 # Table name: episodes
 #
@@ -25,6 +25,7 @@
 #  tvdb_id          :integer(4)
 #  program_name     :string(255)
 #  tvdb_program_id  :integer(4)
+#  image_id         :integer(4)
 #
 
 class Episode < ActiveRecord::Base
