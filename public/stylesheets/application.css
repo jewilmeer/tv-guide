@@ -384,7 +384,7 @@ section .column-block {
       list-style-type: decimal;
       padding-left: 5px; }
     section .column-block .body p {
-      padding: 5px !important; }
+      padding: 5px; }
     section .column-block .body .entry {
       zoom: 1;
       padding-bottom: 5px;
@@ -775,8 +775,8 @@ ul.downloads {
   position: relative; }
   .episode .controls {
     position: absolute;
-    top: 10px;
-    right: 10px; }
+    top: 18px;
+    right: 15px; }
 
 .large_column_guide ul.list {
   padding: 0;
@@ -789,7 +789,7 @@ ul.downloads {
       clear: both;
       display: block; }
     .large_column_guide ul.list li.episode img.episode {
-      float: left;
+      float: right;
       margin: 10px;
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
       -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8); }
@@ -798,6 +798,10 @@ ul.downloads {
       .large_column_guide ul.list li.episode .episode_information h1, .large_column_guide ul.list li.episode .episode_information h2, .large_column_guide ul.list li.episode .episode_information h3, .large_column_guide ul.list li.episode .episode_information h4, .large_column_guide ul.list li.episode .episode_information h5, .large_column_guide ul.list li.episode .episode_information h6 {
         display: inline-block;
         max-width: 280px; }
+      .large_column_guide ul.list li.episode .episode_information p {
+        font-size: 80%;
+        padding-left: 0 !important;
+        margin-left: 0 !important; }
     .large_column_guide ul.list li.episode:hover img.episode {
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
       -moz-box-shadow: 0 0 12px rgba(0, 0, 0, 0.8); }
