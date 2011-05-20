@@ -30,7 +30,6 @@ class Image < ActiveRecord::Base
   scope :random,      lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
   scope :distinctly,  lambda{|columns| select("DISTINCT #{columns}") }
   scope :saved,       where('image_file_name IS NOT NULL')
-  default_scope order('id desc')
 
   before_save :save_image, :if => Proc.new{|i| i.url.present? && i.should_save == true }
   
