@@ -7,7 +7,7 @@
     = link_to episode.full_episode_title, episode
   - if current_user.try(:trusted)
     %ul.downloads
-      %li.label Downloads:
+      %li.label= icon_tag('down', :size => '16x16')
       - if episode.downloads.any?
         - episode.downloads.includes(:search_term_type).each do |download|
           - next unless download.search_term_type
@@ -16,7 +16,7 @@
       - else
         %li.nothing No downloads available (yet)
     %ul.downloads
-      %li.label Search:
+      %li.label= icon_tag('search', :size => '16x16')
       - @search_terms.each do |search_term|
         %li= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
   .controls
