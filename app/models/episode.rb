@@ -53,8 +53,6 @@ class Episode < ActiveRecord::Base
   scope :random,                  lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
 
-  default_scope order('airs_at desc')
-
   attr_accessor :options, :name, :episode, :filters, :thumb
   
   has_attached_file :nzb, 
