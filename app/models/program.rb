@@ -52,17 +52,17 @@ class Program < ActiveRecord::Base
   
   has_and_belongs_to_many :images
   has_and_belongs_to_many :genres, :uniq => true
-
+  
   belongs_to :series_image, :class_name => 'Image'
   belongs_to :fanart_image, :class_name => 'Image'
   
   validates :name, :presence => true, :uniqueness => true
   validates :tvdb_name, :presence => true, :if => :has_tvdb_connection?
   validates :tvdb_id, :uniqueness => true, :if => :has_tvdb_connection?
-
+  
   before_validation :update_by_tvdb_id, :on => :create
   after_create :add_episodes, :get_images
-
+  
   scope :by_name, order('name ASC')
   scope :tvdb_id, select('id, tvdb_id')
   
@@ -79,7 +79,7 @@ class Program < ActiveRecord::Base
       scoped
     end
   end
-
+  
   def active_configuration
     Configuration.default( self.configuration.try(:filter_data) )
   end
@@ -87,7 +87,7 @@ class Program < ActiveRecord::Base
   def banners
     @banners ||= self.class.tvdb_client.get_banners(self.tvdb_id)
   end
-
+  
   def tvdb_banner_url
     "http://www.thetvdb.com/banners/" + banners.detect{|banner| banner[:subtype] == 'graphical' }[:path]
   rescue StandardError
@@ -118,7 +118,7 @@ class Program < ActiveRecord::Base
   def banner_url
     AWS::S3::S3Object.url_for(self.banner.path, self.banner.bucket_name)
   end
-
+  
   def airs_time
     read_attribute(:airs_time) || '9:00 PM'
   end
@@ -131,12 +131,6 @@ class Program < ActiveRecord::Base
     "#{id}-#{name.parameterize}"
   end
     
-  def find_episode_information(episode_key)
-    season, episode = Episode.episode_season_split(episode_key)
-    episode         = self.episodes.season_episode_matches( season, episode ).first
-    # episode.title if episode
-  end
-  
   def actors
     @actors ||= read_attribute(:actors) || []
     @actors.split('|').compact.reject(&:blank?)
@@ -219,7 +213,7 @@ class Program < ActiveRecord::Base
     result = tvdb_client.get_series_updates( timestamp )['Series']
     result.reject{|tvdb_id| !tvdb_ids.include?(tvdb_id.to_s) } if result && only_existing
   end
-
+  
   # get new episodes, skip those specials and filter the ones already on the website
   def new_episodes
     tvdb_episodes(true)
@@ -237,7 +231,7 @@ class Program < ActiveRecord::Base
     end
     episodes
   end
-
+  
   def tvdb_full_update
     self.tvdb_update(false) && tvdb_full_episode_update && get_images && update_episode_counters
   end
