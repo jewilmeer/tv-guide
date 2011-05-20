@@ -67,6 +67,8 @@ section
           display: block
           width: $image_width !important
           height: 180px
+      .downloads:nth-child(odd)
+        margin-bottom: 0
     p
       margin-bottom: 0
     ul.downloads
@@ -121,6 +123,9 @@ ul.downloads
     display: inline-block
     border-bottom: 0 none transparent
     margin: 1px 2px
+    &.label .icon
+      position: relative
+      top: 3px
     &:not(.label)
       background: $link_color
       border-radius: 3px
