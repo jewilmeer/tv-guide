@@ -691,6 +691,8 @@ section {
           display: block;
           width: 341px !important;
           height: 180px; }
+      section ul.imagebar > li .downloads:nth-child(odd) {
+        margin-bottom: 0; }
     section ul.imagebar p {
       margin-bottom: 0; }
     section ul.imagebar ul.downloads {
@@ -761,6 +763,9 @@ ul.downloads {
       height: 0;
       clear: both;
       display: block; }
+    ul.downloads li.label .icon {
+      position: relative;
+      top: 3px; }
     ul.downloads li:not(.label) {
       background: #74323b;
       border-radius: 3px;
