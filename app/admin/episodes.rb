@@ -1,7 +1,10 @@
 ActiveAdmin.register Episode do
-  scope :last_aired, :default => true
-  scope :next_airing
-  
+  scope :last_aired do |episodes|
+    episodes.last_aired.order('airs_at desc')
+  end
+  scope :next_airing do |episodes|
+    episodes.next_airing.order('airs_at asc')
+  end
   index do
     column :id do |e|
       link_to e.id, e
