@@ -21,6 +21,4 @@ ActiveAdmin.register Episode do
     end
     default_actions
   end
-  
-  filter :id
 end
