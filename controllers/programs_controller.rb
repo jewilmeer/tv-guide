@@ -63,7 +63,7 @@ class ProgramsController < ApplicationController
   end
   
   def search
-    @programs = Program.search(params[:term]).limit(25).all(:select => 'id, name')
+    @programs = Program.search_program(params[:term]).limit(25).all(:select => 'id, name')
     respond_to do |format|
       format.js { render :json => @programs.map{|p| {:id => p.id, :label => p.name, :value => p.name} } }
     end
