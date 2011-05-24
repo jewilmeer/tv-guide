@@ -14,7 +14,7 @@ ActiveAdmin.register Episode do
     column :full_episode_title
     column :airs_at
     column 'Aired?' do |e|
-      icon_tag( e.airs_at.future? ? "delete" : "accept" )
+      icon_tag( e.airs_at.try(:future?) ? "delete" : "accept" )
     end
     column 'image' do |e|
       icon_tag(e.image ? "accept" : "delete")
