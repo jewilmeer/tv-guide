@@ -67,8 +67,8 @@ class Program < ActiveRecord::Base
   scope :tvdb_id, select('id, tvdb_id')
   
   attr_accessor :active_configuration, :banners, :banner, :tvdb_serie
-  
-  def self.search(query)
+
+  def self.search_program query
     if query
       if %w(development test).include?(Rails.env)
         search_for(query , :on => [:name, :search_name, :overview]) 
@@ -79,7 +79,7 @@ class Program < ActiveRecord::Base
       scoped
     end
   end
-  
+
   def active_configuration
     Configuration.default( self.configuration.try(:filter_data) )
   end
