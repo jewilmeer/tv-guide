@@ -9,6 +9,8 @@ ActiveAdmin.register Program do
       buffer << "#{icon_tag( p.series_image ? 'accept' : 'delete', :alt => 'series_image')}"
       buffer.html_safe
     end
+    column "Users", :users_count
+    column "Interactions", :interactions_count
     column :updated_at
     column :created_at
       
