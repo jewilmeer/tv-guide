@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
-gem 'rails', '~>3.0'
+gem 'rails', '~>3.0.5'
 gem 'mail', '~>2.2'
 gem 'jquery-rails'
 gem 'bundler', '~>1.0'
-
+gem 'rake', '~> 0.8.7'
 # Bundle the extra gems:
 # gem 'bj'
 gem 'nokogiri'
@@ -12,6 +12,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'logging'
 gem 'file-utils'
 gem 'haml'
+gem 'sass'
 gem 'pacecar'
 gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 gem 'will_paginate', '3.0.pre2'
@@ -45,7 +46,7 @@ gem 'omniauth'
 
 # Bundle gems for certain environments:
 group :development, :test do
-  gem 'mysql2'
+  gem 'mysql2', '~>0.2.0'
   gem 'annotate-models'
 end
 
