@@ -4,6 +4,7 @@ gem 'mail', '~>2.2'
 gem 'jquery-rails'
 gem 'bundler', '~>1.0'
 gem 'rake', '~> 0.8.7'
+
 # Bundle the extra gems:
 # gem 'bj'
 gem 'nokogiri'
