@@ -39,23 +39,3 @@
             \-
             = link_to episode.title, episode 
             %span.smaller== (#{episode.season_and_episode})
-
--#
-  .half-column.flt-left
-    .column-block
-      %h1 Upcoming episodes
-      .body
-        - if @future_episodes.any?
-          %ul.list.program_guide
-            = render :partial => 'episodes/episode', :collection => @future_episodes.all(:include => :program)#, :locals => {:addition_info => :created_at}
-        - else
-          %p.nothing No upcoming programs yet
-  .half-column.flt-right
-    .column-block
-      %h1 Past episodes
-      .body
-        - if @past_episodes.any?
-          %ul.list.program_guide
-            = render :partial => 'episodes/episode', :collection => @past_episodes.all(:include => :program)
-        - else
-          %p.nothing No programs yet
