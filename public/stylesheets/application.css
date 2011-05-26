@@ -998,20 +998,20 @@ nav {
     max-width: 800px; }
     nav ul li {
       display: inline-block;
-      color: #fff;
+      color: white;
       padding: 5px 10px;
-      text-shadow: #333 1px 1px 4px;
+      text-shadow: #333333 1px 1px 4px;
       text-align: right; }
       nav ul li.active {
         text-decoration: none; }
       nav ul li a {
-        color: #fff;
+        color: white;
         text-decoration: none; }
     nav ul.mainmenu {
       padding: 0;
       margin: 8px 0; }
       nav ul.mainmenu li {
-        color: #fff;
+        color: white;
         font-size: 1.2em;
         font-weight: bold;
         text-decoration: none;
@@ -1028,8 +1028,8 @@ nav {
       background-color: #245a77;
       margin: 0;
       padding: 0 5px;
-      -moz-box-shadow: rgba(0,0,0,0.2) 1px 2px 10px;
-      -webkit-box-shadow: rgba(0,0,0,0.2) 1px 2px 10px; }
+      -moz-box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px;
+      -webkit-box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; }
       nav ul.user_nav li {
         padding: 2px 10px;
         border-right: 1px solid #1d485f; }
@@ -1066,20 +1066,20 @@ nav {
     clear: both;
     display: block; }
   .pagination a, .pagination strong, .pagination span, .pagination em {
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc;
     padding: 5px 10px;
     margin: 0 3px 0 0; }
   .pagination strong {
-    background: #fc3;
+    background: #ffcc33;
     font-weight: bold; }
   .pagination a:hover {
-    border: 1px solid #777;
-    background: #eee;
+    border: 1px solid #777777;
+    background: #eeeeee;
     text-decoration: none;
     background: -moz-linear-gradient(top, #fdfcfc, #d7d3d3);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fdfcfc), color-stop(1, #d7d3d3)); }
   .pagination span {
-    color: #bbb; }
+    color: #bbbbbb; }
 
 .simple_pagination {
   zoom: 1;
@@ -1161,8 +1161,8 @@ section h1, section h2, section h3, section h4 {
   zoom: 1;
   width: 631px;
   height: 364px;
-  border: 12px solid #fff;
-  box-shadow: 2px 2px 20px rgba(0,0,0,0.6); }
+  border: 12px solid white;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.6); }
   .slides_container:after {
     content: "";
     height: 0;
@@ -1187,18 +1187,18 @@ section h1, section h2, section h3, section h4 {
       left: 0;
       height: 80px;
       padding: 5px 10px 0 10px;
-      background: #000;
-      background: rgba(0,0,0,0.5);
+      background: black;
+      background: rgba(0, 0, 0, 0.5);
       width: 611px;
       font-size: 1.3em;
       line-height: 1.33;
-      color: #fff;
-      border-top: 1px solid #000;
+      color: white;
+      border-top: 1px solid black;
       text-shadow: none;
       text-decoration: none !important; }
       .slides_container div .caption h1, .slides_container div .caption h2, .slides_container div .caption h3, .slides_container div .caption h4, .slides_container div .caption h5, .slides_container div .caption h6 {
         background: transparent;
-        color: #fff;
+        color: white;
         margin: 5px;
           margin-bottom: 10px;
         padding: 0; }
@@ -1206,4 +1206,4 @@ section h1, section h2, section h3, section h4 {
         margin: 5px;
         padding: 0;
         font-size: 12px;
-        color: #fff; }
+        color: white; }
