@@ -439,13 +439,13 @@ form {
       form fieldset > ol > li fieldset ol li {
         padding: 0;
         border: 0; }
-  form input[type=text], form input[type=password], form input[type=email], form input[type=tel], form textarea {
+  form input[type=text], form input[type=password], form input[type=email], form input[type=url], form input[type=tel], form textarea {
     width: 76%;
     border: 1px solid #c9d0d6;
     font-size: 0.95em;
     outline: none;
     padding: 8px 10px; }
-    form input[type=text]:focus, form input[type=password]:focus, form input[type=email]:focus, form input[type=tel]:focus, form textarea:focus {
+    form input[type=text]:focus, form input[type=password]:focus, form input[type=email]:focus, form input[type=url]:focus, form input[type=tel]:focus, form textarea:focus {
       border: 1px solid #99a2aa;
       box-shadow: 0 0 4px #99a2aa;
       -moz-box-shadow: 0 0 4px #99a2aa;
@@ -504,7 +504,7 @@ form {
         padding: 0;
         border: none;
         display: list-item; }
-    form fieldset > ol > li.error input[type=text], form fieldset > ol > li.error input[type=password], form fieldset > ol > li.error input[type=email], form fieldset > ol > li.error input[type=tel], form fieldset > ol > li.error textarea {
+    form fieldset > ol > li.error input[type=text], form fieldset > ol > li.error input[type=password], form fieldset > ol > li.error input[type=email], form fieldset > ol > li.error input[type=url], form fieldset > ol > li.error input[type=tel], form fieldset > ol > li.error textarea {
       border: 1px solid #cc0000; }
   form input[type=submit] {
     box-shadow: 0 1px 2px #aaaaaa;
@@ -782,17 +782,17 @@ body {
       #title_bar .action_items a:active {
         border: inherit; }
 
-#content {
+#active_admin_content {
   margin: 0;
   padding: 25px 30px; }
-  #content #main_content_wrapper {
+  #active_admin_content #main_content_wrapper {
     float: left;
     width: 100%; }
-    #content #main_content_wrapper #main_content {
+    #active_admin_content #main_content_wrapper #main_content {
       margin-right: 300px; }
-  #content.without_sidebar #main_content_wrapper #main_content {
+  #active_admin_content.without_sidebar #main_content_wrapper #main_content {
     margin-right: 0; }
-  #content #sidebar {
+  #active_admin_content #sidebar {
     float: left;
     width: 270px;
     margin-left: -270px; }
@@ -1132,6 +1132,9 @@ table {
   .pagination .previous_page, .pagination .next_page {
     display: none; }
 
+.index_content {
+  clear: both; }
+
 table.index_grid td {
   border: none;
   background: none;
@@ -1218,7 +1221,7 @@ body.logged_out {
   body.logged_out #content_wrapper {
     width: 500px;
     margin: 70px auto; }
-    body.logged_out #content_wrapper #content {
+    body.logged_out #content_wrapper #active_admin_content {
       box-shadow: 0 1px 2px #aaaaaa;
       -moz-box-shadow: 0 1px 2px #aaaaaa;
       -webkit-box-shadow: 0 1px 2px #aaaaaa;
@@ -1356,6 +1359,9 @@ table.dashboard {
         margin-right: 5px; }
     table.dashboard .dashboard_section > div {
       padding: 3px 15px 15px 15px; }
+
+.attributes_table {
+  overflow: hidden; }
 
 .attributes_table table th, .attributes_table table td {
   padding: 8px 12px 6px 12px;
