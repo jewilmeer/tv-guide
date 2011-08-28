@@ -7,7 +7,7 @@ gem 'rake', '~> 0.8.7'
 
 # Bundle the extra gems:
 # gem 'bj'
-gem 'nokogiri'
+gem 'nokogiri', '~>1.4.2'
 gem 'mechanize'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'logging'
@@ -43,7 +43,9 @@ gem "jammit"
 # authentication
 gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
 gem 'ruby-openid'
-gem 'omniauth'
+gem 'omniauth', '>=0.2.6'
+
+# gem 'win32-open3', :group => :development
 
 # Bundle gems for certain environments:
 group :development, :test do
