@@ -4,7 +4,7 @@ class ProgramsController < ApplicationController
   newrelic_ignore :only => [:check]
 
   def index
-    @programs = Program.search(params[:q]).order(sort_column + ' ' + sort_direction).paginate :per_page => 30, :page => params[:page]
+    @programs = Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction).paginate :per_page => 30, :page => params[:page]
   end
   
   def guide
