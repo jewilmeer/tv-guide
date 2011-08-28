@@ -55,7 +55,11 @@
         - if current_user.programs.include?(@program)
           %li= link_to 'Remove from your episode guide', user_program_path(current_user, @program), :method => :delete
         - else
-          %li= link_to 'Add to your episode guide', user_programs_path(current_user, :id => @program.id), :method => :post
+          %li
+            Add to your episode guide
+            %br
+            - SearchTermType.all.each do |search_term_type|
+              = link_to search_term_type.name, user_program_preferences_path(current_user, :program_preference => {:program_id => @program.id, :search_term_type_id => search_term_type.id}), :method => :post
     .row_seperator
     %table
       %tr
