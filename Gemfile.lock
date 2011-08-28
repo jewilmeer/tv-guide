@@ -327,8 +327,8 @@ DEPENDENCIES
   mechanize
   mysql2 (~> 0.2.0)
   newrelic_rpm
-  nokogiri
-  omniauth
+  nokogiri (~> 1.4.2)
+  omniauth (>= 0.2.6)
   pacecar
   paperclip
   progress_bar
