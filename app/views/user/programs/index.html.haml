@@ -3,9 +3,19 @@
   :plain
     $('.autocomplete').autocomplete({
       source: '/programs/search',
-      minlength: 2
+      minlength: 2,
+      select: function(event, ui) {
+        // set selected value 
+        $(this).parents('form').find('#program_preference_program_id').val(ui.item.id);
+      },
+      search: function(event, ui) {
+        // clear possible previously selected value
+        $(this).parents('form').find('#program_preference_program_id').val('');
+      }
     });
-
+    $('#new_program_preference').submit(function() {
+      $(this).parent().html('<p class="nothing"><img src="/images/spinner.gif" width=16 height=16 />Adding new program to your guide...<br /><br /></p>');
+    });
 %h1
   %span.header== Personal guide for #{@user.login}
   - if current_user == @user
@@ -18,7 +28,8 @@
       - form_for [current_user, @program_preference], :remote => true do |f|
         .form_row
           = text_field_tag :q, params[:q] || '', :class => :autocomplete
-          = f.collection_select :search_term_type, SearchTermType.all, :id, :name
+          = f.collection_select :search_term_type_id, SearchTermType.all, :id, :name
+          = f.hidden_field :program_id
           %button.save Add
 .column-block.just_aired
   %h2
