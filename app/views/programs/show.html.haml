@@ -45,7 +45,7 @@
       - else
         = image_tag( @program.banner_url, :size => '940x173') if @program.banner?
     .span4.columns
-      %ul.unstyled.twipsies
+      %ul.unstyled
         %li
           - if @program.users.any?
             %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
