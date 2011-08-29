@@ -1,25 +1,67 @@
 - page_title 'Login'
-.centerbox
-  %h1 Login
-  - if current_user
-    %p You are already logged in! 
-    %p= link_to 'Logout', user_session_path, :method => :delete
-  - else
-    %h3 With an external service
-    - AUTH_PROVIDERS.each do |service|
-      = link_to image_tag("auth_icons/#{service}_64.png", :size => '64x64', :class => :icon), "/auth/#{service}"
-    %h3 Or go old skool
-    = form_for :user_session, :url => user_session_path do |f|
-      .form_row
-        = f.label :email, 'Login / E-mail'
-        = text_field_tag 'user_session[email]', '',:class => :small, :placeholder => 'e.g. you@email.com or klaas', :autofocus => true, :required => true
-      .form_row
-        = f.label :password
-        = password_field_tag 'user_session[password]', '', :class => :small, :placeholder => 'password'
-      .form_row
-        %label &nbsp;
-        = f.check_box :remember_me
-        &nbsp;keep me logged in
-      .form_row
-        %label &nbsp;
-        %button.save.flt-left Login
+%section
+  %h1 
+    Login
+    %small So we know which where to guide you :-) 
+  .row
+    .span8.columns
+      .page-header
+        %h3 With credentials
+      = form_for :user_session, :url => user_session_path do |f|
+        %fieldset
+          .clearfix
+            = f.label :email, 'Login / E-mail'
+            .input
+              = text_field_tag 'user_session[email]', '', :placeholder => 'e.g. you@email.com or klaas', :autofocus => true, :required => true
+          .clearfix
+            = f.label :password
+            .input
+              = password_field_tag 'user_session[password]', '', :placeholder => 'password'
+          .clearfix
+            .input
+              %label{:for => 'user_session_remember_me'}
+                = f.check_box :remember_me
+                &nbsp;keep me logged in
+          .actions
+            %button.primary.btn Login
+    .span8.columns
+      .page-header
+        %h3 With external provider
+      .row        
+        .span4.columns
+          - AUTH_PROVIDERS.each do |service|
+            = link_to image_tag("auth_icons/#{service}_64.png", :size => '64x64', :class => :icon), "/auth/#{service}"
+        .span4.columns
+          %p If you are have an existing account which is connected to on of the listed services you can simple click te service to login
+      .span8.columns
+        .row
+          .page-header
+            %h3 Don't have an account yet?
+          %p 
+            = link_to 'Registering', signup_path
+            an account enables you to create your personal tv guide. This will be a collection of all your favorite tv prgrams.
+-#
+  .centerbox
+    %h1 Login
+    - if current_user
+      %p You are already logged in! 
+      %p= link_to 'Logout', user_session_path, :method => :delete
+    - else
+      %h3 With an external service
+      - AUTH_PROVIDERS.each do |service|
+        = link_to image_tag("auth_icons/#{service}_64.png", :size => '64x64', :class => :icon), "/auth/#{service}"
+      %h3 Or go old skool
+      = form_for :user_session, :url => user_session_path do |f|
+        .form_row
+          = f.label :email, 'Login / E-mail'
+          = text_field_tag 'user_session[email]', '',:class => :small, :placeholder => 'e.g. you@email.com or klaas', :autofocus => true, :required => true
+        .form_row
+          = f.label :password
+          = password_field_tag 'user_session[password]', '', :class => :small, :placeholder => 'password'
+        .form_row
+          %label &nbsp;
+          = f.check_box :remember_me
+          &nbsp;keep me logged in
+        .form_row
+          %label &nbsp;
+          %button.save.flt-left Login
