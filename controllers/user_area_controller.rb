@@ -1,5 +1,5 @@
 class UserAreaController < ApplicationController
-  layout 'users/application'
+  # layout 'users/application'
   before_filter :get_user
   
   def get_user
