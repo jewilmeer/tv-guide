@@ -18,7 +18,9 @@
         %ul.nav.secondary-nav
           - if current_user
             %li.menu
-              = link_to current_user.login.humanize, '#', :class => :menu
+              = link_to '#', :class => :menu do 
+                / = image_tag(current_user.gravatar_url(20).html_safe)
+                = current_user.login.humanize
               %ul.menu-dropdown
                 %li= link_to 'Guide & Programs', [current_user, :programs]
                 %li= link_to "Account", edit_user_path(current_user)
