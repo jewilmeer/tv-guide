@@ -2,7 +2,7 @@ class User::ProgramsController < UserAreaController
   before_filter :require_trust, :only => :aired
   
   def index
-    @program_preference= current_user.program_preferences.build if current_user == @user
+    @program_preference= current_user.program_preferences.build(:search_term_type => SearchTermType.first) if current_user == @user
     @programs          = @user.programs.by_name
     basic_episodes     = Episode.watched_by_user(@user.programs)
     @upcoming_episodes = basic_episodes.next_airing.limit(20)
