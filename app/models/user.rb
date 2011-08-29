@@ -88,4 +88,21 @@ class User < ActiveRecord::Base
   def notify_of_special_features
     UserMailer.trusted_notification( self ).deliver if self.trusted_changed? && self.trusted_was == false
   end
+
+  def filtered_email
+    self.email.downcase
+  end
+
+  def gravatar_url(size=nil)
+    if size.present? && size.to_i.between?(1, 512)
+      gravatar_base_url + "?s=#{size.to_i}&amp;d=mm"
+    else
+      gravatar_base_url + "?d=mm"
+    end
+  end
+
+  def gravatar_base_url
+    logger.debug 
+    'http://www.gravatar.com/avatar/' + Digest::MD5.hexdigest( self.filtered_email ).to_s 
+  end
 end
