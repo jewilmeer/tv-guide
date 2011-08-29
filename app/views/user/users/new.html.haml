@@ -13,7 +13,7 @@
       .span8.columns
         %h3 Using the form
         = form_for(:user, :url => users_path) do |f|
-          - if params[:action] == 'create' && !@user.valid? && session[:omniauth]
+          - if params[:action] == 'create' && !@user.valid? && session[:omniauth].present?
             - if !@user.email.blank? && !@user.login.blank?
               %p You probably already have an account. Please login and connect via the account page
             - else
