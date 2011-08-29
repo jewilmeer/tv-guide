@@ -5,6 +5,9 @@ class ProgramsController < ApplicationController
 
   def index
     @programs = Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction).paginate :per_page => 30, :page => params[:page]
+    if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
+      redirect_to @programs.first
+    end
   end
   
   def guide
