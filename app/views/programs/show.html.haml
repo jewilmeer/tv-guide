@@ -6,7 +6,7 @@
 - content_for(:bottom_js_domready) do
   :plain
     $('#check_update')
-      .bind('ajax:loading', function() {
+      .bind('ajax:beforeSend', function() {
         var $this = $(this);
         $this.html('Checking...');
       })
@@ -17,50 +17,77 @@
       .bind('ajax:success', function(xhr,data,status) {
         var $this = $(this);
         if( data ) {
-          $this.html('Update found, updating...')
-          $.ajax({
-            url: '#{program_path(@program)}', 
-            data: { _method: 'put' },
-            success: function() {
-              $this.html('Update complete, reloading!');
-              document.location.href = document.location.href;
-            }
-          });
+          $this.html('Updated, reloading')
+          document.location.href = document.location.href;
         } else {
           $this.html('No update available');
         }
       })
-%h1
-  %span.header== Programma: #{@program.name} [#{@program.status}]
-  - if current_user.try(:trusted?)
-    .header_link= link_to icon_tag('rss', :size => '24x24'), tokened_program_path(:id => @program.id, :user_credentials => current_user.single_access_token, :format => :rss)
 
-.column-block
-  .body
-    - if @featured_image
-      = image_tag("#{@featured_image.id}.jpg", :size => '758x140', :class => :flt_left)
-    - else
-      = image_tag( @program.banner_url, :class => :flt_left ) if @program.banner?
-    %ul.program_options.flt_right 
-      %li
-        - if @program.users.any?
-          %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
-        - else
-          No watchers
-      %li== Last updated #{distance_of_time_in_words_to_now(@program.tvdb_last_update)} ago
-      %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
-      / %li= link_to 'View update list', program_updates_path(@program)
-      - if current_user
-        %li= link_to 'Check for updates', edit_program_path(@program), :id => :check_update, :remote => true, :'ajax:loading' => 'checking...'
-        - if current_user.programs.include?(@program)
-          %li= link_to 'Remove from your episode guide', user_program_path(current_user, @program), :method => :delete
-        - else
-          %li
-            Add to your episode guide
-            %br
-            - SearchTermType.all.each do |search_term_type|
-              = link_to search_term_type.name, user_program_preferences_path(current_user, :program_preference => {:program_id => @program.id, :search_term_type_id => search_term_type.id}), :method => :post
-    .row_seperator
+%section{:data => {:role => :page}}
+  .page-header{:date => {:role => :header}}
+    %h1
+      = @program.name
+      %small
+        = @program.status
+      - if current_user.try(:trusted?)
+        = link_to(tokened_program_path(:id => @program.id, :user_credentials => current_user.single_access_token, :format => :rss), :class => 'right-rss') do 
+          = icon_tag('rss', :size => '24x24', :alt => 'RSS feed')
+  .row
+    %ul.tabs
+      %li.active= link_to 'Season Overview', '#seasons'
+      %li= link_to 'More information', '#more-info'
+      / %li= link_to 'Options and other stuff', '#other'
+  .row
+    .span12.columns
+      - if @featured_image
+        = image_tag("#{@featured_image.id}.jpg", :size => '700x129')
+      - else
+        = image_tag( @program.banner_url, :size => '940x173') if @program.banner?
+    .span4.columns
+      %ul.unstyled.twipsies
+        %li
+          - if @program.users.any?
+            %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
+          - else
+            No watchers
+        %li== Last updated #{distance_of_time_in_words_to_now(@program.tvdb_last_update)} ago
+        %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
+        / %li= link_to 'View update list', program_updates_path(@program)
+        - if current_user
+          %li= link_to 'Check for updates', user_program_path(current_user, @program), :id => :check_update, :remote => true, :method => :put
+          - if current_user.programs.include?(@program)
+            %li= link_to 'Remove from your episode guide', user_program_path(current_user, @program), :method => :delete
+          - else
+            %li
+              Add to your episode guide
+              %br
+              %ul.downloads
+                - SearchTermType.all.each do |search_term_type|
+                  %li= link_to search_term_type.name, user_program_preferences_path(current_user, :program_preference => {:program_id => @program.id, :search_term_type_id => search_term_type.id}), :method => :post
+          
+%section.tab-content#tab-seasons
+  .page-header
+    %h3 Seasons
+  .row
+    %ul.tabs
+      - @program.max_season_nr.downto( @program.max_season_nr > 8 ? @program.max_season_nr-7 : 1) do |season|
+        %li{:class => (:active if @program.max_season_nr == season)}
+          %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
+  - @program.max_season_nr.downto(1) do |season|
+    .tab-content{:id => "tab-s#{season}", :style => ('display: none' unless @program.max_season_nr == season)}
+      %table.zebra-striped
+        %thead
+          %tr
+            %th Title
+            %th{:width => 150} Airdate
+        %tbody
+          = render :collection => @program.episodes.where('season_nr = ?', season).by_nr(:desc), :partial => 'episodes/episodes', :as => :episode
+
+%section.tab-content#tab-more-info{:style => 'display: none'}
+  .page-header
+    %h3 More information
+  .row
     %table
       %tr
         %th{:width => 100} Runtime
@@ -87,25 +114,3 @@
       %tr
         %th.top Overview
         %td{:colspan => 5}= @program.overview
-
-- if @program.episodes.any?
-  .tabs
-    %ul
-      - @program.max_season_nr.downto(1) do |season|
-        %li
-          %a{:href => "#tabs-#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
-            
-    - @program.max_season_nr.downto(1) do |season|
-      %div{:id => "tabs-#{season}"}
-        %table.list
-          %thead
-            %tr
-              %th Title
-              %th{:width => 150} Airdate
-          %tbody
-            = render :collection => @program.episodes.where('season_nr = ?', season).by_nr(:desc), :partial => 'episodes/episodes', :as => :episode
-- else
-  .column-block
-    .body
-      %p.nothing No seasons yet!
-.row_seperator

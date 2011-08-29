@@ -1,0 +1,105 @@
+.slides_container {
+  zoom: 1;
+  width: 631px;
+  height: 364px;
+  border: 6px solid white;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.6); }
+  .slides_container:after {
+    content: "";
+    height: 0;
+    clear: both;
+    display: block; }
+  .slides_container .slide a {
+    text-decoration: none !important; }
+  .slides_container div {
+    zoom: 1;
+    width: 631px;
+    height: 364px;
+    display: block; }
+    .slides_container div:after {
+      content: "";
+      height: 0;
+      clear: both;
+      display: block; }
+    .slides_container div .caption {
+      z-index: 500;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 80px;
+      padding: 5px 10px 0 10px;
+      background: black;
+      background: rgba(0, 0, 0, 0.5);
+      width: 611px;
+      font-size: 1.3em;
+      line-height: 1.33;
+      color: white;
+      border-top: 1px solid black;
+      text-shadow: none;
+      text-decoration: none !important; }
+      .slides_container div .caption h1, .slides_container div .caption h2, .slides_container div .caption h3, .slides_container div .caption h4, .slides_container div .caption h5, .slides_container div .caption h6 {
+        background: transparent;
+        color: white;
+        margin: 5px;
+          margin-bottom: 10px;
+        padding: 0; }
+      .slides_container div .caption p {
+        margin: 5px;
+        padding: 0;
+        font-size: 12px;
+        color: white; }
+
+body {
+  padding-top: 40px; }
+
+#main.container {
+  padding: 20px 10px; }
+
+.right-rss {
+  float: right;
+  margin-top: 8px; }
+
+.episode a.title {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px; }
+
+tr.episode td {
+  padding-bottom: 0; }
+
+ul.downloads {
+  margin: 5 0 0 0;
+  margin-bottom: 5px;
+  padding: 0;
+  min-width: 250px;
+  max-width: 280px;
+  display: inline-block;
+  zoom: 1; }
+  ul.downloads:after {
+    content: "";
+    height: 0;
+    clear: both;
+    display: block; }
+  ul.downloads li {
+    zoom: 1;
+    border-bottom: 0 none transparent;
+    margin: 1px 2px;
+    display: inline-block; }
+    ul.downloads li:after {
+      content: "";
+      height: 0;
+      clear: both;
+      display: block; }
+    ul.downloads li.label .icon {
+      position: relative;
+      top: 3px; }
+    ul.downloads li:not(.label) {
+      background: #0069d6;
+      border-radius: 3px;
+      padding: 0 5px;
+      color: #ccc; }
+      ul.downloads li:not(.label) a {
+        font-size: 11px;
+        text-decoration: none;
+        color: white;
+        font-weight: bold; }

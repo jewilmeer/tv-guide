@@ -1,25 +1,24 @@
 - @program ||= episode.program
 %tr[episode]
   %td
-    = link_to episode.full_episode_title, [@program, episode]
+    = link_to episode.full_episode_title, [@program, episode], :class => :title
     - if current_user.try(:trusted?) && episode.airs_at.try(:past?)
-      %br
-      %ul.downloads
+      %ul.downloads.unstyled
         %li.label Download:
         - if episode.downloads.length > 0
           - episode.downloads.each do |download|
             %li= link_to download.search_term_type.name, episode_path(episode, :download_type => download.download_type, :format => :nzb), :title => download.origin
         - else 
           %li.nothing No downloads (yet)
-      %ul.downloads
+      %ul.downloads.unstyled
         %li.label Search:
         - SearchTermType.all.each do |search_term|
           %li= link_to search_term.name, search_episode_path(episode, {:search_type => search_term.code})
-      - if current_user.admin?
-        \|
-        = link_to 'Redownload', admin_episode_path(episode, {:partial => :episodes, :format => :js}), :method => :put, :remote => true, :disable_with => 'Downloading...'
   %td{:width => 220}
-    - if episode.airs_at
-      = l(episode.airs_at.to_date, :format => :with_day)
+    - if episode.airs_at 
+      %p= l(episode.airs_at.to_date, :format => :with_day)
+      - if episode.airs_at.past? && current_user.admin?
+        = button_to('Redownload', admin_episode_path(episode, :partial => :episodes), :method => :put, :remote => true, :disable_with => 'loading...', :class => 'btn small') 
+
     - else
       \-
