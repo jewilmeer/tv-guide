@@ -103,3 +103,6 @@ ul.downloads {
         text-decoration: none;
         color: white;
         font-weight: bold; }
+
+.hidden {
+  display: none; }

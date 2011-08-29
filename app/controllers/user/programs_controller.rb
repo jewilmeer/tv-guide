@@ -17,10 +17,17 @@ class User::ProgramsController < UserAreaController
   end
   
   def destroy
-    current_user.programs.delete(Program.find(params[:id]))
+    @program = Program.find(params[:id])
+    current_user.programs.delete(@program)
     current_user.programs.first.touch #expire cache
-    flash[:notice] = 'Program removed'
-    redirect_to :back
+
+    logger.debug "program: #{@program.inspect}"
+    respond_to do |format|
+      format.html {
+        redirect_to :back, :notice => 'Program removed'    
+      }
+      format.js { }
+    end
   end
 
   def update

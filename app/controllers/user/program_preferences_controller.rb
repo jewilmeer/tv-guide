@@ -11,7 +11,7 @@ class User::ProgramPreferencesController < UserAreaController
       current_user.program_preferences.create( params[:program_preference] )
       respond_to do |format|
         format.html { redirect_to user_programs_path(current_user), :notice => 'Program Added' }
-        format.js { flash[:notice] = 'Program added' }
+        format.js { }
       end
     elsif params[:tvdb_id].present? && params[:search_term_type_id].present?
       program = Program.find_or_create_by_tvdb_id(params[:tvdb_id])

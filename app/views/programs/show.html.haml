@@ -56,15 +56,7 @@
         / %li= link_to 'View update list', program_updates_path(@program)
         - if current_user
           %li= link_to 'Check for updates', user_program_path(current_user, @program), :id => :check_update, :remote => true, :method => :put
-          - if current_user.programs.include?(@program)
-            %li= link_to 'Remove from your episode guide', user_program_path(current_user, @program), :method => :delete
-          - else
-            %li
-              Add to your episode guide
-              %br
-              %ul.downloads
-                - SearchTermType.all.each do |search_term_type|
-                  %li= link_to search_term_type.name, user_program_preferences_path(current_user, :program_preference => {:program_id => @program.id, :search_term_type_id => search_term_type.id}), :method => :post
+          = render :partial => 'guide_control', :locals => {:program => @program}
           
 %section.tab-content#tab-seasons
   .page-header
