@@ -1,0 +1,35 @@
+!!! 5
+%html{html_attrs('en'), 'xmlns:fb' => 'http://www.facebook.com/2008/fbml'}
+  %head
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
+
+    = stylesheet_link_tag 'bootstrap-1.1.1.min', 'own-bootstrap'
+    %meta{:name=>"robots",        :content=>"index, follow"}
+    %meta{:name=>"revisit-after", :content=>"1 days"}
+    %meta{:name=>"author",        :content=>"Jan-Willem van der Meer"}
+    %meta{:name =>'csrf-token',    :content => form_authenticity_token}
+    %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
+    %link{:rel => 'shortcut icon', :href=>'/images/favicon.ico', :type=>'image/x-icon'}
+    
+    %title== Digital tv guide #{yield(:title)}
+    = yield :head
+  %body
+    = render :partial => 'layouts/alt_header'
+
+    #main.container
+      // %section
+      //   .content
+      //     = render :partial => 'layouts/notifications_and_errors'
+      = yield
+    = yield :bottom
+    =# render 'layouts/bottom_js'
+
+    :javascript
+      if ( typeof window.JSON === 'undefined' ) { document.write('<script src="http://#{request.host}/javascripts/vendor/json2.js"><\/script>');}  
+    = include_javascripts :simple
+    :javascript
+      #{yield :bottom_js}
+
+      $(function() {
+        #{yield :bottom_js_domready}
+      });

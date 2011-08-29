@@ -1,28 +1,31 @@
-%h1
-  - if params[:search] 
-    %span.header== Results for #{params[:search]}
-  - else
-    %span.header List all programs
-  .header_link
-    = form_tag programs_path, :method => 'get', :id => "products_search" do
-      = hidden_field_tag :direction, params[:direction]
-      = hidden_field_tag :sort, params[:sort]
-    
-      .form_row
-        = search_field_tag :q, params[:q]
-        = submit_tag 'Search'
+%section
+  .page-header
+    %h1
+      - if params[:search] 
+        %span.header== Results for #{params[:search]}
+      - else
+        %span.header List all programs
+  -#
+    .header_link
+      = form_tag programs_path, :method => 'get', :id => "products_search" do
+        = hidden_field_tag :direction, params[:direction]
+        = hidden_field_tag :sort, params[:sort]
+      
+        .form_row
+          = search_field_tag :q, params[:q]
+          = submit_tag 'Search'
   
 .column-block
   .body
     - if @programs.any?
-      %table.list
+      %table.zebra-striped.sortable
         %thead
           %tr
-            %th= sortable 'name'
+            %th Name
             %th{:width => '120'} Watchers
-            %th{:width => '120'}= sortable 'status'
+            %th{:width => '120'} Status
             %th{:width => '200'} Next episode
-            %th{:width => '120'}= sortable 'runtime'
+            %th{:width => '120'} Runtime
         %tbody
           - @programs.each do |program|
             %tr
