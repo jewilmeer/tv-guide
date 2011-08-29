@@ -1,12 +1,12 @@
-=clear_after
+@mixin clear_after
   content: ""
   height: 0
   clear: both
   display: block
 
-=clear
+@mixin clear
   &:after
-    +clear_after
+    @include clear_after
   zoom: 1
 $normal_font_family: Verdana, Arial, sans-serif
 @font-face

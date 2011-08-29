@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 gem 'rails', '~>3.0.5'
 gem 'mail', '~>2.2'
-gem 'jquery-rails'
+gem 'jquery-rails', '>= 1.0.12'
 gem 'bundler', '~>1.0'
 gem 'rake', '~> 0.8.7'
 

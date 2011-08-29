@@ -1,9 +1,12 @@
 - selected_image_type_id = image.programs.first.send("#{image.image_type}_image_id")
-%li[image]
-  %img{:src => image_path(image, :format => :jpg) }
-  %fieldset
-    %legenda options
-    - unless image.image?
-      = link_to 'Save', image_path(image, :save => true, :format => :js), :method => :put, :remote => true, :title => 'Download this image', :disable_with => 'Downloading...'
-    %label== choose as #{image.image_type.humanize} placeholder
-    = radio_button_tag "program[#{image.image_type}_image_id]", image.id, selected_image_type_id == image.id
+.row
+  .span12.columns[image]
+    %img{:src => image_path(image, :format => :jpg), :width => 700, :height => 129}
+  .span4.columns
+    - if image.image?
+      Already saved
+    - else
+      = link_to 'Save to S3 storage', image_path(image, :save => true, :format => :js), :method => :put, :remote => true, :title => 'Download this image', :disable_with => 'Downloading...', :class => :btn
+    %label
+      Placeholder
+      = radio_button_tag "program[#{image.image_type}_image_id]", image.id, selected_image_type_id == image.id
