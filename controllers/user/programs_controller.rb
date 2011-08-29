@@ -22,4 +22,10 @@ class User::ProgramsController < UserAreaController
     flash[:notice] = 'Program removed'
     redirect_to :back
   end
+
+  def update
+    @program = Program.find(params[:id])
+    @program.tvdb_full_update
+    render :text => 'ok'
+  end
 end
