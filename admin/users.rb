@@ -1,4 +1,9 @@
 ActiveAdmin.register User do
+  before_filter :only => [:show, :edit, :update] do
+    @user = User.find_by_login!(params[:id])
+  end
+
+
   index do
     column :id
     column :login
