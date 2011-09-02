@@ -25,15 +25,15 @@
       })
 
 %section{:data => {:role => :page}}
-  .page-header{:date => {:role => :header}}
-    %h1
-      = @program.name
-      %small
-        = @program.status
-      - if current_user.try(:trusted?)
-        = link_to(tokened_program_path(:id => @program.id, :user_credentials => current_user.single_access_token, :format => :rss), :class => 'right-rss') do 
-          = icon_tag('rss', :size => '24x24', :alt => 'RSS feed')
   .row
+    .page-header{:data => {:role => :header}}
+      %h1
+        = @program.name
+        %small
+          = @program.status
+        - if current_user.try(:trusted?)
+          = link_to(tokened_program_path(:id => @program.id, :user_credentials => current_user.single_access_token, :format => :rss), :class => 'right-rss') do 
+            = icon_tag('rss', :size => '24x24', :alt => 'RSS feed')
     %ul.tabs
       %li.active= link_to 'Season Overview', '#seasons'
       %li= link_to 'More information', '#more-info'
@@ -59,15 +59,16 @@
           = render :partial => 'guide_control', :locals => {:program => @program}
           
 %section.tab-content#tab-seasons
-  .page-header
-    %h3 Seasons
   .row
+    .page-header
+      %h3 Seasons
     %ul.tabs
       - @program.max_season_nr.downto( @program.max_season_nr > 8 ? @program.max_season_nr-7 : 1) do |season|
         %li{:class => (:active if @program.max_season_nr == season)}
           %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
+  
   - @program.max_season_nr.downto(1) do |season|
-    .tab-content{:id => "tab-s#{season}", :style => ('display: none' unless @program.max_season_nr == season)}
+    .row.tab-content{:id => "tab-s#{season}", :style => ('display: none' unless @program.max_season_nr == season)}
       %table.zebra-striped
         %thead
           %tr
@@ -77,9 +78,9 @@
           = render :collection => @program.episodes.where('season_nr = ?', season).by_nr(:desc), :partial => 'episodes/episodes', :as => :episode
 
 %section.tab-content#tab-more-info{:style => 'display: none'}
-  .page-header
-    %h3 More information
   .row
+    .page-header
+      %h3 More information
     %table
       %tr
         %th{:width => 100} Runtime
