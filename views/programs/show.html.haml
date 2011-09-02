@@ -1,6 +1,6 @@
 - if current_user.try(:trusted?)
   - content_for :head do
-    = auto_discovery_link_tag
+    = auto_discovery_link_tag :rss, :format => :rss
 
 - page_title @program.name
 - content_for(:bottom_js_domready) do
