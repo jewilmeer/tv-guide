@@ -35,6 +35,8 @@
   %h2
     %span.header Recently aired
     - if current_user.try(:trusted?) && current_user == @user
+      - content_for(:head) do
+        = auto_discovery_link_tag :rss, tokened_user_programs_url(:user_credentials => current_user.single_access_token, :format => :rss)
       .header_link
         = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)'
     
