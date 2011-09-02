@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
-gem 'rails', '~>3.0.5'
-gem 'mail', '~>2.2'
-gem 'jquery-rails', '>= 1.0.12'
-gem 'bundler', '~>1.0'
-gem 'rake', '~> 0.8.7'
+gem "rails", "~> 3.0.10"
+gem 'mail'
+gem 'jquery-rails'
+gem 'bundler'
+# gem 'rake'
 
 # Bundle the extra gems:
 # gem 'bj'
