@@ -1,7 +1,11 @@
+%style
+  :sass
+    #suggest-block form, .button_block p
+      float: left
 - if @programs.any?
   .column-block
     %h2== Found #{pluralize(@programs.count,'matched program')}
-    .body
+    .body#suggest-block
       %p Which of these where you looking for?
       - @programs.each do |program|
         .column-block
@@ -11,10 +15,10 @@
               %p.nothing No description available
             - else
               %p= program.overview
-            %p 
-              Add in 
-              - links = SearchTermType.all.map do |search_term|
-                - link_to search_term.name, user_program_preferences_path(current_user, :tvdb_id => program.tvdb_id, :search_term_type_id => search_term.id, :format => :js), :remote => true, :method => :post, :data=> {:'disable-with' => 'Adding...'}
-              = links.to_sentence.html_safe
+            .button_block
+              %p Add in 
+              - SearchTermType.all.map do |search_term|
+                = button_to search_term.name, user_program_preferences_path(current_user, :tvdb_id => program.tvdb_id, :search_term_type_id => search_term.id), :remote => true, :method => :post, :disable_with => 'Adding...'
+              / = links.to_sentence.html_safe
 - else
   %p.nothing No programs found
