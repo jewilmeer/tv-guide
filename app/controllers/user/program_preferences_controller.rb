@@ -7,18 +7,22 @@ class User::ProgramPreferencesController < UserAreaController
   
   def create
     if params[:program_preference] && params[:program_preference][:program_id].present?
-      logger.debug "params[:program_preference]: #{params[:program_preference].inspect}"
       current_user.program_preferences.create( params[:program_preference] )
       respond_to do |format|
         format.html { redirect_to user_programs_path(current_user), :notice => 'Program Added' }
-        format.js { }
+        format.js { flash[:notice] = 'Program added' }
       end
-    elsif params[:tvdb_id].present? && params[:search_term_type_id].present?
-      program = Program.find_or_create_by_tvdb_id(params[:tvdb_id])
-      current_user.program_preferences.create( :program => program, :search_term_type_id => params[:search_term_type_id])
+    elsif params[:tvdb_id].present?
+      @program = Program.find_or_create_by_tvdb_id( params[:tvdb_id] )
+      if @program.persisted?
+        current_user.program_preferences.create( :program_id => @program.id, :search_term_type_id => params[:search_term_type_id] )
+        flash[:notice] = 'Program added'
+      else
+        flash[:error] = 'Sorry, could not add program'
+      end
       respond_to do |format|
-        format.html { render :text => 'no no no' }
-        format.js   { render :text => "document.location.href = '#{user_programs_path(current_user)}';"}
+        format.html { redirect_to user_programs_path(current_user) }
+        format.js { render :text => "document.location.href = '#{user_programs_path(current_user)}'" }
       end
     else
       logger.debug "Needs a suggestion..."
