@@ -1,19 +1,14 @@
 source 'http://rubygems.org'
-gem "rails", "~> 3.0.10"
+gem "rails", "~> 3.1.0"
 gem 'mail'
 gem 'jquery-rails'
-gem 'bundler'
-# gem 'rake'
 
 # Bundle the extra gems:
-# gem 'bj'
 gem 'nokogiri', '~>1.4.2'
 gem 'mechanize'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'logging'
 gem 'file-utils'
-gem 'haml'
-gem 'sass'
 gem 'pacecar'
 gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 gem 'will_paginate', '3.0.pre2'
@@ -34,11 +29,9 @@ gem 'hpricot'
 gem 'zip'
 gem 'paperclip'
 gem 'aws-s3'
-gem 'hoptoad_notifier'
 gem 'newrelic_rpm'
 # caching
 gem "dalli"
-gem "jammit"
 
 # authentication
 gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
@@ -48,13 +41,20 @@ gem 'omniauth', '>=0.2.6'
 # gem 'win32-open3', :group => :development
 
 # Bundle gems for certain environments:
+group :assets do
+  gem 'haml'
+  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
+
 group :development, :test do
-  gem 'mysql2', '~>0.2.0'
+  gem 'mysql2'
   gem 'annotate-models'
 end
 
 group :test do
-  gem "rspec-rails", "~> 2.4"
+  gem "rspec-rails"
   gem 'capybara'
   gem 'shoulda'
   gem 'cucumber-rails'
