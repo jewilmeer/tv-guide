@@ -6,19 +6,37 @@
     = link_to episode.program_name, episode.program 
     = link_to episode.full_episode_title, episode
   - if current_user.try(:trusted)
-    %ul.downloads
-      %li.label= icon_tag('down', :size => '16x16')
-      - if episode.downloads.any?
-        - episode.downloads.includes(:search_term_type).each do |download|
-          - next unless download.search_term_type
-          %li
-            = link_to download.search_term_type.name, episode_path(episode, :download_type => download.download_type ,:format => :nzb), :title => download.origin
-      - else
-        %li.nothing No downloads available (yet)
-    %ul.downloads
-      %li.label= icon_tag('search', :size => '16x16')
-      - @search_terms.each do |search_term|
-        %li= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
+    -# downloads
+    %dl.oneliner
+      %dt= icon_tag('down', :size => '16x16')
+      %dd
+        - if episode.downloads.any?
+          - episode.downloads.includes(:search_term_type).each do |download|
+            - next unless download.search_term_type
+            %span.label.success
+              = link_to download.search_term_type.name, episode_path(episode, :download_type => download.download_type ,:format => :nzb), :title => download.origin
+        - else
+          %span.label No downloads available
+    -# search
+    %dl.oneliner
+      %dt= icon_tag('search', :size => '16x16')
+      %dd
+        - @search_terms.each do |search_term|
+          %span.label.success= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
+    -#
+      %ul.downloads
+        %li.label= icon_tag('down', :size => '16x16')
+        - if episode.downloads.any?
+          - episode.downloads.includes(:search_term_type).each do |download|
+            - next unless download.search_term_type
+            %li
+              = link_to download.search_term_type.name, episode_path(episode, :download_type => download.download_type ,:format => :nzb), :title => download.origin
+        - else
+          %li.nothing No downloads available (yet)
+      %ul.downloads
+        %li.label= icon_tag('search', :size => '16x16')
+        - @search_terms.each do |search_term|
+          %li= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
   %p= episode.description
 .controls
   - if current_user.try(:admin)
