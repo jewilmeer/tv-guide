@@ -3,9 +3,15 @@ class PagesController < ApplicationController
   
   # hompage
   def index
-    @featured_programs = (Episode.next_airing.distinct_program_id('episodes.airs_at').limit(3).map(&:program) | Episode.by_created_at(:desc).distinct_program_id('episodes.created_at').limit(3).map(&:program))
-    @next_airing       = Episode.next_airing.limit(5)
-    @last_aired        = Episode.last_aired.limit(5)
+    if current_user
+      redirect_to user_programs_path( current_user )
+    else
+      redirect_to :programs
+    end
+
+    # @featured_programs = (Episode.next_airing.distinct_program_id('episodes.airs_at').limit(3).map(&:program) | Episode.by_created_at(:desc).distinct_program_id('episodes.created_at').limit(3).map(&:program))
+    # @next_airing       = Episode.next_airing.limit(5)
+    # @last_aired        = Episode.last_aired.limit(5)
   end
   
   def show

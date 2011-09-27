@@ -3,11 +3,15 @@ class ProgramsController < ApplicationController
   before_filter :find_program, :except => [:index, :create, :suggest, :search, :check]
   newrelic_ignore :only => [:check]
 
+  respond_to :html, :json, :js
+
   def index
-    @programs = Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction).paginate :per_page => 30, :page => params[:page]
+    @programs = Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction)
     if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
       redirect_to @programs.first
-    end
+    else
+      respond_with :programs => @programs
+    end    
   end
   
   def guide
