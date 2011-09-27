@@ -2,17 +2,23 @@ require 'spec_helper'
 require 'factory_girl_rails'
 
 describe Program do
-  let(:program) { FactoryGirl.create(:program) }
+  subject { build(:program, {:fetch_remote_information => false}) }
   
-  it "should validate the object" do
-    simple_model = Program.new
-    simple_model.should_not be_valid
-    
-    valid_model = FactoryGirl.build(:program)
-    valid_mode.should be_valid
-  end
-  
-  it 'Should fill the name of the program as default search term' do
-    program.name.should == program.search_term
+  it { should be_valid }
+
+  describe '#fetch_remote_information' do
+    it 'should be true if not set' do
+      subject.fetch_remote_information=nil
+      subject.fetch_remote_information.should be_true
+    end
+
+    it 'should be true if set so' do
+      subject.fetch_remote_information=true
+      subject.fetch_remote_information.should be_true
+    end
+    it 'should be false if set so' do
+      subject.fetch_remote_information=false
+      subject.fetch_remote_information.should be_false
+    end
   end
 end

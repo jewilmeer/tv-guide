@@ -1,5 +1,6 @@
 %tr[program]
-  %td= link_to truncate(program.name, :length => 40), [:admin, program]
+  %td
+    = link_to truncate(program.name, :length => 40), [:admin, program]
   %td
     - if next_aired = program.episodes.airs_at_in_future.first
       %abbr{:title => next_aired.full_episode_title}

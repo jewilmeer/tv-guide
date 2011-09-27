@@ -2,11 +2,10 @@ class ImagesController < ApplicationController
   before_filter :get_object
   def show
     if @image.image?
-      redirect_to @image.s3_url( :slide )
+      redirect_to @image.s3_url( :episode )
     else
       require 'open-uri'
       logger.debug "opening #{@image.url}"
-      # response.headers['Cache-Control'] = "public, max-age=#{1.month.to_i}"
       send_file open(@image.url), :disposition => 'inline', :type => :jpg
     end
   end

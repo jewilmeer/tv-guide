@@ -32,7 +32,7 @@ class Episode < ActiveRecord::Base
   include Pacecar
   include ActionView::Helpers::SanitizeHelper
   
-  belongs_to :season
+  # belongs_to :season
   belongs_to :program, :touch => true
   has_and_belongs_to_many :users
   has_many :interactions, :dependent => :nullify
@@ -52,6 +52,7 @@ class Episode < ActiveRecord::Base
   scope :tvdb_id,                 select("id, tvdb_id")
   scope :random,                  lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
+  # scope :distinct_program_id,           lambda{|| Rails.env.production? ? select('DISTINCT ON (episodes.program_id) episodes.id, episodes.airs_at') : select('DISTINCT(episodes.program_id)') }
 
   attr_accessor :options, :name, :episode, :filters, :thumb
   
