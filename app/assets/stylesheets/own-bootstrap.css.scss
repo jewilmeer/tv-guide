@@ -1,9 +1,9 @@
 html, body {
   height: 100%;
-  overflow: hidden;
   background-attachment: fixed;
 }
 body {
+  padding-top: 40px;
   background: image-url('patterns/whitey.png');
   background-attachment: fixed;
 }
@@ -12,6 +12,11 @@ body {
   box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
   height: 100%;
   height: auto !important;
+  padding: 20px 10px;
+}
+.right-rss {
+  float: right;
+  margin-top: 8px; 
 }
 .show-grid {
   margin-top: 10px;
