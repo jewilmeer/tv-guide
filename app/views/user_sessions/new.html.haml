@@ -1,10 +1,12 @@
 - page_title 'Login'
 %section
-  %h1 
-    Login
-    %small So we know which where to guide you :-) 
+  .page-header
+    %h1 
+      Login
+      %small So we know which where to guide you :-) 
+  
   .row
-    .span8.columns
+    .span8
       .page-header
         %h3 With credentials
       = form_for :user_session, :url => user_session_path do |f|
@@ -24,19 +26,18 @@
                 &nbsp;keep me logged in
           .actions
             %button.primary.btn{:data => {:'disable-with' => 'Please wait...'}} Login
-    .span8.columns
+    - if false
       .page-header
         %h3 With external provider
       .row        
-        .span4.columns
+        .span4
           - AUTH_PROVIDERS.each do |service|
             = link_to image_tag("auth_icons/#{service}_64.png", :size => '64x64', :class => :icon), "/auth/#{service}"
-        .span4.columns
+        .span4
           %p If you are have an existing account which is connected to on of the listed services you can simple click te service to login
-      .span8.columns
-        .row
-          .page-header
-            %h3 Don't have an account yet?
-          %p 
-            = link_to 'Registering', signup_path
-            an account enables you to create your personal tv guide. This will be a collection of all your favorite tv programs.
+    .span8
+      .page-header
+        %h3 Don't have an account yet?
+      %p 
+        = link_to 'Registering', signup_path
+        an account enables you to create your personal tv guide. This will be a collection of all your favorite tv programs.

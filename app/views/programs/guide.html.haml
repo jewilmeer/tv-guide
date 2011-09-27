@@ -1,41 +1,83 @@
-.column-block.just_aired
-  %h2
-    %span.header Recently aired
-    
-  .body
-    %ul.imagebar
-      - @past_episodes.take(3).each do |episode|
-        = render 'episodes/image_strip', :episode => episode
-      - @past_episodes = @past_episodes.drop(3)
-
-.two-third-column.flt-left
-  .column-block.large_column_guide
-    %h1 Other recently aired
-    .body
+- page_title "Episode guide"
+- stylesheet_link_tag :episode
+%section
+  .page-header
+    %h1 Digital TV guide
+%section
+  .row
+    .span11
+      .page-header
+        %h4 Recently aired
       - if @past_episodes.any?
-        %ul.list
-          - last_date = nil
+        - date = nil
+        %dl#past-episodes
           - @past_episodes.each do |episode|
+            - if date != episode.airs_at.to_date
+              - date = episode.airs_at.to_date
+              %dt
+                .page-header
+                  %h5= pretty_date date
+            %dd[episode]= render 'episodes/past_episode', {:episode => episode}
+              
+      - else
+        %p No past episodes found
+
+    .span5
+      .page-header
+        %h4 Next airing
+      - if @upcoming_episodes.any?
+        - date = nil
+        %dl#next-airing
+          - @upcoming_episodes.each do |episode|
+            - if date != episode.airs_at.to_date
+              - date = episode.airs_at.to_date
+              %dt= pretty_date date
+            %dd[episode]
+              = link_to episode.program_name, episode.program
+              \ -
+              = link_to episode.title, episode
+      - else
+        %p No airing episodes
+
+-#
+  .column-block.just_aired
+    %h2
+      %span.header Recently aired
+      
+    .body
+      %ul.imagebar
+        - @past_episodes.take(3).each do |episode|
+          = render 'episodes/image_strip', :episode => episode
+        - @past_episodes = @past_episodes.drop(3)
+
+  .two-third-column.flt-left
+    .column-block.large_column_guide
+      %h1 Other recently aired
+      .body
+        - if @past_episodes.any?
+          %ul.list
+            - last_date = nil
+            - @past_episodes.each do |episode|
+              - unless last_date == episode.airs_at.to_date
+                - last_date = episode.airs_at.to_date
+                %li.header
+                  %h4= l last_date, :format => :with_day
+              = render 'episodes/past_episode', {:episode => episode}
+        - else
+          %p.nothing No previous shows
+  .third-column.flt-right
+    .column-block
+      %h1 Next airing episodes
+      .body
+        %ul.mini_guide.list
+          - last_date = nil
+          - @upcoming_episodes.each do |episode|
             - unless last_date == episode.airs_at.to_date
               - last_date = episode.airs_at.to_date
               %li.header
                 %h4= l last_date, :format => :with_day
-            = render 'episodes/past_episode', {:episode => episode}
-      - else
-        %p.nothing No previous shows
-.third-column.flt-right
-  .column-block
-    %h1 Next airing episodes
-    .body
-      %ul.mini_guide.list
-        - last_date = nil
-        - @upcoming_episodes.each do |episode|
-          - unless last_date == episode.airs_at.to_date
-            - last_date = episode.airs_at.to_date
-            %li.header
-              %h4= l last_date, :format => :with_day
-          %li
-            = link_to episode.program_name, episode.program
-            \-
-            = link_to episode.title, episode 
-            %span.smaller== (#{episode.season_and_episode})
+            %li
+              = link_to episode.program_name, episode.program
+              \-
+              = link_to episode.title, episode 
+              %span.smaller== (#{episode.season_and_episode})
