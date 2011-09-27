@@ -5,7 +5,7 @@
     == - Season #{@episode.season_nr} - #{@episode.title}
   .body
     - if image = @episode.image || @episode.program.images.saved.random.first
-      = image_tag image.s3_url(:episode), {:align => :left, :class => :fancy}
+      %img{:src => image.s3_url(:episode) :align => :left, :class => :fancy}
     %p
       Airdate: 
       - if @episode.airs_at

@@ -4,6 +4,8 @@
 en:
   date:
     formats:
+      weekday: %A
+      short_with_weekday: %a %b %d
       with_day: "%A %B %e, %Y"
   time:
     formats:

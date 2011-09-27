@@ -11,7 +11,6 @@ gem 'logging'
 gem 'file-utils'
 gem 'pacecar'
 gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
-gem 'will_paginate', '3.0.pre2'
 gem 'typhoeus'
 gem 'formtastic'
 gem 'activeadmin'
@@ -43,6 +42,7 @@ gem 'omniauth', '>=0.2.6'
 # Bundle gems for certain environments:
 group :assets do
   gem 'haml'
+  gem 'less'
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
@@ -50,18 +50,34 @@ end
 
 group :development, :test do
   gem 'mysql2'
+  gem 'pg'
   gem 'annotate-models'
-end
-
-group :test do
-  gem "rspec-rails"
-  gem 'capybara'
-  gem 'shoulda'
-  gem 'cucumber-rails'
-  gem "factory_girl_rails"
-  gem 'autotest'
   gem 'heroku'
   gem 'taps'
+
+  gem 'guard'
+  gem 'guard-bundler'
+  gem 'guard-cucumber'
+  gem 'guard-rspec'
+
+  if RUBY_PLATFORM =~ /darwin/i
+    gem 'rb-fsevent', :require => false
+    gem 'growl_notify'
+  end
+
+  # test stuff
+  gem "rspec-rails"
+  gem 'cucumber-rails'
+  gem 'capybara'
+  gem "factory_girl_rails"
+
+  # help test stuff
+  gem 'database_cleaner'
+  gem 'pickle'
+  gem 'shoulda-matchers'
+
+  # verify
+  gem 'simplecov', :require => false
 end
 
 
