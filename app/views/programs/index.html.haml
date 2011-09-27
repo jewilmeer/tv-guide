@@ -5,45 +5,35 @@
         %span.header== Results for #{params[:search]}
       - else
         %span.header List all programs
-  -#
-    .header_link
-      = form_tag programs_path, :method => 'get', :id => "products_search" do
-        = hidden_field_tag :direction, params[:direction]
-        = hidden_field_tag :sort, params[:sort]
-      
-        .form_row
-          = search_field_tag :q, params[:q]
-          = submit_tag 'Search'
-  
-.column-block
-  .body
-    - if @programs.any?
-      %table.zebra-striped.sortable
-        %thead
+
+.row  
+  - if @programs.any?
+    %table.zebra-striped.sortable
+      %thead
+        %tr
+          %th Name
+          %th{:width => '120'} Watchers
+          %th{:width => '120'} Status
+          %th{:width => '200'} Next episode
+          %th{:width => '120'} Runtime
+      %tbody
+        - @programs.each do |program|
           %tr
-            %th Name
-            %th{:width => '120'} Watchers
-            %th{:width => '120'} Status
-            %th{:width => '200'} Next episode
-            %th{:width => '120'} Runtime
-        %tbody
-          - @programs.each do |program|
-            %tr
-              %td= link_to program.name, program
-              %td
-                - if program.users.any?
-                  %abbr{:title => program.users.map(&:login).to_sentence}= pluralize(program.users.count, 'watcher')
-                - else
-                  no watchers
-              %td= program.status
-              %td
-                - if next_episode = program.episodes.next_airing.first
-                  = l next_episode.airs_at, :format => :long
-                - else
-                  \-
-              %td== #{program.runtime} minutes
-      = will_paginate @programs
-    - else
-      %p.nothing 
-        No programs found!
-      
+            %td= link_to program.name, program
+            %td
+              - if program.users.any?
+                %abbr{:title => program.users.map(&:login).to_sentence}= pluralize(program.users.count, 'watcher')
+              - else
+                no watchers
+            %td= program.status
+            %td
+              - if next_episode = program.episodes.next_airing.first
+                = pretty_date next_episode.airs_at
+              - else
+                \-
+            %td== #{program.runtime} minutes
+    = will_paginate @programs
+  - else
+    %p.nothing 
+      No programs found!
+    

@@ -25,26 +25,25 @@
       })
 
 %section
+  .page-header
+    %h1
+      = @program.name
+      %small
+        = @program.status
+      - if current_user.try(:trusted?)
+        = link_to(tokened_program_path(:id => @program.id, :user_credentials => current_user.single_access_token, :format => :rss), :class => 'right-rss') do 
+          = icon_tag('rss', :size => '24x24', :alt => 'RSS feed')
+  %ul.tabs{:data => {:tabs => :tabs}}
+    %li.active= link_to 'Season Overview', '#seasons'
+    %li= link_to 'More information', '#more-info'
+    / %li= link_to 'Options and other stuff', '#other'
   .row
-    .page-header
-      %h1
-        = @program.name
-        %small
-          = @program.status
-        - if current_user.try(:trusted?)
-          = link_to(tokened_program_path(:id => @program.id, :user_credentials => current_user.single_access_token, :format => :rss), :class => 'right-rss') do 
-            = icon_tag('rss', :size => '24x24', :alt => 'RSS feed')
-    %ul.tabs{:data => {:tabs => :tabs}}
-      %li.active= link_to 'Season Overview', '#seasons'
-      %li= link_to 'More information', '#more-info'
-      / %li= link_to 'Options and other stuff', '#other'
-  .row
-    .span12.columns
+    .span12
       - if @featured_image
         = image_tag("#{@featured_image.id}.jpg", :size => '700x129')
       - else
         = image_tag( @program.banner_url, :size => '940x173') if @program.banner
-    .span4.columns
+    .span4
       %ul.unstyled
         %li
           - if @program.users.any?
@@ -60,23 +59,22 @@
 
 .tab-content
   %section#seasons.active
-    .row
-      .page-header
-        %h3 Seasons
-      %ul.tabs{:data => {:tabs => :tabs}}
-        - seasons_for_tab(@program).each do |season|
-          %li{:class => (:active if @program.max_season_nr == season)}
-            %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
-        - if seasons_for_dropdown(@program).any?
-          %li.dropdown{:data => {:dropdown => :dropdown}}
-            %a.dropdown-toggle== Older seasons (#{seasons_for_dropdown(@program).length})
-            %ul.dropdown-menu
-              - seasons_for_dropdown(@program).each do |season|
-                %li{:class => (:active if @program.max_season_nr == season)}
-                  %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
+    .page-header
+      %h3 Seasons
+    %ul.tabs{:data => {:tabs => :tabs}}
+      - seasons_for_tab(@program).each do |season|
+        %li{:class => (:active if @program.max_season_nr == season)}
+          %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
+      - if seasons_for_dropdown(@program).any?
+        %li.dropdown{:data => {:dropdown => :dropdown}}
+          %a.dropdown-toggle== Older seasons (#{seasons_for_dropdown(@program).length})
+          %ul.dropdown-menu
+            - seasons_for_dropdown(@program).each do |season|
+              %li{:class => (:active if @program.max_season_nr == season)}
+                %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
     .tab-content                  
       - @program.max_season_nr.downto(1) do |season|
-        .row{:id => "s#{season}", :class => (:active if @program.max_season_nr == season)}
+        %div{:id => "s#{season}", :class => (:active if @program.max_season_nr == season)}
           %table.zebra-striped
             %thead
               %tr
@@ -86,32 +84,31 @@
               = render :collection => @program.episodes.where('season_nr = ?', season).by_nr(:desc), :partial => 'episodes/episodes', :as => :episode
 
   %section#more-info
-    .row
-      .page-header
-        %h3 More information
-      %table
+    .page-header
+      %h3 More information
+    %table
+      %tr
+        %th{:width => 100} Runtime
+        %td= pluralize( @program.runtime, 'minute')
+        %th{:width => 100} Genres
+        %td= @program.genres.map(&:name).to_sentence
+        %th{:width => 100} Network
+        %td{:width => 150}= @program.network
+      %tr
+        %th Next episode
+        %td
+          - if episode = @program.episodes.next_airing.first
+            = l episode.airs_at, :format => :long
+          - else
+            \-
+        %th Thetvdb rating
+        %td= @program.tvdb_rating || 'Not available'
+        %th Content rating
+        %td= @program.contentrating || 'Not available'
+      - if @program.actors.any?
         %tr
-          %th{:width => 100} Runtime
-          %td= pluralize( @program.runtime, 'minute')
-          %th{:width => 100} Genres
-          %td= @program.genres.map(&:name).to_sentence
-          %th{:width => 100} Network
-          %td{:width => 150}= @program.network
-        %tr
-          %th Next episode
-          %td
-            - if episode = @program.episodes.next_airing.first
-              = l episode.airs_at, :format => :long
-            - else
-              \-
-          %th Thetvdb rating
-          %td= @program.tvdb_rating || 'Not available'
-          %th Content rating
-          %td= @program.contentrating || 'Not available'
-        - if @program.actors.any?
-          %tr
-            %th.top Actors
-            %td{:colspan => 5}= @program.actors.to_sentence(:last_word_connector => ' and ')
-        %tr
-          %th.top Overview
-          %td{:colspan => 5}= @program.overview
+          %th.top Actors
+          %td{:colspan => 5}= @program.actors.to_sentence(:last_word_connector => ' and ')
+      %tr
+        %th.top Overview
+        %td{:colspan => 5}= @program.overview
