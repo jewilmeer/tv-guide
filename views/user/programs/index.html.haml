@@ -1,7 +1,6 @@
 - page_title "#{@user.login.humanize}'s episode guide"
 - stylesheet_link_tag :episode
 %section
-  / .row
   .page-header
     %h1
       - if current_user == @user
@@ -42,8 +41,14 @@
               %dt= pretty_date date
             %dd[episode]
               = link_to episode.program_name, episode.program
-              \ -
-              = link_to episode.title, episode
+              - if episode.nr == 1
+                - if episode.season_nr == 1
+                  %span.label.success New
+                - else
+                  %span.label.success New season
+              - if false
+                \ -
+                = link_to episode.title, episode
       - else
         %p No airing episodes
 -#
