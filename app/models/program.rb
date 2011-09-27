@@ -60,13 +60,13 @@ class Program < ActiveRecord::Base
   validates :tvdb_name, :presence => true, :if => :has_tvdb_connection?
   validates :tvdb_id, :uniqueness => true, :if => :has_tvdb_connection?
   
-  before_validation :update_by_tvdb_id, :on => :create
-  after_create :add_episodes, :get_images
+  before_validation :update_by_tvdb_id#, :on => :create
+  after_create :enrich_data
   
   scope :by_name, order('name ASC')
   scope :tvdb_id, select('id, tvdb_id')
   
-  attr_accessor :active_configuration, :banners, :banner, :tvdb_serie
+  attr_accessor :active_configuration, :banners, :banner, :tvdb_serie, :fetch_remote_information
 
   def self.search_program query
     if query
@@ -167,6 +167,9 @@ class Program < ActiveRecord::Base
     save!
   end
   
+  def tvdb_last_update
+    @tvdb_last_update ||= created_at
+  end
   def self.tvdb_search query
     tvdb_client.search( query ).map{|r| self.from_tvdb(r) }
   end
@@ -201,6 +204,7 @@ class Program < ActiveRecord::Base
   end
   
   def update_by_tvdb_id
+    return true unless fetch_remote_information
     result = tvdb_client.get_series_by_id self.tvdb_id
     apply_tvdb_attributes result 
   end
@@ -246,13 +250,14 @@ class Program < ActiveRecord::Base
   
   def get_images
     current_image_urls = images.url.map(&:url)
+    return unless tvdb_serie
     tvdb_serie.banners.reject{|banner| current_image_urls.include?(banner.url) || banner.url.blank? }.map do |banner| 
       self.images.create( :url => banner.url, :image_type => banner.banner_type )
     end
   end
   
   def max_season_nr
-    @max_season_nr ||= self.episodes.by_season_nr(:desc).first.season_nr
+    read_attribute(:max_season_nr) || self.episodes.by_season_nr(:desc).first.try(:season_nr)
   end
   
   def current_season_nr 
@@ -261,5 +266,18 @@ class Program < ActiveRecord::Base
   
   def update_episode_counters
     max_season_nr && current_season_nr
+  end
+
+  # methods to control propagating remote information
+  def fetch_remote_information= value
+    @fetch_remote_information= value
+  end
+  def fetch_remote_information
+    return true if @fetch_remote_information.nil?
+    !!@fetch_remote_information
+  end
+
+  def enrich_data
+    [:add_episodes, :get_images].map{|method| self.send(method) } if fetch_remote_information
   end
 end

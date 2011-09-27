@@ -1,103 +1,152 @@
 - page_title "#{@user.login.humanize}'s episode guide"
-- content_for(:bottom_js_domready) do
-  :plain
-    $('.autocomplete').autocomplete({
-      source: '/programs/search',
-      minlength: 2,
-      select: function(event, ui) {
-        // set selected value 
-        $(this).parents('form').find('#program_preference_program_id').val(ui.item.id);
-      },
-      search: function(event, ui) {
-        // clear possible previously selected value
-        $(this).parents('form').find('#program_preference_program_id').val('');
-      }
-    });
-    $('#new_program_preference').submit(function() {
-      $(this).parent().html('<p class="nothing"><img src="/images/spinner.gif" width=16 height=16 />Adding new program to your guide...<br /><br /></p>');
-    });
+- stylesheet_link_tag :episode
+%section
+  / .row
+  .page-header
+    %h1
+      - if current_user == @user
+        My digital tv guide
+      - else
+        == #{@user.login} digital tv guide
+      - if current_user == @user
+        = link_to_function icon_tag('add', {:size => '24x24'}), "$('#add_program_block').toggle(500)", :class => 'right-rss'
 
 %section
   .row
-    .page-header
-      %h1
-        - if current_user == @user
-          My digital tv guide
-        - else
-          == #{@user.login} digital tv guide
-        - if current_user == @user
-          = link_to_function icon_tag('add', {:size => '24x24'}), "$('#add_program_block').toggle(500)", :class => 'right-rss'
-  - if current_user == @user
-    #add_program_block.row{:style => 'display:none'}
-      = form_for [current_user, @program_preference], :remote => true do |f|
-        %fieldset
-          %legend Add new program
-          .clearfix
-            %label{:for => :q} Program name
-            .input
-              = text_field_tag :q, params[:q] || '', :class => :autocomplete
-          - if current_user.trusted?
-            .clearfix
-              Format
-              .input          
-                = f.collection_select :search_term_type_id, SearchTermType.all, :id, :name
+    .span11
+      .page-header
+        %h4 Recently aired
+      - if @past_episodes.any?
+        - date = nil
+        %dl#past-episodes
+          - @past_episodes.each do |episode|
+            - if date != episode.airs_at.to_date
+              - date = episode.airs_at.to_date
+              %dt
+                .page-header
+                  %h5= pretty_date date
+            %dd[episode]= render 'episodes/past_episode', {:episode => episode}
+              
+      - else
+        %p No past episodes found
+
+    .span5
+      .page-header
+        %h4 Next airing
+      - if @upcoming_episodes.any?
+        - date = nil
+        %dl#next-airing
+          - @upcoming_episodes.each do |episode|
+            - if date != episode.airs_at.to_date
+              - date = episode.airs_at.to_date
+              %dt= pretty_date date
+            %dd[episode]
+              = link_to episode.program_name, episode.program
+              \ -
+              = link_to episode.title, episode
+      - else
+        %p No airing episodes
+-#
+  - page_title "#{@user.login.humanize}'s episode guide"
+  - content_for(:bottom_js_domready) do
+    :plain
+      $('.autocomplete').autocomplete({
+        source: '/programs/search',
+        minlength: 2,
+        select: function(event, ui) {
+          // set selected value 
+          $(this).parents('form').find('#program_preference_program_id').val(ui.item.id);
+        },
+        search: function(event, ui) {
+          // clear possible previously selected value
+          $(this).parents('form').find('#program_preference_program_id').val('');
+        }
+      });
+      $('#new_program_preference').submit(function() {
+        $(this).parent().html('<p class="nothing"><img src="/images/spinner.gif" width=16 height=16 />Adding new program to your guide...<br /><br /></p>');
+      });
+
+  %section
+    .row
+      .page-header
+        %h1
+          - if current_user == @user
+            My digital tv guide
           - else
-            = f.hidden_field :search_term_type_id
-            = f.hidden_field :program_id
-          .actions
-            = submit_tag "Add", :class => :'btn primary', :disable_with => 'Adding...'
-  .row
-    .page-header
-      %h3 
-        Recently aired
-        = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)', :class => 'right-rss'
+            == #{@user.login} digital tv guide
+          - if current_user == @user
+            = link_to_function icon_tag('add', {:size => '24x24'}), "$('#add_program_block').toggle(500)", :class => 'right-rss'
+    - if current_user == @user
+      #add_program_block.row{:style => 'display:none'}
+        = form_for [current_user, @program_preference], :remote => true do |f|
+          %fieldset
+            %legend Add new program
+            .clearfix
+              %label{:for => :q} Program name
+              .input
+                = text_field_tag :q, params[:q] || '', :class => :autocomplete
+            - if current_user.trusted?
+              .clearfix
+                Format
+                .input          
+                  = f.collection_select :search_term_type_id, SearchTermType.all, :id, :name
+            - else
+              = f.hidden_field :search_term_type_id
+              = f.hidden_field :program_id
+            .actions
+              = submit_tag "Add", :class => :'btn primary', :disable_with => 'Adding...'
+    .row
+      .page-header
+        %h3 
+          Recently aired
+          = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)', :class => 'right-rss'
 
-    - @past_episodes.take(3).each do |episode|
-      .span5.columns= render 'episodes/image_strip', :episode => episode
-    - @past_episodes = @past_episodes.drop(3)
-      
--#      
-  .column-block.just_aired
-    %h2
-      %span.header Recently aired
-      - if current_user.try(:trusted?) && current_user == @user
-        .header_link
-          = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)'
-      
-    .body
-      %ul.imagebar
-        - @past_episodes.take(3).each do |episode|
-          = render 'episodes/image_strip', :episode => episode
-        - @past_episodes = @past_episodes.drop(3)
-
-  .two-third-column.flt-left
-    .column-block.large_column_guide
-      %h1 Other recently aired
+      - @past_episodes.take(3).each do |episode|
+        .span5.columns= render 'episodes/image_strip', :episode => episode
+      - @past_episodes = @past_episodes.drop(3)
+        
+  -#      
+    .column-block.just_aired
+      %h2
+        %span.header Recently aired
+        - if current_user.try(:trusted?) && current_user == @user
+          .header_link
+            = link_to icon_tag('rss', {:size => '24x24'}), tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)'
+        
       .body
-        - if @past_episodes.any?
-          %ul.list
+        %ul.imagebar
+          - @past_episodes.take(3).each do |episode|
+            = render 'episodes/image_strip', :episode => episode
+          - @past_episodes = @past_episodes.drop(3)
+
+    .two-third-column.flt-left
+      .column-block.large_column_guide
+        %h1 Other recently aired
+        .body
+          - if @past_episodes.any?
+            %ul.list
+              - last_date = nil
+              - @past_episodes.each do |episode|
+                - unless last_date == episode.airs_at.to_date
+                  - last_date = episode.airs_at.to_date
+                  %li.header
+                    %h4= l last_date, :format => :with_day
+                = render 'episodes/past_episode', {:episode => episode}
+          - else
+            %p.nothing No previous shows
+    .third-column.flt-right
+      .column-block
+        %h1 Next airing episodes
+        .body
+          %ul.mini_guide.list
             - last_date = nil
-            - @past_episodes.each do |episode|
+            - @upcoming_episodes.each do |episode|
               - unless last_date == episode.airs_at.to_date
                 - last_date = episode.airs_at.to_date
                 %li.header
                   %h4= l last_date, :format => :with_day
-              = render 'episodes/past_episode', {:episode => episode}
-        - else
-          %p.nothing No previous shows
-  .third-column.flt-right
-    .column-block
-      %h1 Next airing episodes
-      .body
-        %ul.mini_guide.list
-          - last_date = nil
-          - @upcoming_episodes.each do |episode|
-            - unless last_date == episode.airs_at.to_date
-              - last_date = episode.airs_at.to_date
-              %li.header
-                %h4= l last_date, :format => :with_day
-            %li
-              = link_to episode.program_name, episode.program
-              \-
-              = link_to episode.title, episode 
-              %span.smaller== (#{episode.season_and_episode})
+              %li
+                = link_to episode.program_name, episode.program
+                \-
+                = link_to episode.title, episode 
+                %span.smaller== (#{episode.season_and_episode})
