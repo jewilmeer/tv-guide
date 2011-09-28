@@ -10,6 +10,8 @@
       - if current_user == @user
         =# link_to_function icon_tag('add', {:size => '24x24'}), "$('#add_program_block').toggle(500)", :class => 'right-rss'
         %button{:class => :'btn flt-right', :data => {:'controls-modal' => 'add_program_block', :backdrop => true, :keyboard => true, :show => true}} Add new program
+        :plain
+          <button data-controls-modal="modal-from-dom" data-backdrop="true" class="btn danger">Launch Modal</button>
 
 %section
   .row
@@ -53,28 +55,20 @@
       - else
         %p No airing episodes
 
-
-#add_program_block.modal.fade.hide
-  .modal-header
-    = link_to 'x', '#', :class => :close
-    %h2 Add new program
-  .modal-body
-    = form_for [current_user, @program_preference], :remote => true do |f|
-      %fieldset
-        .clearfix
-          %label{:for => :q} Program name
-          .input
-            = text_field_tag :q, params[:q] || '', :class => :autocomplete
-        - if current_user.trusted?
-          .clearfix
-            Format
-            .input          
-              = f.collection_select :search_term_type_id, SearchTermType.all, :id, :name
-        - else
-          = f.hidden_field :search_term_type_id
-          = f.hidden_field :program_id
-  .modal-footer
-    = submit_tag "Add", :class => :'btn primary', :disable_with => 'Adding...'
+:plain
+  <div id="modal-from-dom" class="modal hide fade">
+            <div class="modal-header">
+              <a href="#" class="close">×</a>
+              <h3>Modal Heading</h3>
+            </div>
+            <div class="modal-body">
+              <p>One fine body…</p>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn primary">Primary</a>
+              <a href="#" class="btn secondary">Secondary</a>
+            </div>
+          </div>  
 
 -#
   - page_title "#{@user.login.humanize}'s episode guide"
