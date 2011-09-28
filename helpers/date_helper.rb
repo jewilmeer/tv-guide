@@ -1,5 +1,5 @@
 module DateHelper
-  def pretty_date date
+  def pretty_date date, options={}
     date = date.to_date
 
     case date - Date.today
@@ -14,7 +14,11 @@ module DateHelper
     when -7..-2
       "Last #{ l(date, :format => :weekday)}"
     else
-      l date, :format => :short_with_weekday
+      if options[:with_year].present?
+        l date, :format => :with_day
+      else
+        l date, :format => :short_with_weekday
+      end
     end
   end
 end

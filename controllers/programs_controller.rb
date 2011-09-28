@@ -94,7 +94,7 @@ class ProgramsController < ApplicationController
   def banners
     @image_types = Image.distinctly('images.image_type').group('image_type').all.map(&:image_type)
     @image_type  = params[:image_type] || @image_types.last
-    @images      = @program.images.image_type(@image_type).paginate :per_page => params[:per_page] ||= 5, :page => params[:page]
+    @images      = @program.images.image_type(@image_type).limit(params[:per_page] || 5)
   end
   
   def find_program

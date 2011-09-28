@@ -36,7 +36,7 @@
           %li.label.success= link_to search_term.name, search_episode_path(episode, {:search_type => search_term.code})
   %td{:width => 220}
     - if episode.airs_at 
-      %p= l(episode.airs_at.to_date, :format => :with_day)
+      %p= pretty_date episode.airs_at.to_date, :with_year => true
       - if episode.airs_at.past? && current_user.try(:admin?)
         = button_to('Redownload', admin_episode_path(episode, :partial => :episodes), :method => :put, :remote => true, :disable_with => 'loading...', :class => 'btn small') 
 

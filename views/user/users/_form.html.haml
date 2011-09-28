@@ -1,0 +1,19 @@
+= form_for(@user) do |f|
+  .clearfix
+    = f.label :email
+    .input
+      = f.text_field :email
+  .clearfix
+    = f.label :password
+    .input
+      = f.password_field :password
+  .clearfix
+    = f.label :password_confirmation
+    .input
+      = f.password_field :password_confirmation
+  .clearfix
+    = f.label :login, 'Username'
+    .input
+      = f.text_field :login
+  .actions
+    = submit_tag 'Register', :disable_with => 'Please wait...', :class => :'btn primary'
