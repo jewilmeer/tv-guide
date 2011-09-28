@@ -1,1 +1,1 @@
-$('##{dom_id(@image)}').effect('highlight').replaceWith('#{escape_javascript(@image_template)}');
+$('##{dom_id(@image)}').show('highlight').replaceWith('#{escape_javascript(@image_template.html_safe)}');

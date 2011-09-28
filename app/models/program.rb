@@ -257,15 +257,23 @@ class Program < ActiveRecord::Base
   end
   
   def max_season_nr
-    read_attribute(:max_season_nr) || self.episodes.by_season_nr(:desc).first.try(:season_nr)
+    read_attribute(:max_season_nr) || set_max_season_nr
   end
   
+  def set_max_season_nr
+    write_attribute(:max_season_nr, self.episodes.by_season_nr(:desc).first.try(:season_nr))
+  end
+
   def current_season_nr 
-    @current_season_nr ||= self.episodes.last_aired.first.try(:season_nr) || 1
+    @current_season_nr ||= set_current_season_nr
   end
   
+  def set_current_season_nr
+    write_attribute(:current_season_nr, self.episodes.last_aired.first.try(:season_nr) || 1)
+  end
+
   def update_episode_counters
-    max_season_nr && current_season_nr
+    set_max_season_nr && set_current_season_nr && save
   end
 
   # methods to control propagating remote information
