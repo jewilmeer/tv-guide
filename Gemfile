@@ -39,6 +39,8 @@ gem 'omniauth', '>=0.2.6'
 
 # gem 'win32-open3', :group => :development
 
+gem 'less-rails-bootstrap'
+
 # Bundle gems for certain environments:
 group :assets do
   gem 'haml'
@@ -78,6 +80,8 @@ group :development, :test do
 
   # verify
   gem 'simplecov', :require => false
+
+  gem 'railsonfire'
 end
 
 

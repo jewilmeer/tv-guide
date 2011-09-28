@@ -40,7 +40,7 @@
   .row
     .span12
       - if @featured_image
-        = image_tag("#{@featured_image.id}.jpg", :size => '700x129')
+        %img{:src => image_path(@featured_image, :format => :jpg), :width => 700, :height => 129}
       - else
         = image_tag( @program.banner_url, :size => '940x173') if @program.banner
     .span4
