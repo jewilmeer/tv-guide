@@ -1,6 +1,6 @@
 - selected_image_type_id = image.programs.first.send("#{image.image_type}_image_id")
-.row[image]
-  .span12
+.row
+  .span12.columns[image]
     %img{:src => image_path(image, :format => :jpg), :width => 700, :height => 129}
   .span4.columns
     - unless image.image?

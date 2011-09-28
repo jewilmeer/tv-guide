@@ -1,8 +1,7 @@
 ###
 = require jquery
 = require jquery_ujs
-= require ./vendor/bootstrap-twipsy
-= require_tree ./vendor
+= require twitter/bootstrap
 = require_self
 = require_tree .
 ###

@@ -1,0 +1,14 @@
+--- 
+:test: 
+  :commands: 
+  - gem install bundler --no-ri --no-rdoc
+  - bundle install --without development production
+  - bundle exec rake db:migrate
+  - bundle exec rake
+:deploy: 
+  :branch: master
+  :commands: 
+  - git remote add heroku git@heroku.com:tv-staging.git
+  - git push heroku $COMMIT_ID:master
+:ruby_versions: 
+- 1.9.2

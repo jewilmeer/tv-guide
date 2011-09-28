@@ -6,9 +6,9 @@
       - else
         %span.header List all programs
 
-.row  
+
   - if @programs.any?
-    %table.zebra-striped.sortable
+    %table.zebra-striped
       %thead
         %tr
           %th Name
@@ -32,7 +32,6 @@
               - else
                 \-
             %td== #{program.runtime} minutes
-    = will_paginate @programs
   - else
     %p.nothing 
       No programs found!
