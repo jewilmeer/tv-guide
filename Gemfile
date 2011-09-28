@@ -62,10 +62,10 @@ group :development, :test do
   gem 'guard-cucumber'
   gem 'guard-rspec'
 
-  # if RUBY_PLATFORM =~ /darwin/i
+  if RUBY_PLATFORM =~ /darwin/i
     gem 'rb-fsevent', :require => false
     gem 'growl_notify'
-  # end
+  end
 
   # test stuff
   gem "rspec-rails"
