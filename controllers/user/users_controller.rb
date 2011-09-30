@@ -1,5 +1,6 @@
 class User::UsersController < UserAreaController
   skip_before_filter :get_user, :only => [:new, :create]
+  before_filter :require_ownership, :only => [:edit, :update]
   def show
     @user = User.find_by_login(params[:id], :include => :programs)
   end
@@ -21,6 +22,10 @@ class User::UsersController < UserAreaController
       render :new
     end
   end
+
+  def edit
+    
+  end
   
   def update
     session[:return_to] = nil
@@ -33,5 +38,12 @@ class User::UsersController < UserAreaController
     current_user.reset_login! #if we don't do this it will break to urls
     flash[:error] = 'Update failed'
     render :edit
+  end
+
+  def require_ownership
+    render :status => 401, :text => 'not allowed' unless current_user == @user
+    logger.debug "current_user: #{current_user.inspect}"
+    logger.debug "user: #{@user.inspect}"
+    
   end
 end
