@@ -52,20 +52,20 @@ end
 
 group :development, :test do
   gem 'mysql2'
-  gem 'pg'
+  # gem 'pg'
   gem 'annotate-models'
   gem 'heroku'
   gem 'taps'
 
-  gem 'guard'
-  gem 'guard-bundler'
-  gem 'guard-cucumber'
-  gem 'guard-rspec'
+  # gem 'guard'
+  # gem 'guard-bundler'
+  # gem 'guard-cucumber'
+  # gem 'guard-rspec'
 
-  if RUBY_PLATFORM =~ /darwin/i
-    gem 'rb-fsevent', :require => false
-    gem 'growl_notify'
-  end
+  # if RUBY_PLATFORM =~ /darwin/i
+  #   gem 'rb-fsevent', :require => false
+  #   gem 'growl_notify'
+  # end
 
   # test stuff
   gem "rspec-rails"
