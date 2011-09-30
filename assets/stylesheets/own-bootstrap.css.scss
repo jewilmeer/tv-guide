@@ -46,9 +46,17 @@ span.label a {
 
 // dt oneliner (used for downloads and searches)
 dl.oneliner {
+  margin: 0;
+  clear: both;
+  dt, dd {
+    height: 20px;
+    vertical-align: bottom;
+  }
   dt {
     display: inline-block;
-    width: 20px;
+    .icon {
+      margin-top: 2px;
+    }
   }
   dd {
     display: inline-block;
