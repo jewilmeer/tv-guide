@@ -57,14 +57,14 @@ group :development, :test do
   gem 'heroku'
   gem 'taps'
 
-  # gem 'guard'
-  # gem 'guard-bundler'
-  # gem 'guard-cucumber'
-  # gem 'guard-rspec'
+  gem 'guard'
+  gem 'guard-bundler'
+  gem 'guard-cucumber'
+  gem 'guard-rspec'
 
   # if RUBY_PLATFORM =~ /darwin/i
-  #   gem 'rb-fsevent', :require => false
-  #   gem 'growl_notify'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'growl_notify', :require => false if RUBY_PLATFORM =~ /darwin/i
   # end
 
   # test stuff
