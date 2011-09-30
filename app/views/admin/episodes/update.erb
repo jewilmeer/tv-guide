@@ -1,2 +1,2 @@
-$('#<%= dom_id(@episode) %>').empty().append('<%= escape_javascript(@episode_template.html_safe) %>')
+$('#<%= dom_id(@episode) %>').replaceWith('<%= escape_javascript(@episode_template.html_safe) %>')
 $('#<%= dom_id(@episode) %>').hide().fadeIn(1000)
