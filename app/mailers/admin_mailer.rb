@@ -7,7 +7,7 @@ class AdminMailer < ActionMailer::Base
   
   def notify_of_registration user 
     @registered_user = user
-    mail( :to => recipients(User.admin.all), :subject => 'You can now use \'special\' features' )
+    mail( :to => recipients(User.admin.all), :subject => 'new unknown user, do you want to trust him/her?' )
   end
   
 end

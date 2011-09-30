@@ -13,7 +13,7 @@
     
     %title== Digital tv guide #{yield(:title)}
     = yield :head
-  %body
+  %body{:class => ('admin' if current_user.try(:admin))}
     = render :partial => 'layouts/alt_header'
 
     #main.container

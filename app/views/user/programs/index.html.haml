@@ -14,7 +14,11 @@
   .row
     .span11
       .page-header
-        %h4 Recently aired
+        %h4 
+          Recently aired
+          - if current_user.try(:trusted?)
+            = link_to tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)', :class => 'right-rss' do
+              = icon_tag('rss', {:size => '24x24'})
       - if @past_episodes.any?
         - date = nil
         %dl#past-episodes
@@ -51,28 +55,28 @@
                 = link_to episode.title, episode
       - else
         %p No airing episodes
-
-#add_program_block.modal.fade
-  = form_for [current_user, @program_preference], :remote => true do |f|
-    .modal-header
-      = link_to 'x', '#', :class => :close
-      %h2 Add new program
-    .modal-body
-      %fieldset
-        .clearfix
-          %label{:for => :q} Program name
-          .input
-            = text_field_tag :q, params[:q] || '', :class => :autocomplete
-        - if current_user.trusted?
+- if current_user == @user
+  #add_program_block.modal.fade
+    = form_for [current_user, @program_preference], :remote => true do |f|
+      .modal-header
+        = link_to 'x', '#', :class => :close
+        %h2 Add new program
+      .modal-body
+        %fieldset
           .clearfix
-            Format
-            .input          
-              = f.collection_select :search_term_type_id, SearchTermType.all, :id, :name
-        - else
-          = f.hidden_field :search_term_type_id
-          = f.hidden_field :program_id
-    .modal-footer
-      = submit_tag "Add", :class => :'btn primary', :disable_with => 'Adding...'
+            %label{:for => :q} Program name
+            .input
+              = text_field_tag :q, params[:q] || '', :class => :autocomplete
+          - if current_user.trusted?
+            .clearfix
+              Format
+              .input          
+                = f.collection_select :search_term_type_id, SearchTermType.all, :id, :name
+          - else
+            = f.hidden_field :search_term_type_id
+            = f.hidden_field :program_id
+      .modal-footer
+        = submit_tag "Add", :class => :'btn primary', :disable_with => 'Adding...'
 
 -#
   - page_title "#{@user.login.humanize}'s episode guide"
