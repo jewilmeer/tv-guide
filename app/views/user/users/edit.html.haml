@@ -20,7 +20,9 @@
           %dd[program]
             = link_to program.name, program
             %span.label.success= current_user.program_preferences.with_program(program).includes(:search_term_type).first.search_term_type.name
-            = link_to icon_tag('delete'), user_program_path(current_user, program), :method => :delete, :class => :"right-rss", :remote => true
+            = link_to icon_tag('delete'), user_program_path(current_user, program), :method => :delete, :class => :"flt-right", :remote => true
+
+
 -#
   - content_for(:head) do
     %style
