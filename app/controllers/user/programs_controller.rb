@@ -5,7 +5,7 @@ class User::ProgramsController < UserAreaController
     @program_preference= current_user.program_preferences.build(:search_term_type => SearchTermType.first) if current_user == @user
     @programs          = @user.programs.by_name
     basic_episodes     = Episode.watched_by_user(@user.programs)
-    @upcoming_episodes = basic_episodes.next_airing.limit(20)
+    @upcoming_episodes = basic_episodes.next_airing
     @past_episodes     = basic_episodes.last_aired.includes(:downloads).limit(20)
     @program_cache_key = @user.programs.by_updated_at.last
     @search_terms      = SearchTermType.all

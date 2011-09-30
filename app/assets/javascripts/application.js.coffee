@@ -2,12 +2,12 @@
 = require jquery
 = require jquery_ujs
 = require twitter/bootstrap
-= require_self
 = require_tree .
+= require_self
 ###
 
-$ ->
-  console.log 'App initialized'
+jQuery ->
+  console.log 'app dom onload started'
   $my_modal = $('#add_program_block').modal(
     backdrop: true
     keyboard: true
@@ -15,3 +15,5 @@ $ ->
   )
   $('.btn.add_program').click ->
     $my_modal.modal('toggle')
+  $('.drowdown').dropdown()
+  console.log 'app dom onload finished'
