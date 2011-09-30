@@ -56,7 +56,7 @@ class Image < ActiveRecord::Base
   def s3_url(image_format = 'banner')
     unless image?
       save_image 
-      save
+      save!
     end
     AWS::S3::S3Object.url_for(self.image.path(image_format), self.image.bucket_name)
   end

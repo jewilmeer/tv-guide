@@ -198,7 +198,13 @@ class Episode < ActiveRecord::Base
   
   def thumb=url
     return false unless url.present?
-    self.image || self.build_image( :url => url, :image_type => :episode )
+    # remove existing link
+    self.image.try(:destroy)
+    self.image = find_existing_image_by_url( url )
+  end
+
+  def find_existing_image_by_url url
+    Image.find_or_initialize_by_url( url )
   end
 
   def thumb
