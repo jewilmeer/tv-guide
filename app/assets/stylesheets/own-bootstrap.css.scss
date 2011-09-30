@@ -44,6 +44,18 @@ span.label a {
   color: white;
 }
 
+dl dt, dl dd {
+  line-height: 25px;
+}
+dl dd {
+  position: relative;
+  border-bottom: 1px solid #ddd;
+  .icon {
+    position: absolute;
+    right: 0;
+    top: 8px;
+  }
+}
 // dt oneliner (used for downloads and searches)
 dl.oneliner {
   margin: 0;

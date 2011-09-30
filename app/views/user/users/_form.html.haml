@@ -16,4 +16,5 @@
     .input
       = f.text_field :login
   .actions
-    = submit_tag 'Register', :disable_with => 'Please wait...', :class => :'btn primary'
+    - lbl = @user.new_record? ? 'Register' : 'Change'
+    = submit_tag lbl, :disable_with => 'Please wait...', :class => :'btn primary'
