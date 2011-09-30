@@ -69,7 +69,7 @@
               = text_field_tag :q, params[:q] || '', :class => :autocomplete
           - if current_user.trusted?
             .clearfix
-              Format
+              %label Format
               .input          
                 = f.collection_select :search_term_type_id, SearchTermType.all, :id, :name
           - else

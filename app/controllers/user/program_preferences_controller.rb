@@ -24,12 +24,28 @@ class User::ProgramPreferencesController < UserAreaController
         format.html { redirect_to user_programs_path(current_user) }
         format.js { render :text => "document.location.href = '#{user_programs_path(current_user)}'" }
       end
-    else
-      logger.debug "Needs a suggestion..."
-      respond_to do |format|
-        format.html { render :text => 'no no no' }
-        format.js   { render :text => "document.location.href = '#{suggest_programs_path({:q => params[:q]})}';"}
+    elsif params[:q].present? && params[:program_preference] && params[:program_preference][:search_term_type_id].present?
+      @program = Program.search_program(params[:q]).first
+      if @program && @program.name.downcase == params[:q].downcase
+        current_user.program_preferences.create( :program_id => @program.id, :search_term_type_id => params[:search_term_type_id] )
+        flash[:notice] = 'Program added'
+        respond_to do |format|
+          format.html { redirect_to user_programs_path(current_user) }
+          format.js { render :text => "document.location.href = '#{user_programs_path(current_user)}'" }
+        end
+      else
+        suggest
       end
+    else
+      suggest
+    end
+  end
+
+  def suggest
+    logger.debug "Needs a suggestion..."
+    respond_to do |format|
+      format.html { render :text => 'no no no' }
+      format.js   { render :text => "document.location.href = '#{suggest_programs_path({:q => params[:q]})}';"}
     end
   end
   

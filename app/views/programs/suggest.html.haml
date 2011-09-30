@@ -1,24 +1,21 @@
-%style
-  :sass
-    #suggest-block form, .button_block p
-      float: left
-- if @programs.any?
-  .column-block
-    %h2== Found #{pluralize(@programs.count,'matched program')}
-    .body#suggest-block
-      %p Which of these where you looking for?
-      - @programs.each do |program|
-        .column-block
-          %h4= program.name
-          .body
-            - if program.overview.blank?
-              %p.nothing No description available
-            - else
-              %p= program.overview
-            .button_block
-              %p Add in 
-              - SearchTermType.all.map do |search_term|
-                = button_to search_term.name, user_program_preferences_path(current_user, :tvdb_id => program.tvdb_id, :search_term_type_id => search_term.id), :remote => true, :method => :post, :disable_with => 'Adding...'
-              / = links.to_sentence.html_safe
-- else
-  %p.nothing No programs found
+%section
+  .page-header
+    %h1
+      == Found #{pluralize(@programs.count,'matched program')}
+      %small Which of these where you looking for?
+  - if @programs.any?
+    %dl
+    - @programs.each do |program|
+      .page-header
+        %h3= program.name
+        %p= program.overview
+        %dl
+          %dt Add to your guide
+          %dd
+            - SearchTermType.all.map do |search_term|
+              %span.label.success
+                = link_to search_term.name, user_program_preferences_path(current_user, :tvdb_id => program.tvdb_id, :search_term_type_id => search_term.id), :remote => true, :method => :post, :disable_with => 'Adding...'
+              &nbsp;
+
+  - else
+    %p.nothing No programs found, please try
