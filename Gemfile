@@ -63,8 +63,8 @@ group :development, :test do
   gem 'guard-rspec'
 
   # do always install these, but only load them if the requirement is met 
-  gem 'rb-fsevent', :require => false unless RUBY_PLATFORM =~ /darwin/i
-  gem 'growl_notify', :require => false unless RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-fsevent'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
+  gem 'growl_notify'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
 
   # test stuff
   gem "rspec-rails"
