@@ -7,3 +7,4 @@ log/*.log
 tmp/**/*
 config/database.yml
 vendor/ruby
+config/database.yml
