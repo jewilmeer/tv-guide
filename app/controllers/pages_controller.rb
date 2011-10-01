@@ -6,7 +6,7 @@ class PagesController < ApplicationController
     if current_user
       redirect_to user_programs_path( current_user )
     else
-      redirect_to :programs
+      redirect_to guide_programs_path
     end
 
     # @featured_programs = (Episode.next_airing.distinct_program_id('episodes.airs_at').limit(3).map(&:program) | Episode.by_created_at(:desc).distinct_program_id('episodes.created_at').limit(3).map(&:program))
