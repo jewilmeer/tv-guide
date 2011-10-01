@@ -3,26 +3,6 @@
     = auto_discovery_link_tag :rss, :format => :rss
 
 - page_title @program.name
-/ - content_for(:bottom_js_domready) do
-/   :plain
-/     $('#check_update')
-/       .bind('ajax:beforeSend', function() {
-/         var $this = $(this);
-/         $this.html('Checking...');
-/       })
-/       .bind('ajax:failure', function() {
-/         var $this = $(this);
-/         $this.html( 'Update failed!' );
-/       })
-/       .bind('ajax:success', function(xhr,data,status) {
-/         var $this = $(this);
-/         if( data ) {
-/           $this.html('Updated, reloading')
-/           document.location.href = document.location.href;
-/         } else {
-/           $this.html('No update available');
-/         }
-/       })
 
 %section
   .page-header
@@ -66,7 +46,7 @@
         %li{:class => (:active if @program.max_season_nr == season)}
           %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
       - if seasons_for_dropdown(@program).any?
-        %li.dropdown{:data => {:dropdown => :dropdown}}
+        %li.dropdown.secondary-nav{:data => {:dropdown => :dropdown}}
           %a.dropdown-toggle== Older seasons (#{seasons_for_dropdown(@program).length})
           %ul.dropdown-menu
             - seasons_for_dropdown(@program).each do |season|
