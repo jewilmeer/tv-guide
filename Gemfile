@@ -33,13 +33,13 @@ gem 'newrelic_rpm'
 gem "dalli"
 
 # # authentication
-# gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
-# gem 'ruby-openid'
-# gem 'omniauth', '>=0.2.6'
+gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
+gem 'ruby-openid'
+gem 'omniauth', '>=0.2.6'
 
 # # gem 'win32-open3', :group => :development
 
-# gem 'less-rails-bootstrap'
+gem 'less-rails-bootstrap'
 
 # # Bundle gems for certain environments:
 # group :assets do
