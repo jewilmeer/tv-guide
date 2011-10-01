@@ -50,7 +50,7 @@ class Image < ActiveRecord::Base
   
   def save_image
     require 'open-uri'
-    open(url) {|tmp_file| self.image= tmp_file}
+    open(url, "r:UTF-8") {|tmp_file| self.image= tmp_file}
   end
 
   def s3_url(image_format = 'banner')
