@@ -48,6 +48,10 @@ group :assets do
   gem 'uglifier'
 end
 
+group :production do 
+  gem 'pg'
+end
+
 group :development, :test do
   gem 'less-rails-bootstrap'
 
