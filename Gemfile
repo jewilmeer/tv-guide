@@ -47,7 +47,7 @@ group :assets do
   # gem 'less'
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
-  gem 'less-rails-bootstrap', :require => false unless RUBY_PLATFORM =~ /darwin/i
+  # gem 'less-rails-bootstrap'
 end
 
 group :production do 
