@@ -55,7 +55,7 @@ group :production do
 end
 
 group :development, :test do
-  gem 'less-rails-bootstrap'
+  # gem 'less-rails-bootstrap'
   gem 'mysql2'
 #   # gem 'pg'
 #   gem 'annotate-models'
