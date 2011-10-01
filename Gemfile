@@ -39,23 +39,23 @@ gem 'omniauth', '>=0.2.6'
 
 # # gem 'win32-open3', :group => :development
 
-gem 'less-rails-bootstrap'
-
 # # Bundle gems for certain environments:
 group :assets do
   gem 'haml'
-  gem 'less'
+  # gem 'less'
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
 end
 
-# group :development, :test do
-#   gem 'mysql2'
+group :development, :test do
+  gem 'less-rails-bootstrap'
+
+  gem 'mysql2'
 #   # gem 'pg'
 #   gem 'annotate-models'
-#   gem 'heroku'
-#   gem 'taps'
+  gem 'heroku'
+  gem 'taps'
 
 #   gem 'guard'
 #   gem 'guard-bundler'
@@ -81,6 +81,6 @@ end
 #   gem 'simplecov', :require => false
 
 #   gem 'railsonfire'
-# end
+end
 
 
