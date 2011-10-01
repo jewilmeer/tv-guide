@@ -89,6 +89,11 @@ GEM
       i18n (~> 0.4)
     haml (3.1.3)
     has_scope (0.5.1)
+    heroku (2.8.4)
+      launchy (>= 0.3.2)
+      rest-client (~> 1.6.1)
+      rubyzip
+      term-ansicolor (~> 1.0.5)
     highline (1.6.2)
     hike (1.2.1)
     hpricot (0.8.4)
@@ -104,6 +109,7 @@ GEM
       thor (~> 0.14)
     kaminari (0.12.4)
       rails (>= 3.0.0)
+    launchy (2.0.3)
     less (2.0.7)
       therubyracer (~> 0.9.2)
     less-rails (2.0.1)
@@ -137,6 +143,7 @@ GEM
     multi_json (1.0.3)
     multi_xml (0.4.1)
     multipart-post (1.1.3)
+    mysql2 (0.3.7)
     net-http-digest_auth (1.1.1)
     net-http-persistent (1.9)
     net-ldap (0.2.2)
@@ -233,6 +240,7 @@ GEM
     ruby-openid-apps-discovery (1.2.0)
       ruby-openid (>= 2.1.7)
     rubyntlm (0.1.1)
+    rubyzip (0.9.4)
     sass (3.1.8)
     sass-rails (3.1.3)
       actionpack (~> 3.1.0)
@@ -240,6 +248,9 @@ GEM
       sass (>= 3.1.4)
       sprockets (~> 2.0.0)
       tilt (~> 1.3.2)
+    sequel (3.20.0)
+    sinatra (1.0)
+      rack (>= 1.0)
     sprockets (2.0.1)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -248,6 +259,13 @@ GEM
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
     systemu (2.2.0)
+    taps (0.3.23)
+      rack (>= 1.0.1)
+      rest-client (< 1.7.0, >= 1.4.0)
+      sequel (~> 3.20.0)
+      sinatra (~> 1.0.0)
+      sqlite3-ruby (~> 1.2)
+    term-ansicolor (1.0.6)
     therubyracer (0.9.4)
       libv8 (~> 3.3.10)
     thor (0.14.6)
@@ -284,13 +302,14 @@ DEPENDENCIES
   file-utils
   formtastic
   haml
+  heroku
   hpricot
   jquery-rails
-  less
   less-rails-bootstrap
   logging
   mail
   mechanize
+  mysql2
   newrelic_rpm
   nokogiri
   omniauth (>= 0.2.6)
@@ -301,6 +320,7 @@ DEPENDENCIES
   ruby-openid
   sass-rails (~> 3.1.0)
   sqlite3-ruby
+  taps
   tvdb_party!
   typhoeus
   uglifier
