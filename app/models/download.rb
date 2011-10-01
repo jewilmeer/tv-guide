@@ -43,7 +43,7 @@ class Download < ActiveRecord::Base
   def file=(file)
     tmp_filepath = "tmp/#{filename}.nzb"
     tmp_file     = file.save(tmp_filepath)
-    File.open(tmp_filepath) do |nzb_file| 
+    File.open(tmp_filepath, "r:UTF-8") do |nzb_file| 
       self.download = nzb_file  
     end
     File.delete(tmp_filepath)
