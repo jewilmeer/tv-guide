@@ -40,10 +40,11 @@ gem 'omniauth', '>=0.2.6'
 # # gem 'win32-open3', :group => :development
 
 # # Bundle gems for certain environments:
+gem 'sass-rails', "  ~> 3.1.0"
+
 group :assets do
   gem 'haml'
   # gem 'less'
-  gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
 end
