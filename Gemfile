@@ -22,7 +22,7 @@ gem 'progress_bar'
 # gem 'thinkingtank'
 
 # # requirement for tvdb
-# gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
+gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 
 # gem 'hpricot'
 # gem 'zip'
