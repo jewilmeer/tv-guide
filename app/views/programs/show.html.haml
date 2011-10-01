@@ -3,26 +3,26 @@
     = auto_discovery_link_tag :rss, :format => :rss
 
 - page_title @program.name
-- content_for(:bottom_js_domready) do
-  :plain
-    $('#check_update')
-      .bind('ajax:beforeSend', function() {
-        var $this = $(this);
-        $this.html('Checking...');
-      })
-      .bind('ajax:failure', function() {
-        var $this = $(this);
-        $this.html( 'Update failed!' );
-      })
-      .bind('ajax:success', function(xhr,data,status) {
-        var $this = $(this);
-        if( data ) {
-          $this.html('Updated, reloading')
-          document.location.href = document.location.href;
-        } else {
-          $this.html('No update available');
-        }
-      })
+/ - content_for(:bottom_js_domready) do
+/   :plain
+/     $('#check_update')
+/       .bind('ajax:beforeSend', function() {
+/         var $this = $(this);
+/         $this.html('Checking...');
+/       })
+/       .bind('ajax:failure', function() {
+/         var $this = $(this);
+/         $this.html( 'Update failed!' );
+/       })
+/       .bind('ajax:success', function(xhr,data,status) {
+/         var $this = $(this);
+/         if( data ) {
+/           $this.html('Updated, reloading')
+/           document.location.href = document.location.href;
+/         } else {
+/           $this.html('No update available');
+/         }
+/       })
 
 %section
   .page-header
@@ -50,11 +50,11 @@
             %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
           - else
             No watchers
-        %li== Last updated #{distance_of_time_in_words_to_now(@program.tvdb_last_update)} ago
+        %li== Last updated #{distance_of_time_in_words_to_now(@program.updated_at)} ago
         %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
         / %li= link_to 'View update list', program_updates_path(@program)
         - if current_user
-          %li= link_to 'Check for updates', user_program_path(current_user, @program), :id => :check_update, :remote => true, :method => :put
+          %li= link_to 'Check for updates', user_program_path(current_user, @program), :id => :check_update, :remote => true, :method => :put, :disable_with => 'Checking...'
           = render :partial => 'guide_control', :locals => {:program => @program}
 
 .tab-content

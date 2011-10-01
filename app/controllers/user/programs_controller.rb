@@ -32,6 +32,6 @@ class User::ProgramsController < UserAreaController
   def update
     @program = Program.find(params[:id])
     @program.tvdb_full_update
-    render :text => 'ok'
+    render :text => 'document.location.href = document.location.href'
   end
 end
