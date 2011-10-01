@@ -47,6 +47,7 @@ group :assets do
   # gem 'less'
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
+  gem 'less-rails-bootstrap'
 end
 
 group :production do 
@@ -54,7 +55,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'less-rails-bootstrap'
 
   gem 'mysql2'
 #   # gem 'pg'

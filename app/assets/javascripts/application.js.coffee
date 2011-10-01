@@ -15,5 +15,4 @@ $ ->
   )
   $('.btn.add_program').click ->
     $my_modal.modal('toggle')
-  $('.drowdown').dropdown()
-  console.log 'app dom onload finished'
+  $('.dropdown').dropdown()
