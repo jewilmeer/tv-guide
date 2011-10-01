@@ -4,33 +4,33 @@ gem 'mail'
 gem 'jquery-rails'
 
 # Bundle the extra gems:
-# gem 'nokogiri', '~>1.4.2'
-# gem 'mechanize'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'logging'
-# gem 'file-utils'
-# gem 'pacecar'
-# gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
-# gem 'typhoeus'
-# gem 'formtastic'
-# gem 'activeadmin'
+gem 'nokogiri', '~>1.4.2'
+gem 'mechanize'
+gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'logging'
+gem 'file-utils'
+gem 'pacecar'
+gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
+gem 'typhoeus'
+gem 'formtastic'
+gem 'activeadmin'
 
 # # terminal
-# gem 'progress_bar'
+gem 'progress_bar'
 
 # # search
-# # gem 'thinkingtank'
+# gem 'thinkingtank'
 
 # # requirement for tvdb
 # gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 
-# gem 'hpricot'
-# gem 'zip'
-# gem 'paperclip'
-# gem 'aws-s3'
-# gem 'newrelic_rpm'
+gem 'hpricot'
+gem 'zip'
+gem 'paperclip'
+gem 'aws-s3'
+gem 'newrelic_rpm'
 # # caching
-# gem "dalli"
+gem "dalli"
 
 # # authentication
 # gem 'authlogic', :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
