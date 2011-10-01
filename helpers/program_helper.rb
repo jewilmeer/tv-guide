@@ -1,6 +1,6 @@
 module ProgramHelper
   def seasons_per_tab_row 
-    8
+    7
   end
 
   def available_seasons program
