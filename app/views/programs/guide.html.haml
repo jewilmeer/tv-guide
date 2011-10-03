@@ -17,7 +17,7 @@
               %dt
                 .page-header
                   %h5= pretty_date date
-            %dd[episode]= render 'episodes/past_episode', {:episode => episode}
+            = render 'episodes/past_episode', {:episode => episode}
               
       - else
         %p No past episodes found
