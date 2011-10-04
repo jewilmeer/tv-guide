@@ -3,7 +3,9 @@ html {
 }
 body {
   padding-top: 40px;
-  background: image-url('patterns/whitey.png');
+  background-image: image-url('patterns/whitey.png');
+  background-attachment: fixed;
+
 }
 #main.container {
   background-color: rgba(255,255,255,0.9);
