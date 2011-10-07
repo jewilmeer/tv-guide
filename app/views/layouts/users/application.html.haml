@@ -1,0 +1,23 @@
+!!! 5
+%html{html_attrs('en'), 'xmlns:fb' => 'http://www.facebook.com/2008/fbml'}
+  %head
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
+    = include_stylesheets :base
+    %meta{:name=>"robots",        :content=>"index, follow"}
+    %meta{:name=>"revisit-after", :content=>"1 days"}
+    %meta{:name=>"author",        :content=>"Jan-Willem van der Meer"}
+    %meta{:name =>'csrf-token',    :content => form_authenticity_token}
+    %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
+    %link{:rel => 'shortcut icon', :href=>'/images/favicon.ico', :type=>'image/x-icon'}
+    
+    %title== Digital TV guide #{yield(:title)}
+    = yield :head
+  %body
+    %header
+      .content= render 'layouts/header'
+    %section
+      .content
+        = render :partial => 'layouts/notifications_and_errors'
+        = yield
+    = yield :bottom
+    = render 'layouts/bottom_js'

@@ -1,0 +1,25 @@
+common: &common
+  thetvdb:
+    api_key: A80BBC7B6342EEB0
+  facebook: &facebook
+    app_id: 117884434913747
+    api_id: 
+    secret: 3dfbad4725299f687198a5e77d29452f
+  paths:
+    app_root: ''
+    tv_root: '/Volumes/openshare/download/TV/'
+  links:
+    search_url: http://www.google.nl/search?q=
+    download_url: http://nzbindex.nl/search/?max=2&g[]=687&minsize=200&complete=1&hidespam=1&q=
+  filters: .720p .HDTV .x264 .AC3 -CTU -SHELDON .REPACK -REPACK
+
+development:
+  <<: *common
+  facebook:
+    app_id: 104796206234015
+    api_id: 03b6de06612867d1aa8c3869f08b9e21
+    secret: 7e7a25ef871a88e4fe7fe2c1ed833776
+test:
+  <<: *common
+production:
+  <<: *common

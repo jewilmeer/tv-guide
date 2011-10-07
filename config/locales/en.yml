@@ -1,0 +1,13 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  date:
+    formats:
+      weekday: %A
+      short_with_weekday: %a %b %e
+      with_day: "%a %b %e, %Y"
+  time:
+    formats:
+      with_day: "%A %B %e, %Y %H:%M"
+  

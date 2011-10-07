@@ -1,0 +1,23 @@
+%section
+  .page-header
+    %h1 
+      User settings
+      %small== for #{current_user.login.humanize}
+  .row
+    .span10
+      .page-header
+        %h3 Change settings
+      = render 'form'
+    .span6
+      .page-header
+        %h3 My programs
+      %dl
+        - status = nil
+        - current_user.programs.by_status.by_name.each do |program|
+          - unless program.status == status
+            - status = program.status
+            %dt= program.status
+          %dd[program]
+            %span.label.success= current_user.program_preferences.with_program(program).includes(:search_term_type).first.search_term_type.name
+            = link_to program.name, program
+            = link_to icon_tag('delete'), user_program_path(current_user, program), :method => :delete, :class => :"flt-right", :remote => true
