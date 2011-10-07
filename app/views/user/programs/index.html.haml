@@ -4,9 +4,9 @@
   .page-header
     %h1
       - if current_user == @user
-        My digital tv guide
+        My digital TV guide
       - else
-        == #{@user.login} digital tv guide
+        == #{@user.login.humanize}'s digital TV guide
       - if current_user == @user
         %button{:class => :'btn flt-right add_program'} Add new program
 
@@ -103,9 +103,9 @@
       .page-header
         %h1
           - if current_user == @user
-            My digital tv guide
+            My digital TV guide
           - else
-            == #{@user.login} digital tv guide
+            == #{@user.login} digital TV guide
           - if current_user == @user
             = link_to_function icon_tag('add', {:size => '24x24'}), "$('#add_program_block').toggle(500)", :class => 'right-rss'
     - if current_user == @user

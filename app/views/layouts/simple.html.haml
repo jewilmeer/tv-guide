@@ -11,7 +11,7 @@
     %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
     %link{:rel => 'shortcut icon', :href=>'/favicon.ico', :type=>'image/x-icon'}
     
-    %title== Digital tv guide #{yield(:title)}
+    %title== Digital TV guide #{yield(:title)}
     = yield :head
   %body{:class => ('admin' if current_user.try(:admin))}
     = render :partial => 'layouts/alt_header'
