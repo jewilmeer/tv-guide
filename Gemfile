@@ -44,11 +44,11 @@ gem 'sass-rails', "  ~> 3.1.0"
 
 group :assets do
   gem 'haml'
-  # gem 'less'
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
-  gem 'less-rails-bootstrap'
-  # gem 'twitter-bootstrap-rails'
+
+  # only needed for asset compilation
+  # gem 'less-rails-bootstrap'
 end
 
 group :production do 
@@ -56,15 +56,13 @@ group :production do
 end
 
 group :development, :test do
-  gem 'less-rails-bootstrap'
-  # gem 'twitter-bootstrap-rails'
-  # gem 'less-rails', :git => 'git://github.com/metaskills/less-rails.git'
+  # only needed for asset compilation
+  # gem 'less-rails-bootstrap'
 
   gem 'mysql2'
-#   # gem 'pg'
-#   gem 'annotate-models'
   gem 'heroku'
   gem 'taps'
+  gem 'annotate'
 
 #   gem 'guard'
 #   gem 'guard-bundler'
