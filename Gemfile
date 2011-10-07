@@ -47,7 +47,8 @@ group :assets do
   # gem 'less'
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
-  # gem 'less-rails-bootstrap'
+  gem 'less-rails-bootstrap'
+  # gem 'twitter-bootstrap-rails'
 end
 
 group :production do 
@@ -55,7 +56,10 @@ group :production do
 end
 
 group :development, :test do
-  # gem 'less-rails-bootstrap'
+  gem 'less-rails-bootstrap'
+  # gem 'twitter-bootstrap-rails'
+  # gem 'less-rails', :git => 'git://github.com/metaskills/less-rails.git'
+
   gem 'mysql2'
 #   # gem 'pg'
 #   gem 'annotate-models'
