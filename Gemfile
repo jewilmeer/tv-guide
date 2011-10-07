@@ -48,7 +48,7 @@ group :assets do
   gem 'uglifier'
 
   # only needed for asset compilation
-  # gem 'less-rails-bootstrap'
+  gem 'less-rails-bootstrap'
 end
 
 group :production do 
@@ -57,7 +57,7 @@ end
 
 group :development, :test do
   # only needed for asset compilation
-  # gem 'less-rails-bootstrap'
+  gem 'less-rails-bootstrap'
 
   gem 'mysql2'
   gem 'heroku'
