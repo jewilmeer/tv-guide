@@ -1,3 +1,5 @@
+require 'yaml'
+YAML::ENGINE.yamler= 'syck'
 # Use locked gems if present.
 require 'rubygems'
 
