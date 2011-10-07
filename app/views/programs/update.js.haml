@@ -1,0 +1,5 @@
+- if @image_id
+  :plain
+    $('html, body').animate({
+        scrollTop: $('#image_#{@image_id}').offset().top
+    }, 1000).effect('highlight');

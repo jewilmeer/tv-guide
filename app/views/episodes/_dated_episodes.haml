@@ -1,0 +1,14 @@
+- last_date = nil
+
+%ul.mini_guide.list
+  - episodes.each do |episode|
+    - unless last_date == episode.airs_at
+      last_date = episode.airs_at
+      %li
+        %h2= l episode.airs_at, :format => :with_date
+    %li
+      = link_to episode.program_name, program_path(episode.program_id)
+      \-
+      = link_to episode.title
+      == (#{episode.season_and_episode})
+      

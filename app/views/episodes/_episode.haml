@@ -1,0 +1,47 @@
+- addition_info ||= episode.airs_at ? :airdate : :created_at
+- program = episode.program
+- simple ||= false
+%li[episode]
+  %h5.nowrap
+    == #{link_to episode.program.name, episode.program}
+    == - #{link_to episode.title, program_episode_url(episode.program, episode)} (#{episode.season_and_episode})
+  - case addition_info
+    - when :airdate
+      - if episode.airs_at.future?
+        == Airing on #{l episode.airs_at, :format => :with_day}
+      - else
+        == Aired on #{l episode.airs_at, :format => :with_day}
+      - if current_user.try(:trusted?) && episode.airs_at.past?
+        %br
+        %ul.options_bar
+          %li= link_to icon_tag('search', :size => '24x24'), search_program_episode_path(program, episode, :format => :nzb), :target => '_blank', :title => 'Search for this episode\'s .nzb'
+          %Li= link_to icon_tag('search_hd', :size => '24x24'), search_program_episode_path(program, episode, :hd => true, :format => :nzb), :target => '_blank', :title => 'Search for this episode\'s .nzb in HD (720p)'
+          - if episode.downloads.any?
+            %li= link_to icon_tag('download', :size => '24x24'), program_episode_path(program, episode, :format => :nzb), :title => 'Download this episode'
+            - if false && !current_user.admin?
+              %li= link_to icon_tag('warning', :size => '24x24'), admin_episode_path(episode, :format => :nzb), :method => :put, :remote => true, :title => 'Hey, this episode is not working!'
+          - if current_user.admin?
+            %li= link_to icon_tag('refresh', :size => '24x24'), admin_episode_path(episode, :format => :js), :method => :put, :remote => true, :title => 'Redownload this episode'
+            - unless episode.working?
+              %li= link_to icon_tag('accept', :size => '24x24'), '#', :title => 'Check this episode as fixed'
+      %ul.downloads
+        - episode.downloads.includes(:search_term_type).each do |download|
+          - next unless download.search_term_type
+          %li
+            = link_to download.search_term_type.name, '#'
+            = link_to '(i)', '#', :title => download.origin
+    - when :created_at
+      == Added #{distance_of_time_in_words_to_now(episode.created_at)} ago
+  - unless simple
+    .right_top
+      %span.hover{:style => 'display: none'}
+        - if current_user
+          - if current_user.programs.include?(episode.program)
+            = link_to icon_tag('delete', {:title => 'Remove this program from my guide'}), user_program_path(current_user, episode.program), :method => :delete
+          - else
+            = link_to icon_tag('add', {:title => 'Add this program to my guide'}), user_programs_path(current_user, :id => episode.program.id), :method => :post
+        - else
+          = link_to icon_tag('add', {:title => 'Login to create your personal guide'}), login_path
+        - unless episode.working?
+          = icon_tag('warning', :title => 'This episode has been blamed and may not download properly')
+    

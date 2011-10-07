@@ -1,0 +1,10 @@
+- selected_image_type_id = image.programs.first.send("#{image.image_type}_image_id")
+.row[image]
+  .span12
+    %img{:src => image_path(image, :format => :jpg), :width => 700, :height => 129}
+  .span4.columns
+    - unless image.image?
+      = link_to 'Save to S3 storage', image_path(image, :save => true, :format => :js), :method => :put, :remote => true, :title => 'Download this image', :disable_with => 'Downloading...', :class => :btn
+    .row
+      %label.span2 Placeholder
+      .span2= radio_button_tag "program[#{image.image_type}_image_id]", image.id, selected_image_type_id == image.id

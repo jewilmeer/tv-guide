@@ -1,0 +1,24 @@
+%div[episode]
+  = link_to episode do
+    = image_tag episode.thumb.s3_url(:episode), :width => 335, :alt => episode.full_title
+  %p
+    = link_to episode.program_name, program_path(episode.program_id)
+    \- 
+    = link_to episode.full_episode_title, episode
+  - if current_user.try(:trusted)
+    %ul.downloads
+      %li.label= icon_tag('down', :size => '16x16')
+      - if episode.downloads.any?
+        - episode.downloads.includes(:search_term_type).each do |download|
+          - next unless download.search_term_type
+          %li
+            = link_to download.search_term_type.name, '#', :title => download.origin
+      - else
+        %li.nothing No downloads available (yet)
+    %ul.downloads
+      %li.label= icon_tag('search', :size => '16x16')
+      - @search_terms.each do |search_term|
+        %li= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
+  .controls
+    - if current_user.try(:admin)
+      = link_to icon_tag('refresh', :size => '24x24'), admin_episode_path(episode, :partial => :image_strip, :format => :js), :method => :put, :remote => true, :title => 'Redownload this episode'
