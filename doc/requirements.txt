@@ -1,0 +1,7 @@
+I want to be able to watch my favorite tv series with great ease
+  I need to be able to specify my favorite tv series
+    To make sure the tv-series really exist it needs to use an external quality source to get the tv information from
+  I need to be able to watch the newly aired episodes with great ease
+    
+  
+    

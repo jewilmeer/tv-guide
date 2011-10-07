@@ -1,0 +1,27 @@
+# embed_assets: on
+# package_assets: always
+javascripts:
+  base:
+    - public/javascripts/jquery.js
+    - public/javascripts/jquery-ui.js
+    - public/javascripts/jquery_ujs.js
+    - public/javascripts/vendor/*.js
+    - public/javascripts/jquery.application.js
+  simple:
+    - public/javascripts/jquery.js
+    - public/javascripts/jquery_ujs.js
+    # - public/javascripts/vendor/amplify.store.js
+    # - public/javascripts/vendor/history.adapter.jquery.js
+    # - public/javascripts/vendor/history.js
+    # - public/javascripts/vendor/history.html4.js
+    # - public/javascripts/history.js
+    - public/javascripts/vendor/tablesorter.js
+    - public/javascripts/vendor/slides.jquery.js
+    - public/javascripts/bootstrap.js
+            
+stylesheets:
+  base:
+    - public/stylesheets/jquery-ui-1.8.custom.css
+    - public/stylesheets/tipsy.css
+    - public/stylesheets/application.css
+    - public/stylesheets/formtastic.css

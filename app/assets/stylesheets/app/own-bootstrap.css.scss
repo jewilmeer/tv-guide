@@ -1,0 +1,81 @@
+html {
+  background-color: transparent;
+}
+body {
+  padding-top: 40px;
+  background-image: image-url('patterns/whitey.png');
+  background-attachment: fixed;
+
+}
+#main.container {
+  background-color: rgba(255,255,255,0.9);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  padding: 20px 10px;
+}
+.right-rss {
+  float: right;
+  margin-top: 8px; 
+}
+.show-grid {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.show-grid [class*="span"] {
+  background: #eee;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  min-height: 30px;
+  line-height: 30px;
+}
+.show-grid:hover [class*="span"] {
+  background: #ddd;
+}
+.show-grid .show-grid {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.show-grid .show-grid [class*="span"] {
+  background-color: #ccc;
+}
+
+.hidden {
+  display: none; }
+span.label a {
+  color: white;
+}
+
+dl dt, dl dd {
+  line-height: 25px;
+}
+dl dd {
+  position: relative;
+  border-bottom: 1px solid #ddd;
+  .icon.flt-right {
+    position: absolute;
+    right: 0;
+    top: 8px;
+  }
+}
+// dt oneliner (used for downloads and searches)
+dl.oneliner {
+  margin: 0;
+  clear: both;
+  dt, dd {
+    height: 20px;
+    vertical-align: bottom;
+  }
+  dt {
+    display: inline-block;
+    .icon {
+      margin-top: 2px;
+    }
+  }
+  dd {
+    display: inline-block;
+  }
+}
+.flt-right {
+  float: right;
+}

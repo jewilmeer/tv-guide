@@ -1,0 +1,6 @@
+coverage
+autotest
+db/*.sqlite3
+features
+log/*.log
+spec/*

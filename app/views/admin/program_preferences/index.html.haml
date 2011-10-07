@@ -1,0 +1,34 @@
+- content_for :bottom_js_domready do
+  :plain
+    $('.list tbody').infinitescroll({
+      navSelector: '.content_navigation',
+      nextSelector: function(next) { return $('.content_navigation a').attr('href').replace(/page=\d+\b/, 'page='+next); },
+      itemSelector: null,
+      loadingText: 'Loading new content...',
+      donetext: 'Done loading, no more content to be laoded!',
+      extraScrollPx: '150px',
+      bufferPx: 150
+    });
+
+%h1== ProgramPreferences (#{SearchTermType.count})
+
+.column-block
+  .body
+    - if @program_preferences.any?
+      %table.list
+        %thead
+          %tr
+            %th{:width => '15%'} User
+            %th Program
+            %th{:width => '15%'} Search term
+            %th{:width => '5%'} Download
+            %th{:width => '10%'} Controls
+        %tbody= render @program_preferences
+      .content_navigation
+        = link_to :next_page, url_for( params.merge( :format => :js, :page => (params[:page] || 1).succ) )
+    - else
+      %p.nothing Still nothing here!
+.column-block
+  %h2 New program preference
+  .body
+    = render 'form'
