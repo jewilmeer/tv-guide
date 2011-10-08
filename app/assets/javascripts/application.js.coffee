@@ -7,7 +7,6 @@
 ###
 
 $ ->
-  console.log 'app dom onload started'
   $my_modal = $('#add_program_block').modal(
     backdrop: true
     keyboard: true
