@@ -15,3 +15,6 @@ test: &test
   user: root
 cucumber:
   <<: *test
+production:
+  <<: *test
+  
