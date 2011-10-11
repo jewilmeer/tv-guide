@@ -6,7 +6,6 @@ gem 'jquery-rails'
 # Bundle the extra gems:
 gem 'nokogiri'#, '~>1.4.2'
 gem 'mechanize'
-gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'logging'
 gem 'file-utils'
 gem 'pacecar'
@@ -48,7 +47,7 @@ group :assets do
   gem 'uglifier'
 
   # only needed for asset compilation
-  # gem 'less-rails-bootstrap'
+  gem 'less-rails-bootstrap'
 end
 
 group :production do 
@@ -57,7 +56,7 @@ end
 
 group :development, :test do
   # only needed for asset compilation
-  # gem 'less-rails-bootstrap'
+  gem 'less-rails-bootstrap'
 
   gem 'mysql2'
   gem 'heroku'
