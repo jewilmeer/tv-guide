@@ -46,8 +46,8 @@ group :assets do
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
 
-  # only needed for asset compilation
-  gem 'less-rails-bootstrap'
+  gem 'twitter-bootstrap-rails'
+  gem 'less-rails'
 end
 
 group :production do 
@@ -55,9 +55,6 @@ group :production do
 end
 
 group :development, :test do
-  # only needed for asset compilation
-  gem 'less-rails-bootstrap'
-
   gem 'mysql2'
   gem 'heroku'
   gem 'taps'
