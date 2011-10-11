@@ -1,7 +1,0 @@
-%tr[search_term_type]
-  %td= search_term_type.name
-  %td= pluralize search_term_type.program_preferences.count, 'Program preference'
-  %td
-    = link_to icon_tag('info'), [:admin, search_term_type]
-    = link_to icon_tag('page_edit'), edit_admin_search_term_type_path(search_term_type)
-    = link_to icon_tag('delete'), [:admin, search_term_type], :confirm => 'Are you sure?', :method => :delete
