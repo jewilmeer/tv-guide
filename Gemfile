@@ -46,9 +46,9 @@ group :assets do
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
 
-  # gem 'twitter-bootstrap-rails'
+  gem 'twitter-bootstrap-rails'
+  gem 'less-rails'
   # gem 'twitter-bootstrap-rails', :git => "git://github.com/seyhunak/twitter-bootstrap-rails.git", :branch => "static"
-  # gem 'less-rails'
 end
 
 group :production do 
