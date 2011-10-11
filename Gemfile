@@ -47,7 +47,7 @@ group :assets do
   gem 'uglifier'
 
   gem 'twitter-bootstrap-rails'
-  gem 'less-rails'
+  # gem 'less-rails'
   # gem 'twitter-bootstrap-rails', :git => "git://github.com/seyhunak/twitter-bootstrap-rails.git", :branch => "static"
 end
 
