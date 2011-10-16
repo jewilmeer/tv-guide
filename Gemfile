@@ -59,7 +59,7 @@ group :development, :test do
   gem 'heroku'
   gem 'taps'
   gem 'annotate'
-  gem 'less-rails'
+  # gem 'less-rails'
 #   gem 'guard'
 #   gem 'guard-bundler'
 #   gem 'guard-cucumber'
