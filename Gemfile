@@ -47,6 +47,8 @@ end
 
 group :production do 
   gem 'pg'
+  # replace webrick with thin
+  gem 'unicorn'
 end
 
 group :development, :test do
