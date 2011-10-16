@@ -12,7 +12,7 @@ gem 'pacecar'
 gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 gem 'typhoeus'
 gem 'formtastic'
-gem 'activeadmin'
+# gem 'activeadmin'
 
 # # terminal
 gem 'progress_bar'
