@@ -318,7 +318,6 @@ DEPENDENCIES
   heroku
   hpricot
   jquery-rails
-  less-rails
   logging
   mail
   mechanize
