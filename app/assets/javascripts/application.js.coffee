@@ -1,7 +1,7 @@
 ###
 = require jquery
 = require jquery_ujs
-= require bootstrap
+= require './lib/bootstrap/bootstrap'
 = require_tree ./app
 = require_self
 ###
