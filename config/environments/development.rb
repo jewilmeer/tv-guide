@@ -35,7 +35,7 @@ TvEpisodes::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  # config.assets.debug = true
 
   # speed  up development. Better disable this for front-end development
   config.serve_static_assets = true
