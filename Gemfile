@@ -102,7 +102,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'rails-backbone'
+# gem 'rails-backbone'
 
 # templating
 gem 'haml'
@@ -116,7 +116,7 @@ gem 'responders'
 gem 'squeel'
 
 group :development do
-  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  # gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'heroku'
 end
 
