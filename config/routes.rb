@@ -1,7 +1,7 @@
 TvEpisodes::Application.routes.draw do
-  ActiveAdmin.routes(self)
+  # ActiveAdmin.routes(self)
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  # devise_for :admin_users, ActiveAdmin::Devise.config
 
   match '/login',           :to => 'user_sessions#new'
   match '/logout',          :to => 'user_sessions#destroy'
