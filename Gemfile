@@ -94,44 +94,44 @@ gem 'rails', '3.1.0'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
-  gem 'uglifier'
+  # gem 'sass-rails', "  ~> 3.1.0"
+  # gem 'coffee-rails', "~> 3.1.0"
+  # gem 'uglifier'
   gem 'less-rails'
   gem 'twitter-bootstrap-rails'
 end
 
-gem 'jquery-rails'
-# gem 'rails-backbone'
+# gem 'jquery-rails'
+# # gem 'rails-backbone'
 
-# templating
-gem 'haml'
+# # templating
+# gem 'haml'
 
-# DRY controller
-gem 'inherited_resources'
-gem 'has_scope'
-gem 'responders'
+# # DRY controller
+# gem 'inherited_resources'
+# gem 'has_scope'
+# gem 'responders'
 
-# Fancy scoping
-gem 'squeel'
+# # Fancy scoping
+# gem 'squeel'
 
-group :development do
-  # gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
-  gem 'heroku'
-end
+# group :development do
+#   # gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+#   gem 'heroku'
+# end
 
-group :test do
-  # Pretty printed test output
-  gem 'rspec-rails'
-  gem 'shoulda-matchers'
-  gem 'cucumber-rails'
-  gem "factory_girl_rails"
-end
+# group :test do
+#   # Pretty printed test output
+#   gem 'rspec-rails'
+#   gem 'shoulda-matchers'
+#   gem 'cucumber-rails'
+#   gem "factory_girl_rails"
+# end
 
-group :development, :test do
-  gem 'mysql2'
-end
+# group :development, :test do
+#   gem 'mysql2'
+# end
 
-group :production do
-  gem 'pg'
-end
+# group :production do
+#   gem 'pg'
+# end
