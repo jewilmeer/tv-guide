@@ -38,7 +38,6 @@ TvEpisodes::Application.configure do
   # config.assets.debug = true
 
   # speed  up development. Better disable this for front-end development
-  config.serve_static_assets = true
-  config.static_cache_control = "public, max-age=3600"
-
+  # config.serve_static_assets = true
+  # config.static_cache_control = "public, max-age=3600"
 end
