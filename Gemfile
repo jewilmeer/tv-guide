@@ -40,14 +40,13 @@ gem 'omniauth', '>=0.2.6'
 
 # # Bundle gems for certain environments:
 gem 'sass-rails', "  ~> 3.1.0"
+gem 'twitter-bootstrap-rails', :git => "git://github.com/seyhunak/twitter-bootstrap-rails.git"
 
 group :assets do
   gem 'haml'
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
 
-  gem 'twitter-bootstrap-rails'
-  # gem 'less-rails'
   # gem 'twitter-bootstrap-rails', :git => "git://github.com/seyhunak/twitter-bootstrap-rails.git", :branch => "static"
 end
 
@@ -60,7 +59,7 @@ group :development, :test do
   gem 'heroku'
   gem 'taps'
   gem 'annotate'
-
+  gem 'less-rails'
 #   gem 'guard'
 #   gem 'guard-bundler'
 #   gem 'guard-cucumber'
