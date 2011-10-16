@@ -43,9 +43,11 @@ module TvEpisodes
     #   g.fixture_replacement :factory_girl
     # end
 
+    # Configure the default encoding used in templates for Ruby 1.9.
+    config.encoding = "utf-8"
+
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters << :password
-    config.secret_token = 'f90cdbe12a49523a65f446318a9725c0821d33f3251d33166ef80e2754bbb898982bbe035bb5b47df6a0e2d6421c4288ec7aab20573a5af14b521f9594e7cddb'
+    config.filter_parameters += [:password]
 
     # Enable the asset pipeline
     config.assets.enabled = true
