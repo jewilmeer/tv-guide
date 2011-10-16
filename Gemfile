@@ -36,8 +36,6 @@ gem 'authlogic'#, :git => 'git://github.com/odorcicd/authlogic.git', :branch => 
 gem 'ruby-openid'
 gem 'omniauth', '>=0.2.6'
 
-# # gem 'win32-open3', :group => :development
-
 # # Bundle gems for certain environments:
 gem 'sass-rails', "  ~> 3.1.0"
 
@@ -45,10 +43,6 @@ group :assets do
   gem 'haml'
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
-
-  gem 'twitter-bootstrap-rails', :git => "git://github.com/seyhunak/twitter-bootstrap-rails.git"
-  gem 'less', :git => "git://github.com/softmachine/less.rb.git"
-  # gem 'twitter-bootstrap-rails', :git => "git://github.com/seyhunak/twitter-bootstrap-rails.git", :branch => "static"
 end
 
 group :production do 
@@ -60,7 +54,6 @@ group :development, :test do
   gem 'heroku'
   gem 'taps'
   gem 'annotate'
-  # gem 'less-rails'
 #   gem 'guard'
 #   gem 'guard-bundler'
 #   gem 'guard-cucumber'
