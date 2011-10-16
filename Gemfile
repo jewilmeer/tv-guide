@@ -49,6 +49,7 @@ group :production do
   gem 'pg'
   # replace webrick with thin
   gem 'unicorn'
+  gem 'newrelic_rpm'
 end
 
 group :development, :test do
