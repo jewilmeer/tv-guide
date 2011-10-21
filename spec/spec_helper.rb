@@ -17,8 +17,7 @@ Spork.prefork do
 
   require 'database_cleaner'
   DatabaseCleaner.strategy = :truncation
-  DatabaseCleaner.start
-
+  
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -28,10 +27,21 @@ Spork.prefork do
 
     # short factory_girl syntax
     config.include Factory::Syntax::Methods
+
+    config.before do
+      DatabaseCleaner.start
+    end
+
+    config.after do
+      DatabaseCleaner.clean
+    end
   end
 end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
   DatabaseCleaner.clean
+
+  FactoryGirl.factories.clear
+  FactoryGirl.find_definitions
 end
