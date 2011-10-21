@@ -10,9 +10,9 @@ describe ProgramsController do
     end
 
     describe 'GET show' do
+      let(:program) { create :program }
       before do 
-        @program = create(:program, :name => 'My tv show')
-        get :show, :id => @program.to_param
+        get :show, :id => program.to_param
       end
 
       it { should respond_with :success }

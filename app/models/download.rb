@@ -19,7 +19,7 @@ class Download < ActiveRecord::Base
   include Pacecar
   
   belongs_to :search_term_type, :foreign_key => 'download_type', :primary_key => 'code'
-  belongs_to :episode
+  belongs_to :episode, :touch => true
   
   validates_presence_of :origin, :site, :download_type, :download_file_name
   validate :download_type, :uniqueness => { :scope => [:episode_id] }

@@ -18,6 +18,7 @@ TvEpisodes::Application.configure do
 
   # configure development mail
   config.action_mailer.default_url_options = { :host => 'tv-episodes.local' }
+  
   config.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
@@ -38,5 +39,5 @@ TvEpisodes::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  # config.assets.debug = true
 end

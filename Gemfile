@@ -4,14 +4,13 @@ gem 'mail'
 gem 'jquery-rails'
 
 # Bundle the extra gems:
-gem 'nokogiri'#, '~>1.4.2'
 gem 'mechanize'
 gem 'logging'
 gem 'file-utils'
 gem 'pacecar'
-gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
-gem 'typhoeus'
-gem 'formtastic'
+# gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
+# gem 'typhoeus'
+# gem 'formtastic'
 # gem 'activeadmin'
 
 # # terminal
@@ -33,15 +32,14 @@ gem "dalli"
 
 # # authentication
 gem 'authlogic'#, :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
-gem 'ruby-openid'
 gem 'omniauth', '>=0.2.6'
 
 # # Bundle gems for certain environments:
-gem 'sass-rails', "  ~> 3.1.0"
 
 group :assets do
   gem 'haml'
   gem 'coffee-rails', "~> 3.1.0"
+  gem 'sass-rails', "  ~> 3.1.0"
   gem 'uglifier'
 end
 
@@ -57,30 +55,34 @@ group :development, :test do
   gem 'heroku'
   gem 'taps'
   gem 'annotate'
-#   gem 'guard'
-#   gem 'guard-bundler'
-#   gem 'guard-cucumber'
-#   gem 'guard-rspec'
 
-#   # do always install these, but only load them if the requirement is met 
-#   # gem 'rb-fsevent'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
-#   # gem 'growl_notify'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
+  gem 'spork', '~> 0.9.0rc9'
+  gem 'guard'
+  gem 'guard-spork'
+  gem 'guard-cucumber'
+  gem 'guard-rspec'
 
-#   # test stuff
-#   gem "rspec-rails"
-#   gem 'cucumber-rails'
-#   gem 'capybara'
-#   gem "factory_girl_rails"
+  # do always install these, but only load them if the requirement is met 
+  gem 'rb-fsevent'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
+  gem 'growl_notify'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
 
-#   # help test stuff
-#   gem 'database_cleaner'
-#   gem 'pickle'
-#   gem 'shoulda-matchers'
+  # test stuff
+  gem "rspec-rails"
+  gem 'capybara'
+  gem "factory_girl_rails"
 
-#   # verify
-#   gem 'simplecov', :require => false
+  # help test stuff
+  gem 'database_cleaner'
+  gem 'pickle'
+  gem 'shoulda-matchers'
+
+  # verify
+  gem 'simplecov', :require => false
 
 #   gem 'railsonfire'
 end
 
-
+group :development do 
+  gem 'cucumber-rails'
+  gem 'rspec-instafail'
+end
