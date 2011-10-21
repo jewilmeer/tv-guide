@@ -15,10 +15,11 @@ Feature:
 
   Scenario: 'season tabs'
     When I go to the show page for that program
-    Then There should be a "Season 1" season tab
-    And There should be a "Season 2" season tab
-    And There should not be a "Season 3" season tab
+    Then there should be a "Season 1" season tab
+    And there should be a "Season 2" season tab
+    And there should not be a "Season 3" season tab
   
+  @javascript    
   Scenario: 'too many season tabs'
     Given that program has 8 seasons
     When I go to the show page for that program

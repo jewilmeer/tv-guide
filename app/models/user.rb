@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
     c.validate_password_field = false
   end
   
-  validates :login, :presence => true, :uniqueness => true, :format => /^[a-z-]+$/
+  validates :login, :presence => true, :uniqueness => true, :format => /^[a-z0-9-]+$/
   validates :password, :presence => true, :confirmation => true, :if => :password_required?
   validates :password_confirmation, :presence => true, :if => :password_required?
   

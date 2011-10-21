@@ -18,9 +18,6 @@ class ProgramsController < ApplicationController
     @search_terms      = SearchTermType.all
     @upcoming_episodes = Episode.next_airing
     @past_episodes     = Episode.last_aired.includes(:downloads).limit(20)
-
-    # @future_episodes = Episode.by_airs_at.airs_at_after(Time.now).limited(30)
-    # @past_episodes   = Episode.by_airs_at(:desc).airs_at_before(Time.now).limited(30)
   end
   
   def show
@@ -30,14 +27,6 @@ class ProgramsController < ApplicationController
     
   def suggest
     @programs = Program.tvdb_search(params[:q].downcase)
-    # exact match?
-    # if @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
-    #   current_user.programs << Program.find_or_create_by_tvdb_id(@programs.first.tvdb_id)
-    #   redirect_to :back
-    # end
-  end
-    
-  def create
   end
   
   def edit
