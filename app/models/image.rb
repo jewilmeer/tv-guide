@@ -32,7 +32,7 @@ class Image < ActiveRecord::Base
   scope :saved,       where('image_file_name IS NOT NULL')
 
   before_save :save_image, :if => Proc.new{|i| i.url.present? && i.should_save == true }
-  
+  after_save :touch_episode
   attr_accessor :should_save
   
   has_attached_file :image,
@@ -63,5 +63,10 @@ class Image < ActiveRecord::Base
   
   def self.from_tvdb( result )
     find_or_initialize_by_url( result.url, {:image_type => result.banner_type})
+  end
+
+  private
+  def touch_episode
+    episode.touch if episode
   end
 end
