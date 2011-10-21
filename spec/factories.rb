@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :program do
-    name 'House'
+    sequence(:name) {|n| "program#{n}" }
     status 'Continuing'
     airs_dayofweek 'Monday'
     airs_time '8:00 PM'
@@ -11,7 +11,7 @@ FactoryGirl.define do
   end
   
   factory :episode do
-    title "MyString"
+    sequence(:title) {|n| "episode#{n}" }
     season_nr 1
     nr 1
     program
