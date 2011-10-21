@@ -52,6 +52,7 @@ class Episode < ActiveRecord::Base
   scope :tvdb_id,                 select("id, tvdb_id")
   scope :random,                  lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
+  scope :last_updated,            order('episodes.updated_at desc')
   # scope :distinct_program_id,           lambda{|| Rails.env.production? ? select('DISTINCT ON (episodes.program_id) episodes.id, episodes.airs_at') : select('DISTINCT(episodes.program_id)') }
 
   attr_accessor :options, :name, :episode, :filters, :thumb

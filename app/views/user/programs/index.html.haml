@@ -20,7 +20,7 @@
             = link_to tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)', :class => 'right-rss' do
               = icon_tag('rss', {:size => '24x24'})
       - if @past_episodes.any?
-        - cache([:main_guide, @past_episodes.first]) do
+        - cache([:guide, @user.id, @past_episodes.first, @past_episodes.last_updated.first]) do
           - date = nil
           %dl#past-episodes
             - @past_episodes.each do |episode|
@@ -37,22 +37,23 @@
       .page-header
         %h4 Next airing
       - if @upcoming_episodes.any?
-        - date = nil
-        %dl#next-airing
-          - @upcoming_episodes.each do |episode|
-            - if date != episode.airs_at.to_date
-              - date = episode.airs_at.to_date
-              %dt= pretty_date date
-            %dd[episode]
-              = link_to episode.program_name, episode.program
-              - if episode.nr == 1
-                - if episode.season_nr == 1
-                  %span.label.success New
-                - else
-                  %span.label.success New season
-              - if false
-                \ -
-                = link_to episode.title, episode
+        - cache([:guide, @user.id, @upcoming_episodes.first, @upcoming_episodes.last_updated.first]) do
+          - date = nil
+          %dl#next-airing
+            - @upcoming_episodes.each do |episode|
+              - if date != episode.airs_at.to_date
+                - date = episode.airs_at.to_date
+                %dt= pretty_date date
+              %dd[episode]
+                = link_to episode.program_name, episode.program
+                - if episode.nr == 1
+                  - if episode.season_nr == 1
+                    %span.label.success New
+                  - else
+                    %span.label.success New season
+                - if false
+                  \ -
+                  = link_to episode.title, episode
       - else
         %p No airing episodes
 - if current_user == @user
