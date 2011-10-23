@@ -58,7 +58,6 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.2.2)
       ffi (~> 1.0.6)
-    cocaine (0.2.0)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
       railties (~> 3.1.0)
@@ -93,7 +92,6 @@ GEM
       rack (>= 1.1.0, < 2)
     fattr (2.2.0)
     ffi (1.0.10)
-    file-utils (0.1.1)
     gherkin (2.5.4)
       json (>= 1.4.6)
     growl_notify (0.0.3)
@@ -116,7 +114,6 @@ GEM
       term-ansicolor (~> 1.0.5)
     highline (1.6.2)
     hike (1.2.1)
-    hpricot (0.8.4)
     httparty (0.8.1)
       multi_json
       multi_xml
@@ -129,28 +126,18 @@ GEM
     kgio (2.6.0)
     launchy (2.0.5)
       addressable (~> 2.2.6)
-    little-plugger (1.1.2)
     log4r (1.1.9)
-    logging (1.6.1)
-      little-plugger (>= 1.1.2)
     macaddr (1.4.0)
       systemu (~> 2.2.0)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mechanize (2.0.1)
-      net-http-digest_auth (~> 1.1, >= 1.1.1)
-      net-http-persistent (~> 1.8)
-      nokogiri (~> 1.4)
-      webrobots (~> 0.0, >= 0.0.9)
     mime-types (1.16)
     multi_json (1.0.3)
     multi_xml (0.4.1)
     multipart-post (1.1.3)
     mysql2 (0.3.7)
-    net-http-digest_auth (1.1.1)
-    net-http-persistent (1.9)
     net-ldap (0.2.2)
     newrelic_rpm (3.2.0)
     nokogiri (1.5.0)
@@ -195,12 +182,6 @@ GEM
       oa-openid (= 0.3.0)
     options (2.3.0)
       fattr
-    pacecar (1.5.2)
-    paperclip (2.4.4)
-      activerecord (>= 2.3.0)
-      activesupport (>= 2.3.2)
-      cocaine (>= 0.0.2)
-      mime-types
     pg (0.11.0)
     pickle (0.4.10)
       cucumber (>= 0.8)
@@ -315,12 +296,9 @@ GEM
       raindrops (~> 0.6)
     uuid (2.3.4)
       macaddr (~> 1.0)
-    webrobots (0.0.12)
-      nokogiri (>= 1.4.4)
     xml-simple (1.1.1)
     xpath (0.1.4)
       nokogiri (~> 1.3)
-    zip (2.0.2)
 
 PLATFORMS
   ruby
@@ -335,7 +313,6 @@ DEPENDENCIES
   dalli
   database_cleaner
   factory_girl_rails
-  file-utils
   growl_notify
   guard
   guard-cucumber
@@ -343,16 +320,11 @@ DEPENDENCIES
   guard-spork
   haml
   heroku
-  hpricot
   jquery-rails
-  logging
   mail
-  mechanize
   mysql2
   newrelic_rpm
   omniauth (>= 0.2.6)
-  pacecar
-  paperclip
   pg
   pickle
   progress_bar
@@ -368,4 +340,3 @@ DEPENDENCIES
   tvdb_party!
   uglifier
   unicorn
-  zip
