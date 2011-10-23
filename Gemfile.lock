@@ -183,6 +183,7 @@ GEM
       oa-openid (= 0.3.0)
     options (2.3.0)
       fattr
+    pacecar (1.5.2)
     paperclip (2.4.4)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
@@ -331,6 +332,7 @@ DEPENDENCIES
   mysql2
   newrelic_rpm
   omniauth (>= 0.2.6)
+  pacecar
   paperclip
   pg
   pickle
