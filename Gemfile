@@ -33,10 +33,10 @@ gem "dalli"
 gem 'authlogic'#, :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
 gem 'omniauth', '>=0.2.6'
 
+gem 'haml'
 # # Bundle gems for certain environments:
 
 group :assets do
-  gem 'haml'
   gem 'coffee-rails', "~> 3.1.0"
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'uglifier'
