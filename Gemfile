@@ -4,10 +4,10 @@ gem 'mail'
 gem 'jquery-rails'
 
 # Bundle the extra gems:
-gem 'mechanize'
-gem 'logging'
-gem 'file-utils'
-gem 'pacecar'
+# gem 'mechanize'
+# gem 'logging'
+# gem 'file-utils'
+# gem 'pacecar'
 # gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 # gem 'typhoeus'
 # gem 'formtastic'
@@ -22,11 +22,10 @@ gem 'progress_bar'
 # # requirement for tvdb
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 
-gem 'hpricot'
-gem 'zip'
-gem 'paperclip'
+# gem 'hpricot'
+# gem 'paperclip'
 gem 'aws-s3'
-gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 # # caching
 gem "dalli"
 
