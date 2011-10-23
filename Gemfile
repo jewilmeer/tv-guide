@@ -23,7 +23,7 @@ gem 'progress_bar'
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 
 # gem 'hpricot'
-# gem 'paperclip'
+gem 'paperclip'
 gem 'aws-s3'
 # gem 'newrelic_rpm'
 # # caching
