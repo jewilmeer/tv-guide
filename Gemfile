@@ -25,7 +25,7 @@ gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 # gem 'hpricot'
 gem 'paperclip'
 gem 'aws-s3'
-# gem 'newrelic_rpm'
+gem 'newrelic_rpm'
 # # caching
 gem "dalli"
 
