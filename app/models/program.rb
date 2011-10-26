@@ -42,7 +42,6 @@ class Program < ActiveRecord::Base
   has_many :interactions, :dependent => :nullify
   has_many :program_preferences
   has_many :programs_users
-  has_many :program_updates, :dependent => :destroy
   has_many :seasons, :dependent => :destroy
   
   has_many :users, :through => :program_preferences
