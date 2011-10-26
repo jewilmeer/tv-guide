@@ -21,8 +21,8 @@
           %tr
             %td= link_to program.name, program
             %td
-              - if program.users.any?
-                %abbr{:title => program.users.map(&:login).to_sentence}= pluralize(program.users.count, 'watcher')
+              - if program.program_preferences_count > 0
+                %abbr{:title => program.users.map(&:login).to_sentence}= pluralize(program.program_preferences_count, 'watcher')
               - else
                 no watchers
             %td= program.status

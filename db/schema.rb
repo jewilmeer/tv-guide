@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110518202259) do
+ActiveRecord::Schema.define(:version => 20111024205726) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -171,6 +172,13 @@ ActiveRecord::Schema.define(:version => 20110518202259) do
     t.datetime "updated_at"
   end
 
+  create_table "posts", :force => true do |t|
+    t.string   "title"
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "program_preferences", :force => true do |t|
     t.integer  "user_id"
     t.integer  "program_id"
@@ -206,16 +214,16 @@ ActiveRecord::Schema.define(:version => 20110518202259) do
     t.text     "actors"
     t.integer  "tvdb_rating"
     t.datetime "last_checked_at"
-    t.string   "time_zone_offset",   :default => "Central Time (US & Canada)"
-    t.integer  "max_season_nr",      :default => 1
-    t.integer  "current_season_nr",  :default => 1
+    t.string   "time_zone_offset",          :default => "Central Time (US & Canada)"
+    t.integer  "max_season_nr",             :default => 1
+    t.integer  "current_season_nr",         :default => 1
     t.string   "tvdb_name"
     t.integer  "fanart_image_id"
     t.integer  "poster_image_id"
     t.integer  "season_image_id"
     t.integer  "series_image_id"
-    t.integer  "users_count",        :default => 0
-    t.integer  "interactions_count", :default => 0
+    t.integer  "program_preferences_count", :default => 0
+    t.integer  "interactions_count",        :default => 0
   end
 
   create_table "programs_users", :id => false, :force => true do |t|
