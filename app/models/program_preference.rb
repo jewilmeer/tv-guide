@@ -15,7 +15,7 @@
 class ProgramPreference < ActiveRecord::Base
   belongs_to :search_term_type
   belongs_to :user,     :counter_cache => :programs_count
-  belongs_to :program,  :counter_cache => :users_count
+  belongs_to :program,  :counter_cache => true
   
   validates :search_term_type_id, :presence => true
   validates :user_id,             :presence => true
