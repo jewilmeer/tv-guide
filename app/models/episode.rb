@@ -33,7 +33,7 @@ class Episode < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
   
   # belongs_to :season
-  belongs_to :program, :touch => true
+  belongs_to :program#, :touch => true
   has_and_belongs_to_many :users
   has_many :interactions, :dependent => :nullify
   has_many :downloads, :dependent => :destroy
@@ -53,20 +53,12 @@ class Episode < ActiveRecord::Base
   scope :random,                  lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
   scope :last_updated,            order('episodes.updated_at desc')
-  # scope :distinct_program_id,           lambda{|| Rails.env.production? ? select('DISTINCT ON (episodes.program_id) episodes.id, episodes.airs_at') : select('DISTINCT(episodes.program_id)') }
 
   attr_accessor :options, :name, :episode, :filters, :thumb
   
-  has_attached_file :nzb, 
-                    :processors => [], 
-                    :storage => :s3,
-                    :s3_credentials => "#{Rails.root}/config/s3.yml",
-                    :s3_permissions => 'authenticated-read',
-                    :s3_protocol => 'http',
-                    :s3_headers => { :content_type => 'application/octet-stream', :content_disposition => 'attachment' },
-                    :bucket => Rails.env.production? ? 'us-nzbs' : 'tmp-nzbs',
-                    :path => ':attachment/:id/:style/:filename.nzb'
-  
+  before_validation :update_program_name
+  before_save :touch_episode
+    
   def <=>(o)
     program_comp = self.program.name <=> o.program.name
     return program_comp unless program_comp == 0
@@ -111,6 +103,10 @@ class Episode < ActiveRecord::Base
     ([] << program.search_name << season_and_episode << extra_terms) * ' '
   end
   
+  def program_name
+    @program_name || program.try(:name)
+  end
+    
   def season_and_episode
     "S#{"%02d" % season_nr}E#{episode}"
   end
@@ -120,11 +116,11 @@ class Episode < ActiveRecord::Base
   end
   
   def full_title
-    "#{program.name} - #{full_episode_title}"
+    "#{program_name} - #{full_episode_title}"
   end
   
   def filename
-    "#{program.name}_#{season_and_episode}_-_#{title}".parameterize
+    "#{program_name}_#{season_and_episode}_-_#{title}".parameterize
   end
 
   def filters
@@ -269,5 +265,13 @@ class Episode < ActiveRecord::Base
   end
   def self.get_episodes_by_tvdb_id tvdb_id
     tvdb_client.get_all_episodes_by_id( tvdb_id ).reject{|e| e.season_number.to_i == 0}
+  end
+
+  def update_program_name
+    program_name = program.name if program
+  end
+
+  def touch_episode
+    program.touch unless program_name_changed?
   end
 end
