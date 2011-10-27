@@ -10,13 +10,18 @@ Spork.prefork do
 
   require 'cucumber/rails'
   require 'capybara/rails'
+  require "factory_girl/step_definitions"
 
   # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
   # order to ease the transition to Capybara we set the default here. If you'd
   # prefer to use XPath just remove this line and adjust any selectors in your
   # steps to use the XPath syntax.
   Capybara.default_selector = :css
-
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  end
+  Capybara.javascript_driver = :webkit  
+  
   # By default, any exception happening in your Rails application will bubble up
   # to Cucumber so that your scenario will fail. This is a different from how 
   # your application behaves in the production environment, where an error page will 
@@ -41,17 +46,14 @@ Spork.prefork do
   require 'database_cleaner/cucumber'
   DatabaseCleaner.strategy = :transaction
 
-  # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
-  # See the DatabaseCleaner documentation for details. Example:
-  #
-  #   Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
-  #     DatabaseCleaner.strategy = :truncation, {:except => %w[widgets]}
-  #   end
-  #
-  #   Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
-  #     DatabaseCleaner.strategy = :transaction
-  #   end
-  #
+  Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
+    DatabaseCleaner.strategy = :transaction
+  end
+  Cucumber::Rails::World.use_transactional_fixtures = false
 end
 
 Spork.each_run do

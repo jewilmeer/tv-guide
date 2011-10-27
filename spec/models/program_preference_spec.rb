@@ -13,9 +13,6 @@ describe ProgramPreference do
   it { should validate_uniqueness_of(:program_id).scoped_to(:user_id) }
 
   context "instance" do
-    # let(:program) { create :program }
-    # let(:user) { create :user }
-    # let(:search_term_type) { create :hd_search_term }
     subject { build :program_preference }
 
     it "should update the program counter cache on program" do

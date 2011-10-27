@@ -19,9 +19,10 @@ Feature:
     And there should be a "Season 2" season tab
     And there should not be a "Season 3" season tab
   
-  @javascript    
+  @selenium    
   Scenario: 'too many season tabs'
-    Given that program has 8 seasons
+    Given a program exists with name: "je vader", max_season_nr: "8"
     When I go to the show page for that program
+    Then I take a screenshot
     Then there should not be a "Season 8" season tab
     And there should be a "season 8" hidden season tab 

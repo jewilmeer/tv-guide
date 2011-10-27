@@ -61,6 +61,7 @@ class Program < ActiveRecord::Base
   
   before_validation :update_by_tvdb_id#, :on => :create
   after_create :enrich_data
+  before_save :update_episodes#, :if => Proc.new {|p| puts "name_changed?: #{p.name_changed?}"; p.name_changed? }
   
   scope :by_name, order('name ASC')
   scope :tvdb_id, select('id, tvdb_id')
@@ -286,5 +287,14 @@ class Program < ActiveRecord::Base
 
   def enrich_data
     [:add_episodes, :get_images].map{|method| self.send(method) } if fetch_remote_information
+  end
+
+  def update_episodes
+    Rails.logger.debug "program changes: #{self.changes.inspect}"
+    episodes.all.map do |episode|
+      Rails.logger.debug "episode: #{episode.inspect}::#{self.name}"
+      episode.program_name = self.name
+      episode.save!
+    end
   end
 end
