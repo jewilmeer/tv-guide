@@ -10,8 +10,11 @@ gem 'mechanize'
 gem 'pacecar'
 # gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
 # gem 'typhoeus'
-# gem 'formtastic'
 # gem 'activeadmin'
+
+# used in admin
+gem 'formtastic'#, '~>1'
+
 
 # # terminal
 gem 'progress_bar'

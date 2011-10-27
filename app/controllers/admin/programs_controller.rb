@@ -5,7 +5,7 @@ class Admin::ProgramsController < AdminAreaController
   # GET /admin_programs
   # GET /admin_programs.xml
   def index
-    @programs = Program.by_status.order(sort_column + ' ' + sort_direction).paginate :per_page => 22, :page => params[:page]
+    @programs = Program.by_status.order(sort_column + ' ' + sort_direction)#.paginate :per_page => 22, :page => params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class Admin::ProgramsController < AdminAreaController
   end
 
   def show
-    @default_configuration  = Configuration.first
+    @default_configuration  = ::Configuration.first
     @configuration          = @program.configuration || @program.build_configuration(:filter_data => @default_configuration.filter_data)
     @last_episode           = @program.episodes.airdate_in_past.last
   end

@@ -1,0 +1,21 @@
+.page-header
+  %h1== Edit #{@episode.program_name} episode
+= form_for [:admin, @episode] do |f|
+  %fieldset
+    .clearfix
+      = f.label :title
+      .input= f.text_field :title
+    .clearfix
+      = f.label :season_nr
+      .input= f.text_field :season_nr
+    .clearfix
+      = f.label :nr
+      .input= f.text_field :nr
+    .clearfix
+      = f.label :tvdb_id
+      .input= f.text_field :tvdb_id
+    .clearfix
+      = f.label :image_id
+      .input= f.text_field :image_id
+  .actions
+    %button.btn.primary Save

@@ -22,7 +22,6 @@
             = link_to icon_tag('info'), [:admin, user], :title => 'More information'
             = link_to icon_tag('page_edit'), edit_admin_user_path(user), :title => 'Edit this user'
             = link_to icon_tag('delete'), [:admin, user], :confirm => 'Are you sure?', :method => :delete, :title => 'Remove this user'
-  = will_paginate @users
 - else
   %p No users yet!
 %br

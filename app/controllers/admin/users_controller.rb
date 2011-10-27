@@ -3,7 +3,7 @@ class Admin::UsersController < AdminAreaController
   before_filter :get_user, :except => [:index, :new, :create]
 
   def index
-    @users = User.order(sort_column + ' ' + sort_direction).paginate :per_page => 30, :page => params[:page]
+    @users = User.order(sort_column + ' ' + sort_direction)#.paginate :per_page => 30, :page => params[:page]
   end
 
   def new

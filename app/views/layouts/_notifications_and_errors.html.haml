@@ -1,17 +1,13 @@
 - @notifications ||= []
 - @notifications.each do |notification|
-  .flash{:class => notification.flash_type, :style => 'display: none'}
+  .alert-message{:class => notification.flash_type}
     %strong== #{notification.flash_type.to_s.humanize}:
     =notification.content
 
 - flash.each do |k,v|
   - if v.is_a?(String)
-    .flash{:class => k.to_s, :style => 'display: none'}
+    .alert-message{:class => k.to_s}
       %strong== #{k.to_s.humanize}:
       = v
     - flash.delete(k)
     
-- content_for(:bottom_js_domready) do
-  / $('.flash').slideDown('slow').animate({opacity: 1.0}, 15000).fadeOut('fast');
-  $('.flash.error').errorStyle().fadeIn(1500);
-  $('.flash.notice, .flash.warning').noticeStyle().fadeIn(1500);

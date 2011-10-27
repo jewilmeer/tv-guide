@@ -6,7 +6,7 @@ class Admin::PagesController < AdminAreaController
   end
 
   def index
-    @pages = Page.order(sort_column + ' ' + sort_direction).paginate :per_page => 30, :page => params[:page]
+    @pages = Page.order(sort_column + ' ' + sort_direction)#.paginate :per_page => 30, :page => params[:page]
     @page  = Page.new
   end
   

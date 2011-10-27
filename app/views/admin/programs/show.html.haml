@@ -1,75 +1,79 @@
 - require 'pp'
-%h1= @program.name
+.page-header
+  %h1= @program.name
 
-.full-column
-  .half-column.flt-left
-    .column-block
+.row
+  .span10
+    .page-header
       %h3 Show summary
-      .body
-        %p= @program.overview
-  .half-column.flt-right
-    .column-block
+    %p= @program.overview
+
+    .page-header
+      %h3 Important program settings
+    = form_for([:admin, @program]) do |f|
+      %fieldset
+        .clearfix
+          = f.label :name, 'Name'
+          .input= f.text_field :name
+        .clearfix
+          = f.label :search_name, 'Custom search term'
+          .input= f.text_field :search_name
+        .cleafix
+          %label Current search term
+          .input
+            %span= link_to @program.episodes.airs_at_in_past.last.search_query('hd'), @program.episodes.airs_at_in_past.last.search_url('hd')
+        .actions
+          %button.btn.primary{:data => {:'disable-with' => 'Please wait...'}} Save
+
+  .span6
+    .page-header    
       %h3 Show statistics
-      .body
-        .form_row
-          %label Nr of episodes
-          = pluralize( @program.episodes.count, 'episode')
-          in
-          = pluralize( @program.max_season_nr, 'season')
-        .form_row
-          %label Nr of watchers
-          = pluralize(@program.users.count, 'user')
-        .form_row
-          %label First episode aired at
-          - if @program.episodes.by_airs_at.first.airs_at
-            = l(@program.episodes.by_airs_at.first.airs_at, :format => :long)
-          - else
-            \-
-        .form_row
-          %label Last aired
-          = @program.episodes.airs_at_in_past.last.airs_at.to_s(:long)
-        .form_row
-          %label Last episode update
-          = @program.episodes.by_created_at.last.created_at.to_s(:long)
-        .form_row
-          %label Custom conifiguration?
-          = @program.configuration ? 'yes' : 'no'
-.full-column
-  .half-column.flt-left
-    .column-block
-      %h3 Program settings
-      .body
-        = form_for([:admin, @program]) do |f|
-          .form_row
-            = f.label :search_name, 'Custom search term'
-            = f.text_field :search_name
-          .form_row
-            %label Search name
-            = link_to @program.episodes.airs_at_in_past.last.search_query(true), @program.episodes.airs_at_in_past.last.search_url
-          %button.save Save
+    %dl
+      %dt Nr of episodes
+      %dd
+        = pluralize( @program.episodes.count, 'episode')
+        in
+        = pluralize( @program.max_season_nr, 'season')
+      %dt Nr of watchers
+      %dd= pluralize(@program.program_preferences_count, 'user')
+      %dt First episode aired at
+      %dd
+        - if @program.episodes.by_airs_at.first.airs_at
+          = l(@program.episodes.by_airs_at.first.airs_at, :format => :long)
+        - else
+          \-
+      %dt Last aired
+      %dd= @program.episodes.airs_at_in_past.last.airs_at.to_s(:long)
+      %dt Last episode update
+      %dd= @program.episodes.by_created_at.last.created_at.to_s(:long)
+      %dt Custom conifiguration?
+      %dd= @program.configuration ? 'yes' : 'no'
 
-      .row_seperator
-      %h3 Current filter
-      .body
-        = form_for([:admin, @configuration]) do |f|
-          = f.hidden_field :program_id
-          - if @configuration.new_record?
-            %p.nothing There is no custom filter yet, editing the custom filter below will create a custom one
-          %pre= raw @program.active_configuration.filter_data.to_yaml
-          .form_row
-            = f.label :filter_data, 'filter data (Hash)'
-            = f.text_area :filter_data
-          %button.save= @configuration.new_record? ? 'Create' : 'Update'
-  .half-column.flt-right
-    .column-block
+.page-header
+  %h3 Current filter
+
+= form_for([:admin, @configuration]) do |f|
+  = f.hidden_field :program_id
+  - if @configuration.new_record?
+    .alert-message.warning 
+      %p
+        %strong Notice
+        There is no custom filter yet, editing the custom filter below will create a custom one
+  %pre= raw @program.active_configuration.filter_data.to_yaml
+  .clearfix
+    = f.label :filter_data, 'filter data (Hash)'
+    .input= f.text_area :filter_data, :class => :span12
+  .actions
+    %button.btn.primary{:data => {:'disable-with' => 'Please wait...'}}= @configuration.new_record? ? 'Create' : 'Update'
+.row
+  .span8
+    .page-header
       %h3 Default Filter [HASH]
-      .body
-        %pre= raw @default_configuration.filter_data.pretty_inspect
-    .column-block
+    %pre= raw @default_configuration.filter_data.pretty_inspect
+  .span8
+    .page-header
       %h3 Default Filter [YAML]
-      .body
-        %pre= raw @default_configuration.filter_data.to_yaml
-
+    %pre= raw @default_configuration.filter_data.to_yaml
 
 = link_to 'Edit', edit_program_path(@program)
 \|
