@@ -4,7 +4,7 @@ gem 'mail'
 gem 'jquery-rails'
 
 # Bundle the extra gems:
-# gem 'mechanize'
+gem 'mechanize'
 # gem 'logging'
 # gem 'file-utils'
 gem 'pacecar'
@@ -67,7 +67,7 @@ group :development, :test do
 
   # test stuff
   gem "rspec-rails"
-  gem 'capybara'
+  gem 'capybara', :branch => 'asset-pipeline-support'
   gem "factory_girl_rails"
 
   # help test stuff
@@ -77,11 +77,13 @@ group :development, :test do
 
   # verify
   gem 'simplecov', :require => false
-
-#   gem 'railsonfire'
 end
 
 group :development do 
   gem 'cucumber-rails'
   gem 'rspec-instafail'
+end
+
+group :test do
+  gem 'capybara-webkit'
 end
