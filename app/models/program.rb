@@ -61,7 +61,7 @@ class Program < ActiveRecord::Base
   
   before_validation :update_by_tvdb_id#, :on => :create
   after_create :enrich_data
-  before_save :update_episodes#, :if => Proc.new {|p| puts "name_changed?: #{p.name_changed?}"; p.name_changed? }
+  before_save :update_episodes#, :if => Proc.new {|p| p.name_changed? }
   
   scope :by_name, order('name ASC')
   scope :tvdb_id, select('id, tvdb_id')

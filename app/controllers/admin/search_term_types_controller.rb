@@ -4,7 +4,7 @@ class Admin::SearchTermTypesController < AdminAreaController
 
   def index
     @search_term_type   = SearchTermType.new
-    @search_term_types  = SearchTermType.by_name.order(sort_column + ' ' + sort_direction).paginate :per_page => 25, :page => params[:page]
+    @search_term_types  = SearchTermType.by_name.order(sort_column + ' ' + sort_direction)#.paginate :per_page => 25, :page => params[:page]
     
     respond_to do |format|
       format.html { }

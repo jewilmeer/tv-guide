@@ -1,30 +1,15 @@
-- content_for :bottom_js_domready do
-  :plain
-    $('.list tbody').infinitescroll({
-      navSelector: '.content_navigation',
-      nextSelector: function(next) { return $('.content_navigation a').attr('href').replace(/page=\d+\b/, 'page='+next); },
-      itemSelector: null,
-      loadingText: 'Loading new content...',
-      donetext: 'Done loading, no more content to be laoded!',
-      extraScrollPx: '150px',
-      bufferPx: 150
-    });
-
-%h1== Listing programs (#{Program.count})
+.page-header
+  %h1== Listing programs (#{Program.count})
 
 - if @programs.any?
-.column-block
-  .body
-    %table.list
-      %thead
-        %tr
-          %th= sortable 'name'
-          %th Next episode
-          %th= sortable 'status'
-          %th= sortable 'tvdb_last_update', 'Last update'
-          %th= sortable 'last_checked_at', 'Last checked'
-          %th Controls
-      %tbody= render @programs
-    .content_navigation
-      = link_to :next_page, url_for( params.merge( :format => :js, :page => (params[:page] || 1).succ) )
+  %table.list
+    %thead
+      %tr
+        %th= sortable 'name'
+        %th Next episode
+        %th= sortable 'status'
+        %th= sortable 'tvdb_last_update', 'Last update'
+        %th= sortable 'last_checked_at', 'Last checked'
+        %th Controls
+    %tbody= render @programs
     
