@@ -8,7 +8,7 @@ class Admin::EpisodesController < AdminAreaController
 
     logger.debug "page: #{params[:page]}"
 
-    @episodes = basic_scope.paginate :per_page => 25, :page => params[:page]
+    @episodes = basic_scope
 
     respond_to do |format|
       format.html
@@ -20,11 +20,13 @@ class Admin::EpisodesController < AdminAreaController
   end
 
   def update
-    success = @episode.download_all && @episode.tvdb_update
-    
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html do 
+        @episode.update_attributes params[:episode]
+        redirect_to :back, :notice => 'updated!'
+      end
       format.js do
+        success = @episode.download_all && @episode.tvdb_update
         partial = case params[:partial]
         when 'episodes'
           'episodes'

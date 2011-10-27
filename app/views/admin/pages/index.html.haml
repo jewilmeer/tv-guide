@@ -18,7 +18,6 @@
               %td
                 = link_to icon_tag('page_edit'), edit_admin_page_path(page)
                 = link_to icon_tag('delete'), [:admin, page], :confirm => 'Are you sure?', :method => :delete
-      = will_paginate @pages
     - else
       %p.nothing No pages defined yet
 

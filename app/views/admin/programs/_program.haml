@@ -11,9 +11,8 @@
       \-
   %td= program.status
   %td
-    %abbr{:title => pluralize(program.program_updates.real_updates.count, 'update')}
-      = distance_of_time_in_words_to_now( program.tvdb_last_update )
-      ago
+    = distance_of_time_in_words_to_now( program.updated_at )
+    ago
   %td
     - if program.last_checked_at
       = distance_of_time_in_words_to_now( program.last_checked_at )

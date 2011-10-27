@@ -4,7 +4,7 @@ class Admin::ProgramPreferencesController < AdminAreaController
 
   def index
     @program_preference  = ProgramPreference.new
-    @program_preferences = ProgramPreference.order(sort_column + ' ' + sort_direction).paginate :per_page => 25, :page => params[:page]
+    @program_preferences = ProgramPreference.order(sort_column + ' ' + sort_direction)#.paginate :per_page => 25, :page => params[:page]
     respond_to do |format|
       format.html {}
       format.js   { render :text => render_to_string( @program_preferences ) }

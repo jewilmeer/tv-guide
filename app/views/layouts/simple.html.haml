@@ -17,6 +17,7 @@
     = render :partial => 'layouts/alt_header'
 
     #main.container
+      = render :partial => 'layouts/notifications_and_errors'
       = yield
     = yield :bottom
     =# render 'layouts/bottom_js'
