@@ -16,8 +16,8 @@ class ProgramsController < ApplicationController
   
   def guide
     @search_terms      = SearchTermType.all
-    @upcoming_episodes = Episode.next_airing
-    @past_episodes     = Episode.last_aired.includes(:downloads).limit(20)
+    @upcoming_episodes = Episode.next_airing.includes(:program)
+    @past_episodes     = Episode.last_aired.includes(:program).includes(:downloads).limit(20)
   end
   
   def show
