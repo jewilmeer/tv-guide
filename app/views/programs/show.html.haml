@@ -38,7 +38,7 @@
           = render :partial => 'guide_control', :locals => {:program => @program}
 
 .tab-content
-  - cache [@program, current_user.try(:trusted?), current_user.try(admin?)] do
+  - cache [@program, current_user.try(:trusted?), current_user.try(:admin?)] do
     %section#seasons.active
       .page-header
         %h3 Seasons
