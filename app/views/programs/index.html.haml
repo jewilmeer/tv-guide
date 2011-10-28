@@ -8,30 +8,31 @@
 
 
   - if @programs.any?
-    %table.zebra-striped
-      %thead
-        %tr
-          %th Name
-          %th{:width => '120'} Watchers
-          %th{:width => '120'} Status
-          %th{:width => '200'} Next episode
-          %th{:width => '120'} Runtime
-      %tbody
-        - @programs.each do |program|
+    - cache [Date.today, Program.last_updated.first, params[:q]] do
+      %table.zebra-striped
+        %thead
           %tr
-            %td= link_to program.name, program
-            %td
-              - if program.program_preferences_count > 0
-                %abbr{:title => program.users.map(&:login).to_sentence}= pluralize(program.program_preferences_count, 'watcher')
-              - else
-                no watchers
-            %td= program.status
-            %td
-              - if next_episode = program.episodes.next_airing.first
-                = pretty_date next_episode.airs_at
-              - else
-                \-
-            %td== #{program.runtime} minutes
+            %th Name
+            %th{:width => '120'} Watchers
+            %th{:width => '120'} Status
+            %th{:width => '200'} Next episode
+            %th{:width => '120'} Runtime
+        %tbody
+          - @programs.each do |program|
+            %tr
+              %td= link_to program.name, program
+              %td
+                - if program.program_preferences_count > 0
+                  %abbr{:title => program.users.map(&:login).to_sentence}= pluralize(program.program_preferences_count, 'watcher')
+                - else
+                  no watchers
+              %td= program.status
+              %td
+                - if next_episode = program.episodes.next_airing.first
+                  = pretty_date next_episode.airs_at
+                - else
+                  \-
+              %td== #{program.runtime} minutes
   - else
     %p.nothing 
       No programs found!
