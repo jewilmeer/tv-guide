@@ -19,7 +19,7 @@
             = link_to tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)', :class => 'right-rss' do
               .icon-rss
       - if @past_episodes.any?
-        - cache([:guide, @user.id, @past_episodes.first, @past_episodes.last_updated.first]) do
+        - cache([:guide, @user.id, current_user.try(:trusted?), current_user.try(:admin?), @past_episodes.first, @past_episodes.last_updated.first]) do
           - date = nil
           %dl#past-episodes
             - @past_episodes.each do |episode|
@@ -36,7 +36,7 @@
       .page-header
         %h4 Next airing
       - if @upcoming_episodes.any?
-        - cache([:guide, @user.id, current_user.try(:trusted?), current_user.try(:admin?), @upcoming_episodes.first, @upcoming_episodes.last_updated.first]) do
+        - cache([:guide, @user.id, @upcoming_episodes.first, @upcoming_episodes.last_updated.first]) do
           - date = nil
           %dl#next-airing
             - @upcoming_episodes.each do |episode|
