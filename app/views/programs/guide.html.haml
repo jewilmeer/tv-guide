@@ -27,12 +27,12 @@
       - if @upcoming_episodes.any?
         - cache([:index_guide, @upcoming_episodes.first, @upcoming_episodes.last_updated.first]) do
           - date = nil
-            %dl#next-airing
-              - @upcoming_episodes.each do |episode|
-                - if date != episode.airs_at.to_date
-                  - date = episode.airs_at.to_date
-                  %dt= pretty_date date
-                %dd[episode]
-                  = link_to episode.program_name, episode.program
+          %dl#next-airing
+            - @upcoming_episodes.each do |episode|
+              - if date != episode.airs_at.to_date
+                - date = episode.airs_at.to_date
+                %dt= pretty_date date
+              %dd[episode]
+                = link_to episode.program_name, episode.program
       - else
         %p No airing episodes
