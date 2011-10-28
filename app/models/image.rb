@@ -34,16 +34,19 @@ class Image < ActiveRecord::Base
   before_save :save_image, :if => Proc.new{|i| i.url.present? && i.should_save == true }
   after_save :touch_episode
   attr_accessor :should_save
-  
+
   has_attached_file :image,
-    :styles => { :banner => "642x220#", :thumb => "100x100>", :slide => '655x368>', :episode => '300x180^', :mini_episode => '140x80#' },
-    :storage        => :s3,
-    :s3_credentials => "#{Rails.root}/config/s3.yml",
-    :s3_permissions => 'public-read',
-    :s3_protocol    => 'http',
-    :bucket         => Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
-    :path           => ':attachment/:id/:style/:filename'
-    
+    :bucket             => Proc.new { Image.s3_bucket },
+    :default_style      => :original,
+    :path               => "tvdb_images/:id/:style_:timestamp.jpg",
+    :s3_credentials     => Rails.root.join("config/s3.yml"),
+    :s3_headers         => { 'Expires' => 1.year.from_now.httpdate },
+    :s3_host_alias      => Proc.new { Image.s3_host_alias },
+    :s3_permissions     => 'public-read',
+    :storage            => 's3',
+    :styles             => { :banner => "642x220#", :thumb => "100x100>", :slide => '655x368>', :episode => '300x180^', :mini_episode => '140x80#' },
+    :url                => ':s3_alias_url'
+  
   def filename
     "image.jpg"
   end
@@ -58,15 +61,65 @@ class Image < ActiveRecord::Base
       save_image 
       save!
     end
-    AWS::S3::S3Object.url_for(self.image.path(image_format), self.image.bucket_name)
+    image.url image_format    
   end
   
   def self.from_tvdb( result )
     find_or_initialize_by_url( result.url, {:image_type => result.banner_type})
   end
 
+  def self.update_all_images(id_to_start = 10_000)
+    # no limit to just a few
+    scope = self.order('id desc').saved.where( 'id < ?', id_to_start)
+    puts "found: #{scope.count} images"
+    scope.each do |image|
+      puts "id: #{image.id}"
+      image.update_image
+    end
+  end
+
+  def self.update_these ids
+    all( ids ).each do |image|
+      update_image
+    end
+  end
+
+  def update_image
+    if image
+      save_image 
+      save
+    end
+  end
+
+  def self.purge_s3
+    update_all ["
+      image_file_name = NULL,
+      image_content_type = NULL,
+      image_file_size = NULL,
+      image_updated_at = NULL"
+    ]
+  end
+
   private
   def touch_episode
     episode.touch if episode
+  end
+
+  def self.s3_bucket
+    case Rails.env
+    when 'production'
+      'tv-guide'
+    else
+      'tv-guide-dev'
+    end
+  end
+
+  def self.s3_host_alias
+    case Rails.env
+    when 'production'
+      'images.jewilmeer.com'
+    else
+      'dev-images.jewilmeer.com'      
+    end
   end
 end
