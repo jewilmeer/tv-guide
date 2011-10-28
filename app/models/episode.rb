@@ -31,7 +31,7 @@
 class Episode < ActiveRecord::Base
   include Pacecar
   include ActionView::Helpers::SanitizeHelper
-  
+    
   # belongs_to :season
   belongs_to :program#, :touch => true
   has_and_belongs_to_many :users
