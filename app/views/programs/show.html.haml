@@ -38,30 +38,31 @@
           = render :partial => 'guide_control', :locals => {:program => @program}
 
 .tab-content
-  %section#seasons.active
-    .page-header
-      %h3 Seasons
-    %ul.tabs{:data => {:tabs => :tabs}}
-      - seasons_for_tab(@program).each do |season|
-        %li{:class => (:active if @program.max_season_nr == season)}
-          %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
-      - if seasons_for_dropdown(@program).any?
-        %li.dropdown.secondary-nav{:data => {:dropdown => :dropdown}}
-          %a.dropdown-toggle== Older seasons (#{seasons_for_dropdown(@program).length})
-          %ul.dropdown-menu
-            - seasons_for_dropdown(@program).each do |season|
-              %li{:class => (:active if @program.max_season_nr == season)}
-                %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
-    .tab-content                  
-      - @program.max_season_nr.downto(1) do |season|
-        %div{:id => "s#{season}", :class => (:active if @program.max_season_nr == season)}
-          %table.zebra-striped
-            %thead
-              %tr
-                %th Title
-                %th{:width => 150} Airdate
-            %tbody
-              = render :collection => @program.episodes.where('season_nr = ?', season).by_nr(:desc), :partial => 'episodes/episodes', :as => :episode
+  - cache [@program, current_user.try(:trusted?), current_user.try(admin?)] do
+    %section#seasons.active
+      .page-header
+        %h3 Seasons
+      %ul.tabs{:data => {:tabs => :tabs}}
+        - seasons_for_tab(@program).each do |season|
+          %li{:class => (:active if @program.max_season_nr == season)}
+            %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
+        - if seasons_for_dropdown(@program).any?
+          %li.dropdown.secondary-nav{:data => {:dropdown => :dropdown}}
+            %a.dropdown-toggle== Older seasons (#{seasons_for_dropdown(@program).length})
+            %ul.dropdown-menu
+              - seasons_for_dropdown(@program).each do |season|
+                %li{:class => (:active if @program.max_season_nr == season)}
+                  %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
+      .tab-content                  
+        - @program.max_season_nr.downto(1) do |season|
+          %div{:id => "s#{season}", :class => (:active if @program.max_season_nr == season)}
+            %table.zebra-striped
+              %thead
+                %tr
+                  %th Title
+                  %th{:width => 150} Airdate
+              %tbody
+                = render :collection => @program.episodes.where('season_nr = ?', season).by_nr(:desc), :partial => 'episodes/episodes', :as => :episode
 
   %section#more-info
     .page-header
