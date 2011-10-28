@@ -12,7 +12,7 @@
         = @program.status
       - if current_user.try(:trusted?)
         = link_to(tokened_program_path(:id => @program.id, :user_credentials => current_user.single_access_token, :format => :rss), :class => 'right-rss') do 
-          = icon_tag('rss', :size => '24x24', :alt => 'RSS feed')
+          .icon-rss
   %ul.tabs{:data => {:tabs => :tabs}}
     %li.active= link_to 'Season Overview', '#seasons'
     %li= link_to 'More information', '#more-info'
