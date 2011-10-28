@@ -13,7 +13,7 @@
     - if current_user.try(:trusted)
       -# downloads
       %dl.oneliner
-        %dt= icon_tag('down', :size => '16x16')
+        %dt.download
         %dd
           - if episode.downloads.any?
             - episode.downloads.includes(:search_term_type).each do |download|
@@ -24,7 +24,7 @@
             %span.label No downloads available
       -# search
       %dl.oneliner
-        %dt= icon_tag('search', :size => '16x16')
+        %dt.search
         %dd
           - @search_terms.each do |search_term|
             %span.label.success= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
