@@ -65,6 +65,7 @@ class Program < ActiveRecord::Base
   
   scope :by_name, order('name ASC')
   scope :tvdb_id, select('id, tvdb_id')
+  scope :last_updated, order('updated_at desc')
   
   attr_accessor :active_configuration, :banners, :banner, :tvdb_serie, :fetch_remote_information
 
