@@ -68,23 +68,38 @@ dl.oneliner {
   }
   dt {
     display: inline-block;
-    &.with-icon {
-      height: 16px;
+    padding-bottom: 0;
+    &.download, &.search {
       padding-left: 16px;
-    }
-    &.download {
-      background-image: url(<%= asset_data_uri "icons/combined/16x16/down.png" %>);
-      @extend .with-icon;
-    }
-    &.search {
-      background-image: url(<%= asset_data_uri "icons/combined/16x16/search.png" %>);
-      @extend .with-icon;
     }
   }
   dd {
     display: inline-block;
   }
 }
+dt {
+  &.with-icon {
+    height: 16px;
+    padding-left: 20px;
+    background-repeat: no-repeat;
+    background-position: 0px 3px;
+    padding-bottom: 3px;
+  }
+  &.download {
+    background-image: url(<%= asset_data_uri "icons/combined/16x16/down.png" %>);
+    @extend .with-icon;
+  }
+  &.search {
+    background-image: url(<%= asset_data_uri "icons/combined/16x16/search.png" %>);
+    @extend .with-icon;
+  }
+
+}
 .flt-right {
   float: right;
+}
+.icon-rss {
+  background-image: url(<%= asset_data_uri "icons/combined/24x24/rss.png" %>);
+  height: 24px;
+  width: 24px;
 }
