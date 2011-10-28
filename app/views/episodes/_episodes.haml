@@ -5,7 +5,7 @@
     - if current_user.try(:trusted?) && episode.airs_at.try(:past?)
       -# downloads
       %dl.oneliner
-        %dt= icon_tag('down', :size => '16x16')
+        %dt.download
         %dd
           - if episode.downloads.any?
             - episode.downloads.includes(:search_term_type).each do |download|
@@ -16,24 +16,10 @@
             %span.label No downloads available
       -# search
       %dl.oneliner
-        %dt= icon_tag('search', :size => '16x16')
+        %dt.search
         %dd
           - SearchTermType.all.each do |search_term|
             %span.label.success= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
-
-
-    -#
-      %ul.downloads.unstyled
-        %li.label Download:
-        - if episode.downloads.length > 0
-          - episode.downloads.each do |download|
-            %li.label.success= link_to download.search_term_type.name, episode_path(episode, :download_type => download.download_type, :format => :nzb), :title => download.origin
-        - else 
-          %li.nothing No downloads (yet)
-      %ul.downloads.unstyled
-        %li.label Search:
-        - SearchTermType.all.each do |search_term|
-          %li.label.success= link_to search_term.name, search_episode_path(episode, {:search_type => search_term.code})
   %td{:width => 220}
     - if episode.airs_at 
       %p= pretty_date episode.airs_at.to_date, :with_year => true
