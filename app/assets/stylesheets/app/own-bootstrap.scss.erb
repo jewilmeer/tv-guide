@@ -3,7 +3,7 @@ html {
 }
 body {
   padding-top: 40px;
-  background-image: image-url('patterns/whitey.png');
+  background-image: url(<%= asset_data_uri "patterns/whitey.png" %>);
   background-attachment: fixed;
 
 }
@@ -68,8 +68,17 @@ dl.oneliner {
   }
   dt {
     display: inline-block;
-    .icon {
-      margin-top: 2px;
+    &.with-icon {
+      height: 16px;
+      padding-left: 16px;
+    }
+    &.download {
+      background-image: url(<%= asset_data_uri "icons/combined/16x16/down.png" %>);
+      @extend .with-icon;
+    }
+    &.search {
+      background-image: url(<%= asset_data_uri "icons/combined/16x16/search.png" %>);
+      @extend .with-icon;
     }
   }
   dd {
