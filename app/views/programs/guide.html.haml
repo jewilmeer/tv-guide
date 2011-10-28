@@ -8,7 +8,7 @@
       .page-header
         %h4 Recently aired
       - if @past_episodes.any?
-        - cache([:index_guide, current_user.try(:trusted?), current_user.try(:admin?), @past_episodes.first, @past_episodes.last_updated.
+        - cache([:index_guide, current_user.try(:trusted?), current_user.try(:admin?), @past_episodes.first, @past_episodes.last_updated.first]) do
           - date = nil
           %dl#past-episodes
             - @past_episodes.each do |episode|
