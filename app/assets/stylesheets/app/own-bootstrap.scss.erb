@@ -79,9 +79,9 @@ dl.oneliner {
 }
 dt {
   &.with-icon {
+    @extend .default-icon;
     height: 16px;
     padding-left: 20px;
-    background-repeat: no-repeat;
     background-position: 0px 3px;
     padding-bottom: 3px;
   }
@@ -98,8 +98,20 @@ dt {
 .flt-right {
   float: right;
 }
+.default-icon {
+  background-repeat: no-repeat;
+}
 .icon-rss {
+  @extend .default-icon;
   background-image: url(<%= asset_data_uri "icons/combined/24x24/rss.png" %>);
   height: 24px;
   width: 24px;
+}
+.icon-delete {
+  @extend .default-icon;
+  background-image: url(<%= asset_data_uri "icons/combined/16x16/delete.png" %>);
+  height: 16px;
+  width: 16px;
+  background-position: 0px 6px;
+  padding-bottom: 6px;
 }

@@ -20,4 +20,5 @@
           %dd[program]
             %span.label.success= current_user.program_preferences.with_program(program).includes(:search_term_type).first.search_term_type.name
             = link_to program.name, program
-            = link_to icon_tag('delete'), user_program_path(current_user, program), :method => :delete, :class => :"flt-right", :remote => true
+            = link_to user_program_path(current_user, program), :method => :delete, :class => :"flt-right", :remote => true do
+              .icon-delete
