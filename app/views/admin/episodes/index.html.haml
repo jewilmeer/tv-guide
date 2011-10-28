@@ -12,7 +12,7 @@
 .column-block
   .body
     - if @episodes.any?
-      %table.list
+      %table.zebra-striped
         %thead
           %tr
             %th= sortable('title', 'Episode title')
