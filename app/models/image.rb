@@ -61,7 +61,7 @@ class Image < ActiveRecord::Base
       save_image 
       save!
     end
-    image.url image_format    
+    image.url(image_format).gsub('https', 'http')
   end
   
   def self.from_tvdb( result )
