@@ -6,8 +6,6 @@ class Admin::EpisodesController < AdminAreaController
     basic_scope = Episode.order(sort_column + ' ' + sort_direction).includes(:program)
     basic_scope = basic_scope.airs_at_in_past unless params[:include_future]
 
-    logger.debug "page: #{params[:page]}"
-
     @episodes = basic_scope
 
     respond_to do |format|
