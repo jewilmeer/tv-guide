@@ -58,18 +58,6 @@ class User < ActiveRecord::Base
     find_by_email(login) || find_by_login(login)
   end
   
-  def apply_omniauth omni_auth 
-    Rails.logger.debug omni_auth.inspect
-    return false unless omni_auth && omni_auth['provider']
-    authentications.build( :provider => omni_auth['provider'], :uid => (omni_auth['uid'] || nil) )
-    # apply additional userinfo
-    user_info  = omni_auth['user_info']
-    self.email = user_info['email'] if email.blank?
-    # facebook email grepping
-    self.email = omni_auth['user_hash']['email'] if omni_auth['user_hash'] && email.blank?
-    self.login = (user_info['username'] || user_info['login'] || user_info['nickname']) if login.blank?
-  end
-
   def password_required?
     return false if crypted_password.present?
     (authentications.empty? || password.present?)

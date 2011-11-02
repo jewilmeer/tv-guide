@@ -85,6 +85,7 @@ end
 group :development do 
   gem 'cucumber-rails'
   gem 'rspec-instafail'
+  gem 'reek'
 end
 
 group :test do
