@@ -4,11 +4,12 @@
 en:
   date:
     formats:
-      weekday: %A
       short_with_weekday: %a %b %e
+      weekday: %A
       with_day: "%a %b %e, %Y"
   time:
     formats:
-      with_day: "%A %B %e, %Y %H:%M"
+      short_with_weekday: %a %b %e
       weekday: "%A"
+      with_day: "%A %B %e, %Y %H:%M"
   

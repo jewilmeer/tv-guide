@@ -1,5 +1,6 @@
 module DateHelper
   def pretty_date date, options={}
+    date = date.to_date
     case date_diff(date)
     when 0
       'Today'
