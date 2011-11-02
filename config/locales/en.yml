@@ -10,4 +10,5 @@ en:
   time:
     formats:
       with_day: "%A %B %e, %Y %H:%M"
+      weekday: "%A"
   

@@ -2,9 +2,9 @@
   .page-header
     %h1
       - if params[:search] 
-        %span.header== Results for #{params[:search]}
+        == Results for #{params[:search]}
       - else
-        %span.header List all programs
+        List all programs
 
 
   - if @programs.any?
