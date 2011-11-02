@@ -6,6 +6,7 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
+    response.headers['Cache-Control'] = 'public, max-age=60'
     @programs = Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction)
     if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
       redirect_to @programs.first
