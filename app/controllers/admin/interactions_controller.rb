@@ -1,7 +1,7 @@
 class Admin::InteractionsController < AdminAreaController
   helper_method :sort_column, :sort_direction
   def index
-    @interactions = Interaction.order(sort_column + ' ' + sort_direction)
+    @interactions = Interaction.order(sort_column + ' ' + sort_direction).limit(50)
   end
 
   protected
