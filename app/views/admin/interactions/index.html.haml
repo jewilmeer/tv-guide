@@ -1,6 +1,9 @@
 %section
   .page-header
-    %h1 Interactions
+    %h1 
+      Interactions
+      %small== Current time #{Time.now.to_s(:long)}
+
 
   - if @interactions.any?
     %table.zebra-striped
