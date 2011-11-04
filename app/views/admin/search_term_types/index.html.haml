@@ -1,15 +1,3 @@
-- content_for :bottom_js_domready do
-  :plain
-    $('.list tbody').infinitescroll({
-      navSelector: '.content_navigation',
-      nextSelector: function(next) { return $('.content_navigation a').attr('href').replace(/page=\d+\b/, 'page='+next); },
-      itemSelector: null,
-      loadingText: 'Loading new content...',
-      donetext: 'Done loading, no more content to be laoded!',
-      extraScrollPx: '150px',
-      bufferPx: 150
-    });
-
 %h1== Search term types (#{SearchTermType.count})
 
 - if @search_term_types.any?
