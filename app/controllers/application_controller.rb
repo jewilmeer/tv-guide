@@ -4,4 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   layout 'simple'  
+  before_filter :set_timezone
+
+  def set_timezone
+    Time.zone = 'Amsterdam'
+  end
 end
