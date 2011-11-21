@@ -9,15 +9,7 @@
         %h4 Recently aired
       - if @past_episodes.any?
         - cache([:index_guide, current_user.try(:trusted?), current_user.try(:admin?), @past_episodes.first, @past_episodes.last_updated.first]) do
-          - date = nil
-          %dl#past-episodes
-            - @past_episodes.each do |episode|
-              - if date != episode.airs_at.to_date
-                - date = episode.airs_at.to_date
-                %dt
-                  .page-header
-                    %h5= pretty_date date
-              = render 'episodes/past_episode', {:episode => episode}
+          = render :partial => 'episodes/past_episodes', :locals => {:past_episodes => @past_episodes}
       - else
         %p No past episodes found
 
@@ -26,13 +18,6 @@
         %h4 Next airing
       - if @upcoming_episodes.any?
         - cache([:index_guide, @upcoming_episodes.first, @upcoming_episodes.last_updated.first]) do
-          - date = nil
-          %dl#next-airing
-            - @upcoming_episodes.each do |episode|
-              - if date != episode.airs_at.to_date
-                - date = episode.airs_at.to_date
-                %dt= pretty_date date
-              %dd[episode]
-                = link_to episode.program_name, episode.program
+          = render :partial => 'episodes/next_airing', :locals => {:next_episodes => @upcoming_episodes}
       - else
         %p No airing episodes
