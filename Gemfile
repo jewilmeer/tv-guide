@@ -5,22 +5,16 @@ gem 'jquery-rails'
 
 # Bundle the extra gems:
 gem 'mechanize'
-# gem 'logging'
-# gem 'file-utils'
-gem 'pacecar'
-# gem 'dynamic_form'#, :git => 'http://github.com/rails/dynamic_form.git'
-# gem 'typhoeus'
-# gem 'activeadmin'
 
+gem 'pacecar'
 # used in admin
 gem 'formtastic'#, '~>1'
 
+# for deployment
+# gem 'rubber'
 
 # # terminal
 gem 'progress_bar'
-
-# # search
-# gem 'thinkingtank'
 
 # # requirement for tvdb
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
@@ -29,6 +23,7 @@ gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 gem 'paperclip'
 gem 'aws-s3'
 gem 'newrelic_rpm'
+
 # # caching
 gem "dalli"
 
@@ -37,8 +32,7 @@ gem 'authlogic'#, :git => 'git://github.com/odorcicd/authlogic.git', :branch => 
 gem 'omniauth', '>=0.2.6'
 
 gem 'haml'
-# # Bundle gems for certain environments:
-
+# Bundle gems for certain environments:
 group :assets do
   gem 'coffee-rails', "~> 3.1.0"
   gem 'sass-rails', "  ~> 3.1.0"
