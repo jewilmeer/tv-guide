@@ -5,9 +5,13 @@
     = link_to episode.full_episode_title, episode
 
   = link_to episode do
-    - if episode.thumb
-      = image_tag episode.thumb.s3_url(:episode), :alt => episode.full_title, :class => :episode, :size => '320x180'
-    - else
+    - begin
+      - if episode.thumb
+        = image_tag episode.thumb.s3_url(:episode), :alt => episode.full_title, :class => :episode, :size => '320x180'
+      - else
+        %img{:src => 'http://placehold.it/320x180/fff/999/&text=No+image+available', :alt => episode.full_title, :class => :episode, :size => '320x180'}
+    - rescue ActionView::Template::Error
+      - episode.thumb.destroy
       %img{:src => 'http://placehold.it/320x180/fff/999/&text=No+image+available', :alt => episode.full_title, :class => :episode, :size => '320x180'}
   .episode-information
     - if current_user.try(:trusted)
