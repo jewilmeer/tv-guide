@@ -39,6 +39,9 @@ GEM
     activesupport (3.1.1)
       multi_json (~> 1.0)
     addressable (2.2.6)
+    airbrake (3.0.5)
+      activesupport
+      builder
     annotate (2.4.0)
     arel (2.2.1)
     authlogic (3.1.0)
@@ -334,6 +337,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   annotate
   authlogic
   aws-s3
