@@ -2,6 +2,7 @@
 = require jquery
 = require jquery_ujs
 = require './lib/bootstrap/bootstrap'
+= require './lib/timeago.jquery'
 = require_tree ./app
 = require_self
 ###
@@ -15,3 +16,4 @@ $ ->
   $('.btn.add_program').click ->
     $my_modal.modal('toggle')
   $('.dropdown').dropdown()
+  $('time').timeago()
