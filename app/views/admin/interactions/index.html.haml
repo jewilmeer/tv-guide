@@ -20,6 +20,8 @@
             %td= interaction.program.try(:name) || '-'
             %td= interaction.try(:episode).try(:title) || '-'
             %td= interaction.interaction_type.humanize
-            %td= l interaction.created_at, :format => :long
+            %td
+              %time{:datetime => interaction.created_at.getutc.iso8601}
+                = l interaction.created_at, :format => :with_day
   - else
     %p.nothing No interactions found yet!
