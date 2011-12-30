@@ -13,17 +13,21 @@ class EpisodesController < ApplicationController
           download_type ||= current_user.program_preferences.with_program(@episode.program).includes(:search_term_type).first.search_term_type
           
           download = @episode.downloads.with_download_type( download_type.code ).first
-          path     = download.download.path
+          if download
+            path     = download.download.path
 
-          current_user.interactions.create({
-            :user             => current_user, 
-            :program          => @episode.program, 
-            :episode          => @episode, 
-            :interaction_type => 'download',
-            :format           => params[:format] || 'nzb',
-            :end_point        => path
-          })
-          redirect_to(AWS::S3::S3Object.url_for(path, download.download.bucket_name, :expires_in => 10.seconds))
+            current_user.interactions.create({
+              :user             => current_user, 
+              :program          => @episode.program, 
+              :episode          => @episode, 
+              :interaction_type => 'download',
+              :format           => params[:format] || 'nzb',
+              :end_point        => path
+            })
+            redirect_to(AWS::S3::S3Object.url_for(path, download.download.bucket_name, :expires_in => 10.seconds))
+          else
+            search
+          end
         else
           search
         end
