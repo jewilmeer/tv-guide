@@ -20,7 +20,7 @@ class ImagesController < ApplicationController
     end
     respond_to do |format|
       format.js { @image_template = render_to_string(:partial => '/images/image', :locals => {:image => @image}).html_safe }
-      format.jpg { render :ok }
+      format.jpg { render :nothing => true }
     end
   end
   
