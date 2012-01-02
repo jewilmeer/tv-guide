@@ -229,7 +229,7 @@ class Program < ActiveRecord::Base
   end
   
   def tvdb_episodes(only_new=false)
-    episodes = tvdb_client.get_all_episodes_by_id(self.tvdb_id).reject{|episode| episode.season_number.to_i == 0 || episode.number.to_i == 0}
+    episodes = tvdb_client.get_all_episodes_by_id(self.tvdb_id).reject{|episode| Episode.valid_season_or_episode_nr episode.season_number.to_i }
     if only_new 
       all_tvdb_ids = self.episodes.tvdb_id.all.map(&:tvdb_id)
       episodes = episodes.reject{|episode| all_tvdb_ids.include?(episode.id.to_i) }
