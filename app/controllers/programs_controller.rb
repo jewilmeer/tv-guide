@@ -83,9 +83,12 @@ class ProgramsController < ApplicationController
   end
   
   def banners
-    @image_types = Image.distinctly('images.image_type').group('image_type').all.map(&:image_type)
+    @image_types = Image.distinctly('images.image_type').group('image_type').all.map(&:image_type).compact
     @image_type  = params[:image_type] || @image_types.last
-    @images      = @program.images.image_type(@image_type).limit(params[:per_page] || 5)
+    order = params[:order] || 'created_at desc'
+    @placeholder = @program.series_image
+    @images      = @program.images.image_type(@image_type).limit(params[:per_page] || 5).order(order)
+    @images.unshift(@placeholder) if @placeholder && @images.exclude?( @placeholder )
   end
   
   def find_program

@@ -17,3 +17,6 @@ $ ->
     $my_modal.modal('toggle')
   $('.dropdown').dropdown()
   $('time').timeago()
+
+  $('img').error ->
+    $.post $(@).attr('src'), {_method: 'PUT', save: true}

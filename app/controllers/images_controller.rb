@@ -8,6 +8,9 @@ class ImagesController < ApplicationController
       logger.debug "opening #{@image.url}"
       send_file open(@image.url), :disposition => 'inline', :type => :jpg
     end
+  rescue OpenURI::HTTPError
+    @image.destroy
+    render :gone
   end
   
   def update

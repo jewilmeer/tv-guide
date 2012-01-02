@@ -1,6 +1,10 @@
 - require 'pp'
 .page-header
-  %h1= @program.name
+  %h1
+    = @program.name
+    %small= link_to 'public', @program
+%img{:src => "/images/#{@program.images.first.id}.jpg"}
+
 
 .row
   .span10
