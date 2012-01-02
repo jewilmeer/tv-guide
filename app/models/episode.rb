@@ -274,4 +274,8 @@ class Episode < ActiveRecord::Base
   def touch_episode
     program.touch unless program_name_changed?
   end
+
+  def self.valid_season_or_episode_nr nr
+    nr.to_i != 0 || nr.to_i != 99 
+  end
 end
