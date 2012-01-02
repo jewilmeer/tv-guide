@@ -25,5 +25,6 @@ $ ->
     if match = uri.match(/\/tvdb_images\/(\d+)\//)
       image_id = match[1]
       uri = document.location.origin + '/images/' + image_id + '.jpg'
+      console?.log('image broken, reloading on', uri)
     $.post uri, {_method: 'PUT', save: true}
       
