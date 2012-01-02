@@ -291,9 +291,7 @@ class Program < ActiveRecord::Base
   end
 
   def update_episodes
-    Rails.logger.debug "program changes: #{self.changes.inspect}"
     episodes.all.map do |episode|
-      Rails.logger.debug "episode: #{episode.inspect}::#{self.name}"
       episode.program_name = self.name
       episode.save!
     end
