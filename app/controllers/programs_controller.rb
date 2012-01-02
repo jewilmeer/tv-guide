@@ -6,11 +6,12 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @programs = Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction)
+    @program_cache = Program.last_updated.first
+    @programs = cache([@program_cache, params[:q]]) { Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction) }
     if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
       redirect_to @programs.first
     else
-      response.headers['Cache-Control'] = 'public, max-age=300' #cache for 5 minutes
+      # response.headers['Cache-Control'] = 'public, max-age=300' #cache for 5 minutes
       respond_with :programs => @programs
     end    
   end
