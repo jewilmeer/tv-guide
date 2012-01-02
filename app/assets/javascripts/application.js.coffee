@@ -19,4 +19,11 @@ $ ->
   $('time').timeago()
 
   $('img').error ->
-    $.post $(@).attr('src'), {_method: 'PUT', save: true}
+    uri = $(@).attr('src')
+
+    # handle s3 images differently
+    if match = uri.match(/\/tvdb_images\/(\d+)\//))
+      image_id = match[1]
+      uri = document.location.origin + '/images/' + image_id + '.jpg'
+    $.post uri, {_method: 'PUT', save: true}
+      
