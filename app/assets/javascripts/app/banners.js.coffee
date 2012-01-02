@@ -1,5 +1,5 @@
 $ ->
-  $('#banners input[type=radio]').change ->
+  $('#banners input[type=radio]').live 'change', ->
     $.ajax( 
       $(@).parents('form').attr('action'),
       type: 'POST'
