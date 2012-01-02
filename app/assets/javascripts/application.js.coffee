@@ -23,8 +23,12 @@ $ ->
 
     # handle s3 images differently
     if match = uri.match(/\/tvdb_images\/(\d+)\//)
+      console?.log('s3 image broken on', uri)
       image_id = match[1]
       uri = document.location.origin + '/images/' + image_id + '.jpg'
-      console?.log('image broken, reloading on', uri)
+      console?.log('reloading on', uri)
+    else
+      console?.log('local image broken, reloading on', uri)
+
     $.post uri, {_method: 'PUT', save: true}
       
