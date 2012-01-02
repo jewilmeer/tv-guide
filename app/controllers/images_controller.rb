@@ -18,7 +18,7 @@ class ImagesController < ApplicationController
       @image.save_image
       @image.save!
     end
-    respond_with do |format|
+    respond_to do |format|
       format.js { @image_template = render_to_string(:partial => '/images/image', :locals => {:image => @image}).html_safe }
       format.jpg { render :ok }
     end
