@@ -8,7 +8,7 @@ gem 'mechanize'
 
 gem 'pacecar'
 # used in admin
-gem 'formtastic'#, '~>1'
+gem 'formtastic-bootstrap'
 
 # for deployment
 # gem 'rubber'
