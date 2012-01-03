@@ -6,8 +6,8 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @cache_key = [Program.last_updated.first, params[:q]].compact
-    @programs = cache(@cache_key) { Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction) }
+    # @cache_key = [Program.last_updated.first, params[:q]].compact
+    @programs = Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction)
     if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
       redirect_to @programs.first
     else
