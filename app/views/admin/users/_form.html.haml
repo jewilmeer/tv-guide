@@ -1,28 +1,24 @@
-= form_for [:admin, @user] do |f|
-  = f.error_messages
-  .form_row
-    = f.label :email
-    = f.email_field :email, :class => :small
-  .form_row
-    = f.label :login, 'Username'
-    = f.text_field :login, :class => :small
-  .form_row
-    = f.label :trusted, 'Trusted?'
-    = f.check_box :trusted
-  .form_row
-    = f.label :admin, 'Admin rights'
-    = f.check_box :admin
-    
-  .actions
-    %button.save Save
+.row
+  .span8
+    .page-header
+      %h5 Change basic information
+    = semantic_form_for [:admin, @user] do |f|
+      = f.semantic_errors
+      = f.inputs do 
+        = f.input :email
+        = f.input :login, label: 'Username'
+        = f.input :trusted, label: 'Trusted?'
+        = f.input :admin, label: 'Admin rights'
 
-= form_for [:admin, @user] do |f|
-  = f.error_messages
-  .form_row
-    = f.label :password
-    = f.password_field :password, :class => :small, :autocomplete => :off
-  .form_row
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation, :class => :small, :autocomplete => :off
-  .actions
-    %button.save Save
+      = f.buttons do
+        = f.commit_button :button_html => {:class => :primary}
+
+  .span8
+    .page-header
+      %h5 Change password
+    = semantic_form_for [:admin, @user] do |f|
+      = f.semantic_errors
+      = f.inputs :password, :password_confirmation
+
+      = f.buttons do
+        = f.commit_button :button_html => {:class => :primary}
