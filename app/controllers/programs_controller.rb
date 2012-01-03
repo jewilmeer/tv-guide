@@ -7,7 +7,8 @@ class ProgramsController < ApplicationController
 
   def index
     @program_cache = Program.last_updated.first
-    @programs = cache([@program_cache, params[:q]]) { Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction) }
+    # @programs = cache([@program_cache, params[:q]]) { Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction) }
+    @programs = Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction)
     if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
       redirect_to @programs.first
     else
