@@ -1,0 +1,31 @@
+%section#image
+  .page-header
+    %h1 Image detail
+
+  .row
+    .span12
+      .page-header
+        %h4 Local image
+      %img{:src => "/images/#{@image.id}.jpg"} 
+      .page-header
+        %h4 s3 image
+      %img{:src => @image.s3_url( @image.image_type )} 
+    .span4
+      %dl
+        - if @image.image
+          %dt S3 url
+          %dd= @image.s3_url( @image.image_type ) 
+        - else
+          %dt
+        %dt On S3?
+        %dd= @image.image ? 'Yes' : 'No'
+        %dt Created
+        %dd
+          %time{:datetime => @image.created_at.getutc.iso8601}
+            = l @image.created_at, :format => :with_day
+        %dt Updated
+        %dd
+          %time{:datetime => @image.updated_at.getutc.iso8601}
+            = l @image.updated_at, :format => :with_day
+        %dt Image type
+        %dd= @image.image_type.humanize
