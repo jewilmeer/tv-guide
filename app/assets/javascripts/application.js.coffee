@@ -13,6 +13,7 @@ $ ->
     keyboard: true
     modal: true
   )
+  
   $('.btn.add_program').click ->
     $my_modal.modal('toggle')
   $('.dropdown').dropdown()
@@ -26,9 +27,13 @@ $ ->
       console?.log('s3 image broken on', uri)
       image_id = match[1]
       uri = document.location.origin + '/images/' + image_id + '.jpg'
-      console?.log('reloading on', uri)
+      console?.log 'replacing with local one'
+      $(@).attr('src', uri)
     else
       console?.log('local image broken, reloading on', uri)
-
-    $.post uri, {_method: 'PUT', save: true}
+      $.post uri, {_method: 'PUT', save: true}
       
+  $('#images .media-grid img').hover ->
+    $(@).toggleClass('fullsize')
+  ->
+    $(@).toggleClass('fullsize')

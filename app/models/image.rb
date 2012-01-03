@@ -71,9 +71,7 @@ class Image < ActiveRecord::Base
   def self.update_all_images(id_to_start = 10_000)
     # no limit to just a few
     scope = self.order('id desc').saved.where( 'id < ?', id_to_start)
-    puts "found: #{scope.count} images"
     scope.each do |image|
-      puts "id: #{image.id}"
       image.update_image
     end
   end

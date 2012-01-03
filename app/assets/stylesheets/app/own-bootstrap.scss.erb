@@ -115,3 +115,23 @@ dt {
   background-position: 0px 6px;
   padding-bottom: 6px;
 }
+
+#images .media-grid {
+  a {
+    position: relative;
+  }
+  img {
+    width: 210px;
+    height: 150px;
+    &.fullsize {
+      position: absolute;
+      width: inherit;
+      height: inherit;
+      z-index: 9;
+    }
+  }
+}
+
+#image img {
+  max-width: 700px;
+}
