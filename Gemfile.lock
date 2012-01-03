@@ -100,6 +100,9 @@ GEM
     ffi (1.0.10)
     formtastic (2.0.2)
       rails (~> 3.0)
+    formtastic-bootstrap (1.1.2)
+      formtastic
+      rails (~> 3.1.0)
     gherkin (2.5.4)
       json (>= 1.4.6)
     growl_notify (0.0.3)
@@ -348,7 +351,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   factory_girl_rails
-  formtastic
+  formtastic-bootstrap
   growl_notify
   guard
   guard-cucumber
