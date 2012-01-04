@@ -60,11 +60,11 @@ group :development, :test do
 
   # do always install these, but only load them if the requirement is met 
   gem 'rb-fsevent'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
-  gem 'growl_notify'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
+  # gem 'growl_notify'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
 
   # test stuff
   gem "rspec-rails"
-  gem 'capybara', :branch => 'asset-pipeline-support'
+  # gem 'capybara', :branch => 'asset-pipeline-support'
   gem "factory_girl_rails"
 
   # help test stuff
@@ -82,6 +82,6 @@ group :development do
   gem 'reek'
 end
 
-group :test do
-  gem 'capybara-webkit'
-end
+# group :test do
+#   gem 'capybara-webkit'
+# end
