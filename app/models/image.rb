@@ -61,6 +61,9 @@ class Image < ActiveRecord::Base
       save_image 
       save!
     end
+
+    # make sure the imagetype is known
+    image_format = 'episode' unless [:banner, :thumb, :slide, :episode, :mini_episode].include?(image_format.to_sym)
     image.url(image_format).gsub('https', 'http')
   end
   
@@ -83,10 +86,8 @@ class Image < ActiveRecord::Base
   end
 
   def update_image
-    if image
-      save_image 
-      save
-    end
+    save_image 
+    save
   end
 
   def self.purge_s3

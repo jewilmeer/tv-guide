@@ -23,16 +23,20 @@ $ ->
     uri = $(@).attr('src')
 
     # handle s3 images differently
-    regexp = new RegExp( '/tvdb_images/(\d+)/' )
+    regexp = new RegExp( /\/tvdb_images\/(\d+)\// )
     if match = uri.match(regexp)
       console?.log('s3 image broken on', uri)
       image_id = match[1]
       uri = document.location.origin + '/images/' + image_id + '.jpg'
-      console?.log 'replacing with local one'
+      console?.log 'replacing with local one', uri
       $(@).attr('src', uri)
     else
-      console?.log('local image broken, reloading on', uri)
-      $.post uri, {_method: 'PUT', save: true}
+      console?.log "none s3 image. Trying to update the image", uri
+      $.post uri, {_method: 'PUT', save: true}, =>
+        console?.log "image updated, has it worked?", @
+        $(@).attr('src', $(@).attr('src'))
+        console?.log 'reloaded', @
+
       
   $('#images .media-grid img').hover ->
     $(@).toggleClass('fullsize')

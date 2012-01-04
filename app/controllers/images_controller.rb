@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
   before_filter :get_object
   def show
-    if @image.image?
+    if @image.image? #questionmark is very important, otherwise will return a string, which equals true
       redirect_to @image.s3_url( :episode )
     else
       require 'open-uri'
@@ -14,12 +14,12 @@ class ImagesController < ApplicationController
   
   def update
     if params[:save]
-      @image.save_image
-      @image.save!
+      @image.update_image
     end
     respond_to do |format|
-      format.js { @image_template = render_to_string(:partial => '/images/image', :locals => {:image => @image}).html_safe }
-      format.jpg { render :nothing => true }
+      # format.js { @image_template = render_to_string(:partial => '/images/image', :locals => {:image => @image}).html_safe }
+      format.js { }
+      format.jpg { render :nothing => true}
     end
   end
   
