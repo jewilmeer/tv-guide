@@ -23,7 +23,8 @@ $ ->
     uri = $(@).attr('src')
 
     # handle s3 images differently
-    if match = uri.match(/\/tvdb_images\/(\d+)\//)
+    regexp = new RegExp( '/tvdb_images/(\d+)/' )
+    if match = uri.match(regexp)
       console?.log('s3 image broken on', uri)
       image_id = match[1]
       uri = document.location.origin + '/images/' + image_id + '.jpg'
