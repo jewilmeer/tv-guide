@@ -5,7 +5,7 @@ class Admin::ImagesController < AdminAreaController
     if @program
       @images = @program.images
     else
-      @images = @images.order('updated_at desc').limit(20)
+      @images = Image.order('updated_at desc').limit(20)
     end
   end
 

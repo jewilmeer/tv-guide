@@ -6,19 +6,22 @@
     .span12
       .page-header
         %h4 Local image
-      %img{:src => "/images/#{@image.id}.jpg"} 
+      %img{:src => "/images/#{@image.id}.jpg", :id => "local_image_#{@image.id}"} 
       .page-header
         %h4 s3 image
-      %img{:src => @image.s3_url( @image.image_type )} 
+      - if @image.image?
+        %img{:src => @image.s3_url(@image.image_type), :id => "s3_image_#{@image.id}"}
+      - else
+        %p.no_s3_image Not yet saved on S3
     .span4
       %dl
-        - if @image.image
+        - if @image.image?
           %dt S3 url
           %dd= @image.s3_url( @image.image_type ) 
         - else
           %dt
         %dt On S3?
-        %dd= @image.image ? 'Yes' : 'No'
+        %dd= @image.image? ? 'Yes' : 'No'
         %dt Created
         %dd
           %time{:datetime => @image.created_at.getutc.iso8601}
@@ -29,3 +32,6 @@
             = l @image.updated_at, :format => :with_day
         %dt Image type
         %dd= @image.image_type.humanize
+        %dt (re)save image
+        %dd
+          = link_to 'Save to S3 storage', image_path(@image, :save => true, :format => :js), :method => :put, :remote => true, :title => 'Download this image', :disable_with => 'Downloading...', :class => :btn

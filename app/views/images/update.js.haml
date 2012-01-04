@@ -1,1 +1,11 @@
-$('##{dom_id(@image)}').show(500).replaceWith('#{escape_javascript(@image_template.html_safe)}');
+console.log('je moeder');
+var local = $('#local_image_#{@image.id}');
+var s3    = $('#s3_image_#{@image.id}');
+var timestamp = new Date().getTime();
+
+local.attr( 'src', '/images/#{@image.id}.jpg' + '?' + timestamp );
+s3.attr( 'src', '#{@image.s3_url(@image.image_type)}' );
+
+$('.no_s3_image').replaceWith('<img src="#{@image.s3_url(@image.image_type)}" id="s3_image_#{@image.id}"/>')
+
+console.log('gaat ze dan...');
