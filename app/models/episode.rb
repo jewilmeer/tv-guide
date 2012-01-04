@@ -195,11 +195,12 @@ class Episode < ActiveRecord::Base
   
   def thumb=url
     return false unless url.present?
-    # remove existing link
-    # self.image.try(:destroy)
+
     i = find_existing_image_by_url( url )
     i.image_type = 'episode' 
-    i.save
+    i.programs << self.program unless i.programs.include? program
+    self.image = i  
+    i.save if i.changed?
   end
 
   def find_existing_image_by_url url
