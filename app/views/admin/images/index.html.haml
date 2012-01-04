@@ -2,11 +2,14 @@
   .page-header
     %h1 
       - if @program
-        == #{link_to @program.name, @program} -
+        == #{link_to @program.name, [:admin, @program]} -
       Images overview
 
   %ul.media-grid
     - @images.each do |image|
       %li[image]
         = link_to [:admin, image] do
-          %img.thumbnail{:src => "/images/#{image.id}.jpg"}
+          - if image.image?
+            %img.thumbnail{:src => image.image.url(:thumb)}
+          - else
+            %img.thumbnail{:src => "/images/#{image.id}.jpg"}

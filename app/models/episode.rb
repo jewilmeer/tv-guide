@@ -197,8 +197,9 @@ class Episode < ActiveRecord::Base
     return false unless url.present?
     # remove existing link
     # self.image.try(:destroy)
-    self.image = find_existing_image_by_url( url )
-    self.image.update_attribute :image_type, 'episode'
+    i = find_existing_image_by_url( url )
+    i.image_type = 'episode' 
+    i.save
   end
 
   def find_existing_image_by_url url
