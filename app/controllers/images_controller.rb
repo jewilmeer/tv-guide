@@ -9,7 +9,7 @@ class ImagesController < ApplicationController
     end
   rescue OpenURI::HTTPError
     @image.destroy
-    render :gone
+    render :status => :gone
   end
   
   def update
