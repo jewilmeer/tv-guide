@@ -31,7 +31,5 @@
           %dd
             - SearchTermType.all.each do |search_term|
               %span.label.success= link_to search_term.name, search_episode_path(@episode, :search_type => search_term.code)
-    
-    
       %p= @episode.description
   = link_to 'go back', :back
