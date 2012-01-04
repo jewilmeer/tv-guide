@@ -198,10 +198,11 @@ class Episode < ActiveRecord::Base
     # remove existing link
     # self.image.try(:destroy)
     self.image = find_existing_image_by_url( url )
+    self.image.update_attribute :image_type, 'episode'
   end
 
   def find_existing_image_by_url url
-    Image.find_or_initialize_by_url( url )
+    program.images.find_or_initialize_by_url( url )
   end
 
   def thumb
