@@ -1,6 +1,9 @@
 %section#images
   .page-header
-    %h1 Images overview
+    %h1 
+      - if @program
+        == #{link_to @program.name, @program} -
+      Images overview
 
   %ul.media-grid
     - @images.each do |image|

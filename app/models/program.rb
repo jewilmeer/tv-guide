@@ -252,7 +252,7 @@ class Program < ActiveRecord::Base
   def get_images
     current_image_urls = images.url.map(&:url)
     return unless tvdb_serie
-    tvdb_serie.banners.reject{|banner| current_image_urls.include?(banner.url) || banner.url.blank? }.map do |banner| 
+    tvdb_serie.banners.reject{|banner| current_image_urls.include?(banner.url) || banner.url.blank? || banner.banner_type.blank? }.map do |banner| 
       self.images.create( :url => banner.url, :image_type => banner.banner_type )
     end
   end
