@@ -5,7 +5,6 @@ class ImagesController < ApplicationController
       redirect_to @image.s3_url( :episode )
     else
       require 'open-uri'
-      logger.debug "opening #{@image.url}"
       send_file open(@image.url), :disposition => 'inline', :type => :jpg
     end
   rescue OpenURI::HTTPError
