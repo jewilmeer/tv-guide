@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   caches_page :show, :if => Proc.new{|r| Rails.env.production? }
-  
+
   # hompage
   def index
     if current_user
@@ -15,9 +15,7 @@ class PagesController < ApplicationController
   end
   
   def show
-    @page = Page.find_by_permalink(params[:id])
-    raise ActiveRecord::RecordNotFound unless @page
-    # response.headers['Cache-Control'] = "public, max-age=#{1.hour.seconds}" if Rails.env.production?
+    @page = Page.find_by_permalink!(params[:id])
   end
   
   def sitemap
