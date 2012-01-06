@@ -7,7 +7,7 @@
 
   %ul.media-grid
     - @images.each do |image|
-      %li[image]
+      %li[image]{:class => image.image_type}
         = link_to [:admin, image] do
           - if image.image?
             %img.thumbnail{:src => image.image.url(:episode)}
