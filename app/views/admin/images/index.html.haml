@@ -9,14 +9,9 @@
     %ul.isotope-control.filter
       %li
         %a.all{data: {filter_css: '*'}} All
-      %li
-        %a.poster{data: {filter_css: '[data-image_type=poster]'}} Posters
-      %li 
-        %a.fanart{data: {filter_css: '[data-image_type=fanart]'}} Fanart
-      %li 
-        %a.banner{data: {filter_css: '[data-image_type=banner]'}} Banners
-      %li
-        %a.episode{data: {filter_css: '[data-image_type=episode]'}} Episode
+      - @program.images.group(:image_type).count.each do |image_type, nr_of_images|
+        %li
+          %a{class: image_type, data: {filter_css: "[data-image_type=#{image_type}]"}}== #{image_type.humanize} (#{nr_of_images})
       %li
         %a.saved.selected{data: {filter_css: '[data-saved=]'}} Saved
 
