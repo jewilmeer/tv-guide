@@ -18,8 +18,10 @@ class Admin::ProgramsController < AdminAreaController
     @default_configuration  = ::Configuration.first
     @configuration          = @program.configuration || @program.build_configuration(:filter_data => @default_configuration.filter_data)
     @last_episode           = @program.episodes.airdate_in_past.last
-    @cover                  = @program.images.saved.random.first
-    @cover                  ||= @program.images.random.first #we prefer downloaded images...
+    @cover                  = @program.images.saved.image_type(:fanart).random.first
+    #we prefer downloaded images...
+    @cover                  ||= @program.images.image_type(:fanart).random.first 
+    @cover                  ||= @program.images.random.first
     @nav = {
       :previous => Program.where('status = ?', @program.status).order(:name).where('name > ?', @program.name).first,
       :next     => Program.where('status = ?', @program.status).order(:name).where('name < ?', @program.name).last
