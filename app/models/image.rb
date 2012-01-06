@@ -63,7 +63,7 @@ class Image < ActiveRecord::Base
     end
 
     # make sure the imagetype is known
-    image_format = 'episode' unless [:banner, :thumb, :slide, :episode, :mini_episode].include?(image_format.to_sym)
+    image_format = 'episode' unless [:banner, :thumb, :slide, :episode, :mini_episode, :original].include?(image_format.to_sym)
     image.url(image_format).gsub('https', 'http')
   end
   

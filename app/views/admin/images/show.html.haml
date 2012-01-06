@@ -11,8 +11,12 @@
         %h4 s3 image
       - if @image.image?
         %img{:src => @image.s3_url(@image.image_type), :id => "s3_image_#{@image.id}"}
+        .page-header 
+          %h4 Original
+        %img{:src => @image.s3_url(:original)}
       - else
         %p.no_s3_image Not yet saved on S3
+      
     .span4
       %dl
         - if @image.image?
@@ -35,3 +39,8 @@
         %dt (re)save image
         %dd
           = link_to 'Save to S3 storage', image_path(@image, :save => true, :format => :js), :method => :put, :remote => true, :title => 'Download this image', :disable_with => 'Downloading...', :class => :btn
+        %dt Connected program(s)
+        %dd
+          %ul.unstyled
+            - @image.programs.each do |program|
+              %li= link_to program.name, [:admin, program]
