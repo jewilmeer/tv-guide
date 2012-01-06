@@ -16,9 +16,12 @@
     %h1
       = @program.name
       %small= link_to 'public', @program
-  - if image = @program.images.random.first
-    .cover 
-      %img{:src => image_path(image, :format => :jpg)}
+  - if @cover
+    - if 
+      - if @cover.image?
+        .cover{:style => %(background-image: url(#{@cover.s3_url(:original)})) } 
+      - else
+        .cover{:style => %(background-image: url(#{image_path(@cover, :format => :jpg)})) } 
 
   .row
     .span10
