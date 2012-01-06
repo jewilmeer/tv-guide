@@ -71,7 +71,12 @@
           - else
             \-
         %dt Last episode update
-        %dd= @program.episodes.by_created_at.last.created_at.to_s(:long)
+        %dd
+          - last_updated_episode = @program.episodes.by_created_at.last
+          - if last_updated_episode
+            = @program.episodes.by_created_at.last.created_at.to_s(:long)
+          - else
+            \-
         %dt 
           = link_to 'Images', [:admin, @program, :images]
         %dd
