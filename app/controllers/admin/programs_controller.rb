@@ -19,8 +19,8 @@ class Admin::ProgramsController < AdminAreaController
     @configuration          = @program.configuration || @program.build_configuration(:filter_data => @default_configuration.filter_data)
     @last_episode           = @program.episodes.airdate_in_past.last
     @nav = {
-      :next     => Program.limit(1).order('name desc').where('name > ?', @program.name).first,
-      :previous => Program.limit(1).order('name asc').where('name > ?', @program.name).first
+      :previous => Program.where('status = ?', @program.status).order(:name).where('name > ?', @program.name).first,
+      :next     => Program.where('status = ?', @program.status).order(:name).where('name < ?', @program.name).last
     }
   end
 

@@ -270,6 +270,10 @@ class Episode < ActiveRecord::Base
   
   def tvdb_update
     e = tvdb_client.get_episode_by_id self.tvdb_id
+    unless e
+      e.destroy
+      return
+    end
     self.apply_tvdb_attributes e 
     save
   end

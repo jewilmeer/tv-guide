@@ -5,7 +5,9 @@
       - if @nav[:next].present?
         &lt; Previous: 
         = link_to @nav[:next].name, [:admin, @nav[:next]]
+      &nbsp;
     .span8.next
+      &nbsp;
       - if @nav[:previous].present?
         Next: 
         = link_to @nav[:previous].name, [:admin, @nav[:previous]]
