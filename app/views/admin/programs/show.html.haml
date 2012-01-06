@@ -67,8 +67,14 @@
         %dd= @program.episodes.airs_at_in_past.last.airs_at.to_s(:long)
         %dt Last episode update
         %dd= @program.episodes.by_created_at.last.created_at.to_s(:long)
-        %dt Custom conifiguration?
-        %dd= @program.configuration ? 'yes' : 'no'
+        %dt 
+          = link_to 'Images', [:admin, @program, :images]
+        %dd
+          = @program.images.count
+          images of which 
+          = @program.images.saved.count
+          are saved
+
 
   .page-header
     %h3 Current filter
