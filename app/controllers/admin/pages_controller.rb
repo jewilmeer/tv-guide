@@ -1,6 +1,7 @@
 class Admin::PagesController < AdminAreaController
   helper_method :sort_column, :sort_direction
   before_filter :get_page, :only => [:edit, :update]
+
   # admin homepage
   def root
   end
@@ -26,9 +27,8 @@ class Admin::PagesController < AdminAreaController
   end
   
   protected
-  def find_page
-    @page = Page.find_by_name(params[:id])
-    raise ActiveRecord::RecordNotFound unless @page
+  def get_page
+    @page = Page.find_by_permalink!(params[:id])
   end
 
   def sort_column
