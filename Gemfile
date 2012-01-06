@@ -71,6 +71,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'pickle'
   gem 'shoulda-matchers'
+  gem 'rspec-instafail'
 
   # verify
   gem 'simplecov', :require => false
@@ -78,7 +79,6 @@ end
 
 group :development do 
   gem 'cucumber-rails'
-  gem 'rspec-instafail'
   gem 'reek'
 end
 
