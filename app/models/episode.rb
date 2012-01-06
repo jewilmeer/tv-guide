@@ -196,15 +196,22 @@ class Episode < ActiveRecord::Base
   def thumb=url
     return false unless url.present?
 
+    logger.debug "==" * 20
+    logger.debug "Setting image to #{url}"
+    logger.debug "==" * 20
+
     i = find_existing_image_by_url( url )
     i.image_type = 'episode' 
     i.programs << self.program unless i.programs.include? program
     self.image = i  
-    i.save if i.changed?
+    logger.debug "==" * 20
+    logger.debug "i.changed? #{i.changed?} :: #{i.changes.inspect}"
+    logger.debug "==" * 20
+    i.save! if i.changed?
   end
 
   def find_existing_image_by_url url
-    program.images.find_or_initialize_by_url( url )
+    Image.find_or_initialize_by_url( url )
   end
 
   def thumb
