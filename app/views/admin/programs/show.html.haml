@@ -79,6 +79,8 @@
           images of which 
           = @program.images.saved.count
           are saved
+        %dt Other options
+        %dd= link_to 'Remove', [:admin, :program], :class => [:btn, :danger], :method => :delete, :data => {:'disable-with' => 'Burning episodes...'}
 
 
   .page-header
