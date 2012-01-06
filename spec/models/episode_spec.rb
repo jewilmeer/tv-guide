@@ -19,4 +19,25 @@ describe Episode do
     it { should validate_presence_of :program_id }
     it { should validate_presence_of :nr }
   end
+
+  describe "valid_season_or_episode_nr" do
+    subject { Episode.valid_season_or_episode_nr number }
+
+    context "0" do
+      let(:number) { 0 }
+      it { should be_false }
+    end
+    context "1" do
+      let(:number) { 1 }
+      it { should be_true }
+    end
+    context "2" do
+      let(:number) { 2 }
+      it { should be_true }
+    end
+    context "99" do
+      let(:number) { 99 }
+      it { should be_false }
+    end
+  end
 end

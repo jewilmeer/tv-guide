@@ -229,7 +229,8 @@ class Program < ActiveRecord::Base
   end
   
   def tvdb_episodes(only_new=false)
-    episodes = tvdb_client.get_all_episodes_by_id(self.tvdb_id).reject{|episode| Episode.valid_season_or_episode_nr episode.season_number.to_i }
+    episodes = tvdb_client.get_all_episodes_by_id(self.tvdb_id)
+    episodes = episodes.select{|episode| Episode.valid_season_or_episode_nr episode.season_number.to_i }
     if only_new 
       all_tvdb_ids = self.episodes.tvdb_id.all.map(&:tvdb_id)
       episodes = episodes.reject{|episode| all_tvdb_ids.include?(episode.id.to_i) }
@@ -245,12 +246,10 @@ class Program < ActiveRecord::Base
     tvdb_episodes.map do |e|
       episode = self.episodes.find_by_nr_and_season_nr(e.number, e.season_number) || Episode.from_tvdb( e, self )
       episode.apply_tvdb_attributes e
-      logger.debug "#{episode.full_episode_title}: #{episode.changed? ? episode.save : false}" 
     end
   end
   
   def get_images
-    logger.debug "Fetching new images"
     current_image_urls = images.url.map(&:url)
     return unless tvdb_serie
     tvdb_serie.banners.reject{|banner| current_image_urls.include?(banner.url) || banner.url.blank? || banner.banner_type.blank? }.map do |banner| 
