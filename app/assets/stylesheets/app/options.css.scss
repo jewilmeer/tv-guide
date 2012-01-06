@@ -1,0 +1,73 @@
+@import "lib/bootstrap/variables.scss";
+@import "lib/bootstrap/mixins.scss";
+
+#options {
+  @include clearfix;
+  padding-bottom: 1.0em;
+
+  h3 {
+    margin-bottom: 0.2em;
+    font-size: 15px;
+  }
+
+  h4 { 
+    font-weight: bold;
+  }
+
+  ul {
+    @include clearfix;
+    margin: 0;
+    list-style: none;
+    ul {
+      margin-left: 1.5em;
+    }
+  }
+  li {
+    float: left;
+    margin-bottom: 0.2em;
+    a {
+      display: block;
+      padding: 0.4em 0.5em;
+      background-color: #DDD;
+      color: #222;
+      font-weight: bold;
+      text-shadow: 0 1px hsla( 0, 0%, 100%, 0.5 );
+      background-image: -moz-linear-gradient( -90deg, 
+        hsla( 0, 0%, 100%, 0.5 ) , 
+        hsla( 0, 0%, 100%, 0.0 ) 
+      );
+      background-image: -webkit-gradient(linear, 0 top, 0 bottom, 
+        from( hsla( 0, 0%, 100%, 0.5 ) ), 
+        to(   hsla( 0, 0%, 100%, 0.0 ) )
+      );
+      background-image: -o-linear-gradient( -90deg, 
+        hsla( 0, 0%, 100%, 0.5 ) , 
+        hsla( 0, 0%, 100%, 0.0 ) 
+      );
+      border-left:  1px solid hsla( 0, 0%, 100%, 0.3 );
+      border-right: 1px solid hsla( 0, 0%,   0%, 0.2 );
+      &:hover {
+        background-color: #5BF;
+      }
+      &:active {
+        background-color: #39D;
+        -webkit-box-shadow: inset 0 2px 8px hsla( 0, 0%, 0%, 0.6 );
+           -moz-box-shadow: inset 0 2px 8px hsla( 0, 0%, 0%, 0.6 );
+             -o-box-shadow: inset 0 2px 8px hsla( 0, 0%, 0%, 0.6 );
+                box-shadow: inset 0 2px 8px hsla( 0, 0%, 0%, 0.6 );
+      }
+      &.selected {
+        background-color: #13F;
+        text-shadow: none;
+        color: white;
+      }
+    }
+    &:first-child a {
+      border-radius: 7px 0 0 7px;
+      border-left: none;
+    }
+    &:last-child a {
+      border-radius: 0 7px 7px 0;
+    }
+  }
+}
