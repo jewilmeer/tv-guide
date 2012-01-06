@@ -125,8 +125,11 @@ dt {
     min-height: 150px;
     width: 210px;
     height: 150px;
+    -webkit-transition: -webkit-transform ease 500ms;
+    -moz-transition: -moz-transform ease 100ms;
     &.fullsize {
-      -webkit-transform: scale(1.1), rotate(5deg)
+      -webkit-transform: scale(1.1) rotate(-2deg);
+      -moz-transform: scale(1.1) rotate(-2deg);
     }
   }
 }
