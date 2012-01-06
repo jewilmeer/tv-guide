@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 gem "rails", "~> 3.1.1"
 gem 'mail'
 gem 'jquery-rails'
+gem 'pg'
 
 # Bundle the extra gems:
 gem 'mechanize'
@@ -40,7 +41,6 @@ group :assets do
 end
 
 group :production do 
-  gem 'pg'
   # replace webrick with thin
   gem 'unicorn'
   gem 'newrelic_rpm'
