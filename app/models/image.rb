@@ -99,6 +99,10 @@ class Image < ActiveRecord::Base
     ]
   end
 
+  def saved?
+    image_file_name.present?
+  end
+
   private
   def touch_episode
     episode.touch if episode

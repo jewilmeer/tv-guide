@@ -4,12 +4,43 @@
       - if @program
         == #{link_to @program.name, [:admin, @program]} -
       Images overview
+  %section#options
+    %h3 Filter
+    %ul.isotope-control.filter
+      %li
+        %a.all{data: {filter_css: '*'}} All
+      %li
+        %a.poster{data: {filter_css: '[data-image_type=poster]'}} Posters
+      %li 
+        %a.fanart{data: {filter_css: '[data-image_type=fanart]'}} Fanart
+      %li 
+        %a.banner{data: {filter_css: '[data-image_type=banner]'}} Banners
+      %li
+        %a.episode{data: {filter_css: '[data-image_type=episode]'}} Episode
+      %li
+        %a.saved.selected{data: {filter_css: '[data-saved=]'}} Saved
 
-  %ul.media-grid
+    %h3 Sort
+    %ul.isotope-control.sort
+      %li
+        %a.created_at.selected Creation date
+      %li 
+        %a.image_type Image type
+
+  %ul.media-grid.images
     - @images.each do |image|
-      %li[image]{:class => image.image_type}
+      %li[image]{:class => image.image_type, :data => { :created_at => image.created_at.getutc.iso8601, :saved => image.saved?, :image_type => image.image_type}}
         = link_to [:admin, image] do
           - if image.image?
-            %img.thumbnail{:src => image.image.url(:episode)}
+            %img.thumbnail{:src => image.s3_url(:episode)}
           - else
-            %img.thumbnail{:src => "/images/#{image.id}.jpg"}
+            %img.thumbnail{:src => "/images/#{image.id}.jpg"}    
+  -#
+    %ul.media-grid
+      - @images.each do |image|
+        %li[image]{:class => image.image_type}
+          = link_to [:admin, image] do
+            - if image.image?
+              %img.thumbnail{:src => image.image.url(:episode)}
+            - else
+              %img.thumbnail{:src => "/images/#{image.id}.jpg"}
