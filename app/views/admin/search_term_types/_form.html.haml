@@ -1,18 +1,3 @@
-= form_for [:admin, @search_term_type] do |f|
-  = f.error_messages
-  
-  - @search_term_type.attributes.reject{|k,v| %w(created_at updated_at id).include?(k) }.each  do |k,v|
-    .form_row
-      = f.label k
-      - case SearchTermType.columns_hash[k].type
-      - when :datetime
-        = v ? l(v, :format => :long) : '-'
-      - when :text
-        = f.text_area k
-      - else
-        - if k.to_sym == :time_zone_offset
-          = f.time_zone_select k
-        - else
-          = f.text_field k
-  .actions
-    = f.submit 'Save'
+= semantic_form_for [:admin, @search_term_type] do |f|
+  = f.inputs
+  = f.buttons
