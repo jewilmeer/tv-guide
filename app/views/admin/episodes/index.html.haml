@@ -5,13 +5,10 @@
       %table.zebra-striped
         %thead
           %tr
-            %th= sortable('title', 'Episode title')
-            %th= sortable('airs_at', 'Airdate')
-            %th Nr of downloaders
-            %th
+            %th Episode title
+            %th Airdate
+            %th Edit
         %tbody
           = render @episodes
-      .content_navigation
-        = link_to :next_page, url_for( params.merge( :format => :js, :page => (params[:page] || 1).succ) )
     - else
       %p.nothing 

@@ -4,5 +4,4 @@
     \- 
     = link_to episode.full_episode_title, episode
   %td= l(episode.airs_at, :format => :long)
-  %td disabled...
-  %td= link_to icon_tag('info'), [:admin, episode]
+  %td= link_to icon_tag('page_edit'), edit_admin_episode_path(episode)
