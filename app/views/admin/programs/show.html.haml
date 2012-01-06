@@ -60,12 +60,16 @@
         %dd= pluralize(@program.program_preferences_count, 'user')
         %dt First episode aired at
         %dd
-          - if @program.episodes.by_airs_at.first.airs_at
-            = l(@program.episodes.by_airs_at.first.airs_at, :format => :long)
+          - if first_aired = @program.episodes.by_airs_at.first
+            = l(first_aired.airs_at, :format => :long)
           - else
             \-
         %dt Last aired
-        %dd= @program.episodes.airs_at_in_past.last.airs_at.to_s(:long)
+        %dd
+          - if last_aired = @program.episodes.airs_at_in_past.last
+            = last_aired.airs_at.to_s(:long)
+          - else
+            \-
         %dt Last episode update
         %dd= @program.episodes.by_created_at.last.created_at.to_s(:long)
         %dt 
