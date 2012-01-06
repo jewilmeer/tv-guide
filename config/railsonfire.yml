@@ -1,6 +1,7 @@
 --- 
 :test: 
   :commands: 
+  - cp -f config/rof-postgres-database.yml config/database.yml
   - gem install bundler --no-ri --no-rdoc
   - bundle install --without development production
   - bundle exec rake db:migrate
