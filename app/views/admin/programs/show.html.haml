@@ -42,7 +42,8 @@
           .cleafix
             %label Current search term
             .input
-              %span= link_to @program.episodes.airs_at_in_past.last.search_query('hd'), @program.episodes.airs_at_in_past.last.search_url('hd')
+              - if episode = @program.episodes.airs_at_in_past.last || @program.episodes.first
+                %span= link_to episode.search_query('hd'), episode.search_url('hd')
           .actions
             %button.btn.primary{:data => {:'disable-with' => 'Please wait...'}} Save
 
