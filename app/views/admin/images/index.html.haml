@@ -10,6 +10,6 @@
       %li[image]
         = link_to [:admin, image] do
           - if image.image?
-            %img.thumbnail{:src => image.image.url(:thumb)}
+            %img.thumbnail{:src => image.image.url(:episode)}
           - else
             %img.thumbnail{:src => "/images/#{image.id}.jpg"}
