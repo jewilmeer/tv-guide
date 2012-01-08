@@ -72,11 +72,16 @@ class ProgramsController < ApplicationController
     status = []
     program = Program.status_equals('Continuing').by_last_checked_at.limit(1).first
     status << "Updated #{program.name}" if program.tvdb_full_update
-    nzbs_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).no_downloads_present.limited(2).random
+    nzbs_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).no_downloads_present.limit(1).random
+    episodes_to_update = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).without_image.limit(1).random
     if nzbs_to_get.any?
+      status << "<<< Getting nzb's >>>"
       nzbs_to_get.each do |episode|
         status << "Downloading nzb #{episode.program.name} - #{episode.full_episode_title}: #{episode.get_nzb}"
-        episode.tvdb_update #update coverimage as well
+      end
+      status << "<<< Updating episodes >>>"
+      episodes_to_update.each do |episode|
+        status << "Updating #{episode.program.name} - #{episode.full_episode_title}: #{episode.tvdb_update}"
       end
     end
     render :text => status * "\n<br />"

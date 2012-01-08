@@ -53,6 +53,7 @@ class Episode < ActiveRecord::Base
   scope :random,                  lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
   scope :last_updated,            order('episodes.updated_at desc')
+  scope :without_image,           where('image_id IS NULL')
 
   attr_accessor :options, :name, :episode, :filters, :thumb
   

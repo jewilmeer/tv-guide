@@ -8,7 +8,9 @@ class Admin::EpisodesController < AdminAreaController
 
     @episodes = basic_scope.limit(20)
   end
-  
+  def show
+    redirect_to edit_admin_episode_path(@episode)
+  end  
   def update
     respond_to do |format|
       format.html do 
