@@ -44,3 +44,7 @@
           %ul.unstyled
             - @image.programs.each do |program|
               %li= link_to program.name, [:admin, program]
+        - if e = @image.episode
+          %dt Connected episode
+          %dd
+            = link_to e.full_episode_title, [:admin, e]

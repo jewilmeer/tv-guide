@@ -1,5 +1,20 @@
+- require 'pp'
 .page-header
   %h1== Edit #{@episode.program_name} episode
-= semantic_form_for [:admin, @episode] do |f|
-  = f.inputs
-  = f.buttons
+.row
+  .span8
+    = semantic_form_for [:admin, @episode] do |f|
+      = f.inputs
+      = f.buttons
+    .page-header
+      %h3 Raw data model
+    %pre.prettyprint
+      = raw @episode.attributes.to_yaml
+  .span8
+    .page-header
+      %h3 TheTvdb update
+    
+    = link_to 'Fetch tvdb update hash', tvdb_update_admin_episode_path(@episode, :format => :json), :class => :btn, :id => :tvdb_update, :remote => true
+
+    %pre.prettyprint.style{:style => 'display: none'}
+      

@@ -98,7 +98,7 @@
         %p
           %strong Notice
           There is no custom filter yet, editing the custom filter below will create a custom one
-    %pre= raw @program.active_configuration.filter_data.to_yaml
+    %pre.prettyprint= raw @program.active_configuration.filter_data.to_yaml
     .clearfix
       = f.label :filter_data, 'filter data (Hash)'
       .input= f.text_area :filter_data, :class => :span12
@@ -108,11 +108,11 @@
     .span8
       .page-header
         %h3 Default Filter [HASH]
-      %pre= raw @default_configuration.filter_data.pretty_inspect
+      %pre.prettyprint= raw @default_configuration.filter_data.pretty_inspect
     .span8
       .page-header
         %h3 Default Filter [YAML]
-      %pre= raw @default_configuration.filter_data.to_yaml
+      %pre.prettyprint= raw @default_configuration.filter_data.to_yaml
 
   = link_to 'Edit', edit_program_path(@program), :class => :btn
   = link_to 'Back', programs_path, :class => :btn
