@@ -1,4 +1,6 @@
 class Admin::EpisodesController < AdminAreaController
+  respond_to :html, :json, :js
+
   helper_method :sort_column, :sort_direction
   before_filter :get_episode, :except => :index
   
@@ -18,7 +20,7 @@ class Admin::EpisodesController < AdminAreaController
         redirect_to :back, :notice => 'updated!'
       end
       format.js do
-        success = @episode.download_all && @episode.tvdb_update
+        success = @episode.tvdb_update && @episode.download_all
         partial = case params[:partial]
         when 'episodes'
           'episodes'
@@ -35,6 +37,10 @@ class Admin::EpisodesController < AdminAreaController
         @episode_template = render_to_string(:partial => "/episodes/#{partial}", :locals => {:episode => @episode})
       end
     end
+  end
+
+  def tvdb_update
+    respond_with @episode.tvdb_update_hash
   end
   
   protected
