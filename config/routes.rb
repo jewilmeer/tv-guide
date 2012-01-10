@@ -55,8 +55,11 @@ TvEpisodes::Application.routes.draw do
   
   namespace :admin do
     root :to => 'pages#root'
-    resources :users, :pages, :configurations, :search_term_types, :images
-    resources :episodes, :authentications, :interactions, :program_preferences
+    resources :users, :pages, :configurations, :search_term_types
+    resources :images, :authentications, :interactions, :program_preferences
+    resources :episodes do
+      get :tvdb_update, :on => :member
+    end
     resources :programs do
       resources :images
     end

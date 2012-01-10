@@ -169,7 +169,6 @@ class Episode < ActiveRecord::Base
       download.save
     else
       logger.debug "No downloads found at #{search_url}"
-      false
     end
   end
   
@@ -190,7 +189,6 @@ class Episode < ActiveRecord::Base
     Time.zone = self.program.time_zone_offset
     @airs_at ||= read_attribute(:airs_at) || Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time )
   rescue StandardError => e
-    logger.debug "airs_at error: #{e}"
     nil
   end
   
@@ -269,14 +267,18 @@ class Episode < ActiveRecord::Base
     only_existing ? updates.reject{|tvdb_id| !tvdb_ids.include?(tvdb_id.to_s) } : updates
   end
   
+  def tvdb_update_hash
+    tvdb_client.get_episode_by_id self.tvdb_id
+  end
+
   def tvdb_update
-    e = tvdb_client.get_episode_by_id self.tvdb_id
+    e = tvdb_update_hash
     unless e
       self.destroy
       return
     end
     self.apply_tvdb_attributes e 
-    save
+    save!
   end
   def self.get_episodes_by_tvdb_id tvdb_id
     tvdb_client.get_all_episodes_by_id( tvdb_id ).reject{|e| e.season_number.to_i == 0}

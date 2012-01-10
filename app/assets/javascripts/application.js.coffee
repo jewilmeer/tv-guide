@@ -4,6 +4,7 @@
 = require './lib/bootstrap/bootstrap'
 = require './lib/timeago.jquery'
 = require './lib/jquery.isotope.min'
+= require './lib/prettify'
 = require_tree ./app
 = require_self
 ###
@@ -69,3 +70,13 @@ $ ->
       $(@).find('a').removeClass('selected')
       target.addClass('selected')
   
+  prettyPrint()
+
+  $('#tvdb_update').click ->
+    $this = $(@)
+    $.getJSON $this.attr('href'), (data) ->
+      list = $('<dl></dl>')
+      for key, value of data
+        list.append("<dt>#{key}</dt>")
+        list.append("<dd>#{value}</dd>")
+      $this.after list
