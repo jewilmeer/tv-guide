@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem "rails", "~> 3.1.1"
+gem "rails", "3.2.0.rc2"
 gem 'mail'
 gem 'jquery-rails'
 gem 'pg'
@@ -9,7 +9,7 @@ gem 'mechanize'
 
 gem 'pacecar'
 # used in admin
-gem 'formtastic-bootstrap'
+gem 'formtastic-bootstrap', :git => 'git://github.com/aaronbrethorst/formtastic-bootstrap'
 
 # for deployment
 # gem 'rubber'
@@ -30,13 +30,13 @@ gem "dalli"
 
 # # authentication
 gem 'authlogic'#, :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
-gem 'omniauth', '>=0.2.6'
+# gem 'omniauth', '>=0.2.6'
 
 gem 'haml'
 # Bundle gems for certain environments:
 group :assets do
-  gem 'coffee-rails', "~> 3.1.0"
-  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'coffee-rails', "~> 3.2.1"
+  gem 'sass-rails', "  ~> 3.2.3"
   gem 'uglifier'
 end
 
