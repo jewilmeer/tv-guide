@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem "rails", "~> 3.2.0.rc2"
+gem "rails", "3.2.0.rc1"
 gem 'mail'
 gem 'jquery-rails'
 gem 'pg'
