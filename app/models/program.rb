@@ -246,6 +246,7 @@ class Program < ActiveRecord::Base
     tvdb_episodes.map do |e|
       episode = self.episodes.find_by_nr_and_season_nr(e.number, e.season_number) || Episode.from_tvdb( e, self )
       episode.apply_tvdb_attributes e
+      episode.save if episode.changed?
     end
   end
   
