@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem "rails", "3.2.0.rc1"
+gem "rails", "~> 3.1.0"
 gem 'mail'
 gem 'jquery-rails'
 gem 'pg'
@@ -38,8 +38,8 @@ gem 'authlogic'#, :git => 'git://github.com/odorcicd/authlogic.git', :branch => 
 gem 'haml'
 # Bundle gems for certain environments:
 group :assets do
-  gem 'coffee-rails', "~> 3.2.1"
-  gem 'sass-rails', "  ~> 3.2.3"
+  gem 'coffee-rails'#, "~> 3.2.1"
+  gem 'sass-rails'#, "  ~> 3.2.3"
   gem 'uglifier'
 end
 
