@@ -1,47 +1,36 @@
 require 'rubygems'
-require 'spork'
 
-Spork.prefork do
-  require 'simplecov'
-  SimpleCov.command_name "RSpec"
-  SimpleCov.coverage_dir 'coverage/'
-  SimpleCov.start 'rails'
+require 'simplecov'
+SimpleCov.command_name "RSpec"
+SimpleCov.coverage_dir 'coverage/'
+SimpleCov.start 'rails'
 
-  # This file is copied to spec/ when you run 'rails generate rspec:install'
-  ENV["RAILS_ENV"] ||= 'test'
-  require File.expand_path("../../config/environment", __FILE__)
-  require 'rspec/rails'
-  require "authlogic/test_case"
-  
-  include Authlogic::TestCase
+# This file is copied to spec/ when you run 'rails generate rspec:install'
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+require "authlogic/test_case"
 
-  require 'database_cleaner'
-  DatabaseCleaner.strategy = :truncation
-  
-  # Requires supporting ruby files with custom matchers and macros, etc,
-  # in spec/support/ and its subdirectories.
-  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+include Authlogic::TestCase
 
-  RSpec.configure do |config|
-    config.mock_with :rspec
+require 'database_cleaner'
+DatabaseCleaner.strategy = :truncation
 
-    # short factory_girl syntax
-    config.include Factory::Syntax::Methods
+# Requires supporting ruby files with custom matchers and macros, etc,
+# in spec/support/ and its subdirectories.
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-    config.before do
-      DatabaseCleaner.start
-    end
+RSpec.configure do |config|
+  config.mock_with :rspec
 
-    config.after do
-      DatabaseCleaner.clean
-    end
+  # short factory_girl syntax
+  config.include Factory::Syntax::Methods
+
+  config.before do
+    DatabaseCleaner.start
   end
-end
 
-Spork.each_run do
-  # This code will be run each time you run your specs.
-  DatabaseCleaner.clean
-
-  FactoryGirl.factories.clear
-  FactoryGirl.find_definitions
+  config.after do
+    DatabaseCleaner.clean
+  end
 end

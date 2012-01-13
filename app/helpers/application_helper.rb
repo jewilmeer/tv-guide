@@ -14,4 +14,24 @@ module ApplicationHelper
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     link_to title, params.merge({:sort => column, :direction => direction}), {:class => css_class}
   end
+
+  def formatted_user_agent subject
+    return unless subject.present?
+
+    agent = Agent.new subject
+
+    if agent.name && agent.version && agent.os
+      return %(#{agent.name} #{agent.version} (#{agent.os}))
+    end
+    case subject
+    when /Firefox/
+      version = subject.match('Firefox/(.*)$')[1]
+      return %(Firefox #{version} (#{agent.os}))
+    when /Sabnzb/i
+      subject.split('/').join ' '
+
+    else 
+      'unknown user agent'
+    end
+  end
 end

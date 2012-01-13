@@ -25,6 +25,9 @@ gem 'aws-s3'
 gem 'newrelic_rpm'
 gem 'airbrake'
 
+# parsing user agent strings
+gem 'user-agent'
+
 # # caching
 gem "dalli"
 
@@ -52,11 +55,12 @@ group :development, :test do
   gem 'taps'
   gem 'annotate'
 
-  gem 'spork', '~> 0.9.0rc9'
+  # gem 'spork'
   gem 'guard'
-  gem 'guard-spork'
+  # gem 'guard-spork'
   gem 'guard-cucumber'
   gem 'guard-rspec'
+  # gem 'guard-spin'
 
   # do always install these, but only load them if the requirement is met 
   gem 'rb-fsevent'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
@@ -68,7 +72,7 @@ group :development, :test do
   gem "factory_girl_rails"
 
   # help test stuff
-  gem 'database_cleaner'
+  gem 'database_cleaner', :git => 'git://github.com/bmabey/database_cleaner.git'
   gem 'pickle'
   gem 'shoulda-matchers'
   gem 'rspec-instafail'
