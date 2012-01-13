@@ -46,7 +46,7 @@ class ProgramsController < ApplicationController
       current_user.interactions.create({
         :user => current_user, 
         :program => @program, 
-        :interaction_type => "update #{@program.name}",
+        :interaction_type => "update program",
         :format => params[:format] || 'html',
         :end_point => url_for(@program),
         :referer          => request.referer,
