@@ -40,5 +40,5 @@ TvEpisodes::Application.configure do
   config.action_mailer.default_url_options = { :host => 'tv-episodes.local' }
 
   # Raise exception on mass assignment protection for ActiveRecord models
-  config.active_record.mass_assignment_sanitizer = :strict
+  # config.active_record.mass_assignment_sanitizer = :strict
 end
