@@ -8,6 +8,7 @@ class EpisodesController < ApplicationController
       format.nzb  do
         require_user
         if @episode.downloads.any?
+           
           # redirect for links living on external storage
           download_type = SearchTermType.find_by_code(params[:download_type])
           download_type ||= current_user.program_preferences.with_program(@episode.program).includes(:search_term_type).first.search_term_type
@@ -22,7 +23,9 @@ class EpisodesController < ApplicationController
               :episode          => @episode, 
               :interaction_type => 'download',
               :format           => params[:format] || 'nzb',
-              :end_point        => path
+              :end_point        => path,
+              :referer          => request.referer,
+              :user_agent       => request.user_agent
             })
             redirect_to(AWS::S3::S3Object.url_for(path, download.download.bucket_name, :expires_in => 10.seconds))
           else
@@ -49,7 +52,9 @@ class EpisodesController < ApplicationController
       :episode => @episode, 
       :interaction_type => "Search #{params[:search_type]}",
       :format => params[:format] || 'nzb',
-      :end_point => end_point
+      :end_point => end_point,
+      :referer          => request.referer,
+      :user_agent       => request.user_agent
     })
     redirect_to end_point
   end

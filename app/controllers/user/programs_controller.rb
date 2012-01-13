@@ -31,6 +31,15 @@ class User::ProgramsController < UserAreaController
 
   def update
     @program = Program.find(params[:id])
+    current_user.interactions.create({
+      :user => current_user, 
+      :program => @program, 
+      :interaction_type => "update #{@program.name}",
+      :format => params[:format] || 'html',
+      :end_point => url_for(@program),
+      :referer          => request.referer,
+      :user_agent       => request.user_agent
+    })
     @program.tvdb_full_update
     render :text => 'document.location.href = document.location.href'
   end

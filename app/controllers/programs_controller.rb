@@ -43,6 +43,15 @@ class ProgramsController < ApplicationController
       # check if we can find the image
       @image_id = params[:program].detect{|k,v| k.include?('_image_id')}.try(:last)
     else
+      current_user.interactions.create({
+        :user => current_user, 
+        :program => @program, 
+        :interaction_type => "update #{@program.name}",
+        :format => params[:format] || 'html',
+        :end_point => url_for(@program),
+        :referer          => request.referer,
+        :user_agent       => request.user_agent
+      })
       @program.tvdb_full_update
       render :nothing => true
     end
