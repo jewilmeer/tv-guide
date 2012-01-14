@@ -316,7 +316,7 @@ class Episode < ActiveRecord::Base
 
   def interpolatable_attributes
     {
-      program_name: program_name,
+      program_name: program.search_name,
       title: title,
       season_nr: season_nr,
       episode_nr: nr,
