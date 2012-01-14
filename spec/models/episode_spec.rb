@@ -40,4 +40,36 @@ describe Episode do
       it { should be_false }
     end
   end
+
+  describe "interpolated_search_term" do
+    subject { episode.interpolated_search_term }
+    let(:episode) { create :episode, name: 'TestName', nr: 2, season_nr: 1 }
+    before { episode.stub(:search_term_pattern => search_term_pattern) }
+
+    context "default interpolation" do
+      let(:search_term_pattern) { "%{name} S%{season_nr}E%{episode_nr}" }
+      it { should eql "TestName S1E2" }
+    end
+    context "alternative interpolation" do
+      let(:search_term_pattern) { "%{name} S%{season_nr}x%{episode_nr}" }
+      it { should eql "TestName S1x2" }
+    end
+    context "interpolation with filled values" do
+      let(:search_term_pattern) { "%{name} S%{filled_season_nr}E%{filled_episode_nr}" }
+      it { should eql "TestName S01E02" }
+    end
+  end
+
+  describe "search_term_pattern" do
+    subject { episode.search_term_pattern }
+    let(:episode) { create :episode, name: 'TestName', nr: 2, season_nr: 1 }
+    let(:configuration) { create :configuration }
+
+    before do
+      episode.stub(:active_configuration => configuration)
+      configuration.stub(:search_term_pattern => "lorem")
+    end
+
+    it { should eql "lorem" }
+  end
 end

@@ -26,7 +26,6 @@
 #  program_name     :string(255)
 #  tvdb_program_id  :integer(4)
 #  image_id         :integer(4)
-#
 
 class Episode < ActiveRecord::Base
   include Pacecar
@@ -97,11 +96,11 @@ class Episode < ActiveRecord::Base
   def search_url( search_term_type_code )
     stt = SearchTermType.find_by_code(search_term_type_code)
     extra_terms = stt.try(:search_term) || ''
-    program.active_configuration.search_url( search_query(extra_terms), {:age => self.age})
+    active_configuration.search_url( search_query(extra_terms), {:age => self.age})
   end
   
   def search_query(extra_terms)
-    ([] << program.search_name << season_and_episode << extra_terms) * ' '
+    ([] << interpolated_search_term << extra_terms) * ' '
   end
   
   def program_name
@@ -301,5 +300,28 @@ class Episode < ActiveRecord::Base
 
   def self.valid_season_or_episode_nr nr
     nr.to_i != 0 && nr.to_i != 99 
+  end
+
+  def active_configuration
+    program.active_configuration
+  end
+
+  def search_term_pattern
+    active_configuration.search_term_pattern || "%{program_name} S%{filled_season_nr}E%{filled_episode_nr}"
+  end
+
+  def interpolated_search_term
+    search_term_pattern % interpolatable_attributes
+  end
+
+  def interpolatable_attributes
+    {
+      program_name: program_name,
+      title: title,
+      season_nr: season_nr,
+      episode_nr: nr,
+      filled_season_nr: "%02d" % season_nr,
+      filled_episode_nr: "%02d" % nr
+    }
   end
 end

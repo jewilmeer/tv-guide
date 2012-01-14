@@ -10,6 +10,7 @@ describe ::User::ProgramsController do
       action: 'aired',
       user_id: 'jewilmeer', 
       user_credentials: 'sometoken',
+  
       format: 'rss'
     end
   end
