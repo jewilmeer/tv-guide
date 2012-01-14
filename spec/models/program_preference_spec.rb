@@ -10,13 +10,12 @@ describe ProgramPreference do
   it { should validate_presence_of :search_term_type_id }
   it { should validate_presence_of :user_id }
   it { should validate_presence_of :program_id }
-  it { should validate_uniqueness_of(:program_id).scoped_to(:user_id) }
+  # it { should validate_uniqueness_of(:program_id).scoped_to(:user_id) }
 
-  context "instance" do
-    subject { build :program_preference }
-
-    it "should update the program counter cache on program" do
-      expect{ subject.save }.to change( subject.program, :program_preferences_count).by(1)
-    end
-  end
+  # context "instance" do
+  #   subject { build :program_preference }
+  #   it "should update the program counter cache on program" do
+  #     expect{ subject.save }.to change( subject.program, :program_preferences_count).by(1)
+  #   end
+  # end
 end
