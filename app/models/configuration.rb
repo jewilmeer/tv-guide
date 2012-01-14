@@ -43,10 +43,6 @@ class Configuration < ActiveRecord::Base
   
   def params
     filter_data[:nzb][:params]
-    # {
-    #   :min => '100',
-    #   :m => 'search'
-    # }
   end
   
   def additional_terms
@@ -66,6 +62,9 @@ class Configuration < ActiveRecord::Base
   
   def season_episode_param(season, episode)
     default_pattern = "S%{season}E%{episode}"
-    
+  end
+
+  def search_term_pattern format=:nzb
+    filter_data[:nzb][:search_term_pattern]
   end
 end

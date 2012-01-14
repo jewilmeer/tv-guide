@@ -1,16 +1,15 @@
-.full-column
-  .half-column.flt-left
-    .column-block
-      %h3 Current filter
-      .body
-        - form_for([:admin, @configuration]) do |f|
-          - if @configuration.new_record?
-            %p.nothing There is no custom filter yet, editing the custom filter below will create a custom one
-          .form_row
-            = f.label :filter_data
-            = f.text_area :filter_data
-  .half-column.flt-right
-    .column-block
-      %h3 Default Filter
-      .body
-        %pre= raw @configuration.filter_data.pretty_inspect
+.page-header
+  %h1 Edit this configuration
+.row
+  .span8
+    .page-header
+      %h3 Edit this configuration
+    = semantic_form_for([:admin, @configuration]) do |f|
+      = f.inputs
+      = f.buttons
+  .span8
+    .page-header
+      %h3 Current active filter
+    %pre.prettyprint
+      = raw @configuration.filter_data.pretty_inspect
+      

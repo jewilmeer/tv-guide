@@ -2,14 +2,14 @@ class Admin::ConfigurationsController < AdminAreaController
   before_filter :find_configuration, :except => [:index, :new, :create]
 
   def index
-    @configurations = Configuration.all(:include => :program)
+    @configurations = ::Configuration.all(:include => :program)
   end
 
   def new
   end
   
   def create
-    @config = Configuration.new(params[:configuration])
+    @config = ::Configuration.new(params[:configuration])
     if (filter_data = eval(params[:configuration][:filter_data])).is_a?(Hash)
       @config.filter_data = filter_data
     end
@@ -31,7 +31,7 @@ class Admin::ConfigurationsController < AdminAreaController
   
   protected
   def find_configuration
-    @configuration = Configuration.find(params[:id])
+    @configuration = ::Configuration.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @configuration
   end
 end
