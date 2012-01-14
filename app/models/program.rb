@@ -254,20 +254,10 @@ class Program < ActiveRecord::Base
     current_image_urls = images.url.map(&:url)
     return unless tvdb_serie
     tvdb_serie.banners.reject{|banner| banner.url.blank? || banner.banner_type.blank? }.map do |banner| 
-      logger.debug "===" * 20        
-      logger.debug "gaat ie dan: #{banner.inspect}"        
-      logger.debug "===" * 20        
       image = Image.find_or_initialize_by_url(banner.url)
-      logger.debug "===" * 20        
       image.programs << self unless image.programs.include? self
       image.image_type = banner.banner_type
-      logger.debug "===" * 20        
-      logger.debug "changed?: #{image.changed?}"
-      logger.debug "===" * 20        
       image.save! if image.changed?
-      logger.debug "===" * 20        
-      logger.debug "===" * 20        
-      logger.debug "===" * 20        
       image
     end
   end

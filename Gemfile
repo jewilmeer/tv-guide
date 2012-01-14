@@ -5,7 +5,7 @@ gem 'jquery-rails'
 gem 'pg'
 
 # Bundle the extra gems:
-gem 'mechanize'
+gem 'mechanize', '~> 2.0.1'
 
 gem 'pacecar'
 # used in admin
