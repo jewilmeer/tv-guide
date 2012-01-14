@@ -169,7 +169,14 @@ class Episode < ActiveRecord::Base
       download.save
     else
       logger.debug "No downloads found at #{search_url}"
+      false
     end
+  # rescue Encoding::UndefinedConversionError => e
+  #   logger.debug "=" * 20
+  #   logger.debug "episode: #{self.program} - #{self.full_episode_title} ##{self.id} could not download due to a utf-8 issue"
+  #   logger.debug e.inspect
+  #   logger.debug "=" * 20
+  #   false
   end
   
   def get_nzb( options = {} )
