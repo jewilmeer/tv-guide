@@ -6,6 +6,7 @@ class Admin::ConfigurationsController < AdminAreaController
   end
 
   def new
+    @configuration = ::Configuration.new
   end
   
   def create
@@ -29,9 +30,17 @@ class Admin::ConfigurationsController < AdminAreaController
     redirect_to :back
   end
   
+  def destroy
+    if ::Configuration.default == @configuration
+      redirect_to [:admin, :configurations], :alert => "Configuration could not be removed" 
+      return
+    end
+    @configuration.destroy
+    redirect_to [:admin, :configurations], :notice => "Configuration Removed"
+  end
+    
   protected
   def find_configuration
     @configuration = ::Configuration.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @configuration
   end
 end
