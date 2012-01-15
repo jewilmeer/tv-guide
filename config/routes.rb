@@ -58,6 +58,8 @@ TvEpisodes::Application.routes.draw do
     resources :programs do
       resources :images
     end
+
+    match '/charts/episodes' => 'charts#episodes'
   end
   
   root :to => "pages#index"

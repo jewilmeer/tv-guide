@@ -1,0 +1,15 @@
+.page-header
+  %h1 Create a new configuration
+.row
+  .span8
+    .page-header
+      %h3 Edit this configuration
+    = semantic_form_for([:admin, @configuration]) do |f|
+      = f.inputs
+      = f.buttons
+  .span8
+    .page-header
+      %h3 Current active filter
+    %pre.prettyprint
+      = raw @configuration.filter_data.pretty_inspect
+      
