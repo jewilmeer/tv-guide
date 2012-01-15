@@ -36,7 +36,7 @@ class Configuration < ActiveRecord::Base
   
   # cache the result to avoid database calls
   def self.default custom_options = {}
-    @c = self.first
+    @c = self.where('program_id IS NULL').first
     (@c.filter_data || {}).merge!( custom_options || {} )
     @c
   end
