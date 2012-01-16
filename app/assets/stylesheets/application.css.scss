@@ -4,3 +4,10 @@
 //= require_tree ./app
 //= require formtastic-bootstrap
 //= require_self
+
+a {
+  -webkit-transition: all 350ms ease-in-out;
+  -moz-transition: all 350ms ease-in-out;
+  -o-transition: all 350ms ease-in-out;
+  transition: all 350ms ease-in-out;
+}
