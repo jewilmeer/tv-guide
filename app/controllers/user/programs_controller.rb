@@ -11,6 +11,14 @@ class User::ProgramsController < UserAreaController
     @search_terms      = SearchTermType.all
   end
 
+  def show
+    if params[:id].length == 21
+      redirect_to tokened_user_programs_path current_user, params[:id][1..21], :format => params[:format]
+    else
+      render :status => :not_found, :nothing => true
+    end
+  end
+
   def aired
     @episodes           = Episode.watched_by_user(@user.programs).last_aired.downloaded.limit(30).includes(:program)
   end
