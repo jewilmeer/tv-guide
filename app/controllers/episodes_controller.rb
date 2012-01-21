@@ -27,7 +27,7 @@ class EpisodesController < ApplicationController
               :referer          => request.referer,
               :user_agent       => request.user_agent
             })
-            redirect_to(AWS::S3::S3Object.url_for(path, download.download.bucket_name, :expires_in => 10.seconds))
+            redirect_to( download.download.expiring_url 10.seconds )
           else
             search
           end

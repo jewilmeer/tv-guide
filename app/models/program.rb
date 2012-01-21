@@ -36,7 +36,6 @@
 class Program < ActiveRecord::Base
   include Pacecar
   require 'open-uri'
-  require 'aws/s3'
   
   has_many :episodes#, :through => :seasons, :dependent => :destroy
   has_many :interactions, :dependent => :nullify
@@ -117,7 +116,7 @@ class Program < ActiveRecord::Base
   end
     
   def banner_url
-    AWS::S3::S3Object.url_for(self.banner.path, self.banner.bucket_name)
+    self.banner.url
   end
   
   def airs_time
