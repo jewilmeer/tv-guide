@@ -21,7 +21,7 @@ gem 'progress_bar'
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 
 gem 'paperclip'
-gem 'aws-s3'
+gem "aws-sdk"
 gem 'newrelic_rpm'
 gem 'airbrake'
 
