@@ -18,7 +18,6 @@ TvEpisodes::Application.routes.draw do
       get :banners
     end
   
-    resources :seasons, :updates
     resources :episodes do
       member do
         get :download, :search
