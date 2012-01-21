@@ -58,10 +58,11 @@ GEM
     authlogic (3.1.0)
       activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
-    aws-s3 (0.6.2)
-      builder
-      mime-types
-      xml-simple
+    aws-sdk (1.3.2)
+      httparty (~> 0.7)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     builder (3.0.0)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -267,9 +268,9 @@ GEM
       rack
       raindrops (~> 0.6)
     user-agent (1.0.0)
+    uuidtools (2.1.2)
     webrobots (0.0.12)
       nokogiri (>= 1.4.4)
-    xml-simple (1.1.1)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -280,7 +281,7 @@ DEPENDENCIES
   airbrake
   annotate
   authlogic
-  aws-s3
+  aws-sdk
   coffee-rails
   cucumber-rails
   dalli
