@@ -1,4 +1,6 @@
 source 'http://rubygems.org'
+ruby '1.9.3'
+
 gem "rails", "~> 3.2.0"
 gem 'mail'
 gem 'jquery-rails'
@@ -43,7 +45,7 @@ group :assets do
   gem 'uglifier'
 end
 
-group :production do 
+group :production do
   # replace webrick with thin
   gem 'unicorn'
   gem 'newrelic_rpm'
@@ -62,7 +64,7 @@ group :development, :test do
   gem 'guard-rspec'
   # gem 'guard-spin'
 
-  # do always install these, but only load them if the requirement is met 
+  # do always install these, but only load them if the requirement is met
   gem 'rb-fsevent'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
   # gem 'growl_notify'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
 
@@ -81,7 +83,7 @@ group :development, :test do
   gem 'simplecov', :require => false
 end
 
-group :development do 
+group :development do
   gem 'cucumber-rails'
   gem 'reek'
 end
