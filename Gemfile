@@ -22,8 +22,8 @@ gem 'progress_bar'
 # # requirement for tvdb
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 
-gem 'paperclip'
-gem "aws-sdk"
+gem 'paperclip', '~> 3.0'
+gem "aws-sdk", '~> 1.3.4'
 gem 'newrelic_rpm'
 gem 'airbrake'
 
