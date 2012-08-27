@@ -43,7 +43,7 @@ group :assets do
   gem 'uglifier'
 end
 
-group :production do 
+group :production do
   # replace webrick with thin
   gem 'unicorn'
   gem 'newrelic_rpm'
@@ -55,21 +55,10 @@ group :development, :test do
   gem 'taps'
   gem 'annotate'
 
-  # gem 'spork'
-  gem 'guard'
-  # gem 'guard-spork'
-  gem 'guard-cucumber'
-  gem 'guard-rspec'
-  # gem 'guard-spin'
-
-  # do always install these, but only load them if the requirement is met 
-  gem 'rb-fsevent'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
-  # gem 'growl_notify'#, :require => false unless RUBY_PLATFORM =~ /darwin/i
-
   # test stuff
   gem "rspec-rails"
-  # gem 'capybara', :branch => 'asset-pipeline-support'
   gem "factory_girl_rails"
+  gem 'cucumber-rails'
 
   # help test stuff
   gem 'database_cleaner', :git => 'git://github.com/bmabey/database_cleaner.git'
@@ -80,12 +69,3 @@ group :development, :test do
   # verify
   gem 'simplecov', :require => false
 end
-
-group :development do 
-  gem 'cucumber-rails'
-  gem 'reek'
-end
-
-# group :test do
-#   gem 'capybara-webkit'
-# end
