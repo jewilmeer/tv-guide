@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem "rails", "~> 3.2.0"
+gem "rails", "~> 3.2.6"
 gem 'mail'
 gem 'jquery-rails'
 gem 'pg'
@@ -58,11 +58,9 @@ group :development, :test do
   # test stuff
   gem "rspec-rails"
   gem "factory_girl_rails"
-  gem 'cucumber-rails'
 
   # help test stuff
   gem 'database_cleaner', :git => 'git://github.com/bmabey/database_cleaner.git'
-  gem 'pickle'
   gem 'shoulda-matchers'
   gem 'rspec-instafail'
 
