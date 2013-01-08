@@ -60,6 +60,7 @@ GEM
       mocha (= 0.10.5)
     builder (3.0.4)
     cocaine (0.4.2)
+    coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -121,6 +122,7 @@ GEM
       nokogiri (~> 1.4)
       webrobots (~> 0.0, >= 0.0.9)
     metaclass (0.0.1)
+    method_source (0.8.1)
     mime-types (1.19)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
@@ -145,6 +147,10 @@ GEM
     progress_bar (0.4.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
+    pry (0.9.10)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.3.1)
     rack (1.4.3)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -204,6 +210,7 @@ GEM
     simplecov-html (0.7.1)
     sinatra (1.0)
       rack (>= 1.0)
+    slop (3.3.3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -254,6 +261,7 @@ DEPENDENCIES
   paperclip (~> 3.0)
   pg
   progress_bar
+  pry
   rails (~> 3.2.6)
   rspec-instafail
   rspec-rails

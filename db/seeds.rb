@@ -6,7 +6,6 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-Admin.create({:email => 'admin@jewilmeer.nl', :password => '123123'})
 Configuration.create({:program_id => nil, :active => true, :filter_data => {
   :nzb => {
     :url => 'http://nzbindex.nl/search/',
@@ -21,7 +20,7 @@ Configuration.create({:program_id => nil, :active => true, :filter_data => {
     :extra_search_terms => '',
     :hd_terms => '720'
   },
-  :torrent => { 
+  :torrent => {
     :url => 'http://isohunt.com/torrents/',
     :search_param => 'ihq'
   } }
