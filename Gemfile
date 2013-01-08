@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem "rails", "~> 3.2.0"
+gem "rails", "~> 3.2.6"
 gem 'mail'
 gem 'jquery-rails'
 gem 'pg'
@@ -9,7 +9,7 @@ gem 'mechanize', '~> 2.0.1'
 
 gem 'pacecar'
 # used in admin
-gem 'formtastic-bootstrap', :git => 'git://github.com/aaronbrethorst/formtastic-bootstrap'
+gem 'formtastic-bootstrap'
 
 # for deployment
 # gem 'rubber'
@@ -20,8 +20,8 @@ gem 'progress_bar'
 # # requirement for tvdb
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 
-gem 'paperclip'
-gem "aws-sdk"
+gem 'paperclip', '~> 3.0'
+gem "aws-sdk", '~> 1.3.4'
 gem 'newrelic_rpm'
 gem 'airbrake'
 
@@ -50,7 +50,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'mysql2'
   gem 'heroku'
   gem 'taps'
   gem 'annotate'
@@ -58,11 +57,9 @@ group :development, :test do
   # test stuff
   gem "rspec-rails"
   gem "factory_girl_rails"
-  gem 'cucumber-rails'
 
   # help test stuff
   gem 'database_cleaner', :git => 'git://github.com/bmabey/database_cleaner.git'
-  gem 'pickle'
   gem 'shoulda-matchers'
   gem 'rspec-instafail'
 
