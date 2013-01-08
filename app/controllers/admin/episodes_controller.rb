@@ -3,7 +3,7 @@ class Admin::EpisodesController < AdminAreaController
 
   helper_method :sort_column, :sort_direction
   before_filter :get_episode, :except => :index
-  
+
   def index
     basic_scope = Episode.order(sort_column + ' ' + sort_direction).includes(:program)
     basic_scope = basic_scope.airs_at_in_past unless params[:include_future]
@@ -12,10 +12,10 @@ class Admin::EpisodesController < AdminAreaController
   end
   def show
     redirect_to edit_admin_episode_path(@episode)
-  end  
+  end
   def update
     respond_to do |format|
-      format.html do 
+      format.html do
         @episode.update_attributes params[:episode]
         redirect_to :back, :notice => 'updated!'
       end
@@ -42,19 +42,19 @@ class Admin::EpisodesController < AdminAreaController
   def tvdb_update
     respond_with @episode.tvdb_update_hash
   end
-  
+
   protected
   def get_episode
     @episode = Episode.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @episode
   end
-  
+
   def sort_column
     Episode.column_names.include?(params[:sort]) ? params[:sort] : "airs_at"
   end
-  
+
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
-  
+
 end
