@@ -4,14 +4,14 @@
       %h5 Change basic information
     = semantic_form_for [:admin, @user] do |f|
       = f.semantic_errors
-      = f.inputs do 
+      = f.inputs do
         = f.input :email
         = f.input :login, label: 'Username'
         = f.input :trusted, label: 'Trusted?'
         = f.input :admin, label: 'Admin rights'
 
-      = f.buttons do
-        = f.commit_button :button_html => {:class => :primary}
+      = f.actions do
+        = f.action :submit, as: :button, :button_html => {:class => :primary}
 
   .span8
     .page-header
@@ -20,5 +20,5 @@
       = f.semantic_errors
       = f.inputs :password, :password_confirmation
 
-      = f.buttons do
-        = f.commit_button :button_html => {:class => :primary}
+      = f.actions do
+        = f.action :submit, as: :button, :button_html => {:class => :primary}
