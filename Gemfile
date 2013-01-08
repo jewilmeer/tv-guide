@@ -1,7 +1,5 @@
 source 'http://rubygems.org'
-# ruby '1.9.3'
-
-gem "rails", "~> 3.2.0"
+gem "rails", "~> 3.2.6"
 gem 'mail'
 gem 'jquery-rails'
 gem 'pg'
@@ -11,7 +9,7 @@ gem 'mechanize', '~> 2.0.1'
 
 gem 'pacecar'
 # used in admin
-gem 'formtastic-bootstrap', :git => 'git://github.com/aaronbrethorst/formtastic-bootstrap'
+gem 'formtastic-bootstrap'
 
 # for deployment
 # gem 'rubber'
@@ -52,7 +50,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'mysql2'
   gem 'heroku'
   gem 'taps'
   gem 'annotate'
@@ -60,19 +57,12 @@ group :development, :test do
   # test stuff
   gem "rspec-rails"
   gem "factory_girl_rails"
-  gem 'cucumber-rails'
 
   # help test stuff
   gem 'database_cleaner', :git => 'git://github.com/bmabey/database_cleaner.git'
-  gem 'pickle'
   gem 'shoulda-matchers'
   gem 'rspec-instafail'
 
   # verify
   gem 'simplecov', :require => false
-end
-
-group :development do
-  gem 'cucumber-rails'
-  gem 'reek'
 end
