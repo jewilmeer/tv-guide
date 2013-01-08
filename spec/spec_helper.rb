@@ -24,7 +24,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
 
   # short factory_girl syntax
-  config.include Factory::Syntax::Methods
+  config.include FactoryGirl::Syntax::Methods
 
   config.before do
     DatabaseCleaner.start
