@@ -1,5 +1,0 @@
-if [[ -s "/Users/jw/.rvm/environments/ruby-1.9.3-p194@tv-episodes" ]] ; then
-  . "/Users/jw/.rvm/environments/ruby-1.9.3-p194@tv-episodes"
-else
-  rvm --create use "ruby-1.9.3-p194@tv-episodes"
-fi
