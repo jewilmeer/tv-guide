@@ -1,0 +1,53 @@
+%ul.nav.nav-tabs#program-detail-tabs{:data => {:toggle => :tabs}}
+  %li= link_to 'Banner', '#banner', 'data-toggle' => 'tab'
+  %li= link_to 'More information', '#more-info', 'data-toggle' => 'tab'
+
+.tab-content
+  .tab-pane#banner
+    .row
+      .span8
+        - if @featured_image
+          %img{:src => image_path(@featured_image, :format => :jpg), :width => 700, :height => 129}
+        - else
+          = image_tag( @program.banner_url, :size => '940x173') if @program.banner
+      .span4
+        .panel
+          %ul.unstyled
+            %li
+              - if @program.users.any?
+                %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
+              - else
+                No watchers
+            %li== Last updated #{distance_of_time_in_words_to_now(@program.updated_at)} ago
+            %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
+            - if current_user
+              %li= link_to 'Check for updates', user_program_path(current_user, @program), :id => :check_update, :remote => true, :method => :put, :disable_with => 'Checking...'
+              = render :partial => 'guide_control', :locals => {:program => @program}
+
+  .tab-pane#more-info
+    %table.table
+      %tr
+        %th{:width => 100} Runtime
+        %td= pluralize( @program.runtime, 'minute')
+        %th{:width => 100} Genres
+        %td= @program.genres.map(&:name).to_sentence
+        %th{:width => 100} Network
+        %td{:width => 150}= @program.network
+      %tr
+        %th Next episode
+        %td
+          - if episode = @program.episodes.next_airing.first
+            = l episode.airs_at, :format => :long
+          - else
+            \-
+        %th Thetvdb rating
+        %td= @program.tvdb_rating || 'Not available'
+        %th Content rating
+        %td= @program.contentrating || 'Not available'
+      - if @program.actors.any?
+        %tr
+          %th.top Actors
+          %td{:colspan => 5}= @program.actors.to_sentence(:last_word_connector => ' and ')
+      %tr
+        %th.top Overview
+        %td{:colspan => 5}= @program.overview

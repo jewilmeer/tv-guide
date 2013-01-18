@@ -2,24 +2,36 @@
 %html{html_attrs('en'), 'xmlns:fb' => 'http://www.facebook.com/2008/fbml'}
   %head
     %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
-    = stylesheet_link_tag :application
+
+    = stylesheet_link_tag 'application'
     %meta{:name=>"robots",        :content=>"index, follow"}
     %meta{:name=>"revisit-after", :content=>"1 days"}
     %meta{:name=>"author",        :content=>"Jan-Willem van der Meer"}
     %meta{:name =>'csrf-token',    :content => form_authenticity_token}
     %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
-    %link{:rel => 'shortcut icon', :href=>'/images/favicon.ico', :type=>'image/x-icon'}
-    
+    %link{:rel => 'shortcut icon', :href=>'/favicon.ico', :type=>'image/x-icon'}
+
     %title== Digital TV guide #{yield(:title)}
     = yield :head
-  %body
-    %header
-      .content= render 'layouts/header'
-    %section
-      .content
-        = render :partial => 'layouts/notifications_and_errors'
-        = yield
-    %footer
+  %body{:class => ('admin' if current_user.try(:admin))}
+    = render 'header'
+
+    #main.container
+      = render 'notifications_and_errors'
+      = yield
     = yield :bottom
-    = render 'layouts/bottom_js'
-    
+
+    :javascript
+      if ( typeof window.JSON === 'undefined' ) { document.write('<script src="http://#{request.host}/javascripts/vendor/json2.js"><\/script>');}
+    = javascript_include_tag :application
+    - if Rails.env.production?
+      :javascript
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-151290-3']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();

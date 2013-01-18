@@ -56,9 +56,11 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
+    bootstrap-sass (2.1.1.0)
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
+    chunky_png (1.2.6)
     cocaine (0.4.2)
     coderay (1.0.8)
     coffee-rails (3.2.2)
@@ -68,6 +70,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     connection_pool (1.0.0)
     dalli (2.6.0)
     diff-lcs (1.1.3)
@@ -86,6 +94,7 @@ GEM
     formtastic-bootstrap (2.0.0)
       formtastic (~> 2.2)
       formtastic-bootstrap
+    fssm (0.2.9)
     girl_friday (0.11.2)
       connection_pool (~> 1.0)
       rubinius-actor
@@ -204,6 +213,9 @@ GEM
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
+    simple_form (2.0.4)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -246,7 +258,9 @@ DEPENDENCIES
   annotate
   authlogic
   aws-sdk (~> 1.3.4)
+  bootstrap-sass
   coffee-rails
+  compass-rails
   dalli
   database_cleaner!
   factory_girl_rails
@@ -267,6 +281,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   shoulda-matchers
+  simple_form
   simplecov
   taps
   tvdb_party!

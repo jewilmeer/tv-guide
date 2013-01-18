@@ -16,19 +16,19 @@
 #
 
 class Image < ActiveRecord::Base
-  
+
   has_and_belongs_to_many :programs, :uniq => true
   has_one :episode
 
   validates :url, :uniqueness => true
 
-  scope :image_type,  lambda{|type| where('images.image_type = ?', type)}
+  scope :image_type,  ->(type) { where('images.image_type = ?', type) }
   scope :fanart,      where('images.image_type = ?', 'fanart')
   scope :series,      where('images.image_type = ?', 'series')
   scope :url,         select('images.id, images.url')
   scope :only_id,     select('images.id')
-  scope :random,      lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
-  scope :distinctly,  lambda{|columns| select("DISTINCT #{columns}") }
+  scope :random,      ->{ order('RANDOM()') }
+  scope :distinctly,  ->(columns) { select("DISTINCT #{columns}") }
   scope :saved,       where('image_file_name IS NOT NULL')
 
   before_save :save_image, :if => Proc.new{|i| i.url.present? && i.should_save == true }
@@ -46,11 +46,11 @@ class Image < ActiveRecord::Base
     :storage            => 's3',
     :styles             => { :banner => "642x220#", :thumb => "100x100>", :slide => '655x368>', :episode => '300x180^', :mini_episode => '140x80#' },
     :url                => ':s3_alias_url'
-  
+
   def filename
     "image.jpg"
   end
-  
+
   def save_image
     require 'open-uri'
     open(url, "r:UTF-8") {|tmp_file| self.image= tmp_file}
@@ -58,15 +58,15 @@ class Image < ActiveRecord::Base
 
   def s3_url(image_format = 'banner')
     unless image?
-      save_image 
-      save!
+      # save_image
+      # save!
     end
 
     # make sure the imagetype is known
     image_format = 'episode' unless [:banner, :thumb, :slide, :episode, :mini_episode, :original].include?(image_format.to_sym)
     image.url(image_format).gsub('https', 'http')
   end
-  
+
   def self.from_tvdb( result )
     find_or_initialize_by_url( result.url, {:image_type => result.banner_type})
   end
@@ -86,7 +86,7 @@ class Image < ActiveRecord::Base
   end
 
   def update_image
-    save_image 
+    save_image
     save
   end
 
@@ -122,7 +122,7 @@ class Image < ActiveRecord::Base
     when 'production'
       'images.jewilmeer.com'
     else
-      'dev-images.jewilmeer.com'      
+      'dev-images.jewilmeer.com'
     end
   end
 end

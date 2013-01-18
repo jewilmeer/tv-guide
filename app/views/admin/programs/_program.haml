@@ -2,7 +2,7 @@
   %td
     = link_to truncate(program.name, :length => 40), [:admin, program]
     - unless program.series_image
-      %span.notice.label= 'No banner' 
+      %span.label-warning.label= 'No banner'
   %td
     - if next_aired = program.episodes.airs_at_in_future.first
       %abbr{:title => next_aired.full_episode_title}
@@ -22,6 +22,9 @@
     - else
       \-
   %td
-    = link_to icon_tag('info'), [:admin, program]
-    = link_to icon_tag('page_edit'), edit_admin_program_path(program)
-    = link_to icon_tag('delete'), [:admin, program], :confirm => 'Are you sure?', :method => :delete
+    = link_to [:admin, program] do
+      %i.icon-eye-open
+    = link_to edit_admin_program_path(program) do
+      %i.icon-edit
+    = link_to [:admin, program], :confirm => 'Are you sure?', :method => :delete do
+      %i.icon-trash

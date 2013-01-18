@@ -2,7 +2,7 @@
 = require jquery
 = require jquery_ujs
 = require './lib/prettify'
-= require './lib/bootstrap/bootstrap'
+= require bootstrap
 = require './lib/timeago.jquery'
 = require './lib/jquery.isotope.min'
 = require_tree ./app
@@ -21,9 +21,9 @@ $ ->
     itemSelector: '.image'
     filter: $('ul.isotope-control.filter .saved').data('filter_css')
     getSortData:
-      created_at: (elm) -> 
+      created_at: (elm) ->
         elm.data('created_at')
-      image_type: (elm) -> 
+      image_type: (elm) ->
         elm.data('image_type')
 
   $('ul.isotope-control.sort, ul.isotope-control.filter').click (e) ->
@@ -41,7 +41,7 @@ $ ->
       # add correct selected state
       $(@).find('a').removeClass('selected')
       target.addClass('selected')
-  
+
   prettyPrint()
 
   $('#tvdb_update').click ->

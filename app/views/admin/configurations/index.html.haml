@@ -1,7 +1,8 @@
-%h1 Configurations
+.page-header
+  %h1 Configurations
 
 - if @configurations.any?
-  %table.list
+  %table.table.table-striped
     %tr
       %th Program
       %th Created
@@ -14,9 +15,10 @@
         %td= configuration.created_at.to_s :long
         %td= configuration.updated_at.to_s :long
         %td
-          = link_to 'Show', [:admin, configuration]
-          = link_to 'Edit', edit_admin_configuration_path(configuration)
-          = link_to 'Delete', [:admin, configuration], :method => :delete
-  
+          = link_to edit_admin_configuration_path(configuration) do
+            %i.icon-edit
+          = link_to [:admin, configuration], :method => :delete do
+            %i.icon-trash
+
 - else
   %p.nothing Not even a default filter exist!

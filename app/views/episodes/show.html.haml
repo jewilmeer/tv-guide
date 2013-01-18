@@ -5,31 +5,32 @@
       = link_to @episode.program.name, @episode.program
       %small== - Season #{@episode.season_nr} - #{@episode.title}
   .row
-    .span6
+    .span3
       - if image = @episode.image || @episode.program.images.saved.random.first
-        %img{:src => image.s3_url(:episode), :align => :left, :class => :fancy}
-    .span10
+        %img{:src => image.s3_url(:episode), :align => :left, :class => 'img-polaroid'}
+    .span9
       %dl
-        %dt Airing
-        %dd
-          - if @episode.airs_at
-            = pretty_date @episode.airs_at.to_date
-          - else
-            Unknown
-        - if current_user.try(:trusted?)
-          -# downloads
-          %dt.download Downloads
+        .panel
+          %dt Airing
           %dd
-            - if @episode.downloads.any?
-              - @episode.downloads.includes(:search_term_type).each do |download|
-                - next unless download.search_term_type
-                %span.label.success
-                  = link_to download.search_term_type.name, episode_path(@episode, :download_type => download.download_type ,:format => :nzb), :title => download.origin
+            - if @episode.airs_at
+              = pretty_date @episode.airs_at.to_date
             - else
-              %span.label No downloads available
-          %dt.search Searches
-          %dd
-            - SearchTermType.all.each do |search_term|
-              %span.label.success= link_to search_term.name, search_episode_path(@episode, :search_type => search_term.code)
-      %p= @episode.description
-  = link_to 'go back', :back
+              Unknown
+          - if current_user.try(:trusted?)
+            %dt Actions
+            %dd
+              .download
+                %i.icon-download-alt
+                - if @episode.downloads.includes(:search_term_type).any?
+                  - @episode.downloads.includes(:search_term_type).each do |download|
+                    - next unless download.search_term_type
+                    %span.label.success
+                      = link_to download.search_term_type.name, episode_path(@episode, :download_type => download.download_type ,:format => :nzb), :title => download.origin
+                - else
+                  %span.label No downloads available
+              .search
+                %i.icon-search
+                - SearchTermType.all.each do |search_term|
+                  %span.label.success= link_to search_term.name, search_episode_path(@episode, :search_type => search_term.code)
+          %p= @episode.description
