@@ -5,13 +5,15 @@ gem "rails", "~> 3.2.6"
 gem 'mail'
 gem 'jquery-rails'
 gem 'pg'
+gem 'bootstrap-sass'
 
 # Bundle the extra gems:
 gem 'mechanize', '~> 2.0.1'
 
 gem 'pacecar'
 # used in admin
-gem 'formtastic-bootstrap'
+gem 'formtastic-bootstrap' #depricated
+gem 'simple_form'
 
 # for deployment
 # gem 'rubber'
