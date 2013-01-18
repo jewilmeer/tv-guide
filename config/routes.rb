@@ -28,10 +28,9 @@ TvEpisodes::Application.routes.draw do
 
   resources :images
   resources :episodes do
-    member do
-      get :search
-    end
+    get :search, on: :member
   end
+
   resource :user_session, :only => [:new, :create, :destroy]
 
   resources :users, :module => 'user', :path => '/user' do
@@ -39,17 +38,12 @@ TvEpisodes::Application.routes.draw do
     resources :programs do
       get :aired, :on => :collection
     end
-    resources :authentications, :program_preferences
   end
-
-  # match '/oauth/start',     :to => 'oauths#start'
-  # match '/oauth/callback',  :to => 'oauths#callback'
-  # match '/oauth',           :to => 'oauths#destroy'
 
   namespace :admin do
     root :to => 'pages#root'
     resources :users, :configurations, :search_term_types
-    resources :images, :authentications, :interactions, :program_preferences
+    resources :images, :interactions, :program_preferences
     resources :episodes do
       get :tvdb_update, :on => :member
     end

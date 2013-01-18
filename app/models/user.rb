@@ -46,13 +46,10 @@ class User < ActiveRecord::Base
   has_many :search_term_types, :through => :program_preferences
   has_many :programs, :through => :program_preferences
   has_and_belongs_to_many :episodes
-  has_many :authentications
   has_many :interactions, :dependent => :nullify
 
   after_create :notify_of_registration
   before_update :notify_of_special_features
-
-  # attr_accessible :login, :password, :password_confirmation
 
   def self.find_by_email_or_login login
     find_by_email(login) || find_by_login(login)
@@ -60,7 +57,7 @@ class User < ActiveRecord::Base
 
   def password_required?
     return false if crypted_password.present?
-    (authentications.empty? || password.present?)
+    password.present?
   end
 
   def to_param
@@ -79,18 +76,5 @@ class User < ActiveRecord::Base
 
   def filtered_email
     self.email.downcase
-  end
-
-  def gravatar_url(size=nil)
-    if size.present? && size.to_i.between?(1, 512)
-      gravatar_base_url + "?s=#{size.to_i}&amp;d=mm"
-    else
-      gravatar_base_url + "?d=mm"
-    end
-  end
-
-  def gravatar_base_url
-    logger.debug
-    'http://www.gravatar.com/avatar/' + Digest::MD5.hexdigest( self.filtered_email ).to_s
   end
 end
