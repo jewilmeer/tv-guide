@@ -5,6 +5,7 @@
 = require bootstrap
 = require './lib/timeago.jquery'
 = require './lib/jquery.isotope.min'
+= require './lib/endless_scroll'
 = require_tree ./app
 = require_self
 ###
@@ -52,3 +53,9 @@ $ ->
         list.append("<dt>#{key}</dt>")
         list.append("<dd>#{value}</dd>")
       $this.after list
+
+
+  $(window).endlessScroll
+    inflowPixels: 300
+    callback: (fireSequence, pageSequence, scrollDirection) ->
+      console.log fireSequence, pageSequence, scrollDirection
