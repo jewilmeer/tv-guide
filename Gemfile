@@ -10,8 +10,6 @@ gem 'pg'
 gem 'mechanize', '~> 2.0.1'
 
 gem 'pacecar'
-# used in admin
-gem 'formtastic-bootstrap' #depricated
 gem 'simple_form'
 
 # for deployment
