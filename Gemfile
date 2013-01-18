@@ -8,36 +8,24 @@ gem 'pg'
 
 # Bundle the extra gems:
 gem 'mechanize', '~> 2.0.1'
-
 gem 'pacecar'
 gem 'simple_form'
-
-# for deployment
-# gem 'rubber'
-
-# # terminal
 gem 'progress_bar'
-
-# # requirement for tvdb
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
-
 gem 'paperclip', '~> 3.0'
 gem "aws-sdk", '~> 1.3.4'
 gem 'newrelic_rpm'
 gem 'airbrake'
-
-# parsing user agent strings
 gem 'user-agent'
+gem 'haml'
+gem 'kaminari'
 
-# # caching
+# caching
 gem "dalli"
 
-# # authentication
+# authentication
 gem 'authlogic'#, :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
-# gem 'omniauth', '>=0.2.6'
 
-gem 'haml'
-# Bundle gems for certain environments:
 group :assets do
   gem 'coffee-rails'#, "~> 3.2.1"
   gem 'sass-rails'#, "  ~> 3.2.3"
