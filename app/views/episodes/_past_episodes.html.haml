@@ -4,6 +4,5 @@
     - if date != episode.airs_at.to_date
       - date = episode.airs_at.to_date
       %dt
-        .page-header
-          %h5= pretty_date date
+        %h5= pretty_date date
     = render 'episodes/past_episode', {:episode => episode}
