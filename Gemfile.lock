@@ -89,11 +89,6 @@ GEM
       factory_girl (~> 4.1.0)
       railties (>= 3.0.0)
     fattr (2.2.1)
-    formtastic (2.2.1)
-      actionpack (>= 3.0)
-    formtastic-bootstrap (2.0.0)
-      formtastic (~> 2.2)
-      formtastic-bootstrap
     fssm (0.2.9)
     girl_friday (0.11.2)
       connection_pool (~> 1.0)
@@ -264,7 +259,6 @@ DEPENDENCIES
   dalli
   database_cleaner!
   factory_girl_rails
-  formtastic-bootstrap
   haml
   heroku
   jquery-rails
