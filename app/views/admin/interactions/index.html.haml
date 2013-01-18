@@ -1,11 +1,11 @@
 %section
   .page-header
-    %h1 
+    %h1
       Interactions
       %small== Current time #{Time.now.to_s(:long)} #{Time.zone}
 
   - if @interactions.any?
-    %table.zebra-striped
+    %table.table.table-striped.table-bordered
       %thead
         %tr
           %th User
@@ -17,8 +17,8 @@
       %tbody
         - @interactions.each do |interaction|
           %tr[interaction]
-            %td= interaction.user.try(:login) || '-'
-            %td= interaction.program.try(:name) || '-'
+            %td= link_to interaction.user.login, interaction.user
+            %td= link_to interaction.program.try(:name), interaction.program
             %td= interaction.try(:episode).try(:title) || '-'
             %td= interaction.interaction_type.humanize
             %td= formatted_user_agent interaction.user_agent

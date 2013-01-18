@@ -1,6 +1,6 @@
 %section#images
   .page-header
-    %h1 
+    %h1
       - if @program
         == #{link_to @program.name, [:admin, @program]} -
       Images overview
@@ -19,7 +19,7 @@
     %ul.isotope-control.sort
       %li
         %a.created_at.selected Creation date
-      %li 
+      %li
         %a.image_type Image type
 
   %ul.media-grid.images
@@ -29,4 +29,4 @@
           - if image.image?
             %img.thumbnail{:src => image.s3_url(:episode)}
           - else
-            %img.thumbnail{:src => "/images/#{image.id}.jpg"}    
+            %img.thumbnail{:src => "/images/#{image.id}.jpg"}

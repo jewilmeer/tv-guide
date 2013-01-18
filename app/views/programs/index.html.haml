@@ -1,7 +1,7 @@
 %section
   .page-header
     %h1
-      - if params[:search] 
+      - if params[:search]
         == Results for #{params[:search]}
       - else
         List all programs
@@ -9,7 +9,7 @@
 
   - if @programs.any?
     - cache [Date.today, Program.last_updated.first, params[:q]] do
-      %table.zebra-striped
+      %table.table.table-striped
         %thead
           %tr
             %th Name
@@ -34,6 +34,5 @@
                   \-
               %td== #{program.runtime} minutes
   - else
-    %p.nothing 
+    %p.nothing
       No programs found!
-    

@@ -1,30 +1,27 @@
 - require 'pp'
 %section#program
-  .row.page_nav
-    .span8.prev
-      - if @nav[:next].present?
-        &lt; Previous: 
-        = link_to @nav[:next].name, [:admin, @nav[:next]]
-      &nbsp;
-    .span8.next
-      &nbsp;
-      - if @nav[:previous].present?
-        Next: 
-        = link_to @nav[:previous].name, [:admin, @nav[:previous]]
-        &gt;
+  %ul.pager
+    - if @nav[:next].present?
+      %li.previous
+        = link_to [:admin, @nav[:next]] do
+          == &larr; #{@nav[:next].name}
+    - if @nav[:previous].present?
+      %li.next
+        = link_to [:admin, @nav[:previous]] do
+          == #{@nav[:previous].name} &rarr;
+
   .page-header
     %h1
       = @program.name
       %small= link_to 'public', @program
   - if @cover
-    - if 
-      - if @cover.image?
-        .cover{:style => %(background-image: url(#{@cover.s3_url(:original)})) } 
-      - else
-        .cover{:style => %(background-image: url(#{image_path(@cover, :format => :jpg)})) } 
+    - if @cover.image?
+      .cover{:style => %(background-image: url(#{@cover.s3_url(:original)})) }
+    - else
+      .cover{:style => %(background-image: url(#{image_path(@cover, :format => :jpg)})) }
 
   .row
-    .span10
+    .span8
       .page-header
         %h3 Show summary
       %p= @program.overview
@@ -47,8 +44,8 @@
           .actions
             %button.btn.primary{:data => {:'disable-with' => 'Please wait...'}} Save
 
-    .span6
-      .page-header    
+    .span4
+      .page-header
         %h3 Show statistics
       %dl
         %dt Nr of episodes
@@ -77,11 +74,11 @@
             = @program.episodes.by_created_at.last.created_at.to_s(:long) rescue '-'
           - else
             \-
-        %dt 
+        %dt
           = link_to 'Images', [:admin, @program, :images]
         %dd
           = @program.images.count
-          images of which 
+          images of which
           = @program.images.saved.count
           are saved
         %dt Other options
@@ -92,12 +89,12 @@
     %h3 Current filter
 
   - if @configuration.new_record?
-    .alert-message.warning 
+    .alert-message.warning
       %p
         %strong Notice
         There is no custom filter yet, editing the custom filter below will create a custom one
   %pre.prettyprint= raw @program.active_configuration.filter_data.pretty_inspect
-  
+
   = form_for([:admin, @configuration]) do |f|
     = f.hidden_field :program_id
     .clearfix
@@ -106,14 +103,11 @@
     .actions
       %button.btn.primary{:data => {:'disable-with' => 'Please wait...'}}= @configuration.new_record? ? 'Create' : 'Update'
   .row
-    .span8
+    .span6
       .page-header
         %h3 Default Filter [HASH]
       %pre.prettyprint= raw @default_configuration.filter_data.pretty_inspect
-    .span8
+    .span6
       .page-header
         %h3 Default Filter [YAML]
       %pre.prettyprint= raw @default_configuration.filter_data.to_yaml
-
-  = link_to 'Edit', edit_program_path(@program), :class => :btn
-  = link_to 'Back', programs_path, :class => :btn

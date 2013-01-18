@@ -1,3 +1,6 @@
-= semantic_form_for [:admin, @search_term_type] do |f|
-  = f.inputs
-  = f.buttons
+= simple_form_for [:admin, @search_term_type], html: { class: 'form-horizontal' } do |f|
+  = f.input :name
+  = f.input :code
+  = f.input :search_term
+
+  = f.button :submit
