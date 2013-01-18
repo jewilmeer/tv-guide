@@ -3,15 +3,16 @@ class User::UsersController < UserAreaController
   before_filter :require_ownership, :only => [:edit, :update]
   def show
     @user = User.find_by_login(params[:id], :include => :programs)
+    redirect_to user_programs_path(@user)
   end
 
   def new
     @user = User.new
     if session[:omniauth]
-      @user.apply_omniauth(session[:omniauth]) 
+      @user.apply_omniauth(session[:omniauth])
     end
   end
-  
+
   def create
     @user = User.new(params[:user])
     @user.apply_omniauth(session[:omniauth]) if session[:omniauth].present?
@@ -24,12 +25,12 @@ class User::UsersController < UserAreaController
   end
 
   def edit
-    
+
   end
-  
+
   def update
     session[:return_to] = nil
-    
+
     current_user.update_attributes!(params[:user])
     flash[:notice] = 'Account updated'
     redirect_to edit_user_path(current_user)
@@ -44,6 +45,6 @@ class User::UsersController < UserAreaController
     render :status => 401, :text => 'not allowed' unless current_user == @user
     logger.debug "current_user: #{current_user.inspect}"
     logger.debug "user: #{@user.inspect}"
-    
+
   end
 end

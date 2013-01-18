@@ -14,34 +14,8 @@ body {
 }
 .right-rss {
   float: right;
-  margin-top: 8px; 
+  margin-top: 8px;
 }
-.show-grid {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.show-grid [class*="span"] {
-  background: #eee;
-  text-align: center;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  min-height: 30px;
-  line-height: 30px;
-}
-.show-grid:hover [class*="span"] {
-  background: #ddd;
-}
-.show-grid .show-grid {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.show-grid .show-grid [class*="span"] {
-  background-color: #ccc;
-}
-
-.hidden {
-  display: none; }
 span.label a {
   color: white;
 }
@@ -98,23 +72,6 @@ dt {
 .flt-right {
   float: right;
 }
-.default-icon {
-  background-repeat: no-repeat;
-}
-.icon-rss {
-  @extend .default-icon;
-  background-image: url(<%= asset_data_uri "icons/combined/24x24/rss.png" %>);
-  height: 24px;
-  width: 24px;
-}
-.icon-delete {
-  @extend .default-icon;
-  background-image: url(<%= asset_data_uri "icons/combined/16x16/delete.png" %>);
-  height: 16px;
-  width: 16px;
-  background-position: 0px 6px;
-  padding-bottom: 6px;
-}
 
 #images .images {
   a {
@@ -138,7 +95,7 @@ dt {
   max-width: 700px;
 }
 
-#program .cover { 
+#program .cover {
   overflow: hidden;
   height: 500px;
   width: 940px;
@@ -153,3 +110,4 @@ dt {
     text-align: right;
   }
 }
+.form-horizontal .content {display:block;margin-left:13em;padding:4px 6px;color:#666;}

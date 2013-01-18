@@ -1,10 +1,10 @@
 class User::ProgramPreferencesController < UserAreaController
-  
+
   def index
     @program_preferences = current_user.program_preferences.all#.includes(:program)#.included(:program)
     @search_term_types   = SearchTermType.scoped
   end
-  
+
   def create
     if params[:program_preference] && params[:program_preference][:program_id].present?
       current_user.program_preferences.create( params[:program_preference] )
@@ -24,9 +24,9 @@ class User::ProgramPreferencesController < UserAreaController
         format.html { redirect_to user_programs_path(current_user) }
         format.js { render :text => "document.location.href = '#{user_programs_path(current_user)}'" }
       end
-    elsif params[:q].present? && params[:program_preference] && params[:program_preference][:search_term_type_id].present?
-      @program = Program.search_program(params[:q]).first
-      if @program && @program.name.downcase == params[:q].downcase
+    elsif params[:program_preference][:q].present? && params[:program_preference][:search_term_type_id].present?
+      @program = Program.search_program(params[:program_preference][:q]).first
+      if @program && @program.name.downcase == params[:program_preference][:q].downcase
         current_user.program_preferences.create( :program_id => @program.id, :search_term_type_id => params[:search_term_type_id] )
         flash[:notice] = 'Program added'
         respond_to do |format|
@@ -45,8 +45,8 @@ class User::ProgramPreferencesController < UserAreaController
     logger.debug "Needs a suggestion..."
     respond_to do |format|
       format.html { render :text => 'no no no' }
-      format.js   { render :text => "document.location.href = '#{suggest_programs_path({:q => params[:q]})}';"}
+      format.js   { render :text => "document.location.href = '#{suggest_programs_path({:q => params[:program_preference][:q]})}';"}
     end
   end
-  
+
 end
