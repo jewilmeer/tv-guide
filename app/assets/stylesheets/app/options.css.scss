@@ -1,5 +1,5 @@
-@import "lib/bootstrap/variables.scss";
-@import "lib/bootstrap/mixins.scss";
+@import 'bootstrap';
+@import 'bootstrap-responsive';
 
 #options {
   @include clearfix;
@@ -10,7 +10,7 @@
     font-size: 15px;
   }
 
-  h4 { 
+  h4 {
     font-weight: bold;
   }
 
@@ -33,17 +33,17 @@
       color: #222;
       font-weight: bold;
       text-shadow: 0 1px hsla( 0, 0%, 100%, 0.5 );
-      background-image: -moz-linear-gradient( -90deg, 
-        hsla( 0, 0%, 100%, 0.5 ) , 
-        hsla( 0, 0%, 100%, 0.0 ) 
+      background-image: -moz-linear-gradient( -90deg,
+        hsla( 0, 0%, 100%, 0.5 ) ,
+        hsla( 0, 0%, 100%, 0.0 )
       );
-      background-image: -webkit-gradient(linear, 0 top, 0 bottom, 
-        from( hsla( 0, 0%, 100%, 0.5 ) ), 
+      background-image: -webkit-gradient(linear, 0 top, 0 bottom,
+        from( hsla( 0, 0%, 100%, 0.5 ) ),
         to(   hsla( 0, 0%, 100%, 0.0 ) )
       );
-      background-image: -o-linear-gradient( -90deg, 
-        hsla( 0, 0%, 100%, 0.5 ) , 
-        hsla( 0, 0%, 100%, 0.0 ) 
+      background-image: -o-linear-gradient( -90deg,
+        hsla( 0, 0%, 100%, 0.5 ) ,
+        hsla( 0, 0%, 100%, 0.0 )
       );
       border-left:  1px solid hsla( 0, 0%, 100%, 0.3 );
       border-right: 1px solid hsla( 0, 0%,   0%, 0.2 );

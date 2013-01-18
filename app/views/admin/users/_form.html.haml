@@ -1,24 +1,22 @@
 .row
-  .span8
+  .span6
     .page-header
-      %h5 Change basic information
-    = semantic_form_for [:admin, @user] do |f|
-      = f.semantic_errors
-      = f.inputs do
-        = f.input :email
-        = f.input :login, label: 'Username'
-        = f.input :trusted, label: 'Trusted?'
-        = f.input :admin, label: 'Admin rights'
+      %h2 Change basic information
+    = simple_form_for [:admin, @user], html: { class: 'form-horizontal' } do |f|
+      = f.input :email
+      = f.input :login
+      = f.input :trusted, as: :boolean
+      = f.input :admin
 
-      = f.actions do
-        = f.action :submit, as: :button, :button_html => {:class => :primary}
+      .form-actions
+        = f.button :submit
 
-  .span8
+  .span6
     .page-header
-      %h5 Change password
-    = semantic_form_for [:admin, @user] do |f|
-      = f.semantic_errors
-      = f.inputs :password, :password_confirmation
+      %h2 Change password
+    = simple_form_for [:admin, @user], html: { class: 'form-horizontal' } do |f|
+      = f.input :password
+      = f.input :password_confirmation
 
-      = f.actions do
-        = f.action :submit, as: :button, :button_html => {:class => :primary}
+      .form-actions
+        = f.button :submit

@@ -1,16 +1,16 @@
-%h1 Program Download Preferences
-.column-block
-  .body
-    - if @program_preferences.any?
-      %table.list
-        %thead
-          %tr
-            %th Program
-            %th Download
-            %th Format
-            %th Search term
-        %tbody
-          - @program_preferences.each do |program_preference|
-            = render 'user/program_preferences/program_preference', {:program_preference => program_preference}
-    - else
-      %p.nothing You don't follow any programs yet
+.page-header
+  %h1 Program Download Preferences
+
+- if @program_preferences.any?
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Program
+        %th Download
+        %th Format
+        %th Search term
+    %tbody
+      - @program_preferences.each do |program_preference|
+        = render 'user/program_preferences/program_preference', {:program_preference => program_preference}
+- else
+  %p.nothing You don't follow any programs yet

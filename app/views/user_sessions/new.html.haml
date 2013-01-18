@@ -6,20 +6,18 @@
       %small So we know where to guide you :-)
 
   .row
-    .span8
+    .span6
       .page-header
         %h3 With credentials
-      = semantic_form_for :user_session, :url => user_session_path do |f|
+      = simple_form_for :user_session, :url => user_session_path, html: {class: 'form-horizontal'} do |f|
 
-        = f.inputs do
-          = f.input :email
-          = f.input :password
-          = f.input :remember_me, :as => :boolean
-
-        = f.actions
-    .span8
+        = f.input :email
+        = f.input :password
+        .form-actions
+          = f.button :submit
+    .span6
       .page-header
         %h3 Don't have an account yet?
       %p
-        = link_to 'Registering', signup_path
         an account enables you to create your personal tv guide. This will be a collection of all your favorite tv programs.
+      = render 'user/users/form'

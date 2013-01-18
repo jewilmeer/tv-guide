@@ -1,19 +1,14 @@
-%h1== Search term types (#{SearchTermType.count})
+.page-header
+  %h1== Search term types (#{SearchTermType.count})
 
 - if @search_term_types.any?
-  .column-block
-    .body
-      %table.list
-        %thead
-          %tr
-            %th= sortable 'name'
-            %th Nr of programs
-            %th Controls
-        %tbody= render @search_term_types
-      .content_navigation
-        = link_to :next_page, url_for( params.merge( :format => :js, :page => (params[:page] || 1).succ) )
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= sortable 'name'
+        %th Nr of programs
+        %th Controls
+    %tbody= render @search_term_types
 
-.column-block
-  %h2 New Search term
-  .body
-    = render 'form'
+%h2 New Search term
+= render 'form'

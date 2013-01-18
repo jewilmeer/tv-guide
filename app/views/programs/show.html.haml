@@ -11,20 +11,21 @@
       %small
         = @program.status
       - if current_user.try(:trusted?)
-        = link_to(tokened_program_path(:id => @program.id, :user_credentials => current_user.single_access_token, :format => :rss), :class => 'right-rss') do 
+        = link_to(tokened_program_path(:id => @program.id, :user_credentials => current_user.single_access_token, :format => :rss), :class => 'right-rss') do
           .icon-rss
-  %ul.tabs{:data => {:tabs => :tabs}}
+
+  %ul.nav.nav-tabs{:data => {:toggle => :tabs}}
     %li.active= link_to 'Season Overview', '#seasons'
     %li= link_to 'More information', '#more-info'
     / %li= link_to 'Options and other stuff', '#other'
   .row
-    .span12
+    .span8
       - if @featured_image
         %img{:src => image_path(@featured_image, :format => :jpg), :width => 700, :height => 129}
       - else
         = image_tag( @program.banner_url, :size => '940x173') if @program.banner
     .span4
-      %ul.unstyled
+      %ul.unstyled.pull-right
         %li
           - if @program.users.any?
             %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
@@ -39,24 +40,24 @@
 
 .tab-content
   - cache [@program, current_user.try(:trusted?), current_user.try(:admin?)] do
-    %section#seasons.active
+    .tab-pane#seasons.active
       .page-header
         %h3 Seasons
-      %ul.tabs{:data => {:tabs => :tabs}}
+      %ul.nav.nav-tabs
         - seasons_for_tab(@program).each do |season|
           %li{:class => (:active if @program.max_season_nr == season)}
             %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
         - if seasons_for_dropdown(@program).any?
-          %li.dropdown.secondary-nav{:data => {:dropdown => :dropdown}}
+          %li.dropdown{:data => {:toggle => :dropdown}}
             %a.dropdown-toggle== Older seasons (#{seasons_for_dropdown(@program).length})
             %ul.dropdown-menu
               - seasons_for_dropdown(@program).each do |season|
                 %li{:class => (:active if @program.max_season_nr == season)}
                   %a{:href => "#s#{season}"}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
-      .tab-content                  
+      .tab-content
         - @program.max_season_nr.downto(1) do |season|
-          %div{:id => "s#{season}", :class => (:active if @program.max_season_nr == season)}
-            %table.zebra-striped
+          .tab-pane{:id => "s#{season}", :class => (:active if @program.max_season_nr == season)}
+            %table.table.table-striped
               %thead
                 %tr
                   %th Title
@@ -64,10 +65,10 @@
               %tbody
                 = render :collection => @program.episodes.where('season_nr = ?', season).by_nr(:desc), :partial => 'episodes/episodes', :as => :episode
 
-  %section#more-info
+  .tab-pane#more-info
     .page-header
       %h3 More information
-    %table
+    %table.table
       %tr
         %th{:width => 100} Runtime
         %td= pluralize( @program.runtime, 'minute')

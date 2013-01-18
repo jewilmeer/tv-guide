@@ -1,22 +1,26 @@
-%h1= link_to_unless_current 'Digital TV Guide', root_path
-.loading{:style => 'display: none'}
-  Loading remote content
-  = image_tag 'spinner.gif'
-%nav
-  %ul.mainmenu
-    %li= link_to 'Home', root_path
-    %li= link_to 'Guide', guide_programs_path
-    %li= link_to 'Programs', :programs
-    / %li= link_to 'Programs updates', pages_program_updates_path
-    
-  %ul.user_nav
-    - if current_user
-      %li= link_to 'Guide & Programs', [current_user, :programs]
-      %li= link_to "Account", edit_user_path(current_user)
-      - if current_user.admin?
-        %li= link_to "Admin", admin_root_path
-      %li= link_to "Logout", logout_path
-    - else
-      %li= link_to 'Register', signup_path
-      %li= link_to 'Login', login_path
-        
+.navbar.navbar-fixed-top.navbar-inverse
+  .navbar-inner
+    .container
+      = link_to 'Digital TV Guide', root_path, class: :brand
+      %ul.nav
+        %li= link_to 'Home', root_path
+        %li= link_to 'Guide', guide_programs_path
+        %li= link_to 'Programs', :programs
+
+      %ul.nav.pull-right
+        - if current_user
+          %li.dropdown
+            %a.dropdown-toggle{'data-toggle' => :dropdown, href: '#' }
+              = current_user.login.humanize
+              %b.caret
+            %ul.dropdown-menu{role: :menu, 'aria-labelledby' => 'dLabel'}
+              %li= link_to 'Guide & Programs', [current_user, :programs]
+              %li= link_to "Account", edit_user_path(current_user)
+              - if current_user.admin?
+                %li.divider
+                %li= link_to "Admin", admin_root_path
+              %li.divider
+              %li= link_to "Logout", logout_path
+        - else
+          %li= link_to 'Register', signup_path
+          %li= link_to 'Login', login_path
