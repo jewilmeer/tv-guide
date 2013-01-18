@@ -5,10 +5,10 @@
       = link_to @episode.program.name, @episode.program
       %small== - Season #{@episode.season_nr} - #{@episode.title}
   .row
-    .span6
+    .span3
       - if image = @episode.image || @episode.program.images.saved.random.first
         %img{:src => image.s3_url(:episode), :align => :left, :class => :fancy}
-    .span10
+    .span9
       %dl
         %dt Airing
         %dd

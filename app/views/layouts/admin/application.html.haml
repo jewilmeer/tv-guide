@@ -8,23 +8,20 @@
     %meta{:name=>"author",        :content=>"me"}
     %meta{:name =>'csrf-token',    :content => form_authenticity_token}
     %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
-    
+
     %title TV guide Admin
     = yield :head
   %body
-    %header
-      .topbar
-        .topbar-inner
-          .container
-            %h3= link_to 'Admin', admin_root_path
-            = render 'layouts/admin/navigation'
-            %ul.nav.secondary-nav
-              %li= link_to "welcome #{current_user.login.humanize}", edit_admin_user_path(current_user)
-              %li= link_to 'Back to the website', root_path
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        = link_to 'Admin', admin_root_path, class: :brand
+        = render 'application/admin/navigation'
+        %ul.nav.pull-right
+          %li= link_to "welcome #{current_user.login.humanize}", edit_admin_user_path(current_user)
+          %li= link_to 'Back to the website', root_path
     #main.container
-      .content
-        = render :partial => 'layouts/notifications_and_errors'
-        = yield
+      = render 'notifications_and_errors'
+      = yield
     %footer
     = yield :bottom
-    = render 'layouts/bottom_js', locals: { admin: true }
+    = render 'bottom_js', locals: { admin: true }

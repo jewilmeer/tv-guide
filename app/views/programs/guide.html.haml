@@ -4,7 +4,7 @@
     %h1 Digital TV guide
 %section
   .row
-    .span11
+    .span8
       .page-header
         %h4 Recently aired
       - if @past_episodes.any?
@@ -13,7 +13,7 @@
       - else
         %p No past episodes found
 
-    .span5
+    .span4
       .page-header
         %h4 Next airing
       - if @upcoming_episodes.any?

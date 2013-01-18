@@ -4,7 +4,7 @@ module Sellaband
     def default_request_format?
       !( params[:format] && %w(rss xml jpg mp3 json nzb).include?(params[:format]) )
     end
-  
+
     # auth-logic
     protected
       def current_user_session
@@ -18,13 +18,13 @@ module Sellaband
       end
 
       def load_user_using_perishable_token
-        @user = User.find_using_perishable_token(params[:id])  
-        unless @user  
-          flash[:error] =  "We\'re sorry, but we could not locate your account. " +  
-          "If you are having issues try copying and pasting the URL " +  
+        @user = User.find_using_perishable_token(params[:id])
+        unless @user
+          flash[:error] =  "We\'re sorry, but we could not locate your account. " +
+          "If you are having issues try copying and pasting the URL " +
           "from your email into your browser. "
-          redirect_to root_url  
-        end  
+          redirect_to root_url
+        end
       end
 
       def is_admin?
@@ -39,16 +39,15 @@ module Sellaband
           return false
         end
       end
-    
+
       def require_user
         unless current_user
           store_location
-          flash[:warning] = t('authentication.need_login')
           redirect_to new_user_session_url
           return false
         end
       end
- 
+
       def require_no_user
         if current_user
           store_location
@@ -56,24 +55,24 @@ module Sellaband
           return false
         end
       end
-    
+
       def require_trust
         render :file => "public/401.html", :status => 401, :layout => false unless current_user && current_user.trusted?
       end
-        
+
       def store_location
         # session[:return_to] = request.full_path if default_request_format?
       end
-    
+
       def location_stored?
         session[:return_to]
       end
-    
+
       def redirect_back_or_default(default)
         redirect_to(session[:return_to] || default || '/')
         session[:return_to] = nil
       end
-      
+
       def logged_in?
         !!current_user
       end

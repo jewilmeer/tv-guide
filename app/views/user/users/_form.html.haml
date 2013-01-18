@@ -1,9 +1,8 @@
-= semantic_form_for @user do |f|
-  = f.inputs do
-    = f.input :email
-    = f.input :password
-    = f.input :password_confirmation
-    = f.input :login
+= simple_form_for @user, html: { class: 'form-horizontal' } do |f|
+  = f.input :email
+  = f.input :password
+  = f.input :password_confirmation
+  = f.input :login
 
-  = f.actions do
-    = f.action :submit, as: :button#, :html => { :class => :primary, :data => {:'disable-with' => 'Please wait...'} }
+  .form-actions
+    = f.button :submit
