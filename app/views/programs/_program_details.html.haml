@@ -11,17 +11,18 @@
         - else
           = image_tag( @program.banner_url, :size => '940x173') if @program.banner
       .span4
-        %ul.unstyled.pull-right
-          %li
-            - if @program.users.any?
-              %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
-            - else
-              No watchers
-          %li== Last updated #{distance_of_time_in_words_to_now(@program.updated_at)} ago
-          %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
-          - if current_user
-            %li= link_to 'Check for updates', user_program_path(current_user, @program), :id => :check_update, :remote => true, :method => :put, :disable_with => 'Checking...'
-            = render :partial => 'guide_control', :locals => {:program => @program}
+        .panel
+          %ul.unstyled
+            %li
+              - if @program.users.any?
+                %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
+              - else
+                No watchers
+            %li== Last updated #{distance_of_time_in_words_to_now(@program.updated_at)} ago
+            %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
+            - if current_user
+              %li= link_to 'Check for updates', user_program_path(current_user, @program), :id => :check_update, :remote => true, :method => :put, :disable_with => 'Checking...'
+              = render :partial => 'guide_control', :locals => {:program => @program}
 
   .tab-pane#more-info
     %table.table
