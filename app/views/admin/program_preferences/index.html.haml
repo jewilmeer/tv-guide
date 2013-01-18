@@ -1,22 +1,19 @@
-%h1== ProgramPreferences (#{SearchTermType.count})
+.page-header
+  %h1== ProgramPreferences (#{SearchTermType.count})
 
-.column-block
-  .body
-    - if @program_preferences.any?
-      %table.zebra-striped
-        %thead
-          %tr
-            %th{:width => '15%'} User
-            %th Program
-            %th{:width => '15%'} Search term
-            %th{:width => '5%'} Download
-            %th{:width => '10%'} Controls
-        %tbody= render @program_preferences
-      .content_navigation
-        = link_to :next_page, url_for( params.merge( :format => :js, :page => (params[:page] || 1).succ) )
-    - else
-      %p.nothing Still nothing here!
-.column-block
+- if @program_preferences.any?
+  %table.table.table-striped.table-bordered
+    %thead
+      %tr
+        %th{:width => '15%'} User
+        %th Program
+        %th{:width => '15%'} Search term
+        %th{:width => '5%'} Download
+        %th{:width => '10%'} Controls
+    %tbody= render @program_preferences
+- else
+  %p.nothing Still nothing here!
+
+.page-header
   %h2 New program preference
-  .body
-    = render 'form'
+= render 'form'

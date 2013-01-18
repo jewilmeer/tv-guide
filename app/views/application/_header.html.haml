@@ -4,8 +4,10 @@
       = link_to 'Digital TV Guide', root_path, class: :brand
       %ul.nav
         %li= link_to 'Home', root_path
-        %li= link_to 'Guide', guide_programs_path
-        %li= link_to 'Programs', :programs
+        %li
+          = link_to 'Guide', guide_programs_path
+        %li
+          = link_to 'Programs', :programs
 
       %ul.nav.pull-right
         - if current_user
