@@ -1,7 +1,5 @@
 - page_title "Episode guide"
-%section
-  .page-header
-    %h1 Digital TV guide
+%h3 Full guide
 %section
   .row
     .span8
@@ -16,8 +14,9 @@
     .span4
       .page-header
         %h4 Next airing
-      - if @upcoming_episodes.any?
-        - cache([:index_guide, @upcoming_episodes.first, @upcoming_episodes.last_updated.first]) do
-          = render :partial => 'episodes/next_airing', :locals => {:next_episodes => @upcoming_episodes}
-      - else
-        %p No airing episodes
+      .well
+        - if @upcoming_episodes.any?
+          - cache([:index_guide, @upcoming_episodes.first, @upcoming_episodes.last_updated.first]) do
+            = render :partial => 'episodes/next_airing', :locals => {:next_episodes => @upcoming_episodes}
+        - else
+          %p No airing episodes

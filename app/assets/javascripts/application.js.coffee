@@ -10,14 +10,6 @@
 ###
 
 $ ->
-  # $my_modal = $('#add_program_block').modal(
-  #   backdrop: true
-  #   keyboard: true
-  #   modal: true
-  # )
-
-  # $('.btn.add_program').click ->
-  #   $my_modal.modal('toggle')
-  $('.dropdown').dropdown()
-  $('.dropdown-toggle').dropdown()
   $('time').timeago()
+  $('#program-detail-tabs a:first').tab('show')
+  $('#program-season-tabs a:first').tab('show')

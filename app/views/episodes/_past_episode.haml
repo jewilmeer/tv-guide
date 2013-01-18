@@ -8,7 +8,9 @@
 
     .span3
       - if current_user.try(:admin)
-        = link_to 'Update episode', admin_episode_path(episode, :partial => :past_episode, :format => :js), {:class => 'pull-right btn refresh', :method => :put, :remote => true, :disable_with => 'Please wait...'}
+        = link_to admin_episode_path(episode, :partial => :past_episode, :format => :js), {:class => 'pull-right refresh', :method => :put, :remote => true, :disable_with => 'Please wait...'} do
+          %i.icon-refresh
+
   .row-fluid
     .span7
       - if current_user.try(:trusted)
