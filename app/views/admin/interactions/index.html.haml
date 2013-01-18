@@ -17,7 +17,7 @@
       %tbody
         - @interactions.each do |interaction|
           %tr[interaction]
-            %td= link_to interaction.user.name, interaction.user
+            %td= link_to interaction.user.login, interaction.user
             %td= link_to interaction.program.try(:name), interaction.program
             %td= interaction.try(:episode).try(:title) || '-'
             %td= interaction.interaction_type.humanize
