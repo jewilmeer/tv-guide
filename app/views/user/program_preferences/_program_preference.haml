@@ -1,9 +1,0 @@
-= semantic_form_for [current_user, program_preference] do |f|
-  %tr[program_preference]
-    %td= link_to program_preference.program.name, program_preference.program
-    %td
-      = f.input :download
-    %td
-      = f.input :search_term_type, :as => :radio
-    %td= program_preference.program.search_name
-  
