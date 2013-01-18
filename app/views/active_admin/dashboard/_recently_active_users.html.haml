@@ -1,5 +1,0 @@
-%ul
-  - User.by_last_request_at(:desc).limited(5).collect do |user|
-    %li
-      = link_to user.login, admin_user_path(user)
-      == [#{l user.last_request_at, :format => :long}]

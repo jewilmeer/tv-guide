@@ -1,39 +1,37 @@
-%dd[episode]
-  %h6
-    = link_to episode.program_name, episode.program 
-    &nbsp;-&nbsp;
-    = link_to episode.full_episode_title, episode
+.panel[episode]
+  .row-fluid
+    .span9
+      %h5
+        = link_to episode.program_name, episode.program
+        &nbsp;-&nbsp;
+        = link_to episode.full_episode_title, episode
 
-  = link_to episode do
-    - begin
-      - if episode.thumb
-        = image_tag episode.thumb.s3_url(:episode), :alt => episode.full_title, :class => :episode, :size => '320x180'
-      - else
-        %img{:src => 'http://placehold.it/320x180/fff/999/&text=No+image+available', :alt => episode.full_title, :class => :episode, :size => '320x180'}
-    - rescue StandardError => e
-      - episode.thumb.destroy
-      %img{:src => 'http://placehold.it/320x180/fff/999/&text=No+image+available', :alt => episode.full_title, :class => :episode, :size => '320x180'}
-  .episode-information
-    - if current_user.try(:trusted)
-      -# downloads
-      %dl.oneliner
-        %dt.download
-        %dd
+    .span3
+      - if current_user.try(:admin)
+        = link_to admin_episode_path(episode, :partial => :past_episode, :format => :js), {:class => 'pull-right refresh', :method => :put, :remote => true, :disable_with => 'Please wait...'} do
+          %i.icon-refresh
+
+  .row-fluid
+    .span7
+      - if current_user.try(:trusted)
+        %p{style: 'display: block'}
+          %i.icon-download
           - if episode.downloads.any?
             - episode.downloads.includes(:search_term_type).each do |download|
               - next unless download.search_term_type
-              %span.label.success
+              %span.label.label-success
                 = link_to download.search_term_type.name, episode_path(episode, :download_type => download.download_type ,:format => :nzb), :title => download.origin
           - else
             %span.label No downloads available
-      -# search
-      %dl.oneliner
-        %dt.search
-        %dd
+        %p{style: 'display: block'}
+          %i.icon-search
           - @search_terms.each do |search_term|
-            %span.label.success= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
-    %p= episode.description
+            %span.label.label-success= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
 
-  - if current_user.try(:admin)
-    = link_to 'Update episode', admin_episode_path(episode, :partial => :past_episode, :format => :js), {:class => 'je moeder btn refresh', :method => :put, :remote => true, :disable_with => 'Please wait...'}
+      %small= episode.description
 
+    .span5
+      -#
+        = link_to episode do
+          %img{:src => 'http://placehold.it/320x180/fff/999/&text=No+image+available', :alt => episode.full_title, :class => 'img-polaroid pull-right', :size => '320x180'}
+  %br

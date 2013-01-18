@@ -1,0 +1,7 @@
+= simple_form_for([:admin, @configuration], html: {class: 'form-horizontal'}) do |f|
+  = f.association :program
+  = f.input :active
+  = f.input :filter_data, input_html: { class: 'input-block-level' }
+
+  .form-actions
+    = f.button :submit

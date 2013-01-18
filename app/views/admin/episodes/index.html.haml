@@ -1,14 +1,13 @@
-%h1 Episode Downloads
-.column-block
-  .body
-    - if @episodes.any?
-      %table.zebra-striped
-        %thead
-          %tr
-            %th Episode title
-            %th Airdate
-            %th Edit
-        %tbody
-          = render @episodes
-    - else
-      %p.nothing 
+.page-header
+  %h1 Episode Downloads
+- if @episodes.any?
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Episode title
+        %th Airdate
+        %th Edit
+    %tbody
+      = render @episodes
+- else
+  %p.nothing

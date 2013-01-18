@@ -1,3 +1,29 @@
-= semantic_form_for [:admin, @program] do |f|
-  = f.inputs
-  = f.buttons
+= simple_form_for [:admin, @program], html: { class: 'form-horizontal' } do |f|
+  = f.input :id, input_html: {class: 'input-block-level'}
+  = f.input :name, input_html: {class: 'input-block-level'}
+  = f.input :search_name, input_html: {class: 'input-block-level'}
+  = f.input :overview, input_html: {class: 'input-block-level'}
+  = f.input :status, input_html: {class: 'input-block-level'}
+  = f.input :tvdb_id, input_html: {class: 'input-block-level'}
+  = f.input :imdb_id, input_html: {class: 'input-block-level'}
+  = f.input :airs_dayofweek, input_html: {class: 'input-block-level'}
+  = f.input :airs_time
+  = f.input :runtime, input_html: {class: 'input-block-level'}
+  = f.input :network, input_html: {class: 'input-block-level'}
+  = f.input :contentrating, input_html: {class: 'input-block-level'}
+  = f.input :actors, input_html: {class: 'input-block-level'}
+  = f.input :tvdb_rating, input_html: {class: 'input-block-level'}
+  = f.input :last_checked_at
+  = f.input :time_zone_offset
+  = f.input :max_season_nr, input_html: {class: 'input-block-level'}
+  = f.input :current_season_nr, input_html: {class: 'input-block-level'}
+  = f.input :tvdb_name, input_html: {class: 'input-block-level'}
+  = f.input :fanart_image_id, input_html: {class: 'input-block-level'}
+  = f.input :poster_image_id, input_html: {class: 'input-block-level'}
+  = f.input :season_image_id, input_html: {class: 'input-block-level'}
+  = f.input :series_image_id, input_html: {class: 'input-block-level'}
+  = f.input :interactions_count, input_html: {class: 'input-block-level'}
+
+
+  .form-actions
+    = f.button :submit

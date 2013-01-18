@@ -2,7 +2,7 @@
   %h1== Listing programs (#{Program.count})
 
 - if @programs.any?
-  %table.list
+  %table.table.table-striped
     %thead
       %tr
         %th= sortable 'name'
@@ -12,4 +12,3 @@
         %th= sortable 'last_checked_at', 'Last checked'
         %th Controls
     %tbody= render @programs
-    
