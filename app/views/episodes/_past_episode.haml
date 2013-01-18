@@ -1,4 +1,4 @@
-%div[episode]
+.panel[episode]
   .row-fluid
     .span9
       %h5
@@ -31,11 +31,7 @@
       %small= episode.description
 
     .span5
-      = link_to episode do
-        %img{:src => 'http://placehold.it/320x180/fff/999/&text=No+image+available', :alt => episode.full_title, :class => 'img-polaroid pull-right', :size => '320x180'}
-
--# NOTE should be styled properly ;-)
-.row-fluid
-  %span12
-    %br
-    %br
+      -#
+        = link_to episode do
+          %img{:src => 'http://placehold.it/320x180/fff/999/&text=No+image+available', :alt => episode.full_title, :class => 'img-polaroid pull-right', :size => '320x180'}
+  %br

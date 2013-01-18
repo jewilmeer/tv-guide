@@ -1,3 +1,5 @@
+@import "compass/css3";
+
 html {
   background-color: transparent;
 }
@@ -23,4 +25,12 @@ a {
 
 .label a {
   color: white;
+}
+
+.panel {
+  @include clearfix();
+  @include gradient-vertical(#FFF, #F4F4F4);
+  @include box-shadow(0 2px 5px rgba(0,0,0,0.15));
+  padding: 20px 20px 2px 20px;
+  margin: 0 0 20px 0;
 }
