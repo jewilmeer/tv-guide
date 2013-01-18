@@ -8,6 +8,8 @@
           = link_to 'Guide', guide_programs_path
         %li
           = link_to 'Programs', :programs
+      %form.navbar-form.pull-left{action: programs_path}
+        %input{type: :search, name: :q, value: params[:q]}
 
       %ul.nav.pull-right
         - if current_user

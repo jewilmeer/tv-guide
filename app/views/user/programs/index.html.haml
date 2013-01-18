@@ -1,13 +1,11 @@
 - page_title "#{@user.login.humanize}'s episode guide"
-%section
-  .page-header
-    %h1
-      - if current_user == @user
-        My digital TV guide
-      - else
-        == #{@user.login.humanize}'s digital TV guide
-      - if current_user == @user
-        %button.btn.add_program.pull-right{data: { toggle: :modal, target: '#add_program_block' } } Add new program
+%h1
+  - if current_user == @user
+    My digital TV guide
+  - else
+    == #{@user.login.humanize}'s digital TV guide
+  - if current_user == @user
+    %button.btn.add_program.pull-right{data: { toggle: :modal, target: '#add_program_block' } } Add new program
 
 %section
   .row
@@ -16,8 +14,10 @@
         %h4
           Recently aired
           - if current_user.try(:trusted?)
-            = link_to tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)', :class => 'right-rss' do
-              .icon-rss
+            %small
+              = link_to tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)', :class => 'pull-right' do
+                %i.icon-globe
+                RSS
       - if @past_episodes.any?
         - cache([:guide, @user.id, current_user.try(:trusted?), current_user.try(:admin?), @past_episodes.first, @past_episodes.last_updated.first]) do
           = render :partial => 'episodes/past_episodes', :locals => {:past_episodes => @past_episodes}
@@ -27,11 +27,12 @@
     .span4
       .page-header
         %h4 Next airing
-      - if @upcoming_episodes.any?
-        - cache([:guide, @user.id, @upcoming_episodes.first, @upcoming_episodes.last_updated.first]) do
-          = render :partial => 'episodes/next_airing', :locals => {:next_episodes => @upcoming_episodes}
-      - else
-        %p No airing episodes
+      .well
+        - if @upcoming_episodes.any?
+          - cache([:guide, @user.id, @upcoming_episodes.first, @upcoming_episodes.last_updated.first]) do
+            = render :partial => 'episodes/next_airing', :locals => {:next_episodes => @upcoming_episodes}
+        - else
+          %p No airing episodes
 
 - if current_user == @user
   #add_program_block.modal.fade
