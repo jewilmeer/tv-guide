@@ -5,13 +5,7 @@ class Admin::ProgramsController < AdminAreaController
   # GET /admin_programs
   # GET /admin_programs.xml
   def index
-    @programs = Program.by_status.order(sort_column + ' ' + sort_direction)#.paginate :per_page => 22, :page => params[:page]
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @programs }
-      format.js   { render :text => render_to_string( @programs ) }
-    end
+    @programs = Program.order('status, name').page params[:page]
   end
 
   def show
@@ -20,7 +14,7 @@ class Admin::ProgramsController < AdminAreaController
     @last_episode           = @program.episodes.airdate_in_past.last
     @cover                  = @program.images.saved.image_type(:fanart).random.first
     #we prefer downloaded images...
-    @cover                  ||= @program.images.image_type(:fanart).random.first 
+    @cover                  ||= @program.images.image_type(:fanart).random.first
     @cover                  ||= @program.images.random.first
     @nav = {
       :previous => Program.where('status = ?', @program.status).order(:name).where('name > ?', @program.name).first,
@@ -78,17 +72,17 @@ class Admin::ProgramsController < AdminAreaController
       format.xml  { head :ok }
     end
   end
-  
+
   protected
   def find_program
     @program = Program.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @program
   end
-  
+
   def sort_column
     Program.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
-  
+
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end

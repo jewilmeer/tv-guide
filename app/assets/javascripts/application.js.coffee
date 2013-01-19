@@ -23,7 +23,7 @@ $ ->
 
   if $('.pagination').length
     $(window).scroll ->
-      url = $('.pagination .next a').attr('href')
+      url = $('.pagination .next_page').attr('href')
       if url && isScrolledIntoView('.pagination')
         $('.pagination').text("Fetching more products...")
         $.getScript(url)
