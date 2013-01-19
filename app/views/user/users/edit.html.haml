@@ -14,7 +14,7 @@
       .well
         %dl
         - status = nil
-        - current_user.programs.by_status.by_name.each do |program|
+        - current_user.programs.order('status, name asc').each do |program|
           - unless program.status == status
             - status = program.status
             %dt= program.status

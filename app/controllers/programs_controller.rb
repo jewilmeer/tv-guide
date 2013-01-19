@@ -6,7 +6,7 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @programs = Program.search_program(params[:q]).order(sort_column + ' ' + sort_direction)
+    @programs = Program.search_program(params[:q]).order(:name)
     if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
       redirect_to @programs.first
     else
@@ -77,10 +77,14 @@ class ProgramsController < ApplicationController
   # 15 minutes cronjob
   def check
     status = []
-    program = Program.status_equals('Continuing').by_last_checked_at.limit(1).first
+    program = Program.where{ status == 'Continuing' }.order(:last_checked_at).limit(1).first
     status << "Updated #{program.name}" if program.tvdb_full_update
-    nzbs_to_get = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).no_downloads_present.limit(1).random
-    episodes_to_update = Episode.airs_at_present.airs_at_inside(1.week.ago, 2.hours.ago).without_image.limit(1).random
+    episode_scope = Episode.where('airs_at IS NOT NULL').airs_at_inside(1.week.ago, 2.hours.ago).limit(1)
+    nzbs_to_get         = episode_scope.to_be_downloaded
+    episodes_to_update  = episode_scope.without_image
+
+    binding.pry
+
     if nzbs_to_get.any?
       status << "<<< Getting nzb's >>>"
       nzbs_to_get.each do |episode|

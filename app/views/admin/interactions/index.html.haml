@@ -15,6 +15,6 @@
           %th User agent
           %th timestamp
       %tbody= render @interactions
-    = paginate @interactions
+    = will_paginate @interactions
   - else
     %p.nothing No interactions found yet!
