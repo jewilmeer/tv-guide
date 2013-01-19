@@ -29,8 +29,6 @@
 #
 
 class User < ActiveRecord::Base
-  include Pacecar
-
   acts_as_authentic do |c|
     c.login_field             = :email # email is the login field
     c.validate_email_field    = false

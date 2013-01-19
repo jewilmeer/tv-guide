@@ -44,8 +44,8 @@ describe Episode do
   describe "interpolated_search_term" do
     subject { episode.interpolated_search_term }
     let(:episode) { create :episode, nr: 2, season_nr: 1 }
-    before { 
-      episode.stub(:search_term_pattern => search_term_pattern) 
+    before {
+      episode.stub(:search_term_pattern => search_term_pattern)
       episode.stub_chain(:program, :search_name).and_return("TestName")
     }
 
@@ -74,5 +74,18 @@ describe Episode do
     end
 
     it { should eql "lorem" }
+  end
+
+  describe "to_be_donwloaded" do
+    subject { Episode.airs_at_inside(1.week.ago, 1.week.from_now).to_be_downloaded }
+    let!(:episodes_with_download_outside_range) { create_list :episode, 2, :with_download, airs_at: 2.months.ago }
+    let!(:episodes_with_download) { create_list :episode, 2, :with_download }
+    let!(:episodes_without_download) { create_list :episode, 2 }
+
+    it "retunrs episodes without downloads" do
+      expect(subject.to_a).to eql episodes_without_download
+    end
+
+    its(:count) { should be 2 }
   end
 end
