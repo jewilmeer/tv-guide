@@ -16,7 +16,7 @@
       - if current_user.try(:trusted)
         %p{style: 'display: block'}
           %i.icon-download
-          - if episode.downloads.any?
+          - if false
             - episode.downloads.includes(:search_term_type).each do |download|
               - next unless download.search_term_type
               %span.label.label-success
