@@ -5,7 +5,6 @@
 = require bootstrap
 = require './lib/timeago.jquery'
 = require './lib/jquery.isotope.min'
-= require './lib/endless_scroll'
 = require_tree ./app
 = require_self
 ###
@@ -61,15 +60,10 @@ $ ->
     elemBottom = elemTop + $(elem).height()
     (elemTop >= docViewTop) && (elemTop <= docViewBottom)
 
-
   if $('.pagination').length
-    console.log 'activated scroll stuff'
     $(window).scroll ->
-      console.log "scroll!!"
       url = $('.pagination .next a').attr('href')
-      console.log 'url', url
       if url && isScrolledIntoView('.pagination')
         $('.pagination').text("Fetching more products...")
-        console.log 'catching some...'
         $.getScript(url)
     $(window).scroll()
