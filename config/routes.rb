@@ -35,6 +35,7 @@ TvEpisodes::Application.routes.draw do
 
   resources :users, :module => 'user', :path => '/user' do
     resource :settings
+    resources :program_preferences, only: [:create, :update]
     resources :programs do
       get :aired, :on => :collection
     end
