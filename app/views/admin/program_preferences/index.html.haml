@@ -11,6 +11,7 @@
         %th{:width => '5%'} Download
         %th{:width => '10%'} Controls
     %tbody= render @program_preferences
+  = will_paginate @program_preferences
 - else
   %p.nothing Still nothing here!
 

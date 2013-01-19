@@ -28,7 +28,6 @@
 #  image_id         :integer(4)
 
 class Episode < ActiveRecord::Base
-  include Pacecar
   include ActionView::Helpers::SanitizeHelper
 
   # belongs_to :season
@@ -43,13 +42,13 @@ class Episode < ActiveRecord::Base
 
   scope :downloaded,              includes(:downloads).where('downloads.id IS NOT NULL')
   scope :season_episode_matches,  lambda{|season, episode| {:conditions => ['episodes.nr = :episode AND episodes.season_nr = :season ', {:episode => episode, :season => season}] } }
-  scope :no_downloads_present,    includes(:downloads).where('downloads.id IS NULL')
   scope :airs_at_in_future,       lambda{ where('episodes.airs_at > ?', Time.zone.now) }
   scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
+  scope :airs_at_inside,          ->(first_date, last_date) { where{ (airs_at > first_date) & (airs_at < last_date) } }
   scope :next_airing,             lambda{ airs_at_in_future.order('episodes.airs_at asc') }
   scope :last_aired,              lambda{ airs_at_in_past.order('episodes.airs_at desc') }
   scope :tvdb_id,                 select("id, tvdb_id")
-  scope :random,                  lambda{ Rails.env.production? ? order('RANDOM()') : order('RAND()') }
+  scope :random,                  -> { order('RANDOM()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
   scope :last_updated,            order('episodes.updated_at desc')
   scope :without_image,           where('image_id IS NULL')
@@ -323,5 +322,11 @@ class Episode < ActiveRecord::Base
       filled_season_nr: "%02d" % season_nr,
       filled_episode_nr: "%02d" % nr
     }
+  end
+
+  def self.to_be_downloaded
+    tmp_scope = scoped.dup
+    downloaded_episodes = Download.where{ episode_id.in tmp_scope.pluck(:id) }.pluck(:episode_id)
+    scoped.where{ id.not_in downloaded_episodes }
   end
 end

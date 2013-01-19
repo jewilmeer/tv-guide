@@ -9,6 +9,6 @@
         %th Edit
     %tbody
       = render @episodes
-  = paginate @episodes
+  = will_paginate @episodes
 - else
   %p.nothing

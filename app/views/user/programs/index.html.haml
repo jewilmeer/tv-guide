@@ -21,7 +21,7 @@
       - if @past_episodes.any?
         - cache([:guide, @user.id, current_user.try(:trusted?), current_user.try(:admin?), @past_episodes.first, @past_episodes.last_updated.first]) do
           = render :partial => 'episodes/past_episodes', :locals => {:past_episodes => @past_episodes}
-          = paginate @past_episodes
+          = will_paginate @past_episodes
       - else
         %p No past episodes found
 

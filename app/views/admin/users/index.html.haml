@@ -10,20 +10,6 @@
       %th= sortable 'login_count', 'Nr of logins'
       %th Nr of programs
       %th.controls
-  %tbody
-    - @users.each do |user|
-      %tr
-        %td= link_to user.login, [user, :programs], :title => user.email
-        %td= l user.created_at, :format => :long
-        %td= user.last_request_at? ? "#{distance_of_time_in_words_to_now(user.last_request_at)} ago" : '-'
-        %td= pluralize(user.login_count, 'time')
-        %td= pluralize(user.programs.count, 'program')
-        %td
-          = link_to [:admin, user], :title => 'More information' do
-            %i.icon-eye-open
-          = link_to edit_admin_user_path(user), :title => 'Edit this user' do
-            %i.edit
-          = link_to [:admin, user], :confirm => 'Are you sure?', :method => :delete, :title => 'Remove this user' do
-            %i.trash
+  %tbody= render @users
 
 = link_to 'New user', new_admin_user_path, class: :btn

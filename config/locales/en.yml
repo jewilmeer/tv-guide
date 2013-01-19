@@ -1,25 +1,11 @@
 en:
   date:
     formats:
-      short_with_weekday: %a %b %e
-      weekday: %A
+      short_with_weekday: "%a %b %e"
+      weekday: "%A"
       with_day: "%a %b %e, %Y"
   time:
     formats:
-      short_with_weekday: %a %b %e
+      short_with_weekday: "%a %b %e"
       weekday: "%A"
       with_day: "%A %B %e, %Y %H:%M"
-  formtastic:
-    labels:
-      user_session:
-        email: "Login / E-mail"
-        remember_me: "Keep me logged in"
-    placeholders:
-      user_session:
-        email: "e.g. you@email.com or klaas"
-    actions:
-      user_session:
-        submit: 'Login'
-      user:
-        create: 'Register'
-        update: 'Change'

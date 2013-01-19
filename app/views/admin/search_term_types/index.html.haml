@@ -5,10 +5,10 @@
   %table.table.table-striped
     %thead
       %tr
-        %th= sortable 'name'
+        %th name
         %th Nr of programs
         %th Controls
     %tbody= render @search_term_types
-
+  = will_paginate @search_term_types
 %h2 New Search term
 = render 'form'

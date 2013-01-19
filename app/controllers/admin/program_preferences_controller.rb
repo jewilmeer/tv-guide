@@ -1,6 +1,11 @@
 class Admin::ProgramPreferencesController < AdminAreaController
   before_filter :find_object, :except => [:index, :new, :create]
 
+  def index
+    @program_preferences = ProgramPreference.page params[:page]
+    @program_preference  = ProgramPreference.new
+  end
+
   def create
     pp = ProgramPreference.create(params[:program_preference])
     redirect_to edit_admin_program_preferences_path, :notice => "Created succesfully!"
