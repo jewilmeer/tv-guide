@@ -83,8 +83,6 @@ class ProgramsController < ApplicationController
     nzbs_to_get         = episode_scope.to_be_downloaded
     episodes_to_update  = episode_scope.without_image
 
-    binding.pry
-
     if nzbs_to_get.any?
       status << "<<< Getting nzb's >>>"
       nzbs_to_get.each do |episode|
