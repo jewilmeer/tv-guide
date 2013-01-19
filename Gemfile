@@ -8,7 +8,8 @@ gem 'pg'
 
 # Bundle the extra gems:
 gem 'mechanize', '~> 2.0.1'
-gem 'pacecar'
+# gem 'pacecar'
+gem 'squeel'
 gem 'simple_form'
 gem 'progress_bar'
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
@@ -18,7 +19,7 @@ gem 'newrelic_rpm'
 gem 'airbrake'
 gem 'user-agent'
 gem 'haml'
-gem 'kaminari'
+gem 'will_paginate'
 
 # caching
 gem "dalli"
@@ -57,5 +58,5 @@ group :development, :test do
   # verify
   gem 'simplecov', :require => false
 
-  gem 'pry'
+  gem 'pry-rails'
 end
