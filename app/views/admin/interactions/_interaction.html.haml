@@ -1,0 +1,9 @@
+%tr[interaction]
+  %td= link_to interaction.user.login, interaction.user
+  %td= link_to interaction.program.try(:name), interaction.program
+  %td= interaction.try(:episode).try(:title) || '-'
+  %td= interaction.interaction_type.humanize
+  %td= formatted_user_agent interaction.user_agent
+  %td
+    %time{:datetime => interaction.created_at.getutc.iso8601}
+      = l interaction.created_at, :format => :with_day

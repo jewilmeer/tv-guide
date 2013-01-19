@@ -1,0 +1,6 @@
+$('tbody tr:last').after('<%= j render(@interactions) %>');
+<% if (@interactions.current_page < @interactions.num_pages) %>
+  $('.pagination').replaceWith('<%= j paginate(@interactions) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
