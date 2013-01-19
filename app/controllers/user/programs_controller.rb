@@ -2,13 +2,19 @@ class User::ProgramsController < UserAreaController
   before_filter :require_trust, :only => :aired
 
   def index
-    @program_preference= current_user.program_preferences.build(:search_term_type => SearchTermType.first) if current_user == @user
-    @programs          = @user.programs.by_name
     basic_episodes     = Episode.watched_by_user(@user.programs)
-    @upcoming_episodes = basic_episodes.next_airing
-    @past_episodes     = basic_episodes.last_aired.includes(:downloads).limit(20)
-    @program_cache_key = @user.programs.by_updated_at.last
+    @past_episodes     = basic_episodes.last_aired.includes(:downloads).page(params[:page]).per(10)
     @search_terms      = SearchTermType.all
+
+    respond_to do |format|
+      format.html do
+        @program_preference= current_user.program_preferences.build(:search_term_type => SearchTermType.first) if current_user == @user
+        @programs          = @user.programs.by_name
+        @upcoming_episodes = basic_episodes.next_airing
+        @program_cache_key = @user.programs.by_updated_at.last
+      end
+      format.js {}
+    end
   end
 
   def show

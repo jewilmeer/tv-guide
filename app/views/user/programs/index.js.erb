@@ -1,0 +1,6 @@
+$('#past-episodes').append('<%= j render(:partial => "episodes/past_episodes", locals: {past_episodes: @past_episodes}) %>');
+<% if (@past_episodes.current_page < @past_episodes.num_pages) %>
+  $('.pagination').replaceWith('<%= j paginate(@past_episodes) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
