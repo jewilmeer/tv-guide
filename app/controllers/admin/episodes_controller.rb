@@ -5,14 +5,15 @@ class Admin::EpisodesController < AdminAreaController
   before_filter :get_episode, :except => :index
 
   def index
-    basic_scope = Episode.order(sort_column + ' ' + sort_direction).includes(:program)
-    basic_scope = basic_scope.airs_at_in_past unless params[:include_future]
+    basic_scope = Episode.airs_at_in_past.includes(:program)
 
-    @episodes = basic_scope.limit(20)
+    @episodes = basic_scope.page params[:page]
   end
+
   def show
     redirect_to edit_admin_episode_path(@episode)
   end
+
   def update
     respond_to do |format|
       format.html do

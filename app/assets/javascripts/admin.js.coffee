@@ -54,8 +54,22 @@ $ ->
         list.append("<dd>#{value}</dd>")
       $this.after list
 
+  isScrolledIntoView = (elem) ->
+    docViewTop = $(window).scrollTop()
+    docViewBottom = docViewTop + $(window).height()
+    elemTop = $(elem).offset().top
+    elemBottom = elemTop + $(elem).height()
+    (elemTop >= docViewTop) && (elemTop <= docViewBottom)
 
-  $(window).endlessScroll
-    inflowPixels: 300
-    callback: (fireSequence, pageSequence, scrollDirection) ->
-      console.log fireSequence, pageSequence, scrollDirection
+
+  if $('.pagination').length
+    console.log 'activated scroll stuff'
+    $(window).scroll ->
+      console.log "scroll!!"
+      url = $('.pagination .next a').attr('href')
+      console.log 'url', url
+      if url && isScrolledIntoView('.pagination')
+        $('.pagination').text("Fetching more products...")
+        console.log 'catching some...'
+        $.getScript(url)
+    $(window).scroll()
