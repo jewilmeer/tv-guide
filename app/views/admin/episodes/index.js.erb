@@ -1,0 +1,6 @@
+$('tbody .episode:last').after('<%= j render(@episodes) %>');
+<% if (@episodes.current_page < @episodes.num_pages) %>
+  $('.pagination').replaceWith('<%= j paginate(@episodes) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
