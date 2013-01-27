@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 20110415122530
 #
 # Table name: search_term_types
 #
-#  id          :integer(4)      not null, primary key
+#  id          :integer          not null, primary key
 #  name        :string(255)
 #  code        :string(255)
 #  search_term :string(255)

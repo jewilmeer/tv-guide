@@ -1,37 +1,36 @@
 # == Schema Information
-# Schema version: 20110518202259
 #
 # Table name: episodes
 #
-#  id               :integer(4)      not null, primary key
+#  id               :integer          not null, primary key
 #  title            :string(255)
 #  description      :text
 #  path             :string(255)
-#  nr               :integer(4)
+#  nr               :integer
 #  airdate          :date
-#  downloaded       :boolean(1)
-#  watched          :boolean(1)
-#  season_id        :integer(4)
+#  downloaded       :boolean          default(FALSE)
+#  watched          :boolean          default(FALSE)
+#  season_id        :integer
 #  created_at       :datetime
 #  updated_at       :datetime
 #  nzb_file_name    :string(255)
 #  nzb_content_type :string(255)
-#  nzb_file_size    :integer(4)
+#  nzb_file_size    :integer
 #  nzb_updated_at   :datetime
-#  program_id       :integer(4)
+#  program_id       :integer
 #  airs_at          :datetime
-#  downloads        :integer(4)      default(0)
-#  season_nr        :integer(4)
-#  tvdb_id          :integer(4)
+#  downloads        :integer          default(0)
+#  season_nr        :integer
+#  tvdb_id          :integer
 #  program_name     :string(255)
-#  tvdb_program_id  :integer(4)
-#  image_id         :integer(4)
+#  tvdb_program_id  :integer
+#  image_id         :integer
+#
 
 class Episode < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
 
-  # belongs_to :season
-  belongs_to :program#, :touch => true
+  belongs_to :program
   has_and_belongs_to_many :users
   has_many :interactions, :dependent => :nullify
   has_many :downloads, :dependent => :destroy

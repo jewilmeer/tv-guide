@@ -15,7 +15,7 @@
           Recently aired
           - if current_user.try(:trusted?)
             %small
-              = link_to tokened_user_programs_path(:user_credentials => current_user.single_access_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)', :class => 'pull-right' do
+              = link_to tokened_user_programs_path(:authentication_token => current_user.authentication_token, :format => :rss), :title => 'Use this rss feed to enable automatic downloading (sabnzbd+)', :class => 'pull-right' do
                 %i.icon-globe
                 RSS
       - if @past_episodes.any?

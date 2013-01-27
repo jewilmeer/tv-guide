@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: configurations
+#
+#  id          :integer          not null, primary key
+#  program_id  :integer
+#  active      :boolean          default(TRUE)
+#  filter_data :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 FactoryGirl.define do
   factory :configuration do
     active true

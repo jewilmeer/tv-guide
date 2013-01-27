@@ -1,5 +1,6 @@
 class User::ProgramsController < UserAreaController
-before_filter :require_trust, :only => :aired
+  before_filter :authenticate_user!, :only => [:aired, :index]
+  before_filter :require_trust, :only => :aired
 
   def index
     basic_episodes     = Episode.watched_by_user(@user.programs)

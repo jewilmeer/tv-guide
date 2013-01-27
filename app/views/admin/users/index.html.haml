@@ -4,10 +4,9 @@
 %table.table.table-striped
   %thead
     %tr
-      %th= sortable 'login', 'User'
-      %th= sortable 'created_at', 'Registered at'
-      %th= sortable 'last_request_at', 'Last request'
-      %th= sortable 'login_count', 'Nr of logins'
+      %th Login
+      %th Created_at
+      %th Login count
       %th Nr of programs
       %th.controls
   %tbody= render @users
