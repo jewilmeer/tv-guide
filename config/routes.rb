@@ -1,11 +1,9 @@
 TvEpisodes::Application.routes.draw do
-  match '/login',           :to => 'user_sessions#new'
-  match '/logout',          :to => 'user_sessions#destroy'
-  match '/signup',          :to => 'user/users#new'
+  devise_for :users
 
-  match "/user/:user_id/programs/t/:user_credentials" => 'user/programs#aired', :as => 'tokened_user_programs'
-  match "/programs/:id/t/:user_credentials" => 'programs#show', :as => 'tokened_program'
-  match "/programs/:program_id/episodes/:id(/t/:user_credentials)(.:format)" => 'episodes#show', :as => 'episode_download'
+  match "/user/:user_id/programs/t/:authentication_token" => 'user/programs#aired', :as => 'tokened_user_programs'
+  match "/programs/:id/t/:authentication_token" => 'programs#show', :as => 'tokened_program'
+  match "/programs/:program_id/episodes/:id(/t/:authentication_token)(.:format)" => 'episodes#show', :as => 'episode_download'
   match "/settings(.:format)" => "settings#index", :as => :setting
   match '/sitemap', :to => 'pages#sitemap'
 
@@ -31,8 +29,6 @@ TvEpisodes::Application.routes.draw do
     get :search, on: :member
   end
 
-  resource :user_session, :only => [:new, :create, :destroy]
-
   resources :users, :module => 'user', :path => '/user' do
     resource :settings
     resources :program_preferences, only: [:create, :update]
@@ -51,8 +47,6 @@ TvEpisodes::Application.routes.draw do
     resources :programs do
       resources :images
     end
-
-    match '/charts/episodes' => 'charts#episodes'
   end
 
   root :to => "pages#index"

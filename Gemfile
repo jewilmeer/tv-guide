@@ -20,12 +20,11 @@ gem 'airbrake'
 gem 'user-agent'
 gem 'haml'
 gem 'will_paginate'
+gem 'devise'
 
 # caching
 gem "dalli"
 
-# authentication
-gem 'authlogic'#, :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
 
 group :assets do
   gem 'coffee-rails'#, "~> 3.2.1"

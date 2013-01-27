@@ -2,7 +2,7 @@
 
 %section
   .page-header
-    %h1 
+    %h1
       Register new account
       %small to create your personal tv guide
   - if current_user
@@ -10,14 +10,19 @@
       You are already logged in!
   - else
     .row
-      .span10= render 'form'
       .span6
-        .page-header
-          %h3 About your registration
-        %p 
-          We require your details to create your own personal guide. That way we can save your preferences and protect your guide from being messed up by anyone but yourself. 
+        %p
+          We require your details to create your own personal guide. That way we can save your preferences and protect your guide from being messed up by anyone but yourself.
 
         %p
-          This information will only be used on this website and will not be used anywhere else. 
+          This information will only be used on this website and will not be used anywhere else.
         %p
           Enjoy your stay!
+        = render partial: 'user/users/form'
+      .span6
+        = simple_form_for :user, url: user_session_path, method: :post, html: { class: 'form-horizontal' } do |f|
+          = f.input :email
+          = f.input :password
+
+          .form-actions
+            = f.button :submit, 'Login'

@@ -1,18 +1,17 @@
 # == Schema Information
-# Schema version: 20110401104841
 #
 # Table name: images
 #
-#  id                 :integer(4)      not null, primary key
+#  id                 :integer          not null, primary key
 #  image_file_name    :string(255)
 #  image_content_type :string(255)
-#  image_file_size    :integer(4)
+#  image_file_size    :integer
 #  image_updated_at   :datetime
 #  created_at         :datetime
 #  updated_at         :datetime
 #  url                :string(255)
 #  image_type         :string(255)
-#  downloaded         :boolean(1)
+#  downloaded         :boolean          default(FALSE)
 #
 
 class Image < ActiveRecord::Base

@@ -1,12 +1,12 @@
 class EpisodesController < ApplicationController
   before_filter :get_episode, :except => :index
-  before_filter :require_user, :only => [:download, :search]
+  before_filter :authenticate_user!, :only => [:download, :search]
 
   def show
     respond_to do |format|
       format.html {}
       format.nzb  do
-        require_user
+        authenticate_user!
         if @episode.downloads.any?
 
           # redirect for links living on external storage

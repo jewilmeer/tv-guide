@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: search_term_types
+#
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  code        :string(255)
+#  search_term :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 FactoryGirl.define do
   factory :search_term_type do
     sequence(:name) {|n| "name#{n}"}

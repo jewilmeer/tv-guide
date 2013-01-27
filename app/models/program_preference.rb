@@ -1,13 +1,12 @@
 # == Schema Information
-# Schema version: 20110415122530
 #
 # Table name: program_preferences
 #
-#  id                  :integer(4)      not null, primary key
-#  user_id             :integer(4)
-#  program_id          :integer(4)
-#  download            :boolean(1)      default(TRUE)
-#  search_term_type_id :integer(4)      default(1)
+#  id                  :integer          not null, primary key
+#  user_id             :integer
+#  program_id          :integer
+#  download            :boolean          default(TRUE)
+#  search_term_type_id :integer          default(1)
 #  created_at          :datetime
 #  updated_at          :datetime
 #
