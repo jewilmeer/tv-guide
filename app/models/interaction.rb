@@ -1,17 +1,18 @@
 # == Schema Information
-# Schema version: 20101130174533
 #
 # Table name: interactions
 #
-#  id               :integer(4)      not null, primary key
-#  user_id          :integer(4)
-#  episode_id       :integer(4)
-#  program_id       :integer(4)
-#  format           :string(255)     default("nzb")
+#  id               :integer          not null, primary key
+#  user_id          :integer
+#  episode_id       :integer
+#  program_id       :integer
+#  format           :string(255)      default("nzb")
 #  interaction_type :string(255)
 #  end_point        :string(255)
 #  created_at       :datetime
 #  updated_at       :datetime
+#  user_agent       :string(255)
+#  referer          :string(255)
 #
 
 class Interaction < ActiveRecord::Base

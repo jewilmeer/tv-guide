@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 20101130174533
 #
 # Table name: configurations
 #
-#  id          :integer(4)      not null, primary key
-#  program_id  :integer(4)
-#  active      :boolean(1)      default(TRUE)
+#  id          :integer          not null, primary key
+#  program_id  :integer
+#  active      :boolean          default(TRUE)
 #  filter_data :text
 #  created_at  :datetime
 #  updated_at  :datetime

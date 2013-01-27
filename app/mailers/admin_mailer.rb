@@ -4,10 +4,10 @@ class AdminMailer < ActionMailer::Base
   def recipients users
     users.map{|user| "#{user.login}<#{user.email}>"} * ', '
   end
-  
-  def notify_of_registration user 
+
+  def notify_of_registration user
     @registered_user = user
-    mail( :to => recipients(User.admin.all), :subject => 'new unknown user, do you want to trust him/her?' )
+    mail( :to => recipients(User.where('admin = ?', true).all), :subject => 'New unknown user, do you want to trust him/her?' )
   end
-  
+
 end

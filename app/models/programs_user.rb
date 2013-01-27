@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20110406203743
 #
 # Table name: programs_users
 #
-#  program_id :integer(4)
-#  user_id    :integer(4)
+#  program_id :integer
+#  user_id    :integer
 #
 
 class ProgramsUser < ActiveRecord::Base

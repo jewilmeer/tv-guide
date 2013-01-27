@@ -1,14 +1,13 @@
 # == Schema Information
-# Schema version: 20101130174533
 #
 # Table name: downloads
 #
-#  id                    :integer(4)      not null, primary key
-#  episode_id            :integer(4)
+#  id                    :integer          not null, primary key
+#  episode_id            :integer
 #  download_type         :string(255)
 #  download_file_name    :string(255)
 #  download_content_type :string(255)
-#  download_file_size    :integer(4)
+#  download_file_size    :integer
 #  origin                :string(255)
 #  site                  :string(255)
 #  created_at            :datetime

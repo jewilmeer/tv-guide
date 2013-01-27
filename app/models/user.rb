@@ -1,61 +1,48 @@
 # == Schema Information
-# Schema version: 20110518202259
 #
 # Table name: users
 #
-#  id                  :integer(4)      not null, primary key
-#  email               :string(255)     not null
-#  password_salt       :string(255)     not null
-#  last_sign_in_ip     :string(255)
-#  created_at          :datetime
-#  updated_at          :datetime
-#  oauth_uid           :string(255)
-#  admin               :boolean(1)
-#  trusted             :boolean(1)
-#  login               :string(255)
-#  crypted_password    :string(255)
-#  persistence_token   :string(255)
-#  single_access_token :string(255)
-#  perishable_token    :string(255)
-#  login_count         :integer(4)      default(0), not null
-#  failed_login_count  :integer(4)      default(0), not null
-#  last_request_at     :datetime
-#  current_login_at    :datetime
-#  last_login_at       :datetime
-#  current_login_ip    :string(255)
-#  last_login_ip       :string(255)
-#  programs_count      :integer(4)      default(0)
-#  interactions_count  :integer(4)      default(0)
+#  id                   :integer          not null, primary key
+#  email                :string(255)      not null
+#  password_salt        :string(255)
+#  last_sign_in_ip      :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  oauth_uid            :string(255)
+#  admin                :boolean          default(FALSE)
+#  trusted              :boolean          default(FALSE)
+#  login                :string(255)
+#  encrypted_password   :string(255)
+#  authentication_token :string(255)
+#  sign_in_count        :integer          default(0), not null
+#  failed_attempts      :integer          default(0), not null
+#  last_request_at      :datetime
+#  current_sign_in_at   :datetime
+#  last_sign_in_at      :datetime
+#  current_sign_in_ip   :string(255)
+#  last_login_ip        :string(255)
+#  programs_count       :integer          default(0)
+#  interactions_count   :integer          default(0)
+#  reset_password_token :string(255)
+#  remember_token       :string(255)
+#  remember_created_at  :datetime
 #
 
 class User < ActiveRecord::Base
-  acts_as_authentic do |c|
-    c.login_field             = :email # email is the login field
-    c.validate_email_field    = false
-    c.validate_password_field = false
-  end
+  devise :database_authenticatable, :registerable, :token_authenticatable, :trackable, :rememberable, :validatable
 
-  validates :login, :presence => true, :uniqueness => true, :format => /^[a-z0-9-]+$/
-  validates :password, :presence => true, :confirmation => true, :if => :password_required?
-  validates :password_confirmation, :presence => true, :if => :password_required?
-
-  # has_and_belongs_to_many :programs, :uniq => true
   has_many :program_preferences
   has_many :search_term_types, :through => :program_preferences
   has_many :programs, :through => :program_preferences
   has_and_belongs_to_many :episodes
   has_many :interactions, :dependent => :nullify
 
-  after_create :notify_of_registration
   before_update :notify_of_special_features
+
+  validates :login, presence: true, uniqueness: true
 
   def self.find_by_email_or_login login
     find_by_email(login) || find_by_login(login)
-  end
-
-  def password_required?
-    return false if crypted_password.present?
-    password.present?
   end
 
   def to_param
@@ -74,5 +61,23 @@ class User < ActiveRecord::Base
 
   def filtered_email
     self.email.downcase
+  end
+
+  alias :devise_valid_password? :valid_password?
+  def valid_password?(password)
+    begin
+      super(password)
+    rescue BCrypt::Errors::InvalidHash
+      stretches = 20
+      digest  = [password, password_salt].flatten.join('')
+      stretches.times {digest = Digest::SHA512.hexdigest(digest)}
+      return false unless digest == encrypted_password
+
+      Rails.logger.info "User #{email} is using the old password hashing method, updating attribute."
+      self.password = password
+      self.password_salt = nil
+      save
+      true
+    end
   end
 end
