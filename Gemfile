@@ -53,6 +53,7 @@ group :development, :test do
   gem 'database_cleaner', :git => 'git://github.com/bmabey/database_cleaner.git'
   gem 'shoulda-matchers'
   gem 'rspec-instafail'
+  gem 'timecop'
 
   # verify
   gem 'simplecov', :require => false
