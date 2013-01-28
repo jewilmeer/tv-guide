@@ -6,8 +6,7 @@
       .page-header
         %h4 Recently aired
       - if @past_episodes.any?
-        - cache([:index_guide, current_user.try(:trusted?), current_user.try(:admin?), @past_episodes.first, @past_episodes.last_updated.first]) do
-          = render :partial => 'episodes/past_episodes', :locals => {:past_episodes => @past_episodes}
+        = render :partial => 'episodes/past_episodes', :locals => {:past_episodes => @past_episodes}
       - else
         %p No past episodes found
 
@@ -16,7 +15,6 @@
         %h4 Next airing
       .well
         - if @upcoming_episodes.any?
-          - cache([:index_guide, @upcoming_episodes.first, @upcoming_episodes.last_updated.first]) do
-            = render :partial => 'episodes/next_airing', :locals => {:next_episodes => @upcoming_episodes}
+          = render :partial => 'episodes/next_airing', :locals => {:next_episodes => @upcoming_episodes}
         - else
           %p No airing episodes
