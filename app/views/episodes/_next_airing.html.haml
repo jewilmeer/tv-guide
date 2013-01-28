@@ -2,7 +2,7 @@
 %ul.nav.nav-list#next-airing
   - next_episodes.each do |episode|
     - if date != episode.airs_at.to_date
-      - date = episode.airs_at.to_date
+      - date = episode.airs_at
       %li.nav-header= pretty_date date
     %li[episode]
       = link_to episode.program do

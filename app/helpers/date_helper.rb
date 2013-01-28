@@ -1,6 +1,6 @@
 module DateHelper
-  def pretty_date date, options={}
-    date = date.to_date
+  def pretty_date timestamp, options={}
+    date = Time.parse(timestamp.to_s)
     case date_diff(date)
     when 0
       'Today'
@@ -21,13 +21,13 @@ module DateHelper
     end
   end
 
-  private 
+  private
 
   def date_diff date
     date.to_date - Date.today
   end
 
   def date_needs_year? date
-    Date.today.year != date.to_date.year 
+    Date.today.year != date.to_date.year
   end
 end
