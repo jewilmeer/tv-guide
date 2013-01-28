@@ -9,9 +9,6 @@ SimpleCov.start 'rails'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require "authlogic/test_case"
-
-include Authlogic::TestCase
 
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
@@ -25,12 +22,4 @@ RSpec.configure do |config|
 
   # short factory_girl syntax
   config.include FactoryGirl::Syntax::Methods
-
-  config.before do
-    DatabaseCleaner.start
-  end
-
-  config.after do
-    DatabaseCleaner.clean
-  end
 end
