@@ -6,7 +6,9 @@
     == #{@user.login.humanize}'s digital TV guide
   - if current_user == @user
     %button.btn.add_program.pull-right{data: { toggle: :modal, target: '#add_program_block' } } Add new program
-
+  %small
+    = Time.now
+    = Time.zone
 %section
   .row
     .span8
