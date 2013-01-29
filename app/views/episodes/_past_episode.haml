@@ -5,7 +5,7 @@
         = link_to episode.program_name, episode.program
         &nbsp;-&nbsp;
         = link_to episode.full_episode_title, episode
-
+        %small= episode.airs_at
     .span3
       - if current_user.try(:admin)
         = link_to admin_episode_path(episode, :partial => :past_episode, :format => :js), {:class => 'pull-right refresh', :method => :put, :remote => true, :disable_with => 'Please wait...'} do
