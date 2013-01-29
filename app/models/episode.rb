@@ -190,7 +190,6 @@ class Episode < ActiveRecord::Base
   end
 
   def airs_at
-    Time.zone = self.program.time_zone_offset
     @airs_at ||= read_attribute(:airs_at) || Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time )
   rescue StandardError => e
     nil
