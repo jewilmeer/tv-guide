@@ -39,8 +39,7 @@
           .cleafix
             %label Current search term
             .input
-              - if episode = @program.episodes.airs_at_in_past.last || @program.episodes.first
-                %span= link_to episode.search_query('hd'), episode.search_url('hd')
+              %span= link_to @last_episode.search_query('hd'), @last_episode.search_url('hd')
           .actions
             %button.btn.primary{:data => {:'disable-with' => 'Please wait...'}} Save
 
@@ -57,19 +56,19 @@
         %dd= pluralize(@program.program_preferences_count, 'user')
         %dt First episode aired at
         %dd
-          - if first_aired = @program.episodes.by_airs_at.first
+          - if first_aired = @program.episodes.order('airs_at').first
             = l(first_aired.airs_at, :format => :long) rescue '-'
           - else
             \-
         %dt Last aired
         %dd
-          - if last_aired = @program.episodes.airs_at_in_past.last
-            = last_aired.airs_at.to_s(:long) rescue '-'
+          - if @last_episode
+            = @last_episode.airs_at.to_s(:long) rescue '-'
           - else
             \-
         %dt Last episode update
         %dd
-          - last_updated_episode = @program.episodes.by_created_at.last
+          - last_updated_episode = @program.episodes.order('created_at').last
           - if last_updated_episode
             = @program.episodes.by_created_at.last.created_at.to_s(:long) rescue '-'
           - else
