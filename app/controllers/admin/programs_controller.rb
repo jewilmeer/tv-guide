@@ -11,7 +11,7 @@ class Admin::ProgramsController < AdminAreaController
   def show
     @default_configuration  = ::Configuration.first
     @configuration          = @program.configuration || @program.build_configuration(:filter_data => @default_configuration.filter_data)
-    @last_episode           = @program.episodes.airdate_in_past.last
+    @last_episode           = @program.episodes.last_aired.first || @program.episodes.last
     @cover                  = @program.images.saved.image_type(:fanart).random.first
     #we prefer downloaded images...
     @cover                  ||= @program.images.image_type(:fanart).random.first

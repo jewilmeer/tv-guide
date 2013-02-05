@@ -3,25 +3,27 @@
     %h1 Image detail
 
   .row
-    .span12
+    .span4
       .page-header
         %h4 Local image
-      %img{:src => "/images/#{@image.id}.jpg", :id => "local_image_#{@image.id}"} 
+      %img.thumbnail{:src => "/images/#{@image.id}.jpg", :id => "local_image_#{@image.id}"}
+    .span4
       .page-header
         %h4 s3 image
       - if @image.image?
-        %img{:src => @image.s3_url(@image.image_type), :id => "s3_image_#{@image.id}"}
-        .page-header 
+        %img.thumbnail{:src => @image.s3_url(@image.image_type), :id => "s3_image_#{@image.id}"}
+        .page-header
           %h4 Original
-        %img{:src => @image.s3_url(:original)}
+        %img.thumbnail{:src => @image.s3_url(:original)}
       - else
         %p.no_s3_image Not yet saved on S3
-      
+
     .span4
+
       %dl
         - if @image.image?
           %dt S3 url
-          %dd= @image.s3_url( @image.image_type ) 
+          %dd= @image.s3_url( @image.image_type )
         - else
           %dt
         %dt On S3?

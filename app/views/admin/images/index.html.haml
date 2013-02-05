@@ -6,7 +6,7 @@
       Images overview
   %section#options
     %h3 Filter
-    %ul.isotope-control.filter
+    %ul.nav.nav-pills
       %li
         %a.all{data: {filter_css: '*'}} All
       - @program.images.group(:image_type).count.sort.each do |image_type, nr_of_images|
@@ -16,16 +16,16 @@
         %a.saved.selected{data: {filter_css: '[data-saved=]'}} Saved
 
     %h3 Sort
-    %ul.isotope-control.sort
+    %ul.nav.nav-list
       %li
         %a.created_at.selected Creation date
       %li
         %a.image_type Image type
 
-  %ul.media-grid.images
+  %ul.thumbnails.images
     - @images.each do |image|
-      %li[image]{:class => image.image_type, :data => { :created_at => image.created_at.getutc.iso8601, :saved => image.saved?, :image_type => image.image_type}}
-        = link_to [:admin, image] do
+      %li[image]{:class => "#{image.image_type} span3", :data => { :created_at => image.created_at.getutc.iso8601, :saved => image.saved?, :image_type => image.image_type}}
+        = link_to [:admin, image], class: :thumbnail do
           - if image.image?
             %img.thumbnail{:src => image.s3_url(:episode)}
           - else
