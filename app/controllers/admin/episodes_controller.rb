@@ -1,7 +1,5 @@
 class Admin::EpisodesController < AdminAreaController
   respond_to :html, :json, :js
-
-  helper_method :sort_column, :sort_direction
   before_filter :get_episode, :except => :index
 
   def index
@@ -49,13 +47,4 @@ class Admin::EpisodesController < AdminAreaController
     @episode = Episode.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @episode
   end
-
-  def sort_column
-    Episode.column_names.include?(params[:sort]) ? params[:sort] : "airs_at"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-  end
-
 end

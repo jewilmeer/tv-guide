@@ -161,7 +161,6 @@ class Episode < ActiveRecord::Base
     logger.info "Getting #{search_term_type.name} from #{search_url}"
     logger.info "="*30
 
-    # nzbindex
     next_page   = Browser.agent.get( search_url ).forms.last.submit
     if (download_links = next_page.links_with(:text => 'Download')).any?
       download.origin = strip_tags(Nokogiri::HTML(next_page.body).css('td label').last.to_s)
@@ -173,12 +172,6 @@ class Episode < ActiveRecord::Base
       logger.info "No downloads found at #{search_url}"
       false
     end
-  # rescue Encoding::UndefinedConversionError => e
-  #   logger.debug "=" * 20
-  #   logger.debug "episode: #{self.program} - #{self.full_episode_title} ##{self.id} could not download due to a utf-8 issue"
-  #   logger.debug e.inspect
-  #   logger.debug "=" * 20
-  #   false
   end
 
   def airs_at=(airdate, forced=false)
