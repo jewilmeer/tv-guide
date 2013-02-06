@@ -147,6 +147,9 @@ class Episode < ActiveRecord::Base
   end
 
   def download_all
+    logger.info "="*30
+    logger.info "Getting downloads for: #{download_types.map(&:name).to_s}"
+    logger.info "="*30
     download_types.map{|dt| self.download dt}
   end
 
@@ -154,7 +157,9 @@ class Episode < ActiveRecord::Base
     search_url = search_url( search_term_type.code )
     download   = downloads.find_or_initialize_by_download_type( search_term_type.code )
 
-    logger.debug "Getting #{search_term_type.name} from #{search_url}"
+    logger.info "="*30
+    logger.info "Getting #{search_term_type.name} from #{search_url}"
+    logger.info "="*30
 
     # nzbindex
     next_page   = Browser.agent.get( search_url ).forms.last.submit
@@ -165,7 +170,7 @@ class Episode < ActiveRecord::Base
       download.site   = 'nzbindex.nl'
       download.save
     else
-      logger.debug "No downloads found at #{search_url}"
+      logger.info "No downloads found at #{search_url}"
       false
     end
   # rescue Encoding::UndefinedConversionError => e
@@ -174,10 +179,6 @@ class Episode < ActiveRecord::Base
   #   logger.debug e.inspect
   #   logger.debug "=" * 20
   #   false
-  end
-
-  def get_nzb( options = {} )
-    download_all
   end
 
   def airs_at=(airdate, forced=false)
