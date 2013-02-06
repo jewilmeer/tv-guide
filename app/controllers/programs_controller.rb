@@ -79,19 +79,18 @@ class ProgramsController < ApplicationController
     status = []
     program = Program.where{ status == 'Continuing' }.order(:last_checked_at).limit(1).first
     status << "Updated #{program.name}" if program.tvdb_full_update
-    episode_scope = Episode.where('airs_at IS NOT NULL').airs_at_inside(1.week.ago, 2.hours.ago).limit(1)
-    nzbs_to_get         = episode_scope.to_be_downloaded
-    episodes_to_update  = episode_scope.without_image
 
-    if nzbs_to_get.any?
-      status << "<<< Getting nzb's >>>"
-      nzbs_to_get.each do |episode|
-        status << "Downloading nzb #{episode.program.name} - #{episode.full_episode_title}: #{episode.get_nzb}"
-      end
-      status << "<<< Updating episodes >>>"
-      episodes_to_update.each do |episode|
-        status << "Updating #{episode.program.name} - #{episode.full_episode_title}: #{episode.tvdb_update}"
-      end
+    episode_scope = Episode.where('airs_at IS NOT NULL').airs_at_inside(1.week.ago, 2.hours.ago)
+    episode_to_download = episode_scope.to_be_downloaded.sample
+    episode_to_update   = episode_scope.without_image.sample
+
+    if episode_to_download
+      status << "="*20+"\n"
+      status << "Downloading nzb #{episode_to_download.program.name} - #{episode_to_download.full_episode_title}: #{episode_to_download.download_all}"
+      status << "="*20+"\n"
+    end
+    if episode_to_update
+      status << "Updating #{episode_to_update.program.name} - #{episode_to_update.full_episode_title}: #{episode_to_update.tvdb_update}"
     end
     render :text => status * "\n<br />"
   end
