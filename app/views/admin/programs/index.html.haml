@@ -5,11 +5,11 @@
   %table.table.table-striped
     %thead
       %tr
-        %th= sortable 'name'
+        %th Name
         %th Next episode
-        %th= sortable 'status'
-        %th= sortable 'tvdb_last_update', 'Last update'
-        %th= sortable 'last_checked_at', 'Last checked'
+        %th Status
+        %th Last update
+        %th Last checked
         %th Controls
     %tbody= render @programs
   = will_paginate @programs
