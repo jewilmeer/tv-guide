@@ -1,5 +1,10 @@
 %tr[user]
-  %td= link_to user.login, [user, :programs], :title => user.email
+  %td
+    = link_to user.login, [user, :programs], :title => user.email
+    - if user.admin?
+      %span.label.label-warning Admin
+    - if user.trusted?
+      %span.label.label-info Trusted
   %td= l user.created_at, :format => :long
   %td= pluralize(user.sign_in_count, 'time')
   %td= pluralize(user.programs.count, 'program')
