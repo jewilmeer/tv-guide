@@ -5,9 +5,9 @@
       %table.list.full_width
         %thead
           %tr
-            %th= sortable 'title'
-            %th= sortable 'permalink'
-            %th= sortable 'updated_at', "Last update"
+            %th Title
+            %th Permalink
+            %th Last update
             %th Controls
         %tbody
           - @pages.each do |page|
@@ -22,7 +22,7 @@
       %p.nothing No pages defined yet
 
 .row_seperator
-.column-block  
+.column-block
   %h3 Create new page
   .body
     = render :partial => 'form'
