@@ -32,6 +32,7 @@ group :assets do
   gem 'uglifier'
   gem 'compass-rails'
   gem 'bootstrap-sass'
+  gem 'therubyracer'
 end
 
 group :production do
