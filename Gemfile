@@ -3,7 +3,6 @@ ruby '1.9.3'
 
 gem "rails", "~> 3.2.13"
 gem 'mail'
-gem 'jquery-rails'
 gem 'pg'
 
 # Bundle the extra gems:
@@ -25,6 +24,7 @@ gem 'devise'
 gem "dalli"
 
 group :assets do
+  gem 'jquery-rails'
   gem 'coffee-rails'#, "~> 3.2.1"
   gem 'sass-rails'#, "  ~> 3.2.3"
   gem 'uglifier'

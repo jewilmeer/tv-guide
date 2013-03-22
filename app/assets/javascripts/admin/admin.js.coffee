@@ -1,13 +1,12 @@
-###
-= require jquery
-= require jquery_ujs
-= require bootstrap
-= require_self
-###
-
 $ ->
-  $('#program-detail-tabs a:first').tab('show')
-  $('#program-season-tabs a:first').tab('show')
+  $('#tvdb_update').click ->
+    $this = $(@)
+    $.getJSON $this.attr('href'), (data) ->
+      list = $('<dl></dl>')
+      for key, value of data
+        list.append("<dt>#{key}</dt>")
+        list.append("<dd>#{value}</dd>")
+      $this.after list
 
   isScrolledIntoView = (elem) ->
     docViewTop = $(window).scrollTop()
