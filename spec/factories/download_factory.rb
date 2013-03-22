@@ -21,6 +21,6 @@ FactoryGirl.define do
     download_file_name "download.nzb"
     download_type 'hd'
     # associations
-    episode
+    # episode
   end
 end

@@ -68,6 +68,18 @@ class Episode < ActiveRecord::Base
     return episode_comp #unless int_comp == 0
   end
 
+  # attribute overwrites
+  def airdate=(date)
+    super(date)
+    set_airs_at_from_airdate date
+  end
+
+  def set_airs_at_from_airdate(date)
+    return unless program.airs_time
+    Time.zone = self.program.time_zone_offset
+    self.airs_at = Time.zone.parse( airdate.to_s(:db) + ' ' + self.program.airs_time )
+  end
+
   def self.episode_season_split(q)
     match = q.match(/S(\d{1,2})E(\d{1,2})/)
     [ match[1].to_i, match[2].to_i ] if match && match.length == 3
@@ -174,21 +186,6 @@ class Episode < ActiveRecord::Base
     end
   end
 
-  def airs_at=(airdate, forced=false)
-    if airdate.present? && self.program.try(:airs_time)
-      Time.zone = self.program.time_zone_offset
-      write_attribute(:airs_at, Time.zone.parse( airdate.to_s(:db) + ' ' + self.program.airs_time ))
-    else
-      write_attribute(:airs_at, nil)
-    end
-  end
-
-  def airs_at
-    @airs_at ||= read_attribute(:airs_at) || Time.zone.parse( self.airdate.to_s(:db) + ' ' + self.program.airs_time )
-  rescue StandardError => e
-    nil
-  end
-
   def thumb=url
     return false unless url.present?
 
@@ -241,7 +238,6 @@ class Episode < ActiveRecord::Base
     self.title        = tvdb_result.name || 'TBA'
     self.description  = tvdb_result.overview
     self.airdate      = tvdb_result.air_date
-    self.airs_at      = tvdb_result.air_date
     self.thumb        = tvdb_result.try(:thumb)
     self
   end

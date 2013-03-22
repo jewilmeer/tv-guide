@@ -1,29 +1,28 @@
-- cache [@program, current_user.try(:trusted?), current_user.try(:admin?)] do
-  #seasons.active
-    .page-header
-      %h3 Seasons
-    %ul.nav.nav-tabs#program-season-tabs
-      - seasons_for_tab(@program).each do |season|
-        %li
-          %a{:href => "#s#{season}", 'data-toggle' => 'tab'}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
-      - if seasons_for_dropdown(@program).any?
-        %li.dropdown
-          %a.dropdown-toggle{'data-toggle' => :dropdown}
-            == Older seasons (#{seasons_for_dropdown(@program).length})
-            %b.caret
-          %ul.dropdown-menu
-            - seasons_for_dropdown(@program).each do |season|
-              %li
-                %a{:href => "#s#{season}", 'data-toggle' => 'tab'}
-                  == Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
-    .tab-content
-      - @program.max_season_nr.downto(1) do |season|
-        .tab-pane{:id => "s#{season}", :class => (:active if @program.max_season_nr == season)}
-          %table.table.table-striped
-            %thead
-              %tr
-                %th Title
-                %th{:width => 150} Airdate
-            %tbody
-              = render :collection => @program.episodes.where('season_nr = ?', season).order('nr desc'), :partial => 'episodes/episodes', :as => :episode
+#seasons.active
+  .page-header
+    %h3 Seasons
+  %ul.nav.nav-tabs#program-season-tabs
+    - seasons_for_tab(@program).each do |season|
+      %li
+        %a{:href => "#s#{season}", 'data-toggle' => 'tab'}== Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
+    - if seasons_for_dropdown(@program).any?
+      %li.dropdown
+        %a.dropdown-toggle{'data-toggle' => :dropdown}
+          == Older seasons (#{seasons_for_dropdown(@program).length})
+          %b.caret
+        %ul.dropdown-menu
+          - seasons_for_dropdown(@program).each do |season|
+            %li
+              %a{:href => "#s#{season}", 'data-toggle' => 'tab'}
+                == Season #{season} (#{@program.episodes.where('season_nr = ?', season).count})
+  .tab-content
+    - @program.max_season_nr.downto(1) do |season|
+      .tab-pane{:id => "s#{season}", :class => (:active if @program.max_season_nr == season)}
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Title
+              %th{:width => 150} Airdate
+          %tbody
+            = render :collection => @program.episodes.where('season_nr = ?', season).order('nr desc'), :partial => 'episodes/episodes', :as => :episode
 
