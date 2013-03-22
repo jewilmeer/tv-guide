@@ -1,14 +1,12 @@
 source 'http://rubygems.org'
 ruby '1.9.3'
 
-gem "rails", "~> 3.2.6"
+gem "rails", "~> 3.2.13"
 gem 'mail'
-gem 'jquery-rails'
 gem 'pg'
 
 # Bundle the extra gems:
 gem 'mechanize', '~> 2.0.1'
-# gem 'pacecar'
 gem 'squeel'
 gem 'simple_form'
 gem 'progress_bar'
@@ -25,13 +23,15 @@ gem 'devise'
 # caching
 gem "dalli"
 
-
 group :assets do
+  gem 'jquery-rails'
   gem 'coffee-rails'#, "~> 3.2.1"
   gem 'sass-rails'#, "  ~> 3.2.3"
   gem 'uglifier'
   gem 'compass-rails'
   gem 'bootstrap-sass'
+  gem 'therubyracer'
+  gem 'turbo-sprockets-rails3'
 end
 
 group :production do
@@ -46,13 +46,11 @@ group :development, :test do
   gem 'annotate'
 
   # test stuff
-  gem "rspec-rails"
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem "factory_girl_rails"
 
   # help test stuff
-  gem 'database_cleaner', :git => 'git://github.com/bmabey/database_cleaner.git'
-  gem 'shoulda-matchers'
-  gem 'rspec-instafail'
   gem 'timecop'
 
   # verify
