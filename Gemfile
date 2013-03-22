@@ -46,13 +46,11 @@ group :development, :test do
   gem 'annotate'
 
   # test stuff
-  gem "rspec-rails"
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem "factory_girl_rails"
 
   # help test stuff
-  gem 'database_cleaner', :git => 'git://github.com/bmabey/database_cleaner.git'
-  gem 'shoulda-matchers'
-  gem 'rspec-instafail'
   gem 'timecop'
 
   # verify
