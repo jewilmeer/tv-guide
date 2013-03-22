@@ -112,9 +112,9 @@ describe Episode do
     let!(:episodes_without_download) { create_list :episode, 2 }
 
     it "retunrs episodes without downloads" do
-      expect(subject.to_a).to eql episodes_without_download
+      expect(subject.to_a).to eq episodes_without_download
     end
 
-    its(:count) { should be 2 }
+    it { should have(2).episodes }
   end
 end

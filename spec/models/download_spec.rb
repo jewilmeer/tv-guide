@@ -17,10 +17,10 @@
 require 'spec_helper'
 
 describe Download do
-  subject { create :download }
+  let!(:episode) { create :episode }
+  let(:download) { build :download, episode: episode }
 
-  it "should update the associated episode" do
-    subject.episode.should_receive(:touch)
-    subject.save
+  it "updates the episode upon creation" do
+    expect { download.save }.to change episode, :updated_at
   end
 end
