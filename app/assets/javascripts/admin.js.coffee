@@ -1,18 +1,11 @@
 ###
 = require jquery
 = require jquery_ujs
-= require './lib/prettify'
 = require bootstrap
-= require './lib/timeago.jquery'
-= require_tree ./app
 = require_self
 ###
 
 $ ->
-  $('time').timeago()
-
-  prettyPrint()
-
   $('#tvdb_update').click ->
     $this = $(@)
     $.getJSON $this.attr('href'), (data) ->
