@@ -31,6 +31,7 @@ group :assets do
   gem 'compass-rails'
   gem 'bootstrap-sass'
   gem 'therubyracer'
+  gem 'turbo-sprockets-rails3'
 end
 
 group :production do
