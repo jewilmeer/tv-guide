@@ -8,7 +8,6 @@ gem 'pg'
 
 # Bundle the extra gems:
 gem 'mechanize', '~> 2.0.1'
-# gem 'pacecar'
 gem 'squeel'
 gem 'simple_form'
 gem 'progress_bar'
