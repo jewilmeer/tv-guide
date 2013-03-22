@@ -1,7 +1,7 @@
 module DateHelper
   def pretty_date timestamp, options={}
-    date = Time.parse(timestamp.to_s)
-    case date_diff(date)
+    time = Time.parse(timestamp.to_s)
+    case date_diff(time)
     when 0
       'Today'
     when -1
@@ -9,10 +9,11 @@ module DateHelper
     when 1
       'Tomorrow'
     when 2..7
-      "Next #{ l(date, :format => :weekday)}"
+      "Next #{ l(time, :format => :weekday)}"
     when -7..-2
-      "Last #{ l(date, :format => :weekday)}"
+      "Last #{ l(time, :format => :weekday)}"
     else
+      date = time.to_date
       if date_needs_year? date
         l date, :format => :with_day
       else
@@ -28,6 +29,6 @@ module DateHelper
   end
 
   def date_needs_year? date
-    Date.today.year != date.to_date.year
+    Date.today.year != date.year
   end
 end
