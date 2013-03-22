@@ -25,3 +25,7 @@ Configuration.create({:program_id => nil, :active => true, :filter_data => {
     :search_param => 'ihq'
   } }
 })
+
+SearchTermType.create name: 'Low Res', code: 'low_res', search_term: '-720 -1080 -wmv -german -french'
+SearchTermType.create name: 'HD (720p)', code: 'hd', search_term: '720 -1080 -wmv -german -french'
+SearchTermType.create name: 'Full HD', code: 'full_hd', search_term: '1080 -720 -wmv -german -french'
