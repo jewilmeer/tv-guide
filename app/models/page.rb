@@ -1,3 +1,9 @@
+class Page < ActiveRecord::Base
+  def to_param
+    permalink.parameterize
+  end
+end
+
 # == Schema Information
 #
 # Table name: pages
@@ -11,8 +17,3 @@
 #  updated_at :datetime
 #
 
-class Page < ActiveRecord::Base
-  def to_param
-    permalink.parameterize
-  end
-end

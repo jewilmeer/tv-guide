@@ -1,3 +1,8 @@
+class Genre < ActiveRecord::Base
+  validates :name, :presence => true, :uniqueness => true
+  has_and_belongs_to_many :programs, :uniq => true
+end
+
 # == Schema Information
 #
 # Table name: genres
@@ -8,7 +13,3 @@
 #  updated_at :datetime
 #
 
-class Genre < ActiveRecord::Base
-  validates :name, :presence => true, :uniqueness => true
-  has_and_belongs_to_many :programs, :uniq => true
-end

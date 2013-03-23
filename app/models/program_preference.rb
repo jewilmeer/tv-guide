@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: program_preferences
-#
-#  id                  :integer          not null, primary key
-#  user_id             :integer
-#  program_id          :integer
-#  download            :boolean          default(TRUE)
-#  search_term_type_id :integer          default(1)
-#  created_at          :datetime
-#  updated_at          :datetime
-#
-
 class ProgramPreference < ActiveRecord::Base
   belongs_to :search_term_type
   belongs_to :user,     :counter_cache => :programs_count
@@ -24,3 +11,17 @@ class ProgramPreference < ActiveRecord::Base
 
   attr_accessor :q
 end
+
+# == Schema Information
+#
+# Table name: program_preferences
+#
+#  id                  :integer          not null, primary key
+#  user_id             :integer
+#  program_id          :integer
+#  download            :boolean          default(TRUE)
+#  search_term_type_id :integer          default(1)
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+
