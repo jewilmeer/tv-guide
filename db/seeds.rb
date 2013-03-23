@@ -28,11 +28,14 @@ Configuration.find_or_create_by_program_id nil do |c|
   } }
 end
 SearchTermType.find_or_create_by_code 'low_rew' do |st|
-  st.attributes= { name: 'Low Res', code: 'low_res', search_term: '-720 -1080 -wmv -german -french' }
+  st.name = 'Low Res'
+  st.search_term = '-720 -1080 -wmv -german -french'
 end
 SearchTermType.find_or_create_by_code 'hd' do |st|
-  st.attributes= { name: 'HD (720p)', code: 'hd', search_term: '720 -1080 -wmv -german -french' }
+  st.name = 'HD (720p)'
+  st.search_term = '720 -1080 -wmv -german -french'
 end
 SearchTermType.find_or_create_by_code 'full_hd' do |st|
-  st.attributes= { name: 'Full HD', code: 'full_hd', search_term: '1080 -720 -wmv -german -french' }
+  st.name = 'Full HD'
+  st.search_term = '1080 -720 -wmv -german -french'
 end
