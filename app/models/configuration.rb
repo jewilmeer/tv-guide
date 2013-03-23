@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: configurations
-#
-#  id          :integer          not null, primary key
-#  program_id  :integer
-#  active      :boolean          default(TRUE)
-#  filter_data :text
-#  created_at  :datetime
-#  updated_at  :datetime
-#
-
 class Configuration < ActiveRecord::Base
   belongs_to :program
 
@@ -67,3 +55,16 @@ class Configuration < ActiveRecord::Base
     filter_data[:nzb][:search_term_pattern]
   end
 end
+
+# == Schema Information
+#
+# Table name: configurations
+#
+#  id          :integer          not null, primary key
+#  program_id  :integer
+#  active      :boolean          default(TRUE)
+#  filter_data :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+

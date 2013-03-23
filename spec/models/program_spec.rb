@@ -33,12 +33,11 @@
 #
 
 require 'spec_helper'
-require 'factory_girl_rails'
 
 describe Program do
   let(:program) { create(:program, {:fetch_remote_information => false}) }
   subject { program }
-  
+
   it { should be_valid }
 
   describe '#fetch_remote_information' do
