@@ -6,26 +6,33 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-Configuration.create({:program_id => nil, :active => true, :filter_data => {
-  :nzb => {
-    :url => 'http://nzbindex.nl/search/',
-    :params => {
-      'max' => 2,
-      'gp[]' => '687',
-      'minsize' => '200',
-      'complete' => '1',
-      'hidespam' => '1'
+Configuration.find_or_create_by_program_id nil do |c|
+  c.attributes = { active: true, filter_data: {
+    :nzb => {
+      :url => 'http://nzbindex.nl/search/',
+      :params => {
+        'max' => 2,
+        'gp[]' => '687',
+        'minsize' => '200',
+        'complete' => '1',
+        'hidespam' => '1'
+      },
+      :search_param => 'q',
+      :extra_search_terms => '',
+      :hd_terms => '720'
     },
-    :search_param => 'q',
-    :extra_search_terms => '',
-    :hd_terms => '720'
-  },
-  :torrent => {
-    :url => 'http://isohunt.com/torrents/',
-    :search_param => 'ihq'
+    :torrent => {
+      :url => 'http://isohunt.com/torrents/',
+      :search_param => 'ihq'
+    }
   } }
-})
-
-SearchTermType.create name: 'Low Res', code: 'low_res', search_term: '-720 -1080 -wmv -german -french'
-SearchTermType.create name: 'HD (720p)', code: 'hd', search_term: '720 -1080 -wmv -german -french'
-SearchTermType.create name: 'Full HD', code: 'full_hd', search_term: '1080 -720 -wmv -german -french'
+end
+SearchTermType.find_or_create_by_code 'low_rew' do |st|
+  st.attributes= { name: 'Low Res', code: 'low_res', search_term: '-720 -1080 -wmv -german -french' }
+end
+SearchTermType.find_or_create_by_code 'hd' do |st|
+  st.attributes= { name: 'HD (720p)', code: 'hd', search_term: '720 -1080 -wmv -german -french' }
+end
+SearchTermType.find_or_create_by_code 'full_hd' do |st|
+  st.attributes= { name: 'Full HD', code: 'full_hd', search_term: '1080 -720 -wmv -german -french' }
+end
