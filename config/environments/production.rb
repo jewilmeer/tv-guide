@@ -51,24 +51,13 @@ TvEpisodes::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => "jewilmeer.com" }
-  if ENV['SENDGRID_USERNAME']
-    ActionMailer::Base.smtp_settings = {
-      :address        => 'smtp.sendgrid.net',
-      :port           => '587',
-      :authentication => :plain,
-      :user_name      => ENV['SENDGRID_USERNAME'],
-      :password       => ENV['SENDGRID_PASSWORD'],
-      :domain         => 'heroku.com'
-    }
-  else
-    ActionMailer::Base.smtp_settings = {
-      :address        => 'smtp.mandrillapp.com',
-      :port           => '587',
-      :authentication => :plain,
-      :user_name      => 'mail@jewilmeer.nl',
-      :password       => 'wybX09PopO54NWMEVd0drQ'
-    }
-  end
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.mandrillapp.com',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => 'mail@jewilmeer.nl',
+    :password       => 'wybX09PopO54NWMEVd0drQ'
+  }
   ActionMailer::Base.delivery_method = :smtp
 
   # Enable threaded mode
