@@ -44,10 +44,6 @@
         %td= @program.tvdb_rating || 'Not available'
         %th Content rating
         %td= @program.contentrating || 'Not available'
-      - if @program.actors.any?
-        %tr
-          %th.top Actors
-          %td{:colspan => 5}= @program.actors.to_sentence(:last_word_connector => ' and ')
       %tr
         %th.top Overview
         %td{:colspan => 5}= @program.overview
