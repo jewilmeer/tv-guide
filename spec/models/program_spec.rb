@@ -1,10 +1,7 @@
 require 'spec_helper'
 
 describe Program do
-  let(:program) { create(:program, {:fetch_remote_information => false}) }
-  subject { program }
-
-  it { should be_valid }
+  let(:program) { build_stubbed :program }
 
   describe '#fetch_remote_information' do
     it 'should be true if not set' do
