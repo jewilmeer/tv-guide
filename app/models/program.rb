@@ -1,11 +1,10 @@
 class Program < ActiveRecord::Base
   require 'open-uri'
 
-  has_many :episodes#, :through => :seasons, :dependent => :destroy
+  has_many :episodes
   has_many :interactions, :dependent => :nullify
   has_many :program_preferences
   has_many :programs_users
-
   has_many :users, :through => :program_preferences
   has_many :search_term_types, :through => :program_preferences, :uniq => true
 
@@ -23,7 +22,7 @@ class Program < ActiveRecord::Base
 
   before_validation :update_by_tvdb_id#, :on => :create
   after_create :enrich_data
-  before_save :update_episodes#, :if => Proc.new {|p| p.name_changed? }
+  before_save :update_episodes
 
   scope :by_name, order('name ASC')
   scope :tvdb_id, select('id, tvdb_id')
@@ -251,10 +250,7 @@ class Program < ActiveRecord::Base
   end
 
   def update_episodes
-    episodes.all.map do |episode|
-      episode.program_name = self.name
-      episode.save!
-    end
+    episodes.update_all program_name: self.name
   end
 end
 
