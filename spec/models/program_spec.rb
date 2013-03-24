@@ -1,26 +1,24 @@
 require 'spec_helper'
 
 describe Program do
-  let(:program) { build_stubbed :program }
+  describe "enrich_data" do
+    context "without an tvdb id" do
+      let(:program) { build :program, tvdb_id: nil }
 
-  describe '#fetch_remote_information' do
-    it 'should be true if not set' do
-      subject.fetch_remote_information=nil
-      subject.fetch_remote_information.should be_true
-    end
+      it "is valid" do
+        program.should be_valid
+      end
 
-    it 'should be true if set so' do
-      subject.fetch_remote_information=true
-      subject.fetch_remote_information.should be_true
-    end
-    it 'should be false if set so' do
-      subject.fetch_remote_information=false
-      subject.fetch_remote_information.should be_false
+      it "does not enrich without an tvdb_id" do
+        program.should_not_receive :enrich_data
+        program.save
+      end
     end
   end
 
   describe "#update name" do
     let(:episode) { create :episode, program: program }
+    let(:program) { create(:program) }
 
     it "also updates the program name of associated episodes" do
       expect{ program.update_attribute(:name, 'changed') }.to \
