@@ -41,24 +41,6 @@ class Program < ActiveRecord::Base
     Configuration.default( self.configuration.try(:filter_data) )
   end
 
-  def banners
-    @banners ||= self.class.tvdb_client.get_banners(self.tvdb_id)
-  end
-
-  def filename
-    "#{self.name.parameterize}-banner.jpg"
-  end
-
-  def get_banner
-    return unless tvdb_banner_filename
-    tmp_filepath = "tmp/#{self.name.parameterize}-banner-#{tvdb_banner_filename}"
-    open(tvdb_banner_url) {|tmp_file| self.banner= tmp_file}
-  end
-
-  def banner_url
-    self.banner.url
-  end
-
   def airs_time
     read_attribute(:airs_time) || '9:00 PM'
   end
@@ -69,11 +51,6 @@ class Program < ActiveRecord::Base
 
   def to_param
     "#{id}-#{name.parameterize}"
-  end
-
-  def actors
-    @actors ||= read_attribute(:actors) || []
-    @actors.split('|').compact.reject(&:blank?)
   end
 
   def max_season_nr
