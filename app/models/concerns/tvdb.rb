@@ -4,6 +4,34 @@ module Concerns
   module TVDB
     extend ActiveSupport::Concern
 
+    included do
+      # scopes
+      def self.only_tvdb_id
+        select('id, tvdb_id')
+      end
+
+      def self.tvdb_client
+        TvdbParty::Search.new(TVDB_API)
+      end
+
+      def self.tvdb_search query
+        tvdb_client.search( query ).map{|r| self.from_tvdb(r) }
+      end
+
+      def self.from_tvdb( tvdb_result )
+        self.new.apply_tvdb_attributes tvdb_result
+      end
+
+      def self.tvdb_ids
+        @tvdb_ids ||= self.only_tvdb_id.all
+      end
+
+      def self.updates timestamp=Time.now.to_i, only_existing=true
+        result = tvdb_client.get_series_updates( timestamp )['Series']
+        result.reject{|tvdb_id| !tvdb_ids.include?(tvdb_id.to_s) } if result && only_existing
+      end
+    end
+
     def tvdb_banner_url
       "http://www.thetvdb.com/banners/" + banners.detect{|banner| banner[:subtype] == 'graphical' }[:path]
     rescue StandardError
@@ -27,9 +55,6 @@ module Concerns
       tvdb_id.present?
     end
 
-    def self.tvdb_client
-      TvdbParty::Search.new(TVDB_API)
-    end
     def tvdb_client
       self.class.tvdb_client
     end
@@ -54,13 +79,6 @@ module Concerns
 
     def tvdb_last_update
       @tvdb_last_update ||= created_at
-    end
-    def self.tvdb_search query
-      tvdb_client.search( query ).map{|r| self.from_tvdb(r) }
-    end
-
-    def self.from_tvdb( tvdb_result )
-      self.new.apply_tvdb_attributes tvdb_result
     end
 
     def tvdb_serie
@@ -94,15 +112,6 @@ module Concerns
       apply_tvdb_attributes result
     end
 
-    def self.tvdb_ids
-      @tvdb_ids ||= self.tvdb_id.all
-    end
-
-    def self.updates timestamp=Time.now.to_i, only_existing=true
-      result = tvdb_client.get_series_updates( timestamp )['Series']
-      result.reject{|tvdb_id| !tvdb_ids.include?(tvdb_id.to_s) } if result && only_existing
-    end
-
     # get new episodes, skip those specials and filter the ones already on the website
     def new_episodes
       tvdb_episodes(true)
@@ -116,7 +125,7 @@ module Concerns
       episodes = tvdb_client.get_all_episodes_by_id(self.tvdb_id)
       episodes = episodes.select{|episode| Episode.valid_season_or_episode_nr episode.season_number.to_i }
       if only_new
-        all_tvdb_ids = self.episodes.tvdb_id.all.map(&:tvdb_id)
+        all_tvdb_ids = self.episodes.tvdb_id.pluck(:tvdb_id)
         episodes = episodes.reject{|episode| all_tvdb_ids.include?(episode.id.to_i) }
       end
       episodes
