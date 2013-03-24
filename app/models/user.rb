@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :interactions, :dependent => :nullify
 
   before_update :notify_of_special_features
+  before_save :ensure_authentication_token
 
   validates :login, presence: true, uniqueness: true
 
