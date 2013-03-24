@@ -20,7 +20,7 @@ class Program < ActiveRecord::Base
   validates :tvdb_name, :presence => true, :if => :has_tvdb_connection?
   validates :tvdb_id, :uniqueness => true, :if => :has_tvdb_connection?
 
-  before_validation :update_by_tvdb_id#, :on => :create
+  before_validation :update_by_tvdb_id
   after_create :enrich_data
   before_save :update_episodes
 
