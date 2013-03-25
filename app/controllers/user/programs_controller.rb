@@ -4,7 +4,8 @@ class User::ProgramsController < UserAreaController
 
   def index
     basic_episodes     = Episode.watched_by_user(@user.programs)
-    @past_episodes     = basic_episodes.last_aired.includes(:downloads).page(params[:page]).per_page(10)
+    @past_episodes     = basic_episodes.last_aired.includes(:program, downloads: :search_term_type)
+                          .page(params[:page]).per_page(10)
     @search_terms      = SearchTermType.all
 
     respond_to do |format|

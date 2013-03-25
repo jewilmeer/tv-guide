@@ -29,11 +29,11 @@
 
 FactoryGirl.define do
   factory :episode do
-    sequence(:title) {|n| "episode#{n}" }
+    sequence(:title) { |n| "episode#{n}" }
     season_nr 1
     sequence(:nr) {|n| n }
     airs_at { Time.now }
-
+    sequence(:tvdb_id) { |n| n }
     # associations
     program
 
