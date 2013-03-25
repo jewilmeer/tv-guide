@@ -39,6 +39,11 @@ class Episode < ActiveRecord::Base
     return episode_comp #unless int_comp == 0
   end
 
+  # INTERFACE
+  def retry_update
+    touch
+  end
+
   # attribute overwrites
   def airdate=(date)
     super(date)
