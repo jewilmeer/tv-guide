@@ -89,6 +89,7 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    fakeweb (1.3.0)
     fattr (2.2.1)
     font-awesome-sass-rails (3.0.2.2)
       railties (>= 3.1.1)
@@ -271,6 +272,7 @@ DEPENDENCIES
   dalli
   devise
   factory_girl_rails
+  fakeweb
   font-awesome-sass-rails
   haml
   heroku

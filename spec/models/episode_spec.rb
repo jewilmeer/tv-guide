@@ -1,11 +1,6 @@
 require 'spec_helper'
 
 describe Episode do
-  subject { create(:episode) }
-  context "creation" do
-    it { should be_valid }
-  end
-
   describe 'associations' do
     it { should belong_to(:program) }
     it { should belong_to(:image) }
@@ -43,20 +38,23 @@ describe Episode do
 
   describe "interpolated_search_term" do
     subject { episode.interpolated_search_term }
-    let(:episode) { create :episode, nr: 2, season_nr: 1 }
-    before {
+    let(:episode) { build_stubbed :episode, nr: 2, season_nr: 1 }
+
+    before do
       episode.stub(:search_term_pattern => search_term_pattern)
       episode.stub_chain(:program, :search_name).and_return("TestName")
-    }
+    end
 
     context "default interpolation" do
       let(:search_term_pattern) { "%{program_name} S%{season_nr}E%{episode_nr}" }
       it { should eql "TestName S1E2" }
     end
+
     context "alternative interpolation" do
       let(:search_term_pattern) { "%{program_name} S%{season_nr}x%{episode_nr}" }
       it { should eql "TestName S1x2" }
     end
+
     context "interpolation with filled values" do
       let(:search_term_pattern) { "%{program_name} S%{filled_season_nr}E%{filled_episode_nr}" }
       it { should eql "TestName S01E02" }
