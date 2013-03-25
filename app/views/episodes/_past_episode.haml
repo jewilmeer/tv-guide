@@ -12,20 +12,6 @@
 
   .row-fluid
     - if current_user.try(:trusted)
-      .download_options
-        %i.icon-cloud-download.icon-large
-        - if episode.downloads.any?
-          - episode.downloads.each do |download|
-            %span.label.label-success
-              = link_to download.search_term_type.name, download_episode_path(episode, quality_code: download.download_type, :format => :nzb), :title => download.origin
-        - else
-          %span.label.label-info No downloads available
-
-      .search_options
-        %i.icon-search.icon-large
-        - @search_terms.each do |search_term|
-          %span.label.label-success
-            = link_to search_term.name, search_episode_path(episode, quality_code: search_term.code)
-
+      = render 'episodes/trusted_actions', episode: episode, search_terms: @search_terms
     %small= episode.description
   %br

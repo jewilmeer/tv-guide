@@ -15,6 +15,8 @@ TvEpisodes::Application.routes.draw do
     member do
       get :banners
     end
+
+    resources :episodes, only: :show
   end
 
   resources :images

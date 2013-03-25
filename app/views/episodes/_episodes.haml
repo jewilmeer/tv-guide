@@ -6,16 +6,15 @@
       .downloads
         %i.icon-cloud-download
         - if episode.downloads.any?
-          - episode.downloads.includes(:search_term_type).each do |download|
-            - next unless download.search_term_type
+          - episode.downloads.each do |download|
             %span.label.label-success
-              = link_to download.search_term_type.name, episode_path(episode, :download_type => download.download_type ,:format => :nzb), :title => download.origin
+              = link_to download.search_term_type.name, download_episode_path(episode, :quality_code => download.download_type, :format => :nzb), :title => download.origin
         - else
           %span.label No downloads available
       .search
         %i.icon-search
-        - SearchTermType.all.each do |search_term|
-          %span.label.label-success= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
+        - @search_terms.each do |search_term|
+          %span.label.label-success= link_to search_term.name, search_episode_path(episode, :quality_code => search_term.code)
   %td{:width => 220}
     - if episode.airs_at
       %p= pretty_date episode.airs_at.to_date, :with_year => true

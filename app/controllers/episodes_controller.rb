@@ -9,9 +9,9 @@ class EpisodesController < ApplicationController
   end
 
   def update
-    @search_terms      = SearchTermType.all
     episode.ensure_up_to_date
-    respond_with @episode
+    @search_terms      = SearchTermType.all
+    respond_with episode
   end
 
   def download

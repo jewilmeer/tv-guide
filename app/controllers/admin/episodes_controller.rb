@@ -13,6 +13,7 @@ class Admin::EpisodesController < AdminAreaController
   end
 
   def update
+    @search_terms = SearchTermType.all
     respond_to do |format|
       format.html do
         @episode.update_attributes params[:episode]

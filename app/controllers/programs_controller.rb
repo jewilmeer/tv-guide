@@ -23,6 +23,7 @@ class ProgramsController < ApplicationController
   def show
     @program        = Program.find(params[:id], :include => :episodes)
     @featured_image = @program.series_image || @program.images.series.random.first
+    @search_terms   = SearchTermType.all
   end
 
   def suggest
