@@ -21,7 +21,7 @@
             %dt Actions
             %dd
               .download
-                %i.icon-download-alt
+                %i.icon-cloud-download
                 - if @episode.downloads.includes(:search_term_type).any?
                   - @episode.downloads.includes(:search_term_type).each do |download|
                     - next unless download.search_term_type
