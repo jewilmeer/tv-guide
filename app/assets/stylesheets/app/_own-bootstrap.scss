@@ -38,3 +38,9 @@ a {
 a i {
   text-decoration: none !important;
 }
+
+.episode {
+  .download_options, .search_options {
+    margin: 10px 0;
+  }
+}
