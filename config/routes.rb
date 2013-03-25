@@ -16,17 +16,15 @@ TvEpisodes::Application.routes.draw do
       get :banners
     end
 
-    resources :episodes do
-      member do
-        get :download, :search
-        put :mark
-      end
-    end
+    resources :episodes, only: :show
   end
 
   resources :images
-  resources :episodes do
-    get :search, on: :member
+  resources :episodes, only: [:show, :update] do
+    member do
+      get 'search/:quality_code', action: :search, as: :search
+      get 'download/:quality_code', action: :download, as: :download
+    end
   end
 
   resources :users, :module => 'user', :path => '/user' do
