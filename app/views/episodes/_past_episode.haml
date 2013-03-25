@@ -7,14 +7,14 @@
         = link_to episode.full_episode_title, episode
     .span3
       - if current_user.try(:admin)
-        = link_to admin_episode_path(episode, :partial => :past_episode, :format => :js), {:class => 'pull-right refresh', :method => :put, :remote => true, :disable_with => 'Please wait...'} do
-          %i.icon-refresh
+        = link_to admin_episode_path(episode, :partial => :past_episode, :format => :js), {:class => 'pull-right refresh', :method => :put, :remote => true} do
+          %i.icon-repeat
 
   .row-fluid
     .span7
       - if current_user.try(:trusted)
         %p{style: 'display: block'}
-          %i.icon-download
+          %i.icon-cloud-download.icon-large
           - if episode.downloads.any?
             - episode.downloads.includes(:search_term_type).each do |download|
               - next unless download.search_term_type
@@ -23,7 +23,7 @@
           - else
             %span.label.label-info No downloads available
         %p{style: 'display: block'}
-          %i.icon-search
+          %i.icon-search.icon-large
           - @search_terms.each do |search_term|
             %span.label.label-success= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
 
