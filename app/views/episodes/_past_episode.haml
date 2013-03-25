@@ -12,18 +12,19 @@
 
   .row-fluid
     - if current_user.try(:trusted)
-      %p{style: 'display: block'}
+      .download_options
         %i.icon-cloud-download.icon-large
         - if episode.downloads.any?
-          - episode.downloads.includes(:search_term_type).each do |download|
+          - episode.downloads.each do |download|
             - next unless download.search_term_type
             %span.label.label-success
               = link_to download.search_term_type.name, episode_path(episode, :download_type => download.download_type ,:format => :nzb), :title => download.origin
         - else
           %span.label.label-info No downloads available
-      %p{style: 'display: block'}
+
+      .search_options
         %i.icon-search.icon-large
-        - SearchTermType.all.each do |search_term|
+        - @search_terms.each do |search_term|
           %span.label.label-success= link_to search_term.name, search_episode_path(episode, :search_type => search_term.code)
 
     %small= episode.description
