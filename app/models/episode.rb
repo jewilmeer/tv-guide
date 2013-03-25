@@ -39,6 +39,11 @@ class Episode < ActiveRecord::Base
     return episode_comp #unless int_comp == 0
   end
 
+  # INTERFACE
+  def ensure_up_to_date
+    [tvdb_update, download_all]
+  end
+
   # attribute overwrites
   def airdate=(date)
     super(date)

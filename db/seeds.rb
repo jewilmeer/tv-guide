@@ -20,14 +20,10 @@ Configuration.find_or_create_by_program_id nil do |c|
       :search_param => 'q',
       :extra_search_terms => '',
       :hd_terms => '720'
-    },
-    :torrent => {
-      :url => 'http://isohunt.com/torrents/',
-      :search_param => 'ihq'
     }
   } }
 end
-SearchTermType.find_or_create_by_code 'low_rew' do |st|
+SearchTermType.find_or_create_by_code 'low_res' do |st|
   st.name = 'Low Res'
   st.search_term = '-720 -1080 -wmv -german -french'
 end
