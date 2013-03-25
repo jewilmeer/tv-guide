@@ -32,6 +32,7 @@ group :assets do
   gem 'bootstrap-sass'
   gem 'therubyracer'
   gem 'turbo-sprockets-rails3'
+  gem 'font-awesome-sass-rails'
 end
 
 group :production do

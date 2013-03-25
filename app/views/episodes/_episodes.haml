@@ -4,7 +4,7 @@
     = link_to episode.full_episode_title, program_episode_path(@program, episode), :class => :title
     - if current_user.try(:trusted?) && episode.airs_at.try(:past?)
       .downloads
-        %i.icon-download-alt
+        %i.icon-cloud-download
         - if episode.downloads.any?
           - episode.downloads.includes(:search_term_type).each do |download|
             - next unless download.search_term_type

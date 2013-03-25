@@ -13,6 +13,6 @@
       - if current_user.try(:trusted?)
         %small.pull-right
           = link_to(tokened_program_path(:id => @program.id, :authentication_token => current_user.authentication_token, :format => :rss), :class => 'right-rss') do
-            %i.icon-globe
+            %i.icon-rss
   = render 'program_details'
   = render 'season_tabs'
