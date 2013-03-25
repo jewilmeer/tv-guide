@@ -30,8 +30,8 @@ group :assets do
   gem 'uglifier'
   gem 'compass-rails'
   gem 'bootstrap-sass'
-  gem 'therubyracer'
   gem 'turbo-sprockets-rails3'
+  gem 'font-awesome-sass-rails'
 end
 
 group :production do
