@@ -25,8 +25,8 @@ TvEpisodes::Application.routes.draw do
   end
 
   resources :images
-  resources :episodes do
-    get :search, on: :member
+  resources :episodes, only: [:show, :update] do
+    get :search, :download, on: :member
   end
 
   resources :users, :module => 'user', :path => '/user' do
