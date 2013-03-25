@@ -4,13 +4,14 @@ class EpisodesController < ApplicationController
   before_filter :authenticate_user!, :only => [:update, :download, :search]
 
   def show
+    @search_terms      = SearchTermType.all
     respond_with episode
   end
 
   def update
-    @episode = Episode.find params[:id]
-    @episode.ensure_up_to_date
-    respond_with @episode, status: :no_content
+    @search_terms      = SearchTermType.all
+    episode.ensure_up_to_date
+    respond_with @episode
   end
 
   def download
@@ -45,7 +46,8 @@ class EpisodesController < ApplicationController
   def download_from_rss; end
 
   def search
-    end_point = @episode.search_url( params[:search_type] )
+    end_point = episode.search_url( params[:search_type] )
+
     current_user.interactions.create({
       :user => current_user,
       :program => @episode.program,
@@ -56,11 +58,12 @@ class EpisodesController < ApplicationController
       :referer          => request.referer,
       :user_agent       => request.user_agent
     })
+
     redirect_to end_point
   end
 
 
   def episode
-    @episode ||= Episode.includes(:program).find params[:id]
+    @episode ||= Episode.includes(:program, downloads: :search_term_type).find params[:id]
   end
 end
