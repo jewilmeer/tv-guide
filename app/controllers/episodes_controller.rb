@@ -15,32 +15,19 @@ class EpisodesController < ApplicationController
   end
 
   def download
-    if episode.downloads.any?
-      # redirect for links living on external storage
-      download_type = SearchTermType.find_by_code(params[:download_type])
-      download_type ||= current_user.program_preferences.with_program(episode.program).includes(:search_term_type).first.search_term_type
+    @download = episode.downloads.where(download_type: params[:quality_code]).first!
+    current_user.interactions.create({
+      user:             current_user,
+      program:          episode.program,
+      episode:          episode,
+      interaction_type: 'download',
+      format:           'nzb',
+      end_point:        @download.download.path,
+      referer:          request.referer,
+      user_agent:       request.user_agent
+    })
 
-      download = episode.downloads.with_download_type( download_type.code ).first
-      if download
-        path     = download.download.path
-
-        current_user.interactions.create({
-          :user             => current_user,
-          :program          => episode.program,
-          :episode          => episode,
-          :interaction_type => 'download',
-          :format           => params[:format] || 'nzb',
-          :end_point        => path,
-          :referer          => request.referer,
-          :user_agent       => request.user_agent
-        })
-        redirect_to( download.download.expiring_url 10.seconds )
-      else
-        search
-      end
-    else
-      search
-    end
+    redirect_to @download.download.expiring_url 10.seconds
   end
 
   def download_from_rss; end
@@ -49,14 +36,14 @@ class EpisodesController < ApplicationController
     end_point = episode.search_url( params[:search_type] )
 
     current_user.interactions.create({
-      :user => current_user,
-      :program => @episode.program,
-      :episode => @episode,
-      :interaction_type => "Search #{params[:search_type]}",
-      :format => params[:format] || 'nzb',
-      :end_point => end_point,
-      :referer          => request.referer,
-      :user_agent       => request.user_agent
+      user:             current_user,
+      program:          @episode.program,
+      episode:          @episode,
+      interaction_type: "Search #{params[:quality_code]}",
+      format:           'nzb',
+      end_point:        end_point,
+      referer:          request.referer,
+      user_agent:       request.user_agent
     })
 
     redirect_to end_point
