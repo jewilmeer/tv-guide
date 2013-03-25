@@ -40,8 +40,8 @@ class Episode < ActiveRecord::Base
   end
 
   # INTERFACE
-  def retry_update
-    touch
+  def ensure_up_to_date
+    [tvdb_update, download_all]
   end
 
   # attribute overwrites
