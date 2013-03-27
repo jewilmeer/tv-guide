@@ -244,7 +244,7 @@ class Episode < ActiveRecord::Base
   end
 
   def tvdb_update
-    self.apply_tvdb_attributes e
+    self.apply_tvdb_attributes tvdb_episode
     save!
   end
 
