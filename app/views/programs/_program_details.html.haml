@@ -6,10 +6,7 @@
   .tab-pane#banner
     .row
       .span8
-        - if @featured_image
-          %img{:src => image_path(@featured_image, :format => :jpg), :width => 700, :height => 129}
-        - else
-          = image_tag( @program.banner_url, :size => '940x173') if @program.banner
+        %img{:src => http://placehold.it/700x129), :width => 700, :height => 129}
       .span4
         .panel
           %ul.unstyled
