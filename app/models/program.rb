@@ -18,12 +18,8 @@ class Program < ActiveRecord::Base
   belongs_to :series_image, :class_name => 'Image'
   belongs_to :fanart_image, :class_name => 'Image'
 
-  validates :name, :presence => true, :uniqueness => true
-  validates :tvdb_name, :presence => true, :if => :has_tvdb_connection?
-  validates :tvdb_id, :uniqueness => true, :if => :has_tvdb_connection?
+  validates :tvdb_id, :uniqueness => true
 
-  before_validation :update_by_tvdb_id
-  after_create :enrich_data, if: ->(program){ program.tvdb_id.present? }
   before_save :update_episodes_with_program_name
 
   scope :by_name, order('name ASC')
@@ -50,31 +46,6 @@ class Program < ActiveRecord::Base
 
   def to_param
     "#{id}-#{name.parameterize}"
-  end
-
-  def max_season_nr
-    read_attribute(:max_season_nr) || set_max_season_nr
-  end
-
-  def set_max_season_nr
-    write_attribute(:max_season_nr, self.episodes.order('season_nr desc').first.try(:season_nr))
-  end
-
-  def current_season_nr
-    @current_season_nr ||= set_current_season_nr
-  end
-
-  def set_current_season_nr
-    write_attribute(:current_season_nr, self.episodes.last_aired.first.try(:season_nr) || 1)
-  end
-
-  def update_episode_counters
-    set_max_season_nr && set_current_season_nr && save
-  end
-
-  def enrich_data
-    return true unless self.tvdb_id.present?
-    [:add_episodes, :get_images].map{|method| self.send(method) } if fetch_remote_information
   end
 
   def update_episodes_with_program_name

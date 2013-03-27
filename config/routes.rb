@@ -12,9 +12,6 @@ TvEpisodes::Application.routes.draw do
       post :search
       get :check, :guide, :suggest
     end
-    member do
-      get :banners
-    end
 
     resources :episodes, only: :show
   end

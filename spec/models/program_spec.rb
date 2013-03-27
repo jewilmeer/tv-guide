@@ -1,21 +1,6 @@
 require 'spec_helper'
 
 describe Program do
-  describe "enrich_data" do
-    context "without an tvdb id" do
-      let(:program) { build :program, tvdb_id: nil }
-
-      it "is valid" do
-        program.should be_valid
-      end
-
-      it "does not enrich without an tvdb_id" do
-        program.should_not_receive :enrich_data
-        program.save
-      end
-    end
-  end
-
   describe "#update name" do
     let(:episode) { create :episode, program: program }
     let(:program) { create(:program) }

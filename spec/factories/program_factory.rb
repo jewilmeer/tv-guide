@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :program do
     sequence(:name) {|n| "program#{n}" }
+    sequence(:tvdb_id) {|n| n }
 
     trait :indexed do
       status 'Continuing'

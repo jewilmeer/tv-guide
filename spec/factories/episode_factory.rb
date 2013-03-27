@@ -33,7 +33,7 @@ FactoryGirl.define do
     season_nr 1
     sequence(:nr) {|n| n }
     airs_at { Time.now }
-    sequence(:tvdb_id) { |n| n }
+    sequence(:tvdb_id) { |n| n*rand(10_000) }
     # associations
     program
 
