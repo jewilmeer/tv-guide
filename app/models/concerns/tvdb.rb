@@ -6,7 +6,7 @@ module Concerns
 
     included do
       before_save :tvdb_refresh, if: ->(){ self.tvdb_id_changed? }
-
+      before_create ->(){ self.last_checked_at= 1.year.ago }
       # scopes
       def self.tvdb_client
         TvdbParty::Search.new(TVDB_API)
@@ -37,7 +37,7 @@ module Concerns
         tvdb_refresh_episodes,
         update_episode_counters
       ]
-      self.save
+      self.touch(:last_checked_at)
     end
 
     def tvdb_refresh
