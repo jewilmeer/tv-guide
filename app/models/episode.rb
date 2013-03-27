@@ -26,7 +26,6 @@ class Episode < ActiveRecord::Base
   attr_accessor :options, :name, :episode, :filters, :thumb
 
   before_validation :update_program_name
-  before_save :touch_episode
 
   def <=>(o)
     program_comp = self.program.name <=> o.program.name
@@ -39,11 +38,6 @@ class Episode < ActiveRecord::Base
     return episode_comp #unless int_comp == 0
   end
 
-  # INTERFACE
-  def ensure_up_to_date
-    [tvdb_update, download_all]
-  end
-
   # attribute overwrites
   def airdate=(date)
     super(date)
@@ -51,9 +45,10 @@ class Episode < ActiveRecord::Base
   end
 
   def set_airs_at_from_airdate(date)
-    return unless program.airs_time
+    return unless date.present?
+    return unless program.try(:airs_time)
     Time.zone = self.program.time_zone_offset
-    self.airs_at = Time.zone.parse( airdate.to_s(:db) + ' ' + self.program.airs_time )
+    self.airs_at = Time.zone.parse( %(#{date} #{self.program.airs_time}) )
   end
 
   def self.episode_season_split(q)
@@ -201,10 +196,14 @@ class Episode < ActiveRecord::Base
   def self.tvdb_client
     TvdbParty::Search.new(TVDB_API)
   end
+
   def tvdb_client
     self.class.tvdb_client
   end
+
   def apply_tvdb_attributes tvdb_result, _program=nil
+    logger.debug "applying tvdb attributes for episode"
+
     self.program      = _program if _program
     self.program_name = _program.name if _program
     self.program_name = program.name if program
@@ -236,29 +235,25 @@ class Episode < ActiveRecord::Base
     only_existing ? updates.reject{|tvdb_id| !tvdb_ids.include?(tvdb_id.to_s) } : updates
   end
 
+  def tvdb_episode
+    tvdb_client.get_episode_by_id self.tvdb_id
+  end
+
   def tvdb_update_hash
     tvdb_client.get_episode_by_id self.tvdb_id
   end
 
   def tvdb_update
-    e = tvdb_update_hash
-    unless e
-      self.destroy
-      return
-    end
     self.apply_tvdb_attributes e
     save!
   end
+
   def self.get_episodes_by_tvdb_id tvdb_id
     tvdb_client.get_all_episodes_by_id( tvdb_id ).reject{|e| e.season_number.to_i == 0}
   end
 
   def update_program_name
     program_name = program.name if program
-  end
-
-  def touch_episode
-    program.touch unless program_name_changed?
   end
 
   def self.valid_season_or_episode_nr nr

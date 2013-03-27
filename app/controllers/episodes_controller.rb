@@ -9,7 +9,7 @@ class EpisodesController < ApplicationController
   end
 
   def update
-    episode.ensure_up_to_date
+    episode.download_all
     @search_terms      = SearchTermType.all
     respond_with episode
   end
@@ -29,8 +29,6 @@ class EpisodesController < ApplicationController
 
     redirect_to @download.download.expiring_url 10.seconds
   end
-
-  def download_from_rss; end
 
   def search
     end_point = episode.search_url( params[:search_type] )

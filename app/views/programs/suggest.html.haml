@@ -7,7 +7,7 @@
     %dl
     - @programs.each do |program|
       .page-header
-        %h3= program.name
+        %h3= link_to program.name, program
         %p= program.overview
         %dl
           %dt Add to your guide

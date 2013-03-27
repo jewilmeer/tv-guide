@@ -21,7 +21,7 @@ class ProgramsController < ApplicationController
   end
 
   def show
-    @program        = Program.find(params[:id], :include => :episodes)
+    @program        = Program.find(params[:id])
     @featured_image = @program.series_image || @program.images.series.random.first
     @search_terms   = SearchTermType.all
   end
@@ -94,15 +94,6 @@ class ProgramsController < ApplicationController
       status << "Updating #{episode_to_update.program.name} - #{episode_to_update.full_episode_title}: #{episode_to_update.tvdb_update}"
     end
     render :text => status * "\n<br />"
-  end
-
-  def banners
-    @image_types = Image.distinctly('images.image_type').group('image_type').all.map(&:image_type).compact
-    @image_type  = params[:image_type] || @image_types.last
-    order = params[:order] || 'created_at desc'
-    @placeholder = @program.series_image
-    @images      = @program.images.image_type(@image_type).limit(params[:per_page] || 5).order(order)
-    @images.unshift(@placeholder) if @placeholder && @images.exclude?( @placeholder )
   end
 
   def find_program
