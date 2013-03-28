@@ -78,7 +78,7 @@ class ProgramsController < ApplicationController
   # 15 minutes cronjob
   def check
     status = []
-    program = Program.where{ status == 'Continuing' }.order(:last_checked_at).limit(1).first
+    program = Program.where{ status == 'Continuing' }.order(:last_checked_at).limit(5).sample
     status << "Updated #{program.name}" if program.tvdb_full_update
 
     episode_scope = Episode.where('airs_at IS NOT NULL').airs_at_inside(1.week.ago, 2.hours.ago)
