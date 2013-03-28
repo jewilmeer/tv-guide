@@ -49,6 +49,7 @@ module Concerns
       tvdb_client.get_all_episodes_by_id(self.tvdb_id).map do |tvdb_episode|
         # remove special episodes
         next if [0, 99].include? tvdb_episode.season_number.to_i
+        next if [0, 99].include? tvdb_episode.number.to_i
 
         episode = self.episodes.find_or_initialize_by_tvdb_id tvdb_episode.id
         episode.apply_tvdb_attributes tvdb_episode
