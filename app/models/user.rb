@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   before_update :notify_of_special_features
   before_save :ensure_authentication_token
+  after_create :notify_of_registration
 
   validates :login, presence: true, uniqueness: true
 

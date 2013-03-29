@@ -8,7 +8,7 @@
 
 
   - if @programs.any?
-    %table.table.table-striped
+    %table.table.table-striped#programs
       %thead
         %tr
           %th Name
@@ -17,21 +17,8 @@
           %th{:width => '200'} Next episode
           %th{:width => '120'} Runtime
       %tbody
-        - @programs.each do |program|
-          %tr
-            %td= link_to program.name, program
-            %td
-              - if program.program_preferences_count > 0
-                %abbr{:title => program.users.map(&:login).to_sentence}= pluralize(program.program_preferences_count, 'watcher')
-              - else
-                no watchers
-            %td= program.status
-            %td
-              - if next_episode = program.episodes.next_airing.first
-                = pretty_date next_episode.airs_at
-              - else
-                \-
-            %td== #{program.runtime} minutes
+        = render @programs
+    = will_paginate @program
   - else
     %p.nothing
       No programs found!
