@@ -53,7 +53,7 @@ module Concerns
 
         episode = self.episodes.find_or_initialize_by_tvdb_id tvdb_episode.id
         episode.apply_tvdb_attributes tvdb_episode
-        episode.save!
+        episode.save
       end
     end
 
