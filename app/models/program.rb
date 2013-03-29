@@ -25,7 +25,7 @@ class Program < ActiveRecord::Base
   scope :by_name, order('name ASC')
   scope :last_updated, order('updated_at desc')
 
-  attr_accessor :active_configuration, :banners, :banner, :tvdb_serie, :fetch_remote_information
+  attr_accessor :active_configuration
 
   def self.search_program query
     query = "%#{query}%"
