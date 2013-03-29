@@ -1,6 +1,5 @@
 $ ->
   $('#program-detail-tabs a:first').tab('show')
-  $('#program-season-tabs a:first').tab('show')
 
   isScrolledIntoView = (elem) ->
     docViewTop = $(window).scrollTop()
