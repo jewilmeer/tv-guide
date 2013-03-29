@@ -6,7 +6,7 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @programs = Program.search_program(params[:q]).order(:name)
+    @programs = Program.search_program(params[:q]).order(:name).page params[:page]
     if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
       redirect_to @programs.first
     else

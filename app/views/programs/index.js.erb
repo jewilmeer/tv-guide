@@ -1,0 +1,6 @@
+$('#programs tbody').append('<%= j render(@programs) %>');
+<% if @programs.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@programs) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
