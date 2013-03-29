@@ -28,7 +28,7 @@ module Concerns
     end
 
     def tvdb_serie
-      @tvdb_serie ||= tvdb_client.get_series_by_id self.tvdb_id
+      tvdb_client.get_series_by_id self.tvdb_id
     end
 
     def tvdb_full_update
@@ -65,8 +65,7 @@ module Concerns
 
     def apply_tvdb_attributes tvdb_result
       return unless tvdb_result
-      self.tvdb_serie     = tvdb_result #cache the object
-      self.tvdb_id        = tvdb_result.id
+      # self.tvdb_id        = tvdb_result.id
       self.name           = tvdb_result.name unless self.name.present?
       self.search_name    = tvdb_result.name unless self.search_name.present?
       self.tvdb_name      = tvdb_result.name
