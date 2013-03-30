@@ -7,6 +7,7 @@
         %h4 Recently aired
       - if @past_episodes.any?
         = render :partial => 'episodes/past_episodes', :locals => {:past_episodes => @past_episodes}
+        = will_paginate @past_episodes
       - else
         %p No past episodes found
 

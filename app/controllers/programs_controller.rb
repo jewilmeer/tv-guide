@@ -6,7 +6,7 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @programs = Program.search_program(params[:q]).order(:name).page params[:page]
+    @programs = Program.search_program(params[:q]).order('status, name').page params[:page]
     if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
       redirect_to @programs.first
     else
@@ -17,7 +17,7 @@ class ProgramsController < ApplicationController
   def guide
     @search_terms      = SearchTermType.all
     @upcoming_episodes = Episode.next_airing.includes(:program)
-    @past_episodes     = Episode.last_aired.includes(:program).includes(:downloads).limit(20)
+    @past_episodes     = Episode.last_aired.includes(:program).includes(:downloads).page params[:page]
   end
 
   def show
