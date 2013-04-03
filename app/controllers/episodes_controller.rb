@@ -15,7 +15,7 @@ class EpisodesController < ApplicationController
   end
 
   def download
-    @download = episode.downloads.where(download_type: params[:quality_code]).first!
+    @download = episode.downloads.first!
     current_user.interactions.create({
       user:             current_user,
       program:          episode.program,
