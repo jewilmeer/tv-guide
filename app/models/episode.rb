@@ -49,6 +49,8 @@ class Episode < ActiveRecord::Base
     return unless program.try(:airs_time)
     Time.zone = self.program.time_zone_offset
     self.airs_at = Time.zone.parse( %(#{date} #{self.program.airs_time}) )
+  rescue ArgumentError #invalid date
+    date
   end
 
   def self.episode_season_split(q)
