@@ -127,7 +127,7 @@ class Episode < ActiveRecord::Base
     logger.info "="*30
     logger.info "Getting downloads for: #{qualities.join(', ')}"
     logger.info "="*30
-    qualities.map{|quality| self.download quality}
+    qualities.map{|quality| self.download quality }
   end
 
   def download quality
