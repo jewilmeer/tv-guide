@@ -82,16 +82,12 @@ class ProgramsController < ApplicationController
     status << "Updated #{program.name}" if program.tvdb_full_update
 
     episode_scope = Episode.where('airs_at IS NOT NULL').airs_at_inside(1.week.ago, 2.hours.ago)
-    episode_to_download = episode_scope.to_be_downloaded.sample
-    episode_to_update   = episode_scope.without_image.sample
+    episode_to_download = episode_scope.where('program_id IN(?)', ProgramPreference.pluck(:program_id)).to_be_downloaded.sample
 
-    if episode_to_download
+    if Random.rand(5) == 5 && episode_to_download
       status << "="*20+"\n"
       status << "Downloading nzb #{episode_to_download.program.name} - #{episode_to_download.full_episode_title}: #{episode_to_download.download_all}"
       status << "="*20+"\n"
-    end
-    if episode_to_update
-      status << "Updating #{episode_to_update.program.name} - #{episode_to_update.full_episode_title}: #{episode_to_update.tvdb_update}"
     end
     render :text => status * "\n<br />"
   end
