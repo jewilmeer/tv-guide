@@ -8,8 +8,6 @@ class Admin::ProgramsController < AdminAreaController
   end
 
   def show
-    @default_configuration  = ::Configuration.first
-    @configuration          = @program.configuration || @program.build_configuration(:filter_data => @default_configuration.filter_data)
     @last_episode           = @program.episodes.last_aired.first || @program.episodes.last
     @cover                  = @program.images.saved.image_type(:fanart).random.first
     #we prefer downloaded images...

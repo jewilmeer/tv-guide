@@ -1,5 +1,6 @@
 %tr[search_term_type]
-  %td= search_term_type.name
+  %td== #{search_term_type.name}(#{search_term_type.code})
+  %td= search_term_type.search_term
   %td= pluralize search_term_type.program_preferences.count, 'Program preference'
   %td
     = link_to [:admin, search_term_type] do

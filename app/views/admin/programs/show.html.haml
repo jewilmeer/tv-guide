@@ -83,24 +83,6 @@
         %dt Other options
         %dd= link_to 'Remove', [:admin, :program], :class => [:btn, :danger], :method => :delete, :data => {:'disable-with' => 'Burning episodes...'}
 
-
-  .page-header
-    %h3 Current filter
-
-  - if @configuration.new_record?
-    .alert-message.warning
-      %p
-        %strong Notice
-        There is no custom filter yet, editing the custom filter below will create a custom one
-  %pre.prettyprint= raw @program.active_configuration.filter_data.pretty_inspect
-
-  = form_for([:admin, @configuration]) do |f|
-    = f.hidden_field :program_id
-    .clearfix
-      = f.label :filter_data, 'filter data (Hash)'
-      .input= f.text_area :filter_data, :class => :span12
-    .actions
-      %button.btn.primary{:data => {:'disable-with' => 'Please wait...'}}= @configuration.new_record? ? 'Create' : 'Update'
   .row
     .span6
       .page-header
