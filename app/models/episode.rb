@@ -120,7 +120,7 @@ class Episode < ActiveRecord::Base
   end
 
   def qualities
-    ['hd_720']
+    ['hd']
   end
 
   def download_all
