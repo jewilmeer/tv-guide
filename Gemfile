@@ -57,6 +57,7 @@ group :development, :test do
   gem 'simplecov', :require => false
 
   gem 'pry-rails'
+  gem 'pry-debugger'
 end
 
 group :test do

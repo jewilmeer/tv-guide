@@ -74,12 +74,6 @@ class Episode < ActiveRecord::Base
     (airs_at.to_date - Date.today).to_i.abs.succ
   end
 
-  def search_url( search_term_type_code )
-    stt = SearchTermType.find_by_code(search_term_type_code)
-    extra_terms = stt.try(:search_term) || ''
-    active_configuration.search_url( search_query(extra_terms), {:age => self.age})
-  end
-
   def search_query(extra_terms)
     ([] << interpolated_search_term << extra_terms) * ' '
   end
@@ -125,23 +119,22 @@ class Episode < ActiveRecord::Base
     "#{id}-#{title.parameterize}"
   end
 
-  def download_types
-    program.search_term_types
+  def qualities
+    ['hd_720']
   end
 
   def download_all
     logger.info "="*30
-    logger.info "Getting downloads for: #{download_types.map(&:name).to_s}"
+    logger.info "Getting downloads for: #{qualities.join(', ')}"
     logger.info "="*30
-    download_types.map{|dt| self.download dt}
+    qualities.map{|quality| self.download quality}
   end
 
-  def download search_term_type
-    search_url = search_url( search_term_type.code )
-    download   = downloads.find_or_initialize_by_download_type( search_term_type.code )
+  def download quality
+    download   = downloads.find_or_initialize_by_download_type( quality )
 
     logger.info "="*30
-    logger.info "Getting #{search_term_type.name} from #{search_url}"
+    logger.info "Getting #{quality} from #{search_url}"
     logger.info "="*30
 
     next_page   = Browser.agent.get( search_url ).forms.last.submit
@@ -157,21 +150,15 @@ class Episode < ActiveRecord::Base
     end
   end
 
-  def thumb=url
-    return false unless url.present?
+  def searcher
+    @searcher ||= NzbSearch.new.tap do |searcher|
+      searcher.search_terms = "#{self.interpolated_search_term} #{searcher.default_terms}"
+      searcher.age = self.age
+    end
+  end
 
-    logger.debug "==" * 20
-    logger.debug "Setting image to #{url}"
-    logger.debug "==" * 20
-
-    i = find_existing_image_by_url( url )
-    i.image_type = 'episode'
-    i.programs << self.program unless i.programs.include? program
-    self.image = i
-    logger.debug "==" * 20
-    logger.debug "i.changed? #{i.changed?} :: #{i.changes.inspect}"
-    logger.debug "==" * 20
-    i.save! if i.changed?
+  def search_url
+    searcher.link
   end
 
   def find_existing_image_by_url url
@@ -202,8 +189,6 @@ class Episode < ActiveRecord::Base
   end
 
   def apply_tvdb_attributes tvdb_result, _program=nil
-    logger.debug "applying tvdb attributes for episode"
-
     self.program      = _program if _program
     self.program_name = _program.name if _program
     self.program_name = program.name if program
@@ -260,12 +245,8 @@ class Episode < ActiveRecord::Base
     nr.to_i != 0 && nr.to_i != 99
   end
 
-  def active_configuration
-    program.active_configuration
-  end
-
   def search_term_pattern
-    active_configuration.search_term_pattern || "%{program_name} S%{filled_season_nr}E%{filled_episode_nr}"
+    "%{program_name} S%{filled_season_nr}E%{filled_episode_nr}"
   end
 
   def interpolated_search_term
