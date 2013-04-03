@@ -42,7 +42,7 @@ class User::ProgramsController < UserAreaController
       }
       format.js { }
     end
-end
+  end
 
   def update
     @program = Program.find(params[:id])

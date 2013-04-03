@@ -10,8 +10,6 @@ class Program < ActiveRecord::Base
   has_many :users, :through => :program_preferences
   has_many :search_term_types, :through => :program_preferences, :uniq => true
 
-  has_one :configuration, :dependent => :destroy
-
   has_and_belongs_to_many :images
   has_and_belongs_to_many :genres, :uniq => true
 
@@ -25,15 +23,9 @@ class Program < ActiveRecord::Base
   scope :by_name, order('name ASC')
   scope :last_updated, order('updated_at desc')
 
-  attr_accessor :active_configuration
-
   def self.search_program query
     query = "%#{query}%"
     where{ (name.matches query) | (search_name.matches query) | (overview.matches query) }
-  end
-
-  def active_configuration
-    Configuration.default( self.configuration.try(:filter_data) )
   end
 
   def airs_time
@@ -50,6 +42,10 @@ class Program < ActiveRecord::Base
 
   def update_episodes_with_program_name
     episodes.update_all program_name: self.name
+  end
+
+  def self.default_search_term_pattern
+    "%{program_name} %{season_nr} %{filled_episode_nr}"
   end
 end
 
@@ -86,4 +82,3 @@ end
 #  program_preferences_count :integer          default(0)
 #  interactions_count        :integer          default(0)
 #
-

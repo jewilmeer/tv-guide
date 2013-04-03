@@ -6,26 +6,9 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-Configuration.find_or_create_by_program_id nil do |c|
-  c.attributes = { active: true, filter_data: {
-    :nzb => {
-      :url => 'http://nzbindex.nl/search/',
-      :params => {
-        'max' => 2,
-        'gp[]' => '687',
-        'minsize' => '200',
-        'complete' => '1',
-        'hidespam' => '1'
-      },
-      :search_param => 'q',
-      :extra_search_terms => '',
-      :hd_terms => '720'
-    }
-  } }
-end
 SearchTermType.find_or_create_by_code 'low_res' do |st|
   st.name = 'Low Res'
-  st.search_term = '-720 -1080 -wmv -german -french'
+  st.search_term = '-720 -1080'
 end
 SearchTermType.find_or_create_by_code 'hd' do |st|
   st.name = 'HD (720p)'
