@@ -6,8 +6,9 @@
         &nbsp;-&nbsp;
         = link_to episode.full_episode_title, episode
     .span3
-      - if current_user.try(:admin)
-        = link_to episode_path(episode), :class => 'pull-right refresh', :method => :put, :remote => true do
+      - if current_user.try(:trusted)
+        = link_to episode_path(episode), :class => 'pull-right refresh',
+          :method => :put, :remote => true do
           %i.icon-repeat
 
   .row-fluid
