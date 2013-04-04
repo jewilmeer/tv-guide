@@ -1,6 +1,6 @@
 $ ->
   $('#program-detail-tabs a:first').tab('show')
-  $('[data-toggle="tooltip"]').tooltip()
+
   isScrolledIntoView = (elem) ->
     docViewTop = $(window).scrollTop()
     docViewBottom = docViewTop + $(window).height()
