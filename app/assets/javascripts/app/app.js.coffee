@@ -17,3 +17,9 @@ $ ->
     $(window).scroll()
   $('#past-episodes').on 'click', 'a i', ->
     $(@).addClass('icon-spin').parent('a').attr('disabled', 'disabled')
+
+  $('.program_search, #program_preference_q').typeahead
+    name: 'programs',
+    source: (query, typeahead) ->
+      $.getJSON '/api/programs.json', query: query, (data) ->
+        typeahead(data)
