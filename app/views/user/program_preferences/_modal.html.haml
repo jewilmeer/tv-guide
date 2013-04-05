@@ -1,11 +1,11 @@
 .modal.hide.fade
   = simple_form_for @program_preference, url: user_program_preferences_path,
-    html: {class: 'form-horizontal'} do |f|
+    html: {class: 'form-horizontal'}, remote: true do |f|
     .modal-header
       %button.close{'data-dismiss' => 'modal', "aria-hidden" => true} &times;
       %h3 Add new program
     .modal-body
-      = f.input :search_term_type_id, as: :hidden
-      = f.input :program_id, as: :string, input_html: { 'data-provide' => 'typeahead' }
+      = f.input :search_term_type, as: :hidden
+      = f.input :q, as: :string, input_html: { 'data-provide' => 'typeahead' }
     .modal-footer
       = f.button :submit, as: :submit, class: 'btn-primary'

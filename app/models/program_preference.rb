@@ -3,7 +3,7 @@ class ProgramPreference < ActiveRecord::Base
   belongs_to :user,     :counter_cache => :programs_count
   belongs_to :program,  :counter_cache => true
 
-  validates :search_term_type_id, :presence => true
+  # validates :search_term_type_id, :presence => true
   validates :user_id,             :presence => true
   validates :program_id,          :presence => true, :uniqueness => {:scope => :user_id}
 
