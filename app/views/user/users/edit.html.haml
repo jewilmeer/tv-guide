@@ -20,7 +20,6 @@
             %dt= program.status
           %dd[program]
             = link_to program do
-              %span.label.label-success= current_user.program_preferences.with_program(program).includes(:search_term_type).first.search_term_type.name
               = program.name
               = link_to user_program_path(current_user, program), :method => :delete, :remote => true, class: 'pull-right' do
                 %i.icon-remove
