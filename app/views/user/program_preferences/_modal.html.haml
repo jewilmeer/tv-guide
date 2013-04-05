@@ -6,6 +6,7 @@
       %h3 Add new program
     .modal-body
       = f.input :search_term_type, as: :hidden
-      = f.input :q, as: :string, input_html: { 'data-provide' => 'typeahead' }
+      = f.input :q, as: :string, input_html: { 'data-provide' => 'typeahead',
+        autocomplete: :off }
     .modal-footer
       = f.button :submit, as: :submit, class: 'btn-primary'

@@ -1,6 +1,22 @@
 TvEpisodes::Application.routes.draw do
   devise_for :users
 
+  namespace :admin do
+    root :to => 'pages#root'
+    resources :users, :configurations, :search_term_types
+    resources :images, :interactions, :program_preferences
+    resources :episodes do
+      get :tvdb_update, :on => :member
+    end
+    resources :programs do
+      resources :images
+    end
+  end
+
+  namespace :api do
+    resources :programs, only: :index
+  end
+
   match "/user/:user_id/programs/t/:authentication_token" => 'user/programs#aired', :as => 'tokened_user_programs'
   match "/programs/:id/t/:authentication_token" => 'programs#show', :as => 'tokened_program'
   match "/programs/:program_id/episodes/:id(/t/:authentication_token)(.:format)" => 'episodes#download', :as => 'episode_download'
@@ -29,18 +45,6 @@ TvEpisodes::Application.routes.draw do
     resources :program_preferences, only: [:new, :create, :update]
     resources :programs do
       get :aired, :on => :collection
-    end
-  end
-
-  namespace :admin do
-    root :to => 'pages#root'
-    resources :users, :configurations, :search_term_types
-    resources :images, :interactions, :program_preferences
-    resources :episodes do
-      get :tvdb_update, :on => :member
-    end
-    resources :programs do
-      resources :images
     end
   end
 
