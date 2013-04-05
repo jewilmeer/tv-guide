@@ -1,3 +1,11 @@
 modal_html = $('<%= j render "modal" %>');
 $('body').append(modal_html);
 modal_html.modal();
+modal_html.find('input[type=text]').typeahead({
+  name: 'program_preference',
+  source: function(query, typeahead) {
+    return $.getJSON('/api/programs.json', {query: query}, function(data) {
+      return typeahead(data)
+    });
+  }
+});
