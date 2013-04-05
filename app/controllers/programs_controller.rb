@@ -7,7 +7,7 @@ class ProgramsController < ApplicationController
 
   def index
     @programs = Program.search_program(params[:q]).order('status, name').page params[:page]
-    if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
+    if params[:q] && @programs.first.name.downcase == params[:q].downcase
       redirect_to @programs.first
     else
       respond_with @programs
@@ -30,30 +30,17 @@ class ProgramsController < ApplicationController
     @programs = Program.tvdb_search(params[:q].downcase)
   end
 
-  def edit
-    # @needs_update = @program.needs_update?
-    # render :json => @needs_update
-    render :json => true
-  end
-
   def update
-    if params[:program]
-      @program.update_attributes(params[:program])
-      # check if we can find the image
-      @image_id = params[:program].detect{|k,v| k.include?('_image_id')}.try(:last)
-    else
-      current_user.interactions.create({
-        :user => current_user,
-        :program => @program,
-        :interaction_type => "update program",
-        :format => params[:format] || 'html',
-        :end_point => url_for(@program),
-        :referer          => request.referer,
-        :user_agent       => request.user_agent
-      })
-      @program.tvdb_full_update
-      render :nothing => true
-    end
+    current_user.interactions.create({
+      :user => current_user,
+      :program => @program,
+      :interaction_type => "update program",
+      :format => params[:format] || 'html',
+      :end_point => url_for(@program),
+      :referer          => request.referer,
+      :user_agent       => request.user_agent
+    })
+    @program.tvdb_full_update
   end
 
   def destroy
