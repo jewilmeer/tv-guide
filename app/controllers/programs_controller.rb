@@ -10,7 +10,7 @@ class ProgramsController < ApplicationController
     if params[:q].present? && @programs.length == 1 && @programs.first.name.downcase == params[:q].downcase
       redirect_to @programs.first
     else
-      respond_with :programs => @programs
+      respond_with @programs
     end
   end
 
