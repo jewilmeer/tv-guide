@@ -9,6 +9,7 @@ class Program < ActiveRecord::Base
   has_many :programs_users
   has_many :users, :through => :program_preferences
   has_many :search_term_types, :through => :program_preferences, :uniq => true
+  has_and_belongs_to_many :stations
 
   has_and_belongs_to_many :images
   has_and_belongs_to_many :genres, :uniq => true
