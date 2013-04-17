@@ -1,0 +1,9 @@
+%h1== #{@station.name} station
+
+.row
+  .span8= render 'episodes/past_episodes', past_episodes: @past_episodes
+  .span4
+    .well= render 'episodes/next_airing', next_episodes: @next_episodes
+%ul.programs
+  - @station.programs.each do |program|
+    %li[program]= link_to program.name, program
