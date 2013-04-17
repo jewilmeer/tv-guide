@@ -1,0 +1,9 @@
+%h1 Stations
+
+
+%dl
+  - @stations.each do |station|
+    %dt== #{station.name} station
+    %dd
+      = link_to station do
+        %i.icon-eye-open

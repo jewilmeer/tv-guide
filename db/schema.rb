@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130120225058) do
+ActiveRecord::Schema.define(:version => 20130417212016) do
 
   create_table "configurations", :force => true do |t|
     t.integer  "program_id"
@@ -156,6 +156,11 @@ ActiveRecord::Schema.define(:version => 20130120225058) do
     t.integer  "interactions_count",        :default => 0
   end
 
+  create_table "programs_stations", :force => true do |t|
+    t.integer "station_id"
+    t.integer "program_id"
+  end
+
   create_table "programs_users", :id => false, :force => true do |t|
     t.integer "program_id"
     t.integer "user_id"
@@ -170,6 +175,22 @@ ActiveRecord::Schema.define(:version => 20130120225058) do
     t.string   "search_term"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "series", :force => true do |t|
+    t.string   "name"
+    t.string   "status"
+    t.string   "tv_status"
+    t.integer  "tvrage_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "stations", :force => true do |t|
+    t.string  "name",          :null => false
+    t.integer "user_id"
+    t.integer "taggable_id"
+    t.string  "taggable_type"
   end
 
   create_table "users", :force => true do |t|

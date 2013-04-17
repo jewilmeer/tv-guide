@@ -48,5 +48,7 @@ TvEpisodes::Application.routes.draw do
     end
   end
 
+  resources :stations, only: [:index, :show]
+
   root :to => "pages#index"
 end
