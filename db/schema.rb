@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130120225058) do
+ActiveRecord::Schema.define(:version => 20130417200827) do
 
   create_table "configurations", :force => true do |t|
     t.integer  "program_id"
@@ -170,6 +170,13 @@ ActiveRecord::Schema.define(:version => 20130120225058) do
     t.string   "search_term"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "stations", :force => true do |t|
+    t.string  "name",          :null => false
+    t.integer "user_id"
+    t.integer "taggable_id"
+    t.string  "taggable_type"
   end
 
   create_table "users", :force => true do |t|
