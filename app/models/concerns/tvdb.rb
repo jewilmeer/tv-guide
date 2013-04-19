@@ -65,7 +65,7 @@ module Concerns
 
     def apply_tvdb_attributes tvdb_result
       return unless tvdb_result
-      # self.tvdb_id        = tvdb_result.id
+      self.tvdb_id        = tvdb_result.id
       self.name           = tvdb_result.name unless self.name.present?
       self.search_name    = tvdb_result.name unless self.search_name.present?
       self.tvdb_name      = tvdb_result.name
