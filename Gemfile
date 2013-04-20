@@ -20,6 +20,11 @@ gem 'haml'
 gem 'will_paginate'
 gem 'devise'
 
+# background
+gem 'sidekiq'
+gem 'slim'
+gem 'sinatra', '>= 1.3.0', :require => nil
+
 # caching
 gem "dalli"
 
@@ -41,8 +46,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'heroku'
-  gem 'taps'
   gem 'annotate'
 
   # test stuff

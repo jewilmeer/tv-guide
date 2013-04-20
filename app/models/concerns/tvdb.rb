@@ -21,6 +21,18 @@ module Concerns
           program.apply_tvdb_attributes tvdb_result
         end
       end
+
+      def self.tvdb_updated_tvdb_ids(timestamp)
+        tvdb_client.get_series_updates(timestamp.to_i)['Series']
+      end
+
+      def self.tvdb_apply_update_since since=5.minutes.ago
+        updated_ids = tvdb_updated_tvdb_ids(since)
+        programs = updated_ids.map do |tvdb_id|
+          self.where(tvdb_id: tvdb_id).first_or_create
+        end
+        programs.map { |program| program.tvdb_full_update; program }
+      end
     end
 
     def tvdb_client
