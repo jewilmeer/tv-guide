@@ -1,17 +1,22 @@
+require 'sidekiq/web'
 TvEpisodes::Application.routes.draw do
   devise_for :users
 
-  namespace :admin do
-    root :to => 'pages#root'
-    resources :users, :configurations, :search_term_types
-    resources :images, :interactions, :program_preferences
-    resources :episodes do
-      get :tvdb_update, :on => :member
-    end
-    resources :programs do
-      resources :images
+  authenticate :users do
+    namespace :admin do
+      root :to => 'pages#root'
+      resources :users, :configurations, :search_term_types
+      resources :images, :interactions, :program_preferences
+      resources :episodes do
+        get :tvdb_update, :on => :member
+      end
+      resources :programs do
+        resources :images
+      end
     end
   end
+
+  mount Sidekiq::Web => '/sidekiq'
 
   namespace :api do
     resources :programs, only: :index
