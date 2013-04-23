@@ -11,6 +11,7 @@ class Episode < ActiveRecord::Base
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_nr, :program_id]}
 
   scope :downloaded,              includes(:downloads).where('downloads.id IS NOT NULL')
+  scope :without_download,        includes(:downloads).where(downloads: {id: nil})
   scope :season_episode_matches,  lambda{|season, episode| {:conditions => ['episodes.nr = :episode AND episodes.season_nr = :season ', {:episode => episode, :season => season}] } }
   scope :airs_at_in_future,       lambda{ where('episodes.airs_at > ?', Time.zone.now) }
   scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
@@ -127,7 +128,7 @@ class Episode < ActiveRecord::Base
 
   def download_all
     logger.info "="*30
-    logger.info "Getting downloads for: #{qualities.join(', ')}"
+    logger.info "Getting downloads for '#{self.program_name}' in #{qualities.join(', ')}"
     logger.info "="*30
     qualities.map{|quality| self.download quality }
   end
@@ -175,6 +176,10 @@ class Episode < ActiveRecord::Base
     last_blame = self.interactions.interaction_type_is('blame').last
     return true unless last_blame
     false
+  end
+
+  def self.recently_aired(since=5.minutes.ago)
+    airs_at_inside(5.minutes.ago, Time.now)
   end
 
   def self.watched_by_user(program_ids)
