@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423142606) do
+ActiveRecord::Schema.define(:version => 20130423144741) do
 
   create_table "configurations", :force => true do |t|
     t.integer  "program_id"
@@ -157,6 +157,8 @@ ActiveRecord::Schema.define(:version => 20130423142606) do
     t.integer  "program_preferences_count", :default => 0
     t.integer  "interactions_count",        :default => 0
   end
+
+  add_index "programs", ["tvdb_id"], :name => "index_programs_on_tvdb_id"
 
   create_table "programs_stations", :force => true do |t|
     t.integer "station_id"
