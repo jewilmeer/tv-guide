@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417212016) do
+ActiveRecord::Schema.define(:version => 20130423142606) do
 
   create_table "configurations", :force => true do |t|
     t.integer  "program_id"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(:version => 20130417212016) do
     t.integer  "image_id"
   end
 
+  add_index "episodes", ["program_id", "airs_at"], :name => "index_episodes_on_program_id_and_airs_at"
+  add_index "episodes", ["program_id", "season_nr", "nr"], :name => "index_episodes_on_program_id_and_season_nr_and_nr"
   add_index "episodes", ["season_id", "nr"], :name => "chained_index"
 
   create_table "episodes_users", :id => false, :force => true do |t|
