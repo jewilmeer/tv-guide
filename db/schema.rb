@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423144741) do
+ActiveRecord::Schema.define(:version => 20130426150059) do
 
   create_table "configurations", :force => true do |t|
     t.integer  "program_id"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20130423144741) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "downloads", ["episode_id"], :name => "index_downloads_on_episode_id"
 
   create_table "episodes", :force => true do |t|
     t.string   "title"
@@ -165,6 +167,9 @@ ActiveRecord::Schema.define(:version => 20130423144741) do
     t.integer "program_id"
   end
 
+  add_index "programs_stations", ["program_id"], :name => "index_programs_stations_on_program_id"
+  add_index "programs_stations", ["station_id"], :name => "index_programs_stations_on_station_id"
+
   create_table "programs_users", :id => false, :force => true do |t|
     t.integer "program_id"
     t.integer "user_id"
@@ -196,6 +201,9 @@ ActiveRecord::Schema.define(:version => 20130423144741) do
     t.integer "taggable_id"
     t.string  "taggable_type"
   end
+
+  add_index "stations", ["taggable_type"], :name => "index_stations_on_taggable_type"
+  add_index "stations", ["user_id"], :name => "index_stations_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                   :null => false
