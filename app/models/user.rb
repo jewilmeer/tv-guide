@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :programs, :through => :program_preferences
   has_and_belongs_to_many :episodes
   has_many :interactions, :dependent => :nullify
+  has_many :stations
 
   before_update :notify_of_special_features
   before_save :ensure_authentication_token
