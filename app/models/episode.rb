@@ -11,16 +11,18 @@ class Episode < ActiveRecord::Base
   validates :title, :season_nr, :program_id, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_nr, :program_id]}
 
+  # used for guide view
+  scope :next_airing,             ->{ airs_at_in_future.order('episodes.airs_at asc').includes(:program) }
+  scope :last_aired,              ->{ airs_at_in_past.order('episodes.airs_at desc').includes(:program, :downloads) }
+
   scope :downloaded,              ->(){ includes(:downloads).where('downloads.id IS NOT NULL') }
   scope :watched_by_a_user,       ->(){ includes(:stations).where(stations: {taggable_type: 'User'}) }
   scope :downloadable,            ->(){ without_download.watched_by_a_user }
   scope :without_download,        includes(:downloads).where(downloads: {id: nil})
-  scope :season_episode_matches,  lambda{|season, episode| {:conditions => ['episodes.nr = :episode AND episodes.season_nr = :season ', {:episode => episode, :season => season}] } }
   scope :airs_at_in_future,       lambda{ where('episodes.airs_at > ?', Time.zone.now) }
   scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
   scope :airs_at_inside,          ->(first_date, last_date) { where{ (airs_at > first_date) & (airs_at < last_date) } }
-  scope :next_airing,             lambda{ airs_at_in_future.order('episodes.airs_at asc') }
-  scope :last_aired,              lambda{ airs_at_in_past.order('episodes.airs_at desc') }
+
   scope :tvdb_id,                 select("id, tvdb_id")
   scope :random,                  -> { order('RANDOM()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }

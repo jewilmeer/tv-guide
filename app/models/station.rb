@@ -6,6 +6,8 @@ class Station < ActiveRecord::Base
   has_many :episodes, through: :programs
 
   validates :name, presence: true
+
+  scope :personal, ->(){ where( taggable_type: 'User', user_id: :taggable_id ) }
 end
 
 # == Schema Information
