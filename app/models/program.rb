@@ -38,7 +38,8 @@ class Program < ActiveRecord::Base
   end
 
   def to_param
-    "#{id}-#{name.parameterize}"
+    return "#{id}-#{name.parameterize}" if name.present?
+    super
   end
 
   def update_episodes_with_program_name
