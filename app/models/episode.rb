@@ -5,12 +5,15 @@ class Episode < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :interactions, :dependent => :nullify
   has_many :downloads, :dependent => :destroy
+  has_many :stations, through: :program
   belongs_to :image
 
   validates :title, :season_nr, :program_id, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_nr, :program_id]}
 
-  scope :downloaded,              includes(:downloads).where('downloads.id IS NOT NULL')
+  scope :downloaded,              ->(){ includes(:downloads).where('downloads.id IS NOT NULL') }
+  scope :watched_by_a_user,       ->(){ includes(:stations).where(stations: {taggable_type: 'User'}) }
+  scope :downloadable,            ->(){ without_download.watched_by_a_user }
   scope :without_download,        includes(:downloads).where(downloads: {id: nil})
   scope :season_episode_matches,  lambda{|season, episode| {:conditions => ['episodes.nr = :episode AND episodes.season_nr = :season ', {:episode => episode, :season => season}] } }
   scope :airs_at_in_future,       lambda{ where('episodes.airs_at > ?', Time.zone.now) }
@@ -182,10 +185,6 @@ class Episode < ActiveRecord::Base
     airs_at_inside(5.minutes.ago, Time.now)
   end
 
-  def self.watched_by_user(program_ids)
-    where('episodes.program_id IN (?)', program_ids)
-  end
-
   # api methods
   def self.tvdb_client
     TvdbParty::Search.new(TVDB_API)
@@ -269,12 +268,6 @@ class Episode < ActiveRecord::Base
       filled_season_nr: "%02d" % season_nr,
       filled_episode_nr: "%02d" % nr
     }
-  end
-
-  def self.to_be_downloaded
-    tmp_scope = scoped.dup
-    downloaded_episodes = Download.where{ episode_id.in tmp_scope.pluck(:id) }.pluck(:episode_id)
-    scoped.where{ id.not_in downloaded_episodes }
   end
 end
 

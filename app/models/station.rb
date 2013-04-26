@@ -3,7 +3,6 @@ class Station < ActiveRecord::Base
   belongs_to :taggable, polymorphic: true
 
   has_and_belongs_to_many :programs
-
   has_many :episodes, through: :programs
 
   validates :name, presence: true
