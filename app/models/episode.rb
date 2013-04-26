@@ -33,17 +33,6 @@ class Episode < ActiveRecord::Base
 
   before_validation :update_program_name
 
-  def <=>(o)
-    program_comp = self.program.name <=> o.program.name
-    return program_comp unless program_comp == 0
-
-    season_comp = self.season_nr <=> o.season_nr
-    return season_comp unless season_comp == 0
-
-    episode_comp = self.episode <=> o.episode
-    return episode_comp #unless int_comp == 0
-  end
-
   # attribute overwrites
   def airdate=(date)
     super(date)
