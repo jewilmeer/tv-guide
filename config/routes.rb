@@ -20,6 +20,10 @@ TvEpisodes::Application.routes.draw do
     resources :programs, only: :index
   end
 
+  namespace :station, path: '/stations/:station_type/:station_id' do
+    resources :programs, only: [:new, :create]
+  end
+
   match "/user/:user_id/programs/t/:authentication_token" => 'user/programs#aired', :as => 'tokened_user_programs'
   match "/programs/:id/t/:authentication_token" => 'programs#show', :as => 'tokened_program'
   match "/programs/:program_id/episodes/:id(/t/:authentication_token)(.:format)" => 'episodes#download', :as => 'episode_download'
