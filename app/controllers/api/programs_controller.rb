@@ -3,6 +3,6 @@ class Api::ProgramsController < Api::BaseController
     @programs = Program.order('status')
 
     # render json: @programs
-    render json: @programs.pluck(:name)
+    render json: @programs.where('name IS NOT NULL').pluck(:name)
   end
 end

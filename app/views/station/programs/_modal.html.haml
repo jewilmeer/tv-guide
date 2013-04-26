@@ -2,11 +2,9 @@
   .modal-header
     %button.close{'data-dismiss' => 'modal', "aria-hidden" => true} &times;
     %h3 Add new program
-  = simple_form_for @program_preference, url: user_program_preferences_path,
-    remote: true do |f|
+  = simple_form_for @station_program, url: station_programs_path(@station.url_params) do |f|
     .modal-body
-      = f.input :search_term_type_id, as: :hidden
-      = f.input :q, as: :string, input_html: { 'data-provide' => 'typeahead',
+      = f.input :program_id, as: :string, input_html: { 'data-provide' => 'typeahead',
         autocomplete: :off }
     .modal-footer
       = f.button :submit, as: :submit, class: 'btn btn-primary'
