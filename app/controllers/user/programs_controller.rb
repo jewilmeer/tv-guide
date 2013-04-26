@@ -1,16 +1,16 @@
 class User::ProgramsController < UserAreaController
-  before_filter :authenticate_user!, :only => [:aired, :index]
+  before_filter :authenticate_user!, :only => :aired
   before_filter :require_trust, :only => :aired
 
   def index
-    @station           = current_user.stations.personal.first
+    @station           = user.stations.personal.first
     @past_episodes     = @station.episodes.last_aired.page params[:page]
     @upcoming_episodes = @station.episodes.next_airing
   end
 
   def aired
-    @station           = User.find_by_login(params[:user_id]).stations.personal.first
-    @episodes           = @station.episodes.last_aired.downloaded.limit(30)
+    @station  = User.find_by_login(params[:user_id]).stations.personal.first
+    @episodes = @station.episodes.last_aired.downloaded.limit(30)
   end
 
   def destroy
@@ -38,5 +38,9 @@ class User::ProgramsController < UserAreaController
     })
     @program.tvdb_full_update
     render :text => 'document.location.href = document.location.href'
+  end
+
+  def user
+    user = User.find_by_login! params[:user_id]
   end
 end
