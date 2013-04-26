@@ -1,4 +1,3 @@
-- require 'pp'
 %section#program
   %ul.pager
     - if @nav[:next].present?
@@ -39,7 +38,7 @@
           .cleafix
             %label Current search term
             .input
-              %span= link_to @last_episode.search_query('hd'), @last_episode.search_url('hd')
+              %span= link_to "test query", @last_episode.search_url
           .actions
             %button.btn.primary{:data => {:'disable-with' => 'Please wait...'}} Save
 
@@ -83,12 +82,3 @@
         %dt Other options
         %dd= link_to 'Remove', [:admin, :program], :class => [:btn, :danger], :method => :delete, :data => {:'disable-with' => 'Burning episodes...'}
 
-  .row
-    .span6
-      .page-header
-        %h3 Default Filter [HASH]
-      %pre.prettyprint= raw @default_configuration.filter_data.pretty_inspect
-    .span6
-      .page-header
-        %h3 Default Filter [YAML]
-      %pre.prettyprint= raw @default_configuration.filter_data.to_yaml
