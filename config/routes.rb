@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 TvEpisodes::Application.routes.draw do
   devise_for :users
 
@@ -12,6 +13,8 @@ TvEpisodes::Application.routes.draw do
       resources :images
     end
   end
+
+  mount Sidekiq::Web => '/sidekiq'
 
   namespace :api do
     resources :programs, only: :index

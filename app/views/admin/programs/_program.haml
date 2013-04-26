@@ -16,11 +16,8 @@
     = distance_of_time_in_words_to_now( program.updated_at )
     ago
   %td
-    - if program.last_checked_at
-      = distance_of_time_in_words_to_now( program.last_checked_at )
-      ago
-    - else
-      \-
+    = distance_of_time_in_words_to_now( program.last_checked_at )
+    ago
   %td
     = link_to [:admin, program] do
       %i.icon-eye-open
