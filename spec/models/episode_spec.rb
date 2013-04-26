@@ -60,32 +60,6 @@ describe Episode do
       it { should eql "TestName S01E02" }
     end
   end
-
-  describe "search_term_pattern" do
-    subject { episode.search_term_pattern }
-    let(:episode) { create :episode, name: 'TestName', nr: 2, season_nr: 1 }
-    let(:configuration) { create :configuration }
-
-    before do
-      episode.stub(:active_configuration => configuration)
-      configuration.stub(:search_term_pattern => "lorem")
-    end
-
-    it { should eql "lorem" }
-  end
-
-  describe "to_be_donwloaded" do
-    subject { Episode.airs_at_inside(1.week.ago, 1.week.from_now).to_be_downloaded }
-    let!(:episodes_with_download_outside_range) { create_list :episode, 2, :with_download, airs_at: 2.months.ago }
-    let!(:episodes_with_download) { create_list :episode, 2, :with_download }
-    let!(:episodes_without_download) { create_list :episode, 2 }
-
-    it "retunrs episodes without downloads" do
-      expect(subject.to_a).to eq episodes_without_download
-    end
-
-    it { should have(2).episodes }
-  end
 end
 
 # == Schema Information
