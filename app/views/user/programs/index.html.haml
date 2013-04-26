@@ -6,7 +6,6 @@
     == #{@user.login.humanize}'s digital TV guide
   - if current_user == @user
     .pull-right
-      = link_to "Add new program", new_user_program_preference_path, remote: true, class: :btn
       = link_to "Add to station", new_station_program_path(@station.url_params), remote: true, class: :btn
 %section
   .row
