@@ -13,6 +13,6 @@
 
   .row-fluid
     - if current_user.try(:trusted)
-      = render 'episodes/trusted_actions', episode: episode, search_terms: @search_terms
+      .clear= render 'episodes/trusted_actions', episode: episode, search_terms: @search_terms
     %small= episode.description
   %br
