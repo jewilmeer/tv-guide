@@ -147,6 +147,10 @@ class Episode < ActiveRecord::Base
     end
   end
 
+  def max_download_time
+    airs_at + 7.days
+  end
+
   def searcher
     @searcher ||= NzbSearch.new.tap do |searcher|
       searcher.search_terms = "#{self.interpolated_search_term} #{searcher.default_terms}"
