@@ -45,6 +45,12 @@ a i {
   }
 }
 
+// don't render a bottom margin for a form within a modal
 .modal form {
   margin: 0 0 0 0;
+}
+
+// allow typahead to appear above the modal-footer
+.modal-body {
+    overflow-y:visible;
 }
