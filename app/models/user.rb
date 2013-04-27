@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   before_update :notify_of_special_features
   before_save :ensure_authentication_token
   after_create :notify_of_registration
+  after_create :create_personal_station
 
   validates :login, presence: true, uniqueness: true
 
@@ -25,6 +26,10 @@ class User < ActiveRecord::Base
 
   def notify_of_registration
     AdminMailer.notify_of_registration( self ).deliver
+  end
+
+  def create_personal_station
+    self.stations.create taggable_type: 'User', taggable_id: self.id, name: "#{self.login}'s"
   end
 
   # send an email to the user as they have been trusted.
