@@ -9,9 +9,22 @@
       = link_to "Add to station", new_station_program_path(@station.url_params), remote: true, class: :btn
 %section
   .row
-    .span8
+    .span3
       .page-header
-        %h4
+        %h4 Stations
+      %ul.well.nav.nav-list
+        %li.nav-header User stations
+        - @personal_stations.each do |station|
+          %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+        %li.nav-header Other users stations
+        - @other_user_stations.each do |station|
+          %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+        %li.nav-header Genre stations
+        - @genre_stations.each do |station|
+          %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+    .span6
+      .page-header
+        %h3
           Recently aired
           - if current_user.try(:trusted?)
             %small
@@ -22,8 +35,7 @@
         = will_paginate @past_episodes
       - else
         %p No past episodes found
-
-    .span4
+    .span3
       .page-header
         %h4 Next airing
       .well
