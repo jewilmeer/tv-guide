@@ -1,4 +1,5 @@
 class User::UsersController < UserAreaController
+  respond_to :html
   skip_before_filter :get_user, :only => [:new, :create]
   before_filter :require_ownership, :only => [:edit, :update]
   def show
@@ -14,14 +15,8 @@ class User::UsersController < UserAreaController
   end
 
   def create
-    @user = User.new(params[:user])
-    @user.apply_omniauth(session[:omniauth]) if session[:omniauth].present?
-    if @user.save
-      session[:omniauth] = nil
-      redirect_to([@user, :programs], :notice => 'User was successfully created.')
-    else
-      render :new
-    end
+    @user = User.create params[:user]
+    respond_with @user
   end
 
   def edit
