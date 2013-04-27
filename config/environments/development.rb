@@ -18,7 +18,7 @@ TvEpisodes::Application.configure do
 
   # configure development mail
   config.action_mailer.default_url_options = { :host => 'tv-episodes.local' }
-  
+
   config.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
@@ -40,11 +40,13 @@ TvEpisodes::Application.configure do
 
   # Expands the lines which load the assets
   # config.assets.debug = true
-  
+
   # # Raise exception on mass assignment protection for ActiveRecord models
   config.active_record.mass_assignment_sanitizer = :strict
 
   # # Log the query plan for queries taking more than this (works
   # # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  config.action_mailer.delivery_method = :letter_opener
 end

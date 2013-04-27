@@ -47,6 +47,7 @@ end
 
 group :development, :test do
   gem 'annotate'
+  gem 'letter_opener'
 
   # test stuff
   gem 'rspec-rails'
