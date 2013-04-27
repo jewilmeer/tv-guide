@@ -1,15 +1,12 @@
 %dd.panel[episode]
-  .row-fluid
-    .span9
-      %h5
-        = link_to episode.program_name, episode.program
-        &nbsp;-&nbsp;
-        = link_to episode.full_episode_title, episode
-    .span3
-      - if current_user.try(:trusted)
-        = link_to episode_path(episode), :class => 'pull-right refresh',
-          :method => :put, :remote => true do
-          %i.icon-repeat
+  %h5
+    = link_to episode.program_name, episode.program
+    &nbsp;-&nbsp;
+    = link_to episode.full_episode_title, episode
+    - if current_user.try(:trusted)
+      = link_to episode_path(episode), :class => 'pull-right refresh',
+        :method => :put, :remote => true do
+        %i.icon-repeat
 
   .row-fluid
     - if current_user.try(:trusted)
