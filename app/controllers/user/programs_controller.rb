@@ -6,6 +6,10 @@ class User::ProgramsController < UserAreaController
     @station           = user.stations.personal.first
     @past_episodes     = @station.episodes.last_aired.page params[:page]
     @upcoming_episodes = @station.episodes.next_airing
+
+    @personal_stations   = user.stations
+    @genre_stations      = Station.where('taggable_type=?', 'Genre')
+    @other_user_stations = Station.where('taggable_type=?', 'User')
   end
 
   def aired
