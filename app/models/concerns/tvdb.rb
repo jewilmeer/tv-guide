@@ -49,6 +49,10 @@ module Concerns
         tvdb_refresh_episodes,
         update_episode_counters
       ]
+
+      # cleanup invalid episodes
+      return self.destroy unless self.valid?
+
       self.touch(:last_checked_at)
     end
 
