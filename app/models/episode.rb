@@ -164,7 +164,7 @@ class Episode < ActiveRecord::Base
   end
 
   def searcher
-    @searcher ||= NzbSearch.new.tap do |searcher|
+    @searcher ||= ::NzbSearch.new.tap do |searcher|
       searcher.search_terms = "#{self.interpolated_search_term} #{searcher.default_terms}"
       searcher.age = self.age
     end

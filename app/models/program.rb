@@ -19,6 +19,7 @@ class Program < ActiveRecord::Base
   belongs_to :fanart_image, :class_name => 'Image'
 
   validates :tvdb_id, :uniqueness => true
+  validates :name, presence: true, if: :persisted?
 
   before_save :update_episodes_with_program_name
 
