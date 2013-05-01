@@ -127,7 +127,7 @@ class Episode < ActiveRecord::Base
     qualities.map{|quality| self.download quality }
   end
 
-  def download quality
+  def download(quality)
     download   = downloads.find_or_initialize_by_download_type( quality )
 
     logger.info "="*30
@@ -147,8 +147,20 @@ class Episode < ActiveRecord::Base
     end
   end
 
+  def download_with_reschedule
+    return if self.download('hd')
+
+    # reschedule if 'fresh'
+    downloadable? && self.delay_for(1.hour).download_with_reschedule
+  end
+
   def max_download_time
     airs_at + 7.days
+  end
+
+  # < means before max_download_time
+  def downloadable?
+    Time.now < max_download_time
   end
 
   def searcher
