@@ -8,7 +8,7 @@ class Episode < ActiveRecord::Base
   has_many :stations, through: :program
   belongs_to :image
 
-  validates :title, :season_nr, :program_id, :presence => true
+  validates :title, :season_nr, :program_id, :program_name, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_nr, :program_id]}
 
   # used for guide view
