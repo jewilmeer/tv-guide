@@ -1,9 +1,45 @@
-%h1== #{@station.name} station
+%h1
+  == #{@station.name} station
+  - if @station.user == current_user #this should be a cancan rule
+    .pull-right
+      = link_to "Add to station", new_station_program_path(@station), remote: true, class: :btn
 
 .row
-  .span8= render 'episodes/past_episodes', past_episodes: @past_episodes
-  .span4
-    .well= render 'episodes/next_airing', next_episodes: @next_episodes
-%ul.programs
-  - @station.programs.each do |program|
-    %li[program]= link_to program.name, program
+  .span3
+    .page-header
+      %h4 Stations
+    %ul.well.nav.nav-list
+      %li.nav-header
+        - if current_user == @user
+          My stations
+        - else
+          User stations
+      - @personal_stations.each do |station|
+        %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+      %li.nav-header Other users stations
+      - @other_user_stations.each do |station|
+        %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+      %li.nav-header Genre stations
+      - @genre_stations.each do |station|
+        %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+
+    %h4 Included programs
+    %ul.well.nav.nav-list
+      - @station.programs.order(:name).each do |program|
+        %li[program]= link_to program.name, program
+
+  .span6
+    %h3 Recently aired
+    %section.past_episodes
+      - if @past_episodes.any?
+        = render 'episodes/past_episodes', past_episodes: @past_episodes
+      - else
+        %p.text-center It's very quite in this lane. I Could use some company ;-)
+  .span3
+    .page-header
+      %h4 Next airing
+    .well
+      - if @next_episodes.any?
+        = render 'episodes/next_airing', next_episodes: @next_episodes
+      - else
+        %p Nope, nothing airing anytime soon...

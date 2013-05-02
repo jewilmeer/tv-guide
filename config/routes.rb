@@ -55,7 +55,9 @@ TvEpisodes::Application.routes.draw do
     end
   end
 
-  resources :stations, only: [:index, :show]
+  resources :stations, only: [:index, :show] do
+    resources :programs, only: [:new, :create], controller: 'station/programs'
+  end
 
   root :to => "pages#index"
 end
