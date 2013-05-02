@@ -9,7 +9,7 @@ class User::ProgramsController < UserAreaController
 
     @personal_stations   = user.stations
     @genre_stations      = Station.where('taggable_type=?', 'Genre')
-    @other_user_stations = Station.where('taggable_type=?', 'User')
+    @other_user_stations = Station.where('taggable_type=?', 'User') - @user.stations
   end
 
   def aired
