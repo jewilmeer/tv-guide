@@ -1,9 +1,12 @@
 class Station < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :slugish, use: :slugged
+
   belongs_to :user
   belongs_to :taggable, polymorphic: true
 
   has_many :station_programs
-  has_and_belongs_to_many :programs
+  has_and_belongs_to_many :programs, uniq: true
   has_many :episodes, through: :programs
 
   validates :name, presence: true
@@ -12,6 +15,17 @@ class Station < ActiveRecord::Base
 
   def url_params
     { station_type: taggable_type, station_id: taggable_id }
+  end
+
+  def slugish
+    case taggable
+    when Genre
+      "#{taggable_type.downcase}_#{taggable.name}"
+    when User
+      user.login
+    else
+      raise 'Go eat your own fish, we are not finished yet'
+    end
   end
 end
 
