@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426150059) do
+ActiveRecord::Schema.define(:version => 20130502222804) do
 
   create_table "configurations", :force => true do |t|
     t.integer  "program_id"
@@ -200,8 +200,10 @@ ActiveRecord::Schema.define(:version => 20130426150059) do
     t.integer "user_id"
     t.integer "taggable_id"
     t.string  "taggable_type"
+    t.string  "slug"
   end
 
+  add_index "stations", ["slug"], :name => "index_stations_on_slug"
   add_index "stations", ["taggable_type"], :name => "index_stations_on_taggable_type"
   add_index "stations", ["user_id"], :name => "index_stations_on_user_id"
 
