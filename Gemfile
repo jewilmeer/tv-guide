@@ -19,6 +19,7 @@ gem 'user-agent'
 gem 'haml'
 gem 'will_paginate'
 gem 'devise'
+gem 'friendly_id'
 
 # background
 gem 'sidekiq'
