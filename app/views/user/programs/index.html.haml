@@ -13,7 +13,11 @@
       .page-header
         %h4 Stations
       %ul.well.nav.nav-list
-        %li.nav-header User stations
+        %li.nav-header
+          - if current_user == @user
+            My stations
+          - else
+            User stations
         - @personal_stations.each do |station|
           %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
         %li.nav-header Other users stations
