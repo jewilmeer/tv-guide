@@ -40,8 +40,8 @@ class User::ProgramsController < UserAreaController
       :referer          => request.referer,
       :user_agent       => request.user_agent
     })
-    @program.tvdb_full_update
-    render :text => 'document.location.href = document.location.href'
+    @program.delay.tvdb_full_update
+    render status: :no_content, nothing: true
   end
 
   def user

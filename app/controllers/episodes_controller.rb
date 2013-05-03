@@ -49,6 +49,6 @@ class EpisodesController < ApplicationController
 
 
   def episode
-    @episode ||= Episode.includes(:program, downloads: :search_term_type).find params[:id]
+    @episode ||= Episode.includes(:program, :downloads).find params[:id]
   end
 end
