@@ -21,8 +21,10 @@ TvEpisodes::Application.routes.draw do
   end
 
   get "/user/:user_id/programs/t/:authentication_token" => 'user/programs#aired', :as => 'tokened_user_programs'
+  # TODO: make this work
+  # get "/stations/:id/programs/:authentication_token" => 'stations/programs#index', :as => 'tokened_station_programs'
   get "/programs/:id/t/:authentication_token" => 'programs#show', :as => 'tokened_program'
-  get "/programs/:program_id/episodes/:id(/t/:authentication_token)(.:format)" => 'episodes#download', :as => 'episode_download'
+  get "/programs/:program_id/episodes/:id/t/:authentication_token(.:format)" => 'episodes#download', :as => 'episode_download'
   get "/settings(.:format)" => "settings#index", :as => :setting
   get '/sitemap', :to => 'pages#sitemap'
 
