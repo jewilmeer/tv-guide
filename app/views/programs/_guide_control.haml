@@ -1,8 +1,5 @@
-- if current_user
-  %li.guide_control.add{:class => (:hidden unless current_user.programs.include?(program))}= link_to 'Remove from my episode guide', user_program_path(current_user, program), :method => :delete, :remote => true
-  %li.guide_control.remove{:class => (:hidden if current_user.programs.include?(program))}
-    Add to my episode guide
-    %br
-    %ul.downloads
-      - SearchTermType.all.each do |search_term_type|
-        %li= link_to search_term_type.name, user_program_preferences_path(current_user, :program_preference => {:program_id => program.id, :search_term_type_id => search_term_type.id}), :method => :post, :disable_with => 'please wait', :remote => true
+- if user_signed_in?
+  - if @personal_station.program_ids.include?(@program.id)
+    = link_to 'Remove from personal station', station_program_path(@personal_station, @program), method: :delete, class: 'btn'
+  - else
+    = link_to 'Add to personal station', station_programs_path(@personal_station, id: @program.id), method: :post, class: 'btn'
