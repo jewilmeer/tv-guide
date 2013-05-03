@@ -24,6 +24,7 @@ class ProgramsController < ApplicationController
     @program        = Program.find(params[:id])
     @featured_image = @program.series_image || @program.images.series.random.first
     @search_terms   = SearchTermType.all
+    @personal_station = current_user.stations.personal.first if user_signed_in?
   end
 
   def suggest
