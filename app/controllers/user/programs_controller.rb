@@ -17,33 +17,6 @@ class User::ProgramsController < UserAreaController
     @episodes = @station.episodes.last_aired.downloaded.limit(30)
   end
 
-  def destroy
-    @program = Program.find(params[:id])
-    current_user.programs.delete(@program)
-
-    respond_to do |format|
-      format.html {
-        redirect_to :back, :notice => 'Program removed'
-      }
-      format.js { }
-    end
-  end
-
-  def update
-    @program = Program.find(params[:id])
-    current_user.interactions.create({
-      :user => current_user,
-      :program => @program,
-      :interaction_type => "update program",
-      :format => params[:format] || 'html',
-      :end_point => url_for(@program),
-      :referer          => request.referer,
-      :user_agent       => request.user_agent
-    })
-    @program.delay.tvdb_full_update
-    render status: :no_content, nothing: true
-  end
-
   def user
     user = User.find_by_login! params[:user_id]
   end

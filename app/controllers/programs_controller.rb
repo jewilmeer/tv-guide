@@ -41,7 +41,7 @@ class ProgramsController < ApplicationController
       :referer          => request.referer,
       :user_agent       => request.user_agent
     })
-    @program.tvdb_full_update
+    @program.delay.tvdb_full_update
   end
 
   def destroy
