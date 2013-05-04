@@ -18,7 +18,7 @@
             %li== Last updated #{distance_of_time_in_words_to_now(@program.updated_at)} ago
             %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
             - if current_user
-              %li= link_to 'Request update', user_program_path(current_user, @program), :id => :check_update, :remote => true, :method => :put, :disable_with => 'Requesting...'
+              %li= link_to 'Request update', program_path(@program), :id => :check_update, :remote => true, :method => :put, :disable_with => 'Requesting...'
               = render 'guide_control', program: @program
 
   .tab-pane#more-info
