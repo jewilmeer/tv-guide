@@ -4,14 +4,7 @@ TvEpisodes::Application.routes.draw do
 
   namespace :admin do
     root :to => 'pages#root'
-    resources :users, :configurations, :search_term_types
-    resources :images, :interactions, :program_preferences
-    resources :episodes do
-      get :tvdb_update, :on => :member
-    end
-    resources :programs do
-      resources :images
-    end
+    resources :users, :interactions, :episodes, :programs
   end
 
   mount Sidekiq::Web => '/sidekiq'
