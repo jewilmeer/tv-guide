@@ -7,11 +7,11 @@
       %span.label.label-info Trusted
   %td= l user.created_at, :format => :long
   %td= pluralize(user.sign_in_count, 'time')
-  %td= pluralize(user.programs.count, 'program')
+  %td= pluralize(user.stations.count, 'program')
   %td
     = link_to [:admin, user], :title => 'More information' do
-      %i.icon-eye-open
+      %i.icon-eye-open.icon-large
     = link_to edit_admin_user_path(user), :title => 'Edit this user' do
-      %i.icon-edit
+      %i.icon-edit.icon-large
     = link_to [:admin, user], :confirm => 'Are you sure?', :method => :delete, :title => 'Remove this user' do
-      %i.icon-trash
+      %i.icon-trash.icon-large
