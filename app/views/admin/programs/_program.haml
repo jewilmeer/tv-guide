@@ -1,8 +1,6 @@
 %tr[program]
   %td
     = link_to truncate(program.name, :length => 40), [:admin, program]
-    - unless program.series_image
-      %span.label-warning.label= 'No banner'
   %td
     - if next_aired = program.episodes.airs_at_in_future.first
       %abbr{:title => next_aired.full_episode_title}
@@ -16,12 +14,15 @@
     = distance_of_time_in_words_to_now( program.updated_at )
     ago
   %td
-    = distance_of_time_in_words_to_now( program.last_checked_at )
-    ago
+    - if program.last_checked_at.present?
+      = distance_of_time_in_words_to_now( program.last_checked_at )
+      ago
+    - else
+      \-
   %td
     = link_to [:admin, program] do
-      %i.icon-eye-open
+      %i.icon-eye-open.icon-large
     = link_to edit_admin_program_path(program) do
-      %i.icon-edit
+      %i.icon-edit.icon-large
     = link_to [:admin, program], :confirm => 'Are you sure?', :method => :delete do
-      %i.icon-trash
+      %i.icon-trash.icon-large
