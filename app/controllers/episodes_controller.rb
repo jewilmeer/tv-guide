@@ -4,13 +4,11 @@ class EpisodesController < ApplicationController
   before_filter :authenticate_user!, :only => [:update, :download, :search]
 
   def show
-    @search_terms      = SearchTermType.all
     respond_with episode
   end
 
   def update
     episode.download_all
-    @search_terms      = SearchTermType.all
     respond_with episode
   end
 

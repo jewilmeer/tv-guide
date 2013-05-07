@@ -20,7 +20,7 @@ class Admin::EpisodesController < AdminAreaController
         redirect_to :back, :notice => 'updated!'
       end
       format.js do
-        success = @episode.tvdb_update && @episode.download_all
+        success = @episode.tvdb_update && @episode.download
         partial = case params[:partial]
         when 'episodes'
           'episodes'
