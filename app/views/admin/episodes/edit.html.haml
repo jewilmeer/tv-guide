@@ -1,18 +1,15 @@
-- require 'pp'
 .page-header
   %h1== Edit #{@episode.program_name} episode
 .row
-  .span8
-    = simple_form_for [:admin, @episode], html: {class: 'form-horizontal'} do |f|
+  .span12
+    = simple_form_for [:admin, @episode] do |f|
       = f.input :title
-      = f.input :description
+      = f.input :description, input_html: { class: 'input-block-level' }
       = f.association :program
       = f.input :nr
       = f.input :season_nr
-
       = f.input :airdate
       = f.input :airs_at
-
       = f.input :downloads
       = f.input :tvdb_id
 
@@ -22,10 +19,3 @@
       %h3 Raw data model
     %pre.prettyprint
       = raw @episode.attributes.to_yaml
-  .span8
-    .page-header
-      %h3 TheTvdb update
-
-    = link_to 'Fetch tvdb update hash', tvdb_update_admin_episode_path(@episode, :format => :json), :class => :btn, :id => :tvdb_update, :remote => true
-
-    %pre.prettyprint.style{:style => 'display: none'}
