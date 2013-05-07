@@ -1,6 +1,6 @@
 class Admin::EpisodesController < AdminAreaController
   respond_to :html, :json, :js
-  before_filter :get_episode, :except => :index
+  before_filter :get_episode, :except => [:index, :destroy]
 
   def index
     basic_scope = Episode.airs_at_in_past.includes(:program)
@@ -39,13 +39,13 @@ class Admin::EpisodesController < AdminAreaController
     end
   end
 
-  def tvdb_update
-    respond_with @episode.tvdb_update_hash
+  def destroy
+    Episode.destroy params[:id]
+    redirect_to admin_episodes_path
   end
 
   protected
   def get_episode
     @episode = Episode.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @episode
   end
 end
