@@ -13,11 +13,6 @@
     %h1
       = @program.name
       %small= link_to 'public', @program
-  - if @cover
-    - if @cover.image?
-      .cover{:style => %(background-image: url(#{@cover.s3_url(:original)})) }
-    - else
-      .cover{:style => %(background-image: url(#{image_path(@cover, :format => :jpg)})) }
 
   .row
     .span8
@@ -27,20 +22,11 @@
 
       .page-header
         %h3 Important program settings
-      = form_for([:admin, @program]) do |f|
-        %fieldset
-          .clearfix
-            = f.label :name, 'Name'
-            .input= f.text_field :name
-          .clearfix
-            = f.label :search_name, 'Custom search term'
-            .input= f.text_field :search_name
-          .cleafix
-            %label Current search term
-            .input
-              %span= link_to "test query", @last_episode.search_url
-          .actions
-            %button.btn.primary{:data => {:'disable-with' => 'Please wait...'}} Save
+      = simple_form_for([:admin, @program]) do |f|
+        = f.input :name
+        = f.input :search_name
+        .form-actions
+          = f.button :submit, disable_with: 'Please wait...', class: 'btn-primary'
 
     .span4
       .page-header
@@ -51,8 +37,6 @@
           = pluralize( @program.episodes.count, 'episode')
           in
           = pluralize( @program.max_season_nr, 'season')
-        %dt Nr of watchers
-        %dd= pluralize(@program.program_preferences_count, 'user')
         %dt First episode aired at
         %dd
           - if first_aired = @program.episodes.order('airs_at').first
@@ -72,13 +56,6 @@
             = @program.episodes.by_created_at.last.created_at.to_s(:long) rescue '-'
           - else
             \-
-        %dt
-          = link_to 'Images', [:admin, @program, :images]
-        %dd
-          = @program.images.count
-          images of which
-          = @program.images.saved.count
-          are saved
         %dt Other options
         %dd= link_to 'Remove', [:admin, :program], :class => [:btn, :danger], :method => :delete, :data => {:'disable-with' => 'Burning episodes...'}
 
