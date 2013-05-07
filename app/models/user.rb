@@ -2,10 +2,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :token_authenticatable,
     :trackable, :rememberable, :validatable
 
-  has_many :program_preferences
-  has_many :search_term_types, :through => :program_preferences
-  has_many :programs, :through => :program_preferences
-  has_and_belongs_to_many :episodes
   has_many :interactions, :dependent => :nullify
   has_many :stations
 
