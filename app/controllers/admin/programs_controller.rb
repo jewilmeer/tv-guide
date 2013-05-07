@@ -9,10 +9,6 @@ class Admin::ProgramsController < AdminAreaController
 
   def show
     @last_episode           = @program.episodes.last_aired.first || @program.episodes.last
-    @cover                  = @program.images.saved.image_type(:fanart).random.first
-    #we prefer downloaded images...
-    @cover                  ||= @program.images.image_type(:fanart).random.first
-    @cover                  ||= @program.images.random.first
     @nav = {
       :previous => Program.where('status = ?', @program.status).order(:name).where('name > ?', @program.name).first,
       :next     => Program.where('status = ?', @program.status).order(:name).where('name < ?', @program.name).last
@@ -73,6 +69,5 @@ class Admin::ProgramsController < AdminAreaController
   protected
   def find_program
     @program = Program.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @program
   end
 end

@@ -2,11 +2,9 @@ class Episode < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
 
   belongs_to :program
-  has_and_belongs_to_many :users
   has_many :interactions, :dependent => :nullify
   has_many :downloads, :dependent => :destroy
   has_many :stations, through: :program
-  belongs_to :image
 
   validates :title, :season_nr, :program_id, :program_name, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_nr, :program_id]}
@@ -16,9 +14,9 @@ class Episode < ActiveRecord::Base
   scope :last_aired,              ->{ airs_at_in_past.order('episodes.airs_at desc').includes(:program, :downloads) }
 
   scope :downloaded,              ->(){ includes(:downloads).where('downloads.id IS NOT NULL') }
+  scope :without_download,        includes(:downloads).where(downloads: {id: nil})
   scope :watched_by_a_user,       ->(){ includes(:stations).where(stations: {taggable_type: 'User'}) }
   scope :downloadable,            ->(){ without_download.watched_by_a_user }
-  scope :without_download,        includes(:downloads).where(downloads: {id: nil})
   scope :airs_at_in_future,       lambda{ where('episodes.airs_at > ?', Time.zone.now) }
   scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
   scope :airs_at_inside,          ->(first_date, last_date) { where{ (airs_at > first_date) & (airs_at < last_date) } }
@@ -28,8 +26,6 @@ class Episode < ActiveRecord::Base
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
   scope :last_updated,            order('episodes.updated_at desc')
   scope :without_image,           where('image_id IS NULL')
-
-  attr_accessor :options, :name, :episode, :filters, :thumb
 
   before_validation :update_program_name
 
