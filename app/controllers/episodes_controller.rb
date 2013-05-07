@@ -35,7 +35,7 @@ class EpisodesController < ApplicationController
       user:             current_user,
       program:          @episode.program,
       episode:          @episode,
-      interaction_type: "Search #{params[:quality_code]}",
+      interaction_type: "Search",
       format:           'nzb',
       end_point:        end_point,
       referer:          request.referer,
