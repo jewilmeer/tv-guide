@@ -21,9 +21,8 @@ class ProgramsController < ApplicationController
   end
 
   def show
-    @program        = Program.find(params[:id])
-    @featured_image = @program.series_image || @program.images.series.random.first
-    @search_terms   = SearchTermType.all
+    @program          = Program.find(params[:id])
+    @grouped_episodes = @program.episodes.includes(:downloads).order('nr desc').group_by(&:season_nr)
     @personal_station = current_user.stations.personal.first if user_signed_in?
   end
 
