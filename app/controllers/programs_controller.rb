@@ -14,12 +14,6 @@ class ProgramsController < ApplicationController
     end
   end
 
-  def guide
-    @search_terms      = SearchTermType.all
-    @upcoming_episodes = Episode.next_airing.includes(:program)
-    @past_episodes     = Episode.last_aired.includes(:program).includes(:downloads).page params[:page]
-  end
-
   def show
     @program          = Program.find(params[:id])
     @grouped_episodes = @program.episodes.includes(:downloads).order('nr desc').group_by(&:season_nr)
