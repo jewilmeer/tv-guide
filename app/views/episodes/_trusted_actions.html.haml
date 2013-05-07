@@ -1,9 +1,9 @@
 .btn-group
-  = link_to search_episode_path(episode, quality_code: :hd), class: :'btn btn-small' do
+  = link_to search_episode_path(episode), class: :'btn btn-small' do
     %i.icon-search.icon-large
     Search
 
     - episode.downloads.each do |download|
-      = link_to download_episode_path(episode, quality_code: download.download_type, :format => :nzb), :title => download.origin, class: :'btn btn-small' do
+      = link_to download_episode_path(episode, :format => :nzb), :title => download.origin, class: :'btn btn-small' do
         %i.icon-cloud-download.icon-large
         Download

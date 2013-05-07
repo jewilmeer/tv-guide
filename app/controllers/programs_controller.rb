@@ -20,6 +20,11 @@ class ProgramsController < ApplicationController
     @personal_station = current_user.stations.personal.first if user_signed_in?
   end
 
+  def download_list
+    @program = Program.find(params[:id])
+    @episodes = @program.episodes.last_aired.downloaded
+  end
+
   def suggest
     @programs = Program.tvdb_search(params[:q].downcase)
   end
@@ -47,6 +52,12 @@ class ProgramsController < ApplicationController
       flash[:error] = 'Program could not be removed'
     end
     redirect_to root_path
+  end
+
+  def guide
+    @search_terms      = SearchTermType.all
+    @upcoming_episodes = Episode.next_airing.includes(:program)
+    @past_episodes     = Episode.last_aired.includes(:program).includes(:downloads).page params[:page]
   end
 
   def search
