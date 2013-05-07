@@ -2,6 +2,11 @@ require 'sidekiq/web'
 TvEpisodes::Application.routes.draw do
   devise_for :users
 
+  resources :stations, only: [:index, :show] do
+    get :download_list, on: :member, path: 'download_list/:authentication_token'
+    resources :programs, only: [:new, :create, :destroy], controller: 'station/programs'
+  end
+
   namespace :admin do
     root :to => 'pages#root'
     resources :users, :interactions, :episodes, :programs
@@ -24,13 +29,12 @@ TvEpisodes::Application.routes.draw do
   resources :programs do
     collection do
       post :search
-      get :check, :guide, :suggest
+      get :check, :suggest, :guide
     end
 
     resources :episodes, only: :show
   end
 
-  resources :images
   resources :episodes, only: [:show, :update] do
     member do
       get 'search/:quality_code', action: :search, as: :search
@@ -40,14 +44,9 @@ TvEpisodes::Application.routes.draw do
 
   resources :users, :module => 'user', :path => '/user' do
     resource :settings
-    resources :program_preferences, only: [:new, :create, :update]
     resources :programs, only: [:index] do
       get :aired, :on => :collection
     end
-  end
-
-  resources :stations, only: [:index, :show] do
-    resources :programs, only: [:new, :create, :destroy], controller: 'station/programs'
   end
 
   root :to => "pages#index"
