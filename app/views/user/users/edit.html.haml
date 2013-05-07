@@ -4,22 +4,7 @@
       User settings
       %small== for #{current_user.login.humanize}
   .row
-    .span6
+    .span12
       .page-header
         %h3 Change settings
       = render 'form'
-    .span6
-      .page-header
-        %h3 My programs
-      .well
-        %dl
-        - status = nil
-        - current_user.programs.order('status, name asc').each do |program|
-          - unless program.status == status
-            - status = program.status
-            %dt= program.status
-          %dd[program]
-            = link_to program do
-              = program.name
-              = link_to user_program_path(current_user, program), :method => :delete, :remote => true, class: 'pull-right' do
-                %i.icon-remove
