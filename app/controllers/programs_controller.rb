@@ -1,6 +1,6 @@
 class ProgramsController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_filter :find_program, :except => [:index, :create, :suggest, :search, :check]
+  before_filter :find_program, :except => [:index, :create, :search, :check]
   newrelic_ignore :only => [:check]
 
   respond_to :html, :json, :js
@@ -23,10 +23,6 @@ class ProgramsController < ApplicationController
   def download_list
     @program = Program.find(params[:id])
     @episodes = @program.episodes.last_aired.downloaded
-  end
-
-  def suggest
-    @programs = Program.tvdb_search(params[:q].downcase)
   end
 
   def update

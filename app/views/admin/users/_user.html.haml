@@ -1,6 +1,6 @@
 %tr[user]
   %td
-    = link_to user.login, [user, :programs], :title => user.email
+    = link_to user.login, edit_admin_user_path(user), :title => user.email
     - if user.admin?
       %span.label.label-warning Admin
     - if user.trusted?
