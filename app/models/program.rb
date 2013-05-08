@@ -1,3 +1,31 @@
+# == Schema Information
+#
+# Table name: programs
+#
+#  id                        :integer          not null, primary key
+#  name                      :string(255)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  search_name               :string(255)
+#  overview                  :text
+#  status                    :string(255)
+#  tvdb_id                   :integer
+#  imdb_id                   :string(255)
+#  airs_dayofweek            :string(255)
+#  airs_time                 :string(255)
+#  runtime                   :integer
+#  network                   :string(255)
+#  contentrating             :string(255)
+#  actors                    :text
+#  tvdb_rating               :integer
+#  last_checked_at           :datetime
+#  time_zone_offset          :string(255)      default("Central Time (US & Canada)")
+#  max_season_nr             :integer          default(1)
+#  current_season_nr         :integer          default(1)
+#  tvdb_name                 :string(255)
+#  program_preferences_count :integer          default(0)
+#
+
 class Program < ActiveRecord::Base
   require 'open-uri'
 

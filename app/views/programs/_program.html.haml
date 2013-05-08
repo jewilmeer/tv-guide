@@ -1,10 +1,5 @@
 %tr[program]
   %td= link_to program.name, program
-  %td
-    - if program.program_preferences_count > 0
-      %abbr{:title => program.users.map(&:login).to_sentence}= pluralize(program.program_preferences_count, 'watcher')
-    - else
-      no watchers
   %td= program.status
   %td
     - if next_episode = program.episodes.next_airing.first
