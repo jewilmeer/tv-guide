@@ -10,11 +10,6 @@
       .span4
         .panel
           %ul.unstyled
-            %li
-              - if @program.users.any?
-                %abbr{:title => @program.users.map(&:login).to_sentence}= pluralize(@program.users.count, 'watcher')
-              - else
-                No watchers
             %li== Last updated #{distance_of_time_in_words_to_now(@program.updated_at)} ago
             %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
             - if current_user

@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: episodes
+#
+#  id           :integer          not null, primary key
+#  title        :string(255)
+#  description  :text
+#  nr           :integer
+#  airdate      :date
+#  created_at   :datetime
+#  updated_at   :datetime
+#  program_id   :integer
+#  airs_at      :datetime
+#  season_nr    :integer
+#  tvdb_id      :integer
+#  program_name :string(255)
+#
+
 class Episode < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
 
@@ -25,7 +43,6 @@ class Episode < ActiveRecord::Base
   scope :random,                  -> { order('RANDOM()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
   scope :last_updated,            order('episodes.updated_at desc')
-  scope :without_image,           where('image_id IS NULL')
 
   before_validation :update_program_name
 
@@ -170,24 +187,6 @@ class Episode < ActiveRecord::Base
     searcher.link
   end
 
-  def find_existing_image_by_url url
-    Image.find_or_initialize_by_url( url )
-  end
-
-  def thumb
-    self.image || self.program.images.saved.fanart.random.first || (image = self.program.images.fanart.random.first; image and image.save_image and image.save and image)
-  end
-
-  def working?
-    last_blame = self.interactions.interaction_type_is('blame').last
-    return true unless last_blame
-    false
-  end
-
-  def self.recently_aired(since=5.minutes.ago)
-    airs_at_inside(5.minutes.ago, Time.now)
-  end
-
   # api methods
   def self.tvdb_client
     TvdbParty::Search.new(TVDB_API)
@@ -273,33 +272,3 @@ class Episode < ActiveRecord::Base
     }
   end
 end
-
-# == Schema Information
-#
-# Table name: episodes
-#
-#  id               :integer          not null, primary key
-#  title            :string(255)
-#  description      :text
-#  path             :string(255)
-#  nr               :integer
-#  airdate          :date
-#  downloaded       :boolean          default(FALSE)
-#  watched          :boolean          default(FALSE)
-#  season_id        :integer
-#  created_at       :datetime
-#  updated_at       :datetime
-#  nzb_file_name    :string(255)
-#  nzb_content_type :string(255)
-#  nzb_file_size    :integer
-#  nzb_updated_at   :datetime
-#  program_id       :integer
-#  airs_at          :datetime
-#  downloads        :integer          default(0)
-#  season_nr        :integer
-#  tvdb_id          :integer
-#  program_name     :string(255)
-#  tvdb_program_id  :integer
-#  image_id         :integer
-#
-
