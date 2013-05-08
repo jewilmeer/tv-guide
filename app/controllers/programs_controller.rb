@@ -51,7 +51,6 @@ class ProgramsController < ApplicationController
   end
 
   def guide
-    @search_terms      = SearchTermType.all
     @upcoming_episodes = Episode.next_airing.includes(:program)
     @past_episodes     = Episode.last_aired.includes(:program).includes(:downloads).page params[:page]
   end
