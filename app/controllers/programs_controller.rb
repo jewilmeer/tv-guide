@@ -51,7 +51,7 @@ class ProgramsController < ApplicationController
   end
 
   def guide
-    @upcoming_episodes = Episode.next_airing.includes(:program)
+    @upcoming_episodes = Episode.next_airing.includes(:program).limit(100)
     @past_episodes     = Episode.last_aired.includes(:program).includes(:downloads).page params[:page]
   end
 
