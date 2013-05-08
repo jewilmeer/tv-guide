@@ -6,4 +6,6 @@
   %td= l(episode.airs_at, :format => :long)
   %td
     = link_to edit_admin_episode_path(episode) do
-      %i.icon-edit
+      %i.icon-edit.icon-large
+    = link_to admin_episode_path(episode), method: :delete do
+      %i.icon-trash.icon-large

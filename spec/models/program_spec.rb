@@ -29,7 +29,6 @@ end
 #  overview                  :text
 #  status                    :string(255)
 #  tvdb_id                   :integer
-#  tvdb_last_update          :datetime
 #  imdb_id                   :string(255)
 #  airs_dayofweek            :string(255)
 #  airs_time                 :string(255)
@@ -43,11 +42,6 @@ end
 #  max_season_nr             :integer          default(1)
 #  current_season_nr         :integer          default(1)
 #  tvdb_name                 :string(255)
-#  fanart_image_id           :integer
-#  poster_image_id           :integer
-#  season_image_id           :integer
-#  series_image_id           :integer
 #  program_preferences_count :integer          default(0)
-#  interactions_count        :integer          default(0)
 #
 

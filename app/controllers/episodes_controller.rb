@@ -4,13 +4,11 @@ class EpisodesController < ApplicationController
   before_filter :authenticate_user!, :only => [:update, :download, :search]
 
   def show
-    @search_terms      = SearchTermType.all
     respond_with episode
   end
 
   def update
     episode.download_all
-    @search_terms      = SearchTermType.all
     respond_with episode
   end
 
@@ -37,7 +35,7 @@ class EpisodesController < ApplicationController
       user:             current_user,
       program:          @episode.program,
       episode:          @episode,
-      interaction_type: "Search #{params[:quality_code]}",
+      interaction_type: "Search",
       format:           'nzb',
       end_point:        end_point,
       referer:          request.referer,

@@ -12,7 +12,7 @@ $ ->
     $(window).scroll ->
       url = $('.pagination .next_page').attr('href')
       if url && isScrolledIntoView('.pagination')
-        $('.pagination').text("Fetching more products...")
+        $('.pagination').text("Searching for moar!")
         $.getScript(url)
     $(window).scroll()
   $('#past-episodes').on 'click', 'a i', ->

@@ -1,10 +1,10 @@
 xml.instruct! :xml, :version => "1.0"
 xml.rss :version => "2.0" do
   xml.channel do
-    xml.title "Digital TV guide - #{@program.name}"
-    xml.description "Whole episode download"
-    xml.url program_url( @program )
-    @program.episodes.order('season_nr desc, nr desc').downloaded.each do |episode|
+    xml.title "Digital TV guide"
+    xml.description "Shit you can download"
+    xml.url program_url(@program)
+    @episodes.each do |episode|
       xml.item do
         xml.title "#{episode.program.name} - #{episode.full_episode_title}"
         xml.description episode.description
