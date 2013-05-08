@@ -1,7 +1,0 @@
-= simple_form_for [:admin, @program_preference], html: {class: 'form-horizontal'} do |f|
-  = f.association :user, label_method: :login
-  = f.association :program
-  = f.association :search_term_type
-  = f.input :download, as: :boolean
-  .form-actions
-    = f.button :submit

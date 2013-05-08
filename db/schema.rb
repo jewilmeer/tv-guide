@@ -11,15 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502222804) do
-
-  create_table "configurations", :force => true do |t|
-    t.integer  "program_id"
-    t.boolean  "active",      :default => true
-    t.text     "filter_data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20130508202343) do
 
   create_table "downloads", :force => true do |t|
     t.integer  "episode_id"
@@ -38,36 +30,19 @@ ActiveRecord::Schema.define(:version => 20130502222804) do
   create_table "episodes", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.string   "path"
     t.integer  "nr"
     t.date     "airdate"
-    t.boolean  "downloaded",       :default => false
-    t.boolean  "watched",          :default => false
-    t.integer  "season_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "nzb_file_name"
-    t.string   "nzb_content_type"
-    t.integer  "nzb_file_size"
-    t.datetime "nzb_updated_at"
     t.integer  "program_id"
     t.datetime "airs_at"
-    t.integer  "downloads",        :default => 0
     t.integer  "season_nr"
     t.integer  "tvdb_id"
     t.string   "program_name"
-    t.integer  "tvdb_program_id"
-    t.integer  "image_id"
   end
 
   add_index "episodes", ["program_id", "airs_at"], :name => "index_episodes_on_program_id_and_airs_at"
   add_index "episodes", ["program_id", "season_nr", "nr"], :name => "index_episodes_on_program_id_and_season_nr_and_nr"
-  add_index "episodes", ["season_id", "nr"], :name => "chained_index"
-
-  create_table "episodes_users", :id => false, :force => true do |t|
-    t.integer "episode_id"
-    t.integer "user_id"
-  end
 
   create_table "genres", :force => true do |t|
     t.string   "name"
@@ -79,25 +54,6 @@ ActiveRecord::Schema.define(:version => 20130502222804) do
     t.integer "genre_id"
     t.integer "program_id"
   end
-
-  create_table "images", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "url"
-    t.string   "image_type"
-    t.boolean  "downloaded",         :default => false
-  end
-
-  create_table "images_programs", :id => false, :force => true do |t|
-    t.integer "image_id"
-    t.integer "program_id"
-  end
-
-  add_index "images_programs", ["program_id", "image_id"], :name => "index_images_programs_on_program_id_and_image_id"
 
   create_table "interactions", :force => true do |t|
     t.integer  "user_id"
@@ -112,24 +68,6 @@ ActiveRecord::Schema.define(:version => 20130502222804) do
     t.string   "referer"
   end
 
-  create_table "pages", :force => true do |t|
-    t.string   "title"
-    t.string   "permalink"
-    t.text     "content"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "program_preferences", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "program_id"
-    t.boolean  "download",            :default => true
-    t.integer  "search_term_type_id", :default => 1
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "programs", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -138,7 +76,6 @@ ActiveRecord::Schema.define(:version => 20130502222804) do
     t.text     "overview"
     t.string   "status"
     t.integer  "tvdb_id"
-    t.datetime "tvdb_last_update"
     t.string   "imdb_id"
     t.string   "airs_dayofweek"
     t.string   "airs_time"
@@ -152,12 +89,7 @@ ActiveRecord::Schema.define(:version => 20130502222804) do
     t.integer  "max_season_nr",             :default => 1
     t.integer  "current_season_nr",         :default => 1
     t.string   "tvdb_name"
-    t.integer  "fanart_image_id"
-    t.integer  "poster_image_id"
-    t.integer  "season_image_id"
-    t.integer  "series_image_id"
     t.integer  "program_preferences_count", :default => 0
-    t.integer  "interactions_count",        :default => 0
   end
 
   add_index "programs", ["tvdb_id"], :name => "index_programs_on_tvdb_id"
@@ -169,31 +101,6 @@ ActiveRecord::Schema.define(:version => 20130502222804) do
 
   add_index "programs_stations", ["program_id"], :name => "index_programs_stations_on_program_id"
   add_index "programs_stations", ["station_id"], :name => "index_programs_stations_on_station_id"
-
-  create_table "programs_users", :id => false, :force => true do |t|
-    t.integer "program_id"
-    t.integer "user_id"
-  end
-
-  add_index "programs_users", ["program_id", "user_id"], :name => "index_programs_users_on_program_id_and_user_id"
-  add_index "programs_users", ["user_id", "program_id"], :name => "index_programs_users_on_user_id_and_program_id"
-
-  create_table "search_term_types", :force => true do |t|
-    t.string   "name"
-    t.string   "code"
-    t.string   "search_term"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "series", :force => true do |t|
-    t.string   "name"
-    t.string   "status"
-    t.string   "tv_status"
-    t.integer  "tvrage_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "stations", :force => true do |t|
     t.string  "name",          :null => false

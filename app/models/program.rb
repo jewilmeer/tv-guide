@@ -5,18 +5,10 @@ class Program < ActiveRecord::Base
 
   has_many :episodes, :dependent => :destroy
   has_many :interactions, :dependent => :nullify
-  has_many :program_preferences
-  has_many :programs_users
-  has_many :users, :through => :program_preferences
-  has_many :search_term_types, :through => :program_preferences, :uniq => true
   has_many :station_programs, dependent: :destroy
 
   has_and_belongs_to_many :stations
-  has_and_belongs_to_many :images
   has_and_belongs_to_many :genres, :uniq => true
-
-  belongs_to :series_image, :class_name => 'Image'
-  belongs_to :fanart_image, :class_name => 'Image'
 
   validates :tvdb_id, :uniqueness => true
   validates :name, presence: true, if: :persisted?
@@ -65,7 +57,6 @@ end
 #  overview                  :text
 #  status                    :string(255)
 #  tvdb_id                   :integer
-#  tvdb_last_update          :datetime
 #  imdb_id                   :string(255)
 #  airs_dayofweek            :string(255)
 #  airs_time                 :string(255)
@@ -79,10 +70,6 @@ end
 #  max_season_nr             :integer          default(1)
 #  current_season_nr         :integer          default(1)
 #  tvdb_name                 :string(255)
-#  fanart_image_id           :integer
-#  poster_image_id           :integer
-#  season_image_id           :integer
-#  series_image_id           :integer
 #  program_preferences_count :integer          default(0)
-#  interactions_count        :integer          default(0)
 #
+

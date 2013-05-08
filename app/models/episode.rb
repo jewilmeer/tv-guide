@@ -2,11 +2,9 @@ class Episode < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
 
   belongs_to :program
-  has_and_belongs_to_many :users
   has_many :interactions, :dependent => :nullify
   has_many :downloads, :dependent => :destroy
   has_many :stations, through: :program
-  belongs_to :image
 
   validates :title, :season_nr, :program_id, :program_name, :presence => true
   validates :nr, :presence => true, :uniqueness => {:scope => [:season_nr, :program_id]}
@@ -16,9 +14,9 @@ class Episode < ActiveRecord::Base
   scope :last_aired,              ->{ airs_at_in_past.order('episodes.airs_at desc').includes(:program, :downloads) }
 
   scope :downloaded,              ->(){ includes(:downloads).where('downloads.id IS NOT NULL') }
+  scope :without_download,        includes(:downloads).where(downloads: {id: nil})
   scope :watched_by_a_user,       ->(){ includes(:stations).where(stations: {taggable_type: 'User'}) }
   scope :downloadable,            ->(){ without_download.watched_by_a_user }
-  scope :without_download,        includes(:downloads).where(downloads: {id: nil})
   scope :airs_at_in_future,       lambda{ where('episodes.airs_at > ?', Time.zone.now) }
   scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
   scope :airs_at_inside,          ->(first_date, last_date) { where{ (airs_at > first_date) & (airs_at < last_date) } }
@@ -27,9 +25,6 @@ class Episode < ActiveRecord::Base
   scope :random,                  -> { order('RANDOM()') }
   scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
   scope :last_updated,            order('episodes.updated_at desc')
-  scope :without_image,           where('image_id IS NULL')
-
-  attr_accessor :options, :name, :episode, :filters, :thumb
 
   before_validation :update_program_name
 
@@ -174,24 +169,6 @@ class Episode < ActiveRecord::Base
     searcher.link
   end
 
-  def find_existing_image_by_url url
-    Image.find_or_initialize_by_url( url )
-  end
-
-  def thumb
-    self.image || self.program.images.saved.fanart.random.first || (image = self.program.images.fanart.random.first; image and image.save_image and image.save and image)
-  end
-
-  def working?
-    last_blame = self.interactions.interaction_type_is('blame').last
-    return true unless last_blame
-    false
-  end
-
-  def self.recently_aired(since=5.minutes.ago)
-    airs_at_inside(5.minutes.ago, Time.now)
-  end
-
   # api methods
   def self.tvdb_client
     TvdbParty::Search.new(TVDB_API)
@@ -282,28 +259,17 @@ end
 #
 # Table name: episodes
 #
-#  id               :integer          not null, primary key
-#  title            :string(255)
-#  description      :text
-#  path             :string(255)
-#  nr               :integer
-#  airdate          :date
-#  downloaded       :boolean          default(FALSE)
-#  watched          :boolean          default(FALSE)
-#  season_id        :integer
-#  created_at       :datetime
-#  updated_at       :datetime
-#  nzb_file_name    :string(255)
-#  nzb_content_type :string(255)
-#  nzb_file_size    :integer
-#  nzb_updated_at   :datetime
-#  program_id       :integer
-#  airs_at          :datetime
-#  downloads        :integer          default(0)
-#  season_nr        :integer
-#  tvdb_id          :integer
-#  program_name     :string(255)
-#  tvdb_program_id  :integer
-#  image_id         :integer
+#  id           :integer          not null, primary key
+#  title        :string(255)
+#  description  :text
+#  nr           :integer
+#  airdate      :date
+#  created_at   :datetime
+#  updated_at   :datetime
+#  program_id   :integer
+#  airs_at      :datetime
+#  season_nr    :integer
+#  tvdb_id      :integer
+#  program_name :string(255)
 #
 
