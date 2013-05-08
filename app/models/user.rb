@@ -86,4 +86,3 @@ end
 #  remember_token       :string(255)
 #  remember_created_at  :datetime
 #
-
