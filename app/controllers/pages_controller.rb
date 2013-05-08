@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   # hompage
   def index
     if current_user
-      redirect_to user_programs_path( current_user )
+      redirect_to current_user.stations.personal.first
     else
       redirect_to guide_programs_path
     end

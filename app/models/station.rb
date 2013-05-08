@@ -38,4 +38,5 @@ end
 #  user_id       :integer
 #  taggable_id   :integer
 #  taggable_type :string(255)
+#  slug          :string(255)
 #

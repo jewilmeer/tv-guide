@@ -1,3 +1,12 @@
+FactoryGirl.define do
+  factory :user do
+    sequence(:login) {|n| "user#{n}" }
+    email { "#{login}@example.com" }
+    password "secret"
+    password_confirmation { password }
+  end
+end
+
 # == Schema Information
 #
 # Table name: users
@@ -28,11 +37,3 @@
 #  remember_created_at  :datetime
 #
 
-FactoryGirl.define do
-  factory :user do
-    sequence(:login) {|n| "user#{n}" }
-    email { "#{login}@example.com" }
-    password "secret"
-    password_confirmation { password }
-  end
-end

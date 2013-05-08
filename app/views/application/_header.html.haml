@@ -27,7 +27,6 @@
                 = current_user.login.humanize
                 %b.caret
               %ul.dropdown-menu{role: :menu, 'aria-labelledby' => 'dLabel'}
-                %li= link_to 'Guide & Programs', [current_user, :programs]
                 %li= link_to "Account", edit_user_path(current_user)
                 - if current_user.admin?
                   %li.divider

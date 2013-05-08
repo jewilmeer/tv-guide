@@ -95,7 +95,6 @@ module Concerns
         genre = Genre.find_or_create_by_name(genre)
         self.genres << genre
       end
-      self.tvdb_last_update = Time.now
       self
     end
 

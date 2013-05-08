@@ -50,7 +50,7 @@ TvEpisodes::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => "jewilmeer.com" }
+  config.action_mailer.default_url_options = { :host => "netflikker.nl" }
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.mandrillapp.com',
     :port           => '587',
