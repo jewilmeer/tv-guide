@@ -1,5 +1,5 @@
 class AdminMailer < ActionMailer::Base
-  default :from => "Digital TV guide<tvguide@jewilmeer.com>"
+  default :from => "Digital TV guide<no-reply@netflikker.nl>"
 
   def recipients users
     users.map{|user| "#{user.login}<#{user.email}>"} * ', '
