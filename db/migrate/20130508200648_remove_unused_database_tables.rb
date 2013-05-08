@@ -11,6 +11,5 @@ class RemoveUnusedDatabaseTables < ActiveRecord::Migration
 
     drop_table :programs_users
     drop_table :search_term_types
-    drop_table :series
   end
 end
