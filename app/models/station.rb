@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: stations
-#
-#  id            :integer          not null, primary key
-#  name          :string(255)      not null
-#  user_id       :integer
-#  taggable_id   :integer
-#  taggable_type :string(255)
-#  slug          :string(255)
-#
-
 class Station < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slugish, use: :slugged
@@ -50,4 +38,5 @@ end
 #  user_id       :integer
 #  taggable_id   :integer
 #  taggable_type :string(255)
+#  slug          :string(255)
 #
