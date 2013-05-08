@@ -188,7 +188,6 @@ class Episode < ActiveRecord::Base
     self.title        = tvdb_result.name || 'TBA'
     self.description  = tvdb_result.overview
     self.airdate      = tvdb_result.air_date
-    self.thumb        = tvdb_result.try(:thumb)
     self
   end
 
