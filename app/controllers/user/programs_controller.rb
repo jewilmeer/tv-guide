@@ -18,6 +18,6 @@ class User::ProgramsController < UserAreaController
   end
 
   def user
-    user = User.find_by_login! params[:user_id]
+    User.find_by_login! params[:user_id]
   end
 end

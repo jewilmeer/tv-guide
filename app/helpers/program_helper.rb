@@ -1,5 +1,5 @@
 module ProgramHelper
-  def seasons_per_tab_row 
+  def seasons_per_tab_row
     7
   end
 

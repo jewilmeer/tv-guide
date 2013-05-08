@@ -1,6 +1,6 @@
 class ProgramsController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_filter :find_program, :except => [:index, :create, :suggest, :search, :check]
+  before_filter :find_program, :except => [:index, :create, :search, :check]
   newrelic_ignore :only => [:check]
 
   respond_to :html, :json, :js
@@ -14,21 +14,15 @@ class ProgramsController < ApplicationController
     end
   end
 
-  def guide
-    @search_terms      = SearchTermType.all
-    @upcoming_episodes = Episode.next_airing.includes(:program)
-    @past_episodes     = Episode.last_aired.includes(:program).includes(:downloads).page params[:page]
-  end
-
   def show
-    @program        = Program.find(params[:id])
-    @featured_image = @program.series_image || @program.images.series.random.first
-    @search_terms   = SearchTermType.all
+    @program          = Program.find(params[:id])
+    @grouped_episodes = @program.episodes.includes(:downloads).order('nr desc').group_by(&:season_nr)
     @personal_station = current_user.stations.personal.first if user_signed_in?
   end
 
-  def suggest
-    @programs = Program.tvdb_search(params[:q].downcase)
+  def download_list
+    @program = Program.find(params[:id])
+    @episodes = @program.episodes.last_aired.downloaded
   end
 
   def update
@@ -54,6 +48,12 @@ class ProgramsController < ApplicationController
       flash[:error] = 'Program could not be removed'
     end
     redirect_to root_path
+  end
+
+  def guide
+    @search_terms      = SearchTermType.all
+    @upcoming_episodes = Episode.next_airing.includes(:program)
+    @past_episodes     = Episode.last_aired.includes(:program).includes(:downloads).page params[:page]
   end
 
   def search

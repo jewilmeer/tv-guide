@@ -1,2 +1,7 @@
-$('#past-episodes #<%= dom_id(@episode) %>').replaceWith("<%= j render 'past_episode', episode: @episode %>");
-$('#past-episodes #<%= dom_id(@episode) %>').hide().fadeIn();
+<%- if params[:partial] == 'episodes' -%>
+  $('#<%= dom_id(@episode) %>').replaceWith("<%= j render 'episode', episode: @episode %>");
+  $('#<%= dom_id(@episode) %>').hide().fadeIn();
+<%- else -%>
+  $('#past-episodes #<%= dom_id(@episode) %>').replaceWith("<%= j render 'past_episode', episode: @episode %>");
+  $('#past-episodes #<%= dom_id(@episode) %>').hide().fadeIn();
+<%- end -%>
