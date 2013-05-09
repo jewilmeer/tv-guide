@@ -36,11 +36,8 @@ TvEpisodes::Application.routes.draw do
     end
   end
 
-  resources :users, only: [:new, :create, :edit, :update], :module => 'user', :path => '/user' do
-    resources :programs, only: [] do
-      get :aired, on: :collection
-    end
-  end
+  # signup. account settings. Needs to be implemented simpler
+  resources :users, only: [:new, :create, :edit, :update], :module => 'user', :path => '/user'
 
   root :to => "pages#index"
 end
