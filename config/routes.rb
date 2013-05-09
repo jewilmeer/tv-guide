@@ -36,9 +36,8 @@ TvEpisodes::Application.routes.draw do
     end
   end
 
-  resources :users, :module => 'user', :path => '/user' do
-    resource :settings
-    resources :programs, only: [:index] do
+  resources :users, only: [:new, :create, :edit, :update], :module => 'user', :path => '/user' do
+    resources :programs, only: [] do
       get :aired, on: :collection
     end
   end
