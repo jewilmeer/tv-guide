@@ -6,15 +6,5 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-SearchTermType.find_or_create_by_code 'low_res' do |st|
-  st.name = 'Low Res'
-  st.search_term = '-720 -1080'
-end
-SearchTermType.find_or_create_by_code 'hd' do |st|
-  st.name = 'HD (720p)'
-  st.search_term = '720 -1080 -wmv -german -french'
-end
-SearchTermType.find_or_create_by_code 'full_hd' do |st|
-  st.name = 'Full HD'
-  st.search_term = '1080 -720 -wmv -german -french'
-end
+# Load some programs into your app
+TvdbUpdateFetcher.perform_async 1.day.ago
