@@ -23,7 +23,7 @@ module Concerns
       end
 
       def self.tvdb_updated_tvdb_ids(timestamp)
-        tvdb_client.get_series_updates(timestamp.to_i)['Series'] || []
+        Array(tvdb_client.get_series_updates(timestamp.to_i)['Series'])
       end
 
       def self.tvdb_apply_update_since since=5.minutes.ago
