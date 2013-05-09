@@ -20,14 +20,10 @@ TvEpisodes::Application.routes.draw do
 
   # deprecated
   get "/user/:user_id/programs/t/:authentication_token" => 'user/programs#aired', :as => 'tokened_user_programs'
-  get "/settings(.:format)" => "settings#index", :as => :setting
   get '/sitemap', :to => 'pages#sitemap'
 
-  resources :programs do
-    collection do
-      post :search
-      get :check, :suggest, :guide
-    end
+  resources :programs, only: [:index, :show, :update] do
+    get :guide, on: :collection
     get :download_list, on: :member, path: 'download_list/:authentication_token'
 
     resources :episodes, only: :show
@@ -40,12 +36,8 @@ TvEpisodes::Application.routes.draw do
     end
   end
 
-  resources :users, :module => 'user', :path => '/user' do
-    resource :settings
-    resources :programs, only: [:index] do
-      get :aired, on: :collection
-    end
-  end
+  # signup. account settings. Needs to be implemented simpler
+  resources :users, only: [:new, :create, :edit, :update], :module => 'user', :path => '/user'
 
   root :to => "pages#index"
 end
