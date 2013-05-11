@@ -2,21 +2,21 @@
   .page-header
     %h3 Seasons
   %ul.nav.nav-tabs#program-season-tabs
-    - seasons_for_tab(@program).each do |season|
+    - @grouped_episodes.first(7).each do |season, episodes|
       %li{class: (:active if @program.current_season_nr == season)}
-        %a{:href => "#s#{season}", 'data-toggle' => 'tab'}== Season #{season} (#{@grouped_episodes[season].length})
-    - if seasons_for_dropdown(@program).any?
+        %a{:href => "#s#{season}", 'data-toggle' => 'tab'}== Season #{season} (#{episodes.length})
+    - if @grouped_episodes.length > 7
       %li.dropdown
         %a.dropdown-toggle{'data-toggle' => :dropdown}
-          == Older seasons (#{seasons_for_dropdown(@program).length})
+          == Older seasons (#{@grouped_episodes.length-7})
           %b.caret
         %ul.dropdown-menu
-          - seasons_for_dropdown(@program).each do |season|
+          - @grouped_episodes.drop(7).each do |season, episodes|
             %li
               %a{:href => "#s#{season}", 'data-toggle' => 'tab'}
-                == Season #{season} (#{@grouped_episodes[season].length})
+                == Season #{season} (#{episodes.length})
   .tab-content
-    - @program.max_season_nr.downto(1) do |season|
+    - @grouped_episodes.each do |season, episodes|
       .tab-pane{:id => "s#{season}", :class => (:active if @program.current_season_nr == season)}
         %table.table.table-striped
           %thead
@@ -24,5 +24,5 @@
               %th Title
               %th{:width => 150} Airdate
           %tbody
-            = render @grouped_episodes[season]
+            = render episodes
 
