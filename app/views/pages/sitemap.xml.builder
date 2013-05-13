@@ -2,7 +2,7 @@ xml.instruct! :xml, :version=>"1.0"
 xml.tag! 'urlset', "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
   xml.tag! 'url' do
     xml.tag! 'loc', programs_url
-    xml.tag! 'lastmod', Program.by_updated_at.last.updated_at.strftime("%Y-%m-%d")
+    xml.tag! 'lastmod', Program.order('updated_at').last.updated_at.strftime("%Y-%m-%d")
     xml.tag! 'changefreq', 'hourly'
     xml.tag! 'priority', '0.8'
   end
