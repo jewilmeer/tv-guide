@@ -20,7 +20,7 @@ TvEpisodes::Application.routes.draw do
 
   # deprecated
   get "/user/:user_id/programs/t/:authentication_token" => 'user/programs#aired', :as => 'tokened_user_programs'
-  get '/sitemap', :to => 'pages#sitemap'
+  get '/sitemap', :to => 'pages#sitemap', format: :xml
 
   resources :programs, only: [:index, :show, :update] do
     get :guide, on: :collection
