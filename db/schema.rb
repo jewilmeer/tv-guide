@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130524091118) do
+ActiveRecord::Schema.define(:version => 20130524152459) do
 
   create_table "downloads", :force => true do |t|
     t.integer  "episode_id"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20130524091118) do
     t.integer  "season_nr"
     t.integer  "tvdb_id"
     t.string   "program_name"
+    t.string   "thumb"
   end
 
   add_index "episodes", ["program_id", "airs_at"], :name => "index_episodes_on_program_id_and_airs_at"

@@ -6,7 +6,10 @@
   .tab-pane#banner
     .row
       .span8
-        %img{:src => 'http://placehold.it/700x129', :width => 700, :height => 129}
+        - if @program.series_banner
+          %img{:src => @program.series_banner.file.url, :width => 700, :height => 129}
+        - else
+          %img{:src => 'http://placehold.it/700x129', :width => 700, :height => 129}
       .span4
         .panel
           %ul.unstyled
