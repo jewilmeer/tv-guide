@@ -77,7 +77,6 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     connection_pool (1.0.0)
-    dalli (2.6.2)
     debugger (1.2.4)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.1.1)
@@ -291,7 +290,6 @@ DEPENDENCIES
   carrierwave
   coffee-rails
   compass-rails
-  dalli
   devise
   exceptional
   factory_girl_rails
