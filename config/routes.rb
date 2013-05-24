@@ -9,7 +9,10 @@ TvEpisodes::Application.routes.draw do
 
   namespace :admin do
     root :to => 'pages#root'
-    resources :users, :interactions, :episodes, :programs
+    resources :users, :interactions, :episodes
+    resources :programs do
+      resources :images, only: [:index]
+    end
   end
 
   mount Sidekiq::Web => '/sidekiq'

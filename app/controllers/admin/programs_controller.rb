@@ -9,10 +9,7 @@ class Admin::ProgramsController < AdminAreaController
 
   def show
     @last_episode           = @program.episodes.last_aired.first || @program.episodes.last
-    @nav = {
-      :previous => Program.where('status = ?', @program.status).order(:name).where('name > ?', @program.name).first,
-      :next     => Program.where('status = ?', @program.status).order(:name).where('name < ?', @program.name).last
-    }
+    @nav = program_nav_links
   end
 
   # GET /admin_programs/new
