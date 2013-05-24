@@ -6,6 +6,7 @@ class Program < ActiveRecord::Base
   has_many :episodes, :dependent => :destroy
   has_many :interactions, :dependent => :nullify
   has_many :station_programs, dependent: :destroy
+  has_many :images, dependent: :destroy
 
   has_and_belongs_to_many :stations
   has_and_belongs_to_many :genres, :uniq => true
@@ -17,6 +18,7 @@ class Program < ActiveRecord::Base
 
   scope :by_name, order('name ASC')
   scope :last_updated, order('updated_at desc')
+  scope :followed_by_user, -> { includes(:stations).where( 'stations.taggable_type'=> 'User') }
 
   def self.search_program query
     query = "%#{query}%"
@@ -42,6 +44,14 @@ class Program < ActiveRecord::Base
 
   def self.default_search_term_pattern
     "%{program_name} %{season_nr} %{filled_episode_nr}"
+  end
+
+  def followed_by_user?
+    Program.followed_by_user.where(id: self.id).any?
+  end
+
+  def banner
+    self.images.with_fanart.sample
   end
 end
 
