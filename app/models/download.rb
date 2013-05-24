@@ -1,7 +1,7 @@
 class Download < ActiveRecord::Base
   belongs_to :episode, :touch => true
 
-  validates_presence_of :origin, :site, :download_type, :download_file_name
+  validates_presence_of :origin, :download_type, :download_file_name
   validate :download_type, :uniqueness => { :scope => [:episode_id] }
 
   scope :with_download_type, lambda{|download_type| where('download_type=?', download_type) }
