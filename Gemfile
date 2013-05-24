@@ -27,9 +27,6 @@ gem 'sidekiq'
 gem 'slim'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
-# caching
-gem "dalli"
-
 group :assets do
   gem 'jquery-rails'
   gem 'coffee-rails'#, "~> 3.2.1"
