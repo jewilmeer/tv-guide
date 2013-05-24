@@ -8,7 +8,7 @@ class EpisodesController < ApplicationController
   end
 
   def update
-    episode.download_all
+    episode.download
     respond_with episode
   end
 

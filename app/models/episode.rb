@@ -115,26 +115,17 @@ class Episode < ActiveRecord::Base
     ['hd']
   end
 
-  def download_all
-    logger.info "="*30
-    logger.info "Getting downloads for '#{self.program_name}' in #{qualities.join(', ')}"
-    logger.info "="*30
-    qualities.map{|quality| self.download quality }
-  end
-
-  def download(quality)
-
+  def download(quality='hd')
     logger.info "="*30
     logger.info "Getting #{quality} from #{search_url}"
     logger.info "="*30
 
     next_page   = Browser.agent.get( search_url ).forms.last.submit
     if (download_links = next_page.links_with(:text => 'Download')).any?
-      download        = downloads.find_or_initialize_by_download_type( quality )
+      download        = self.downloads.find_or_initialize_by_download_type( quality )
       download.origin = strip_tags(Nokogiri::HTML(next_page.body).css('td label').last.to_s)
       file            = download_links.last.click
       download.file   = file
-      download.site   = 'nzbindex.nl'
       download.save
     else
       logger.info "No downloads found at #{search_url}"
