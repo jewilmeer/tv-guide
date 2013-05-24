@@ -53,6 +53,10 @@ class Program < ActiveRecord::Base
   def banner
     self.images.with_fanart.sample
   end
+
+  def series_banner
+    self.images.with_image_type('series:graphical').all.sample
+  end
 end
 
 # == Schema Information

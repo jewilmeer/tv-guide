@@ -1,13 +1,14 @@
 class Episode < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
 
+  mount_uploader :thumb, ::ImageUploader
+
   belongs_to :program
   has_many :interactions, :dependent => :nullify
   has_many :downloads, :dependent => :destroy
   has_many :stations, through: :program
 
   validates :title, :season_nr, :program_id, :program_name, :presence => true
-  validates :nr, :presence => true, :uniqueness => {:scope => [:season_nr, :program_id]}
 
   # used for guide view
   scope :next_airing,             ->{ airs_at_in_future.order('episodes.airs_at asc').includes(:program) }
@@ -179,6 +180,7 @@ class Episode < ActiveRecord::Base
     self.title        = tvdb_result.name || 'TBA'
     self.description  = tvdb_result.overview
     self.airdate      = tvdb_result.air_date
+    self.remote_thumb_url = tvdb_result.thumb
     self
   end
 
