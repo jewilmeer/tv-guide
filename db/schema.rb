@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508202343) do
+ActiveRecord::Schema.define(:version => 20130524091118) do
 
   create_table "downloads", :force => true do |t|
     t.integer  "episode_id"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(:version => 20130508202343) do
   create_table "genres_programs", :id => false, :force => true do |t|
     t.integer "genre_id"
     t.integer "program_id"
+  end
+
+  create_table "images", :force => true do |t|
+    t.string   "file"
+    t.string   "source_url"
+    t.string   "image_type"
+    t.boolean  "downloaded", :default => false
+    t.integer  "program_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "interactions", :force => true do |t|

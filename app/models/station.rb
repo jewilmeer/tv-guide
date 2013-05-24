@@ -11,7 +11,8 @@ class Station < ActiveRecord::Base
 
   validates :name, presence: true
 
-  scope :personal, ->(){ where( taggable_type: 'User', user_id: :taggable_id ) }
+  scope :user_station, -> { where( taggable_type: 'User') }
+  scope :personal, -> { user_station.where( user_id: :taggable_id ) }
 
   def url_params
     { station_type: taggable_type, station_id: taggable_id }

@@ -1,0 +1,29 @@
+- content_for :hero_unit do
+  - banner_url = @program.banner.try(:file).try(:url)
+  .hero-unit.teaser{style: "background-image: url(#{banner_url})"}
+    %ul.pager
+      - if @nav[:next].present?
+        %li.previous
+          = link_to [:admin, @nav[:next], :images] do
+            == &larr; #{@nav[:next].name}
+      - if @nav[:previous].present?
+        %li.next
+          = link_to [:admin, @nav[:previous], :images] do
+            == #{@nav[:previous].name} &rarr;
+    %h1
+      = @program.name
+      %small
+        %ul.nav.nav-pills
+          %li= link_to "public", @program
+          %li= link_to "admin", [:admin, @program]
+          %li= link_to "images", [:admin, @program, :images]
+
+- if @images.any?
+  .row
+    - @images.each do |image|
+      .span4.media-body
+        %h3= image.image_type
+        = link_to image_tag(image.file.url), image.file.url
+
+- else
+  %h4.muted No images available yet

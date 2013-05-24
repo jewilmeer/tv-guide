@@ -1,0 +1,32 @@
+body {
+  background-image: none;
+}
+
+.hero-unit.teaser {
+  position: relative;
+  background-size: cover;
+  background-position: center -100px; // scroll 100px to the top
+  background-repeat: none;
+  background-color: black;
+  height: 200px;
+  @include transition(height 300ms ease-in);
+
+  h1 {
+    position: absolute;
+    bottom: 0;
+    color: #FFF;
+    @include text-shadow(rgba(0,0,0,0.2) 1px 1px 4px);
+  }
+
+  nav {
+    @include text-shadow(#333);
+    color: rgba(255,255,255, 1);
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .hero-unit.teaser:hover {
+    @include transition(height 300ms ease-in);
+    height: 300px;
+  }
+}
