@@ -17,10 +17,7 @@ body {
 }
 
 a {
-  -webkit-transition: all 350ms ease-in-out;
-  -moz-transition: all 350ms ease-in-out;
-  -o-transition: all 350ms ease-in-out;
-  transition: all 350ms ease-in-out;
+  @include transition(all 350ms ease-in-out);
 }
 
 .label a {
