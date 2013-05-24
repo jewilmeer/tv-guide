@@ -26,13 +26,6 @@ class NzbSearch
     '-wmv -german -french 720 | 1080'
   end
 
-  # def quality_terms
-  #   {
-  #     '720' => '720 -1080',
-  #     '1080' => '720 -1080',
-  #   }
-  # end
-
   protected
   def root_url
     'http://nzbindex.nl/search/'
