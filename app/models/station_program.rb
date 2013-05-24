@@ -5,7 +5,7 @@ class StationProgram < ActiveRecord::Base
 
   validates :program_id, uniqueness: { scope: :station_id }
 
-  before_create ->(sp) { sp.initially_followed? }
+  before_create ->(sp) { sp.initially_followed?; true }
   after_create ->(sp) {
     return true unless sp.initially_followed?
     program.delay.tvdb_update_banners
