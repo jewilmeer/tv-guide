@@ -7,7 +7,7 @@ class Image < ActiveRecord::Base
 
   scope :downloaded, -> { where( arel_table[:file].not_eq(nil) ) }
   scope :with_image_type, ->(image_type) { where( image_type: image_type ) }
-  scope :with_fanart, -> { where( image_type: 'fanart:1920x1080', image_type: 'fanart:1280x720' ) }
+  scope :with_fanart, -> { where( 'image_type IN (?)', %w(fanart:1920x1080 fanart:1280x720) ) }
 
   after_create ->(image) { image.delay.download }
 
