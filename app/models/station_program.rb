@@ -7,7 +7,7 @@ class StationProgram < ActiveRecord::Base
 
   before_create ->(sp) { sp.initially_followed? }
   after_create ->(sp) {
-    return unless sp.initially_followed?
+    return true unless sp.initially_followed?
     program.delay.tvdb_update_banners
     sp.delay.schedule_downloads
   }
