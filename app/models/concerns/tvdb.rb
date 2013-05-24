@@ -7,6 +7,7 @@ module Concerns
     included do
       before_save :tvdb_refresh, if: ->(){ self.tvdb_id_changed? }
       before_create ->(){ self.last_checked_at= 1.year.ago }
+
       # scopes
       def self.tvdb_client
         TvdbParty::Search.new(TVDB_API)
@@ -53,6 +54,7 @@ module Concerns
       # cleanup invalid episodes
       return self.destroy unless self.valid?
 
+      self.delay.tvdb_update_banners if followed_by_user?
       self.touch(:last_checked_at)
     end
 
@@ -98,5 +100,13 @@ module Concerns
       self
     end
 
+    def tvdb_update_banners
+      tvdb_client.get_banners_by_id(self.tvdb_id).each do |banner|
+        image = self.images.where(source_url: banner.url).first_or_initialize.tap do |image|
+          image.image_type = [banner.banner_type, banner.banner_type2].compact.join(':')
+        end
+        image.save
+      end
+    end
   end
 end

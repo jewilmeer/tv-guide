@@ -10,3 +10,4 @@ config/database.yml
 vendor/ruby
 config/database.yml
 public/assets/*
+public/uploads

@@ -4,6 +4,21 @@ class StationProgram < ActiveRecord::Base
   belongs_to :program
 
   validates :program_id, uniqueness: { scope: :station_id }
+
+  before_create ->(sp) { sp.initially_followed? }
+  after_create ->(sp) {
+    return unless sp.initially_followed?
+    program.delay.tvdb_update_banners
+    sp.delay.schedule_downloads
+  }
+
+  def schedule_downloads
+    self.program.episodes.map{|episode| episode.delay.download }
+  end
+
+  def initially_followed?
+    @initially_followed = StationProgram.where(program_id: self.program_id).any?
+  end
 end
 
 # == Schema Information

@@ -1,19 +1,3 @@
-# == Schema Information
-#
-# Table name: images
-#
-#  id                 :integer          not null, primary key
-#  image_file_name    :string(255)
-#  image_content_type :string(255)
-#  image_file_size    :integer
-#  image_updated_at   :datetime
-#  created_at         :datetime
-#  updated_at         :datetime
-#  url                :string(255)
-#  image_type         :string(255)
-#  downloaded         :boolean          default(FALSE)
-#
-
 FactoryGirl.define do
   factory :image do
     sequence(:url) {|n| 'placehold.it/10x#{10*n}' }
@@ -23,3 +7,17 @@ FactoryGirl.define do
     episode
   end
 end
+
+# == Schema Information
+#
+# Table name: images
+#
+#  id         :integer          not null, primary key
+#  file       :string(255)
+#  source_url :string(255)
+#  downloaded :boolean          default(FALSE)
+#  program_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
