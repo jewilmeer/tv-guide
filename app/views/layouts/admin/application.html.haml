@@ -3,7 +3,7 @@
   %head
     %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
     %meta{name: :viewport, content: 'width=device-width, initial-scale=1.0'}
-    = stylesheet_link_tag :application
+    = stylesheet_link_tag :admin
     %meta{:name=>"robots",        :content=>"index, follow"}
     %meta{:name=>"revisit-after", :content=>"1 days"}
     %meta{:name=>"author",        :content=>"me"}
@@ -29,7 +29,9 @@
           %ul.nav.pull-right
             %li= link_to "welcome #{current_user.login.humanize}", edit_admin_user_path(current_user)
             %li= link_to 'Back to the website', root_path
-    #main.container
+    - if content_for?(:hero_unit)
+      = yield(:hero_unit)
+    #main.container-fluid
       = render 'notifications_and_errors'
       = yield
     %footer
