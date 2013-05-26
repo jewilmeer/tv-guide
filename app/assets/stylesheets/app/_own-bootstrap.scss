@@ -16,10 +16,6 @@ body {
   padding: 20px 10px;
 }
 
-a {
-  @include transition(all 350ms ease-in-out);
-}
-
 .label a {
   color: white;
 }

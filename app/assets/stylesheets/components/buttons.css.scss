@@ -1,0 +1,30 @@
+.following .btn-follow {
+  .button-text {
+    display: none;
+  }
+  &:not(:hover) {
+    @extend .btn-info;
+    .button-text.following-text {
+      display: inherit;
+    }
+  }
+
+  &:hover {
+    @extend .btn-danger;
+    .button-text.following-text {
+      display: none;
+    }
+    .button-text.unfollow-text {
+      display: inherit;
+    }
+  }
+}
+
+.not-following .btn-follow {
+  .button-text {
+    display: none;
+  }
+  .button-text.follow-text {
+    display: inherit;
+  }
+}
