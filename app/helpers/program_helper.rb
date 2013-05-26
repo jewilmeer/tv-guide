@@ -1,23 +1,24 @@
 module ProgramHelper
-  def seasons_per_tab_row
-    7
+  def follow_program_button(personal_station, program)
+    render 'programs/follow_button', personal_station: personal_station, program: program
   end
 
-  def available_seasons program
-    (1..program.max_season_nr).to_a
-  end
-
-  def seasons_for_tab program
-    if program.max_season_nr <= seasons_per_tab_row
-      available_seasons(program).reverse!
+  def follow_link(personal_station, program)
+    if program.followed_by_user?
+      link_to station_program_path(personal_station, program), method: :delete,
+        class: 'btn btn-follow' do
+          yield
+        end
     else
-      available_seasons(program).reverse!.take (seasons_per_tab_row) -1
+      link_to station_programs_path(personal_station, id: program.id), method: :post,
+        class: 'btn btn-follow' do
+          yield
+        end
     end
   end
 
-  # return an array of all seasons not able to fit inside the tab
-  # these episodes will be displayed within a dropbox
-  def seasons_for_dropdown program
-    available_seasons(program).reverse!.drop( (seasons_per_tab_row)-1 ).reverse!
+  def follow_status_class(program)
+    return 'following' if program.followed_by_user?
+    'not-following'
   end
 end

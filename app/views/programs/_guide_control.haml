@@ -1,5 +1,0 @@
-- if user_signed_in?
-  - if @personal_station.program_ids.include?(@program.id)
-    = link_to 'Remove from personal station', station_program_path(@personal_station, @program), method: :delete, class: 'btn'
-  - else
-    = link_to 'Add to personal station', station_programs_path(@personal_station, id: @program.id), method: :post, class: 'btn'
