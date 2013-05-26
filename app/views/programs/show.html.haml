@@ -1,13 +1,18 @@
 - page_title @program.name
 
-%section
+%section{ class: follow_status_class(@program) }
   .page-header
-    %h1
-      = @program.name
-      %small
-        = @program.status
-        - if current_user.try(:trusted?)
-          = link_to download_list_program_path @program, :authentication_token => current_user.authentication_token, :format => :rss do
-            %i.icon-rss
+    .row
+      .span10
+        %h1
+          = @program.name
+          %small
+            = @program.status
+            - if current_user.try(:trusted?)
+              = link_to download_list_program_path @program, :authentication_token => current_user.authentication_token, :format => :rss do
+                %i.icon-rss
+      .span2
+        - if user_signed_in?
+          .pull-right= follow_program_button(@personal_station, @program)
   = render 'program_details'
   = render 'season_tabs'
