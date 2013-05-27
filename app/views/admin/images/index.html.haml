@@ -23,7 +23,8 @@
     - @images.each do |image|
       .span4.media-body
         %h3= image.image_type
-        = link_to image_tag(image.file.url), image.file.url
+        = link_to image.file.url do
+          %img.img-rounded{src: image.file.url}
 
 - else
   %h4.muted No images available yet
