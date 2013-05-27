@@ -1,7 +1,5 @@
 require 'active_support/concern'
 
-class AccessDenied < StandardError; end
-
 module Concerns
   module Authentication
     extend ActiveSupport::Concern
