@@ -22,11 +22,6 @@ class Episode < ActiveRecord::Base
   scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
   scope :airs_at_inside,          ->(first_date, last_date) { where{ (airs_at > first_date) & (airs_at < last_date) } }
 
-  scope :tvdb_id,                 select("id, tvdb_id")
-  scope :random,                  -> { order('RANDOM()') }
-  scope :distinct_program_id,     lambda{|additional_selects| select("DISTINCT episodes.program_id, #{additional_selects}") }
-  scope :last_updated,            order('episodes.updated_at desc')
-
   before_validation :update_program_name
 
   # attribute overwrites
@@ -89,10 +84,6 @@ class Episode < ActiveRecord::Base
 
   def filename
     "#{program_name}_#{season_and_episode}_-_#{title}".parameterize
-  end
-
-  def filters
-    @filters || APP_CONFIG[:filters].split(/ /)
   end
 
   def to_s
