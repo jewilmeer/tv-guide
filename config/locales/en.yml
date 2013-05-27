@@ -9,3 +9,8 @@ en:
       short_with_weekday: "%a %b %e"
       weekday: "%A"
       with_day: "%A %B %e, %Y %H:%M"
+
+  flash:
+    error:
+      trust_required: 'This functionality is not available'
+      admin_required: 'Insufficient rights'
