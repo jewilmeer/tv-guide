@@ -7,13 +7,19 @@ module Concerns
     extend ActiveSupport::Concern
 
     def require_trust
-      raise AccessDenied unless current_user.try(:trusted?)
-      true
+      if current_user.try(:trusted?)
+        true
+      else
+        redirect_to new_user_session_path, flash: { error: t('flash.error.trust_required') }
+      end
     end
 
     def require_admin
-      raise AccessDenied unless current_user.try(:admin?)
-      true
+      if current_user.try(:admin?)
+        true
+      else
+        redirect_to new_user_session_path, flash: { error: t('flash.error.admin_required') }
+      end
     end
   end
 end
