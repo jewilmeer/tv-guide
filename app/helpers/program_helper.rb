@@ -23,7 +23,6 @@ module ProgramHelper
   end
 
   def active_season?(season, program, episode=nil)
-    puts "#{season} :: #{program} #{episode}"
     return season == episode.season_nr if episode
     program.current_season_nr == season
   end
