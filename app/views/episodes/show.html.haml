@@ -37,7 +37,11 @@
         %dt Description
         %dd= @episode.description
         %dt Airdate
-        %dd= l @episode.airs_at, format: :short
+        %dd
+          - if @episode.airs_at
+            = l @episode.airs_at, format: :short
+          - else
+            TBD
         %dt Episode info
         %dd== Season #{@episode.season_nr}, Episode #{@episode.nr}
 
