@@ -1,0 +1,11 @@
+%ul.station-list.well.nav.nav-list.text-overflow
+  - if personal_stations.any?
+    %li.nav-header My stations
+    - personal_stations.each do |station|
+      %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+  %li.nav-header Other users stations
+  - other_user_stations.each do |station|
+    %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+  %li.nav-header Genre stations
+  - genre_stations.each do |station|
+    %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station

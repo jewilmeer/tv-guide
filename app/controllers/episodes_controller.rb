@@ -1,9 +1,13 @@
 class EpisodesController < ApplicationController
+  layout 'fluid'
   respond_to :html, :js, :nzb
 
   before_filter :authenticate_user!, :only => [:update, :download, :search]
 
   def show
+    @program = episode.program
+    @grouped_episodes = @program.episodes.includes(:downloads).
+      order('season_nr, nr desc').group_by(&:season_nr)
     respond_with episode
   end
 

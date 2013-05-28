@@ -1,0 +1,5 @@
+.station-list {
+  a {
+    @include text-overflow;
+  }
+}

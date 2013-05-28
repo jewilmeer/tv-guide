@@ -13,8 +13,8 @@ class StationsController < ApplicationController
 
     @personal_stations   = current_user.stations if user_signed_in?
     @personal_stations   ||= []
-    @genre_stations      = Station.where('taggable_type=?', 'Genre')
-    @other_user_stations = Station.where('taggable_type=?', 'User') - @personal_stations
+    @genre_stations      = Station.genre_stations
+    @other_user_stations = Station.user_stations - @personal_stations
   end
 
   def download_list
