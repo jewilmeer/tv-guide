@@ -1,4 +1,5 @@
 - program ||= episode.program
+- selected_episode ||= nil
 %tr[episode]{ class: (:active if episode == selected_episode)}
   %td
     = link_to episode.full_episode_title, program_episode_path(program, episode), :class => :title
