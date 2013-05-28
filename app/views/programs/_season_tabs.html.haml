@@ -1,28 +1,15 @@
-#seasons.active
-  .page-header
-    %h3 Seasons
+- selected_episode ||= nil
+.tabbable.tabs-right
   %ul.nav.nav-tabs#program-season-tabs
-    - @grouped_episodes.first(7).each do |season, episodes|
-      %li{class: (:active if @program.current_season_nr == season)}
+    - grouped_episodes.each do |season, episodes|
+      %li{class: (:active if active_season?(season, program, selected_episode)) }
         %a{:href => "#s#{season}", 'data-toggle' => 'tab'}== Season #{season} (#{episodes.length})
-    - if @grouped_episodes.length > 7
-      %li.dropdown
-        %a.dropdown-toggle{'data-toggle' => :dropdown}
-          == Older seasons (#{@grouped_episodes.length-7})
-          %b.caret
-        %ul.dropdown-menu
-          - @grouped_episodes.drop(7).each do |season, episodes|
-            %li
-              %a{:href => "#s#{season}", 'data-toggle' => 'tab'}
-                == Season #{season} (#{episodes.length})
   .tab-content
-    - @grouped_episodes.each do |season, episodes|
-      .tab-pane{:id => "s#{season}", :class => (:active if @program.current_season_nr == season)}
-        %table.table.table-striped
+    - grouped_episodes.each do |season, episodes|
+      .tab-pane{:id => "s#{season}", :class => (:active if active_season?(season, program, selected_episode)) }
+        %table.table.table-bordered.table-striped
           %thead
-            %tr
-              %th Title
-              %th{:width => 150} Airdate
+            %th Title
+            %th{:width => 150} Airdate
           %tbody
-            = render episodes
-
+            = render episodes, selected_episode: selected_episode

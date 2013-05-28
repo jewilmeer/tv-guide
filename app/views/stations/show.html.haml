@@ -8,21 +8,7 @@
   .span3
     .page-header
       %h4 Stations
-    %ul.well.nav.nav-list
-      %li.nav-header
-        - if current_user == @user
-          My stations
-        - else
-          User stations
-      - @personal_stations.each do |station|
-        %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
-      %li.nav-header Other users stations
-      - @other_user_stations.each do |station|
-        %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
-      %li.nav-header Genre stations
-      - @genre_stations.each do |station|
-        %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
-
+    = render 'application/station_list'
     %h4 Included programs
     %ul.well.nav.nav-list
       - @station.programs.order(:name).each do |program|
