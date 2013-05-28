@@ -1,6 +1,7 @@
-@import 'colors';
+@import "bootswatch/flatly/variables";
 @import 'bootstrap';
-@import 'base';
+body { padding-top: 40px; }
 @import 'bootstrap-responsive';
+@import "bootswatch/flatly/bootswatch";
 @import 'font-awesome';
 @import 'app/admin';
