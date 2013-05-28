@@ -15,4 +15,4 @@
         - if user_signed_in?
           .pull-right= follow_program_button(@personal_station, @program)
   = render 'program_details'
-  = render 'season_tabs'
+  = render 'season_tabs', program: @program, grouped_episodes: @grouped_episodes

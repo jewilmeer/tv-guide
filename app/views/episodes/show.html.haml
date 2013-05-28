@@ -1,20 +1,47 @@
+- content_for :sidebar do
+  = render 'application/station_list'
+
 - page_title "#{@episode.program.name} - #{@episode.full_episode_title}"
+
+%ul.breadcrumb
+  %li
+    = link_to 'Home', root_path
+    %span.divider /
+  %li
+    = link_to 'Programs', programs_path
+    %span.divider /
+  %li
+    = link_to @episode.program.name, program_path(@episode.program)
+    %span.divider /
+  %li.active= @episode.full_episode_title
+
+  / next+previous links
+  %li.pull-right.muted
+    = 'Next episode'
+  %li.pull-right.muted
+    = 'Previous episode'
+    %span.divider /
+
 %section
   .page-header
     %h1
-      = link_to @episode.program.name, @episode.program
+      = @episode.program.name
       %small== - Season #{@episode.season_nr} - #{@episode.title}
-  .media.panel
+
+  .media
     - if @episode.thumb.present?
-      .pull-left= image_tag(@episode.thumb.url, class: 'media-object')
+      .pull-left
+        %img{ src: @episode.thumb.url, class: 'media-object img-polaroid' }
     .media-body
-      %dt Airing
-      %dd
-        - if @episode.airs_at
-          = pretty_date @episode.airs_at.to_date
-        - else
-          Unknown
-      - if current_user.try(:trusted?)
-        %dt Actions
-        %dd= render 'trusted_actions', episode: @episode
-      %p= @episode.description
+      %dl
+        %dt Description
+        %dd= @episode.description
+        %dt Airdate
+        %dd= l @episode.airs_at, format: :short
+        %dt Episode info
+        %dd== Season #{@episode.season_nr}, Episode #{@episode.nr}
+
+      = render 'trusted_actions', episode: @episode
+%section
+  %h3 Season overview
+  = render 'programs/season_tabs', program: @program, grouped_episodes: @grouped_episodes, selected_episode: @episode

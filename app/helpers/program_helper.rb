@@ -21,4 +21,10 @@ module ProgramHelper
     return 'following' if program.followed_by_user?
     'not-following'
   end
+
+  def active_season?(season, program, episode=nil)
+    puts "#{season} :: #{program} #{episode}"
+    return season == episode.season_nr if episode
+    program.current_season_nr == season
+  end
 end

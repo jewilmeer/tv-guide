@@ -1,7 +1,7 @@
-- @program ||= episode.program
-%tr[episode]
+- program ||= episode.program
+%tr[episode]{ class: (:active if episode == selected_episode)}
   %td
-    = link_to episode.full_episode_title, program_episode_path(@program, episode), :class => :title
+    = link_to episode.full_episode_title, program_episode_path(program, episode), :class => :title
     - if current_user.try(:trusted?) && episode.airs_at.try(:past?)
       .actions= render 'episodes/trusted_actions', episode: episode
   %td{:width => 220}
