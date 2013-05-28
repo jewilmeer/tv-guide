@@ -12,23 +12,25 @@
 
     %title TV guide Admin
     = yield :head
-  %body.fluid
+  %body
     .navbar.navbar-fixed-top
       .navbar-inner
-        -# responsive menu for small displays
-        %a.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
+        .container-fluid
+          -# responsive menu for small displays
+          %a.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
 
-        = link_to 'Admin', admin_root_path, class: :brand
+          = link_to 'Admin', admin_root_path, class: :brand
 
-        -# everything inside this div is hidden for small displays
-        .nav-collapse.collapse
-          = render 'application/admin/navigation'
-          %ul.nav.pull-right
-            %li= link_to "welcome #{current_user.login.humanize}", edit_admin_user_path(current_user)
-            %li= link_to 'Back to the website', root_path
+          -# everything inside this div is hidden for small displays
+          .nav-collapse.collapse
+            = render 'application/admin/navigation'
+            %ul.nav.pull-right
+              %li= link_to "welcome #{current_user.login.humanize}", edit_admin_user_path(current_user)
+              %li= link_to 'Back to the website', root_path
+
     - if content_for?(:hero_unit)
       = yield(:hero_unit)
     #main.container-fluid
