@@ -4,7 +4,7 @@ module ProgramHelper
   end
 
   def follow_link(personal_station, program)
-    if program.followed_by_user?
+    if program.followed_by_user? current_user
       link_to station_program_path(personal_station, program), method: :delete,
         class: 'btn btn-follow' do
           yield
@@ -18,7 +18,8 @@ module ProgramHelper
   end
 
   def follow_status_class(program)
-    return 'following' if program.followed_by_user?
+    return '' unless user_signed_in?
+    return 'following' if program.followed_by_user?(current_user)
     'not-following'
   end
 
