@@ -44,8 +44,8 @@
             TBD
         %dt Episode info
         %dd== Season #{@episode.season_nr}, Episode #{@episode.nr}
-
-      = render 'trusted_actions', episode: @episode
+      - if current_user.try(:trusted?) && episode.airs_at.try(:past?)
+        = render 'trusted_actions', episode: @episode
 %section
   %h3 Season overview
   = render 'programs/season_tabs', program: @program, grouped_episodes: @grouped_episodes, selected_episode: @episode
