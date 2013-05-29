@@ -54,7 +54,7 @@ module Concerns
       # cleanup invalid episodes
       return self.destroy unless self.valid?
 
-      self.delay.tvdb_update_banners if followed_by_user?
+      self.delay.tvdb_update_banners if followed_by_any_user?
       self.touch(:last_checked_at)
     end
 

@@ -18,7 +18,7 @@ class Program < ActiveRecord::Base
 
   scope :by_name, order('name ASC')
   scope :last_updated, order('updated_at desc')
-  scope :followed_by_user, -> { includes(:stations).where( 'stations.taggable_type'=> 'User') }
+  scope :followed_by_any_user, -> { includes(:stations).where( 'stations.taggable_type'=> 'User') }
 
   def self.search_program query
     query = "%#{query}%"
@@ -46,8 +46,12 @@ class Program < ActiveRecord::Base
     "%{program_name} %{season_nr} %{filled_episode_nr}"
   end
 
-  def followed_by_user?
-    Program.followed_by_user.where(id: self.id).any?
+  def followed_by_any_user?
+    Program.followed_by_any_user.where(id: self.id).any?
+  end
+
+  def followed_by_user?(user)
+    self.stations.user_stations.where('user_id = ?', user.id).any?
   end
 
   def banner
