@@ -3,8 +3,8 @@ class ProgramsController < ApplicationController
 
   def index
     @programs = Program.search_program(params[:q]).order('status, name').page params[:page]
-    if params[:q] && @programs.first.name.downcase == params[:q].downcase
-      redirect_to @programs.first
+    if matched_program = exact_match_found?(@programs, params[:q])
+      redirect_to matched_program
     else
       respond_with @programs
     end
@@ -43,5 +43,9 @@ class ProgramsController < ApplicationController
   private
   def find_program
     Program.find(params[:id])
+  end
+
+  def exact_match_found?(programs, query)
+    programs.find { |program| program.name.downcase == query.downcase }
   end
 end
