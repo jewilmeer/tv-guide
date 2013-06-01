@@ -46,6 +46,7 @@ class ProgramsController < ApplicationController
   end
 
   def exact_match_found?(programs, query)
+    return false unless query.present?
     programs.find { |program| program.name.downcase == query.downcase }
   end
 end
