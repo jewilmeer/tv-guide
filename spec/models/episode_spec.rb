@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Episode do
   describe 'associations' do
     it { should belong_to(:program) }
-    it { should belong_to(:image) }
     it { should have_many(:interactions) }
     it { should have_many(:downloads) }
   end
@@ -12,7 +11,6 @@ describe Episode do
     it { should validate_presence_of :title }
     it { should validate_presence_of :season_nr }
     it { should validate_presence_of :program_id }
-    it { should validate_presence_of :nr }
   end
 
   describe "valid_season_or_episode_nr" do

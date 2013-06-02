@@ -22,6 +22,8 @@ class Episode < ActiveRecord::Base
   scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
   scope :airs_at_inside,          ->(first_date, last_date) { where{ (airs_at > first_date) & (airs_at < last_date) } }
 
+  scope :with_same_program,       ->(episode) { where('episodes.program_id = ?', episode.program_id) }
+
   before_validation :update_program_name
 
   # attribute overwrites
@@ -235,6 +237,27 @@ class Episode < ActiveRecord::Base
       filled_season_nr: "%02d" % season_nr,
       filled_episode_nr: "%02d" % nr
     }
+  end
+
+  # back and forth methods
+  def self.next_episodes(episode)
+    with_same_program(episode).order(:sort_nr).where('sort_nr > ?', episode.sort_nr)
+  end
+
+  def next
+    self.class.next_episodes(self).first
+  end
+
+  def self.previous_episodes(episode)
+    with_same_program(episode).order('sort_nr desc').where('sort_nr < ?', episode.sort_nr)
+  end
+
+  def previous
+    self.class.previous_episodes(self).first
+  end
+
+  def generate_sort_nr
+    (season_nr * 1000) + nr
   end
 end
 
