@@ -17,9 +17,15 @@
 
   / next+previous links
   %li.pull-right
-    = link_to 'Next episode', program_episode_path(@episode.program, @episode.next, anchor: dom_id(@episode))
+    - if @episode.next
+      = link_to 'Next episode', program_episode_path(@episode.program, @episode.next, anchor: dom_id(@episode))
+    - else
+      %span.muted Next episode
   %li.pull-right
-    = link_to 'Previous episode', program_episode_path(@episode.program, @episode.previous, anchor: dom_id(@episode))
+    - if @episode.previous
+      = link_to 'Previous episode', program_episode_path(@episode.program, @episode.previous, anchor: dom_id(@episode))
+    - else
+      %span.muted Previous episode
     %span.divider /
 
 %section
