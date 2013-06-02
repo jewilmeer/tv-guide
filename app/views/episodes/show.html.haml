@@ -1,7 +1,7 @@
 - content_for :sidebar do
   = render 'application/station_list'
-
 - page_title "#{@episode.program.name} - #{@episode.full_episode_title}"
+- meta_description @episode.description
 
 %ul.breadcrumb
   %li
