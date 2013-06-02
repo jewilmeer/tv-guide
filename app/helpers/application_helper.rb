@@ -27,4 +27,8 @@ module ApplicationHelper
       'unknown user agent'
     end
   end
+
+  def meta_description description
+    content_for(:meta_description) { description }
+  end
 end
