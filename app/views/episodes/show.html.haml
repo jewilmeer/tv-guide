@@ -16,10 +16,10 @@
   %li.active= @episode.full_episode_title
 
   / next+previous links
-  %li.pull-right.muted
-    = 'Next episode'
-  %li.pull-right.muted
-    = 'Previous episode'
+  %li.pull-right
+    = link_to 'Next episode', program_episode_path(@episode.program, @episode.next, anchor: dom_id(@episode))
+  %li.pull-right
+    = link_to 'Previous episode', program_episode_path(@episode.program, @episode.previous, anchor: dom_id(@episode))
     %span.divider /
 
 %section
