@@ -9,6 +9,7 @@
     %meta{:name=>"author",        :content=>"Jan-Willem van der Meer"}
     %meta{:name =>'csrf-token',    :content => form_authenticity_token}
     %meta{:name =>'csrf-param',    :content => 'authenticity_token'}
+    %meta{:name =>'description',   :content => yield(:meta_description)}
     %link{:rel => 'shortcut icon', :href=>'/favicon.ico', :type=>'image/x-icon'}
 
     %title== Netflikker.nl #{yield(:title)}
