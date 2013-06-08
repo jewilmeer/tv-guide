@@ -40,7 +40,6 @@ end
 
 group :production do
   # replace webrick with thin
-  gem 'unicorn'
   gem 'newrelic_rpm'
 end
 
