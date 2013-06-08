@@ -1,18 +1,18 @@
 source 'http://rubygems.org'
 
-gem "rails", "~> 3.2.13"
+gem "rails", "~> 4.0rc2"
 gem 'mail'
 gem 'pg'
 
 # Bundle the extra gems:
-gem 'mechanize', '~> 2.0.1'
+gem 'mechanize'
 gem 'squeel'
 gem 'simple_form'
 gem 'progress_bar'
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
-gem 'paperclip', '~> 3.0'
+gem 'paperclip'
 gem 'carrierwave'
-gem "aws-sdk", '~> 1.3.4'
+gem "aws-sdk"
 gem 'newrelic_rpm'
 gem 'exceptional'
 gem 'user-agent'
