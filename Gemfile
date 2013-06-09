@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem "rails", "~> 4.0rc2"
+gem "rails", "~> 3.2.0"
 gem 'mail'
 gem 'pg'
 
