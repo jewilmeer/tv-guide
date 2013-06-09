@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def index
-    if current_user
+    if user_signed_in?
       redirect_to current_user.stations.personal.first
     else
       redirect_to guide_programs_path

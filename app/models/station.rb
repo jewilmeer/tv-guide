@@ -6,14 +6,14 @@ class Station < ActiveRecord::Base
   belongs_to :taggable, polymorphic: true
 
   has_many :station_programs
-  has_and_belongs_to_many :programs, uniq: true
+  has_and_belongs_to_many :programs
   has_many :episodes, through: :programs
 
   validates :name, presence: true
 
-  scope :user_stations, -> { where( taggable_type: 'User') }
-  scope :genre_stations, -> { where( taggable_type: 'Genre') }
-  scope :personal, -> { user_stations.where( user_id: :taggable_id ) }
+  scope :user_stations,   -> { where( taggable_type: "User") }
+  scope :genre_stations,  -> { where( taggable_type: "Genre") }
+  scope :personal,        -> { user_stations.where( 'stations.user_id = stations.taggable_id' ) }
 
   def url_params
     { station_type: taggable_type, station_id: taggable_id }

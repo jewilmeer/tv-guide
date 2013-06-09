@@ -12,10 +12,6 @@ class User < ActiveRecord::Base
 
   validates :login, presence: true, uniqueness: true
 
-  def self.find_by_email_or_login login
-    find_by_email(login) || find_by_login(login)
-  end
-
   def to_param
     login.parameterize
   end

@@ -1,13 +1,13 @@
 source 'http://rubygems.org'
 
-gem "rails", "~> 4.0rc2"
+gem "rails", "~> 4.0.0.rc1"
 gem 'mail'
 gem 'pg'
 
 # Bundle the extra gems:
 gem 'mechanize'
-gem 'squeel'
-gem 'simple_form'
+# gem 'squeel'
+gem 'simple_form', '3.0.0.rc'
 gem 'progress_bar'
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 gem 'paperclip'
@@ -19,24 +19,24 @@ gem 'user-agent'
 gem 'haml'
 gem 'will_paginate'
 gem 'devise'
-gem 'friendly_id'
+gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: :rails4
 
 # background
 gem 'sidekiq'
 gem 'slim'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
-group :assets do
+# group :assets do
   gem 'jquery-rails'
-  gem 'coffee-rails'#, "~> 3.2.1"
-  gem 'sass-rails'#, "  ~> 3.2.3"
+  gem 'coffee-rails'#, "4.0.0.rc1"
+  gem 'sass-rails', "4.0.0.rc1"
   gem 'uglifier'
-  gem 'compass-rails'
+  gem 'compass-rails', github: 'Compass/compass-rails', branch: :rails4
   gem 'bootstrap-sass'
   gem 'bootswatch-rails'
   gem 'turbo-sprockets-rails3'
   gem 'font-awesome-sass-rails'
-end
+# end
 
 group :production do
   # replace webrick with thin
@@ -44,6 +44,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'thin'
   gem 'annotate'
   gem 'letter_opener'
 

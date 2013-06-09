@@ -16,8 +16,6 @@ class Program < ActiveRecord::Base
 
   before_save :update_episodes_with_program_name
 
-  scope :by_name, order('name ASC')
-  scope :last_updated, order('updated_at desc')
   scope :followed_by_any_user, -> { includes(:stations).where( 'stations.taggable_type'=> 'User') }
 
   def self.search_program query
