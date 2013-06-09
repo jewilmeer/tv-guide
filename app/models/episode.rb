@@ -13,15 +13,13 @@ class Episode < ActiveRecord::Base
   # used for guide view
   scope :next_airing,             ->{ airs_at_in_future.order('episodes.airs_at asc').includes(:program) }
   scope :last_aired,              ->{ airs_at_in_past.order('episodes.airs_at desc').includes(:program, :downloads) }
-
-  scope :downloaded,              ->(){ includes(:downloads).where('downloads.id IS NOT NULL') }
-  scope :without_download,        includes(:downloads).where(downloads: {id: nil})
-  scope :watched_by_a_user,       ->(){ includes(:stations).where(stations: {taggable_type: 'User'}) }
-  scope :downloadable,            ->(){ without_download.watched_by_a_user }
-  scope :airs_at_in_future,       lambda{ where('episodes.airs_at > ?', Time.zone.now) }
-  scope :airs_at_in_past,         lambda{ where('episodes.airs_at < ?', Time.zone.now) }
+  scope :downloaded,              ->{ includes(:downloads).where('downloads.id IS NOT NULL') }
+  scope :without_download,        ->{ includes(:downloads).where(downloads: {id: nil}) }
+  scope :watched_by_a_user,       ->{ includes(:stations).where(stations: {taggable_type: 'User'}) }
+  scope :downloadable,            ->{ without_download.watched_by_a_user }
+  scope :airs_at_in_future,       ->{ where('episodes.airs_at > ?', Time.zone.now) }
+  scope :airs_at_in_past,         ->{ where('episodes.airs_at < ?', Time.zone.now) }
   scope :airs_at_inside,          ->(first_date, last_date) { where{ (airs_at > first_date) & (airs_at < last_date) } }
-
   scope :with_same_program,       ->(episode) { where('episodes.program_id = ?', episode.program_id) }
 
   before_validation :update_program_name
