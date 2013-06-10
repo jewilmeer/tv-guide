@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130602084348) do
+ActiveRecord::Schema.define(:version => 20130610204746) do
 
   create_table "downloads", :force => true do |t|
     t.integer  "episode_id"
@@ -116,11 +116,13 @@ ActiveRecord::Schema.define(:version => 20130602084348) do
   add_index "programs_stations", ["station_id"], :name => "index_programs_stations_on_station_id"
 
   create_table "stations", :force => true do |t|
-    t.string  "name",          :null => false
-    t.integer "user_id"
-    t.integer "taggable_id"
-    t.string  "taggable_type"
-    t.string  "slug"
+    t.string   "name",          :null => false
+    t.integer  "user_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "stations", ["slug"], :name => "index_stations_on_slug"

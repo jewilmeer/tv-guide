@@ -19,6 +19,7 @@ gem 'haml'
 gem 'will_paginate'
 gem 'devise'
 gem 'friendly_id'
+gem 'cache_digests'
 
 # background
 gem 'sidekiq'
