@@ -8,7 +8,7 @@ class Program < ActiveRecord::Base
   has_many :station_programs, dependent: :destroy
   has_many :images, dependent: :destroy
 
-  has_and_belongs_to_many :stations
+  has_many :stations, through: :station_programs
   has_and_belongs_to_many :genres, :uniq => true
 
   validates :tvdb_id, :uniqueness => true

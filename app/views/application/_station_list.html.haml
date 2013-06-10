@@ -1,11 +1,17 @@
-%ul.station-list.well.nav.nav-list.text-overflow
-  - if personal_stations.any?
-    %li.nav-header My stations
-    - personal_stations.each do |station|
+- cache [@station, personal_stations, other_user_stations, genre_stations] do
+  %ul.station-list.well.nav.nav-list.text-overflow
+    - if personal_stations.any?
+      %li.nav-header My stations
+      - personal_stations.each do |station|
+        %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+    %li.nav-header
+      - if user_signed_in?
+        Other users stations
+      - else
+        User stations
+    - other_user_stations.each do |station|
       %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
-  %li.nav-header Other users stations
-  - other_user_stations.each do |station|
-    %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
-  %li.nav-header Genre stations
-  - genre_stations.each do |station|
-    %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+    %li.nav-header Genre stations
+    - cache genre_stations do
+      - genre_stations.each do |station|
+        %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
