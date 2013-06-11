@@ -2,7 +2,7 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @programs = Program.search_program(params[:q]).order('status, name').page params[:page]
+    @programs = Program.order('status, name').search_program(params[:q]).page params[:page]
     if matched_program = exact_match_found?(@programs, params[:q])
       redirect_to matched_program
     else
