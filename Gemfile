@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem "rails", "~> 4.0.0.rc1"
+gem "rails", "~> 4.0.0.rc2"
 gem 'mail'
 gem 'pg'
 
@@ -29,12 +29,11 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 # group :assets do
   gem 'jquery-rails'
   gem 'coffee-rails'#, "4.0.0.rc1"
-  gem 'sass-rails', "4.0.0.rc1"
+  gem 'sass-rails', "4.0.0.rc2"
   gem 'uglifier'
-  gem 'compass-rails', github: 'Compass/compass-rails', branch: :rails4
+  gem "compass-rails", github: "milgner/compass-rails", branch: "rails4"
   gem 'bootstrap-sass'
   gem 'bootswatch-rails'
-  gem 'turbo-sprockets-rails3'
   gem 'font-awesome-sass-rails'
 # end
 
