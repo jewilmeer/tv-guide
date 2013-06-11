@@ -1,18 +1,19 @@
-%dd.panel[episode]
-  %h5
-    = link_to episode.program_name, episode.program
-    &nbsp;-&nbsp;
-    = link_to episode.full_episode_title, episode
-    - if current_user.try(:trusted)
-      = link_to episode_path(episode), :class => 'pull-right refresh',
-        :method => :put, :remote => true do
-        %i.icon-repeat
+- cache [episode, current_user.try(:trusted)] do
+  %dd.panel[episode]
+    %h5
+      = link_to episode.program_name, episode.program
+      &nbsp;-&nbsp;
+      = link_to episode.full_episode_title, episode
+      - if current_user.try(:trusted)
+        = link_to episode_path(episode), :class => 'pull-right refresh',
+          :method => :put, :remote => true do
+          %i.icon-repeat
 
-  .row-fluid
-    - if current_user.try(:trusted)
-      .clear= render 'episodes/trusted_actions', episode: episode, search_terms: @search_terms
-    .media
-      - if episode.thumb.present?
-        .pull-left= image_tag(episode.thumb.url, class: 'media-object img-polaroid', size: '300x168')
-      %small= episode.description
+    .row-fluid
+      - if current_user.try(:trusted)
+        .clear= render 'episodes/trusted_actions', episode: episode, search_terms: @search_terms
+      .media
+        - if episode.thumb.present?
+          .pull-left= image_tag(episode.thumb.url, class: 'media-object img-polaroid', size: '300x168')
+        %small= episode.description
 

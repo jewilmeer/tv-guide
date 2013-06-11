@@ -11,13 +11,14 @@ class StationProgram < ActiveRecord::Base
     program.delay.tvdb_update_banners
     sp.delay.schedule_downloads
   }
+  before_save -> { self.station.touch }
 
   def schedule_downloads
     self.program.episodes.map{|episode| episode.delay.download }
   end
 
   def initially_followed?
-    @initially_followed = StationProgram.where(program_id: self.program_id).any?
+    @initially_followed = self.class.where(program_id: self.program_id).any?
   end
 end
 
