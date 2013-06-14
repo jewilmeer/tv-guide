@@ -12,7 +12,9 @@ class Episode < ActiveRecord::Base
 
   # used for guide view
   scope :next_airing,             ->{ airs_at_in_future.order('episodes.airs_at asc').includes(:program) }
+  scope :next_airing_at,          ->(time){ next_airing.where('episodes.airs_at > ?', time) }
   scope :last_aired,              ->{ airs_at_in_past.order('episodes.airs_at desc').includes(:program, :downloads) }
+  scope :last_aired_at,           ->(time){ last_aired.where('episodes.airs_at < ?', time) }
   scope :downloaded,              ->{ includes(:downloads).where('downloads.id IS NOT NULL') }
   scope :without_download,        ->{ includes(:downloads).where(downloads: {id: nil}) }
   scope :watched_by_a_user,       ->{ includes(:stations).where(stations: {taggable_type: 'User'}) }
