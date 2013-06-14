@@ -94,7 +94,7 @@ module Concerns
       self.network        = tvdb_result.network
       self.overview       = tvdb_result.overview
       tvdb_result.genres.each do |genre|
-        genre = Genre.find_or_create(name: genre)
+        genre = Genre.find_or_create_by(name: genre)
         self.genres << genre
       end
       self
