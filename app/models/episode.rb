@@ -111,6 +111,7 @@ class Episode < ActiveRecord::Base
   end
 
   def download(quality='hd')
+    return unless self.airs_at.present?
     logger.info "="*30
     logger.info "Getting #{quality} from #{search_url}"
     logger.info "="*30
