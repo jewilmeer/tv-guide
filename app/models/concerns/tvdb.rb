@@ -69,7 +69,7 @@ module Concerns
         next if [0, 99].include? tvdb_episode.season_number.to_i
         next if [0, 99].include? tvdb_episode.number.to_i
 
-        episode = self.episodes.find_or_initialize(tvdb_id: tvdb_episode.id)
+        episode = self.episodes.first_or_initialize(tvdb_id: tvdb_episode.id)
         episode.apply_tvdb_attributes tvdb_episode
         episode.save
       end
