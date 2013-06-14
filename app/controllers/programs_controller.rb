@@ -36,8 +36,9 @@ class ProgramsController < ApplicationController
   end
 
   def guide
-    @upcoming_episodes = Episode.next_airing.includes(:program).limit(100)
-    @past_episodes     = Episode.last_aired.includes(:program).includes(:downloads).page params[:page]
+    @asked_itme        = rounded_time
+    @upcoming_episodes = Episode.next_airing_at(rounded_time).limit(100)
+    @past_episodes     = Episode.last_aired_at(rounded_time).page params[:page]
   end
 
   private
@@ -48,5 +49,9 @@ class ProgramsController < ApplicationController
   def exact_match_found?(programs, query)
     return false unless query.present?
     programs.find { |program| program.name.downcase == query.downcase }
+  end
+
+  def rounded_time
+    Time.at(Time.now.to_i - (Time.now.to_i % 1.hour))
   end
 end
