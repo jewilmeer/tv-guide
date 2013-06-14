@@ -50,15 +50,9 @@ GEM
     addressable (2.3.4)
     annotate (2.5.0)
       rake
-<<<<<<< HEAD
     arel (4.0.0)
     atomic (1.1.9)
     aws-sdk (1.11.1)
-=======
-    arel (3.0.2)
-    atomic (1.1.9)
-    aws-sdk (1.11.0)
->>>>>>> origin/master
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -67,14 +61,7 @@ GEM
       sass (~> 3.2)
     bootswatch-rails (0.5.0)
       railties (>= 3.1)
-<<<<<<< HEAD
     builder (3.1.4)
-=======
-    builder (3.0.4)
-    cache_digests (0.3.0)
-      actionpack (>= 3.2)
-      thread_safe
->>>>>>> origin/master
     carrierwave (0.8.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -100,6 +87,7 @@ GEM
       sass (~> 3.1)
     connection_pool (1.1.0)
     daemons (1.1.9)
+    dalli (2.6.4)
     debugger (1.6.0)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -301,10 +289,10 @@ DEPENDENCIES
   aws-sdk
   bootstrap-sass
   bootswatch-rails
-  cache_digests
   carrierwave
   coffee-rails
   compass-rails!
+  dalli
   devise
   exceptional
   factory_girl_rails

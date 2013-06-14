@@ -19,8 +19,6 @@ gem 'haml'
 gem 'will_paginate'
 gem 'devise'
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: :rails4
-gem 'friendly_id'
-gem 'cache_digests'
 
 # background
 gem 'sidekiq'
@@ -37,8 +35,8 @@ gem 'bootswatch-rails'
 gem 'font-awesome-sass-rails'
 
 group :production do
-  # replace webrick with thin
   gem 'newrelic_rpm'
+  gem 'dalli'
 end
 
 group :development, :test do
