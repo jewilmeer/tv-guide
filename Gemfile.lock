@@ -20,6 +20,16 @@ GIT
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
 
+GIT
+  remote: git://github.com/plataformatec/devise.git
+  revision: 5717c6f08297b11a81a004199de325bfa898903d
+  specs:
+    devise (3.0.0.rc)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      warden (~> 1.2.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -110,10 +120,6 @@ GEM
       debugger-ruby_core_source (~> 1.2.1)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.2)
-    devise (1.5.4)
-      bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.0.3)
-      warden (~> 1.1)
     diff-lcs (1.2.4)
     domain_name (0.5.12)
       unf (>= 0.0.5, < 1.0.0)
@@ -180,7 +186,7 @@ GEM
     ntlm-http (0.1.1)
     options (2.3.0)
       fattr
-    orm_adapter (0.0.7)
+    orm_adapter (0.4.0)
     paperclip (3.4.2)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -315,7 +321,7 @@ DEPENDENCIES
   cucumber-rails
   dalli
   database_cleaner
-  devise
+  devise!
   exceptional
   factory_girl_rails
   fakeweb
