@@ -2,7 +2,7 @@
   .span6
     .page-header
       %h2 Change basic information
-    = simple_form_for [:admin, @user], html: { class: 'form-horizontal' } do |f|
+    = simple_form_for [:admin, @user], html: { class: :registration } do |f|
       = f.input :email
       = f.input :login
       = f.input :trusted, as: :boolean
@@ -14,7 +14,7 @@
   .span6
     .page-header
       %h2 Change password
-    = simple_form_for [:admin, @user], html: { class: 'form-horizontal' } do |f|
+    = simple_form_for [:admin, @user], html: { class: :sign_in } do |f|
       = f.input :password
       = f.input :password_confirmation
 

@@ -17,7 +17,8 @@ gem 'exceptional'
 gem 'user-agent'
 gem 'haml'
 gem 'will_paginate'
-gem 'devise'
+# strong params doesn't like me in production
+gem 'devise', github: 'plataformatec/devise'
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: :rails4
 
 # background
