@@ -61,4 +61,6 @@ end
 
 group :test do
   gem 'fakeweb'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
 end
