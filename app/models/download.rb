@@ -4,8 +4,6 @@ class Download < ActiveRecord::Base
   validates_presence_of :origin, :download_type, :download_file_name
   validate :download_type, :uniqueness => { :scope => [:episode_id] }
 
-  scope :with_download_type, lambda{|download_type| where('download_type=?', download_type) }
-
   has_attached_file :download,
     :processors => [],
     :storage        => :s3,

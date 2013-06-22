@@ -7,7 +7,8 @@ class AdminMailer < ActionMailer::Base
 
   def notify_of_registration user
     @registered_user = user
-    mail( :to => recipients(User.where('admin = ?', true).all), :subject => 'New unknown user, do you want to trust him/her?' )
+    admins = User.where('admin = ?', true)
+    return unless admins.any?
+    mail :to => recipients(admins), :subject => 'New unknown user, do you want to trust him/her?'
   end
-
 end
