@@ -9,20 +9,21 @@ class Program < ActiveRecord::Base
   has_many :images, dependent: :destroy
 
   has_many :stations, through: :station_programs
-  has_and_belongs_to_many :genres, :uniq => true
+  has_and_belongs_to_many :genres
 
   validates :tvdb_id, :uniqueness => true
   validates :name, presence: true, if: :persisted?
 
   before_save :update_episodes_with_program_name
 
-  scope :by_name, order('name ASC')
-  scope :last_updated, order('updated_at desc')
   scope :followed_by_any_user, -> { includes(:stations).where( 'stations.taggable_type'=> 'User') }
 
   def self.search_program query
-    query = "%#{query}%"
-    where{ (name.matches query) | (search_name.matches query) | (overview.matches query) }
+    start_query, full_query = "%#{query}", "%#{query}%"
+    order('status, name').
+    where( %(programs.name LIKE :query OR programs.search_name LIKE :query OR overview LIKE :full_query),
+      { query: query, full_query: full_query }
+    )
   end
 
   def airs_time

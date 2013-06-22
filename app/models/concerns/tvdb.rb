@@ -18,7 +18,7 @@ module Concerns
       end
 
       def self.from_tvdb(tvdb_result)
-        self.find_or_create_by_name tvdb_result.name do |program|
+        self.find_or_create_by(name: tvdb_result.name)  do |program|
           program.apply_tvdb_attributes tvdb_result
         end
       end
@@ -69,7 +69,7 @@ module Concerns
         next if [0, 99].include? tvdb_episode.season_number.to_i
         next if [0, 99].include? tvdb_episode.number.to_i
 
-        episode = self.episodes.find_or_initialize_by_tvdb_id tvdb_episode.id
+        episode = self.episodes.first_or_initialize(tvdb_id: tvdb_episode.id)
         episode.apply_tvdb_attributes tvdb_episode
         episode.save
       end
@@ -94,7 +94,7 @@ module Concerns
       self.network        = tvdb_result.network
       self.overview       = tvdb_result.overview
       tvdb_result.genres.each do |genre|
-        genre = Genre.find_or_create_by_name(genre)
+        genre = Genre.find_or_create_by(name: genre)
         self.genres << genre
       end
       self

@@ -6,7 +6,7 @@ class Interaction < ActiveRecord::Base
   validates :interaction_type, :presence => true
   validates :format, :presence => true
 
-  scope :interaction_type_is, lambda{|interaction_type| where('interaction_type = ?', interaction_type) }
+  scope :interaction_type_is, ->(interaction_type) { where(interaction_type: interaction_type) }
 end
 
 # == Schema Information

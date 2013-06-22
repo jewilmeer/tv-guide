@@ -1,21 +1,24 @@
 - page_title "Episode guide"
-%h3 Full guide
-%section
-  .row
-    .span8
-      .page-header
-        %h4 Recently aired
-      - if @past_episodes.any?
-        = render :partial => 'episodes/past_episodes', :locals => {:past_episodes => @past_episodes}
-        = will_paginate @past_episodes
-      - else
-        %p No past episodes found
-
-    .span4
-      .page-header
-        %h4 Next airing
-      .well
-        - if @upcoming_episodes.any?
-          = render :partial => 'episodes/next_airing', :locals => {:next_episodes => @upcoming_episodes}
+- cache :full_guide, expires_in: 10.minutes do
+  %h3 Full guide
+  %section
+    .row
+      .span8
+        .page-header
+          %h4 Recently aired
+        - if @past_episodes.any?
+          - cache [:past_episodes, @past_episodes.pluck(:updated_at).hash] do
+            = render :partial => 'episodes/past_episodes', :locals => {:past_episodes => @past_episodes}
+          = will_paginate @past_episodes
         - else
-          %p No airing episodes
+          %p No past episodes found
+
+      .span4
+        .page-header
+          %h4 Next airing
+        .well
+          - if @upcoming_episodes.any?
+            - cache [:next_airing, @upcoming_episodes.pluck(:updated_at).hash] do
+              = render :partial => 'episodes/next_airing', :locals => {:next_episodes => @upcoming_episodes}
+          - else
+            %p No airing episodes
