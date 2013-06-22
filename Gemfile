@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+# ruby '1.9.3'
 
 gem "rails", "~> 4.0.0.rc2"
 gem 'mail'
@@ -8,7 +9,6 @@ gem 'pg'
 gem 'mechanize'
 # gem 'squeel'
 gem 'simple_form', '3.0.0.rc'
-gem 'progress_bar'
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 gem 'paperclip'
 gem 'carrierwave'
