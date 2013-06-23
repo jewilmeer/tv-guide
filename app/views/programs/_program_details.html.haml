@@ -4,7 +4,7 @@
 
 .tab-content
   .tab-pane#banner
-    .row
+    .row-fluid
       .span8
         - if @program.series_banner
           %img{:src => @program.series_banner.file.url, :width => 700, :height => 129}

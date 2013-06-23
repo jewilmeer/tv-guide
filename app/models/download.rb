@@ -27,7 +27,6 @@ class Download < ActiveRecord::Base
     File.delete(tmp_filepath)
   end
 end
-
 # == Schema Information
 #
 # Table name: downloads
@@ -43,3 +42,4 @@ end
 #  created_at            :datetime
 #  updated_at            :datetime
 #
+
