@@ -30,15 +30,3 @@ class Station < ActiveRecord::Base
     end
   end
 end
-
-# == Schema Information
-#
-# Table name: stations
-#
-#  id            :integer          not null, primary key
-#  name          :string(255)      not null
-#  user_id       :integer
-#  taggable_id   :integer
-#  taggable_type :string(255)
-#  slug          :string(255)
-#
