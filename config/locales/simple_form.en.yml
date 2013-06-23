@@ -16,6 +16,8 @@ en:
     error_notification:
       default_message: "Please review the problems below:"
     labels:
+      user:
+        login: Nickname
       program_preference:
         q: 'Program name'
         search_term_type_id: 'Format'
