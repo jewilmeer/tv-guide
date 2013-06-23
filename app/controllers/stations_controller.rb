@@ -7,7 +7,7 @@ class StationsController < ApplicationController
   end
 
   def show
-    @station            = Station.find params[:id]
+    @station            = Station.friendly.find params[:id]
     @past_episodes      = @station.episodes.last_aired.page params[:page]
     @next_episodes      = @station.episodes.next_airing
 
@@ -18,7 +18,7 @@ class StationsController < ApplicationController
   end
 
   def download_list
-    @station  = Station.find params[:id]
+    @station  = Station.friendly.find params[:id]
     @episodes = @station.episodes.last_aired.downloaded.limit(30)
   end
 end
