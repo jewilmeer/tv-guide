@@ -1,6 +1,6 @@
 require 'sidekiq/web'
 TvEpisodes::Application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   resources :stations, only: [:index, :show] do
     get :download_list, on: :member, path: 'download_list/:authentication_token'
@@ -40,7 +40,7 @@ TvEpisodes::Application.routes.draw do
   end
 
   # signup. account settings. Needs to be implemented simpler
-  resources :users, only: [:new, :create, :edit, :update], :module => 'user', :path => '/user'
+  # resources :users, only: [:new, :create, :edit, :update], :module => 'user', :path => '/user'
 
   root :to => "pages#index"
 end
