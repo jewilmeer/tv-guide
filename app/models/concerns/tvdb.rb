@@ -87,15 +87,16 @@ module Concerns
       self.name           = tvdb_result.name unless self.name.present?
       self.search_name    = tvdb_result.name unless self.search_name.present?
       self.tvdb_name      = tvdb_result.name
+      self.first_aired    = tvdb_result.first_aired
       self.airs_dayofweek = tvdb_result.airs_dayofweek
       self.airs_time      = tvdb_result.air_time
       self.status         = tvdb_result.status
       self.runtime        = tvdb_result.runtime
       self.network        = tvdb_result.network
       self.overview       = tvdb_result.overview
-      tvdb_result.genres.each do |genre|
-        genre = Genre.find_or_create_by(name: genre)
-        self.genres << genre
+      tvdb_result.genres.each do |genre_name|
+        genre = Genre.find_or_create_by(name: genre_name)
+        self.genres << genre unless genres.where(name: genre_name).any?
       end
       self
     end

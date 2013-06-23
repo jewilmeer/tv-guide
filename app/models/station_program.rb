@@ -21,13 +21,3 @@ class StationProgram < ActiveRecord::Base
     @initially_followed = self.class.where(program_id: self.program_id).any?
   end
 end
-
-# == Schema Information
-#
-# Table name: programs_stations
-#
-#  id         :integer          not null, primary key
-#  station_id :integer
-#  program_id :integer
-#
-

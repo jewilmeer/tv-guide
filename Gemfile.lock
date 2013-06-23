@@ -1,9 +1,17 @@
 GIT
   remote: git://github.com/FriendlyId/friendly_id.git
-  revision: 78d639d67a17135fe5e3b9731fd4328c315c74b1
-  branch: rails4
+  revision: 5e6b292bb39ef5dbbe43ccbd983ff160a9408218
+  branch: master
   specs:
-    friendly_id (4.1.0.beta.2)
+    friendly_id (5.0.0.alpha1)
+
+GIT
+  remote: git://github.com/ctran/annotate_models.git
+  revision: 18a4e2eb77c8f3ef695b563e4a7ca45dfede819b
+  specs:
+    annotate (2.6.0.beta2)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
 
 GIT
   remote: git://github.com/jewilmeer/tvdb_party.git
@@ -58,8 +66,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.4)
-    annotate (2.5.0)
-      rake
     arel (4.0.0)
     atomic (1.1.9)
     aws-sdk (1.11.1)
@@ -304,7 +310,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate
+  annotate!
   aws-sdk
   bootstrap-sass
   bootswatch-rails
