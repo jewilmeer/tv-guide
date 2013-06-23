@@ -52,7 +52,6 @@ class User < ActiveRecord::Base
     end
   end
 end
-
 # == Schema Information
 #
 # Table name: users
@@ -82,3 +81,4 @@ end
 #  remember_token       :string(255)
 #  remember_created_at  :datetime
 #
+

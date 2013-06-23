@@ -16,7 +16,6 @@ class Image < ActiveRecord::Base
     self.save
   end
 end
-
 # == Schema Information
 #
 # Table name: images
@@ -24,8 +23,10 @@ end
 #  id         :integer          not null, primary key
 #  file       :string(255)
 #  source_url :string(255)
+#  image_type :string(255)
 #  downloaded :boolean          default(FALSE)
 #  program_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+

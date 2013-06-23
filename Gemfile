@@ -19,7 +19,7 @@ gem 'haml'
 gem 'will_paginate'
 # strong params doesn't like me in production
 gem 'devise', github: 'plataformatec/devise'
-gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: :rails4
+gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: :master
 
 # background
 gem 'sidekiq'
@@ -42,7 +42,6 @@ end
 
 group :development, :test do
   gem 'thin'
-  gem 'annotate'
   gem 'letter_opener'
 
   # test stuff
@@ -58,6 +57,10 @@ group :development, :test do
 
   gem 'pry-rails'
   gem 'pry-debugger'
+end
+
+group :development do
+  gem 'annotate', github: 'ctran/annotate_models'
 end
 
 group :test do
