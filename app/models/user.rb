@@ -33,24 +33,6 @@ class User < ActiveRecord::Base
   def filtered_email
     self.email.downcase
   end
-
-  alias :devise_valid_password? :valid_password?
-  def valid_password?(password)
-    begin
-      super(password)
-    rescue BCrypt::Errors::InvalidHash
-      stretches = 20
-      digest  = [password, password_salt].flatten.join('')
-      stretches.times {digest = Digest::SHA512.hexdigest(digest)}
-      return false unless digest == encrypted_password
-
-      Rails.logger.info "User #{email} is using the old password hashing method, updating attribute."
-      self.password = password
-      self.password_salt = nil
-      save
-      true
-    end
-  end
 end
 # == Schema Information
 #
