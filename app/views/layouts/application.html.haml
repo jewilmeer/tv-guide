@@ -22,8 +22,6 @@
       = yield
     = yield :bottom
 
-    :javascript
-      if ( typeof window.JSON === 'undefined' ) { document.write('<script src="http://#{request.host}/javascripts/vendor/json2.js"><\/script>');}
     = javascript_include_tag :application
     - if Rails.env.production?
       :javascript

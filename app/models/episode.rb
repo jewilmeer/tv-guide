@@ -262,22 +262,3 @@ class Episode < ActiveRecord::Base
     (season_nr * 1000) + nr
   end
 end
-
-# == Schema Information
-#
-# Table name: episodes
-#
-#  id           :integer          not null, primary key
-#  title        :string(255)
-#  description  :text
-#  nr           :integer
-#  airdate      :date
-#  created_at   :datetime
-#  updated_at   :datetime
-#  program_id   :integer
-#  airs_at      :datetime
-#  season_nr    :integer
-#  tvdb_id      :integer
-#  program_name :string(255)
-#
-
