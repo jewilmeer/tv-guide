@@ -43,7 +43,7 @@ class ProgramsController < ApplicationController
 
   private
   def find_program
-    Program.find(params[:id])
+    Program.friendly.find(params[:id])
   end
 
   def exact_match_found?(programs, query)
