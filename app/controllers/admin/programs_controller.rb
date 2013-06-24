@@ -65,6 +65,6 @@ class Admin::ProgramsController < AdminAreaController
 
   protected
   def find_program
-    @program = Program.find(params[:id])
+    @program = Program.friendly.find(params[:id])
   end
 end

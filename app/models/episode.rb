@@ -26,6 +26,7 @@ class Episode < ActiveRecord::Base
   scope :with_same_program,       ->(episode) { where('episodes.program_id = ?', episode.program_id) }
 
   before_validation :update_program_name
+  before_validation :update_sort_order
 
   # attribute overwrites
   def airdate=(date)
@@ -256,6 +257,10 @@ class Episode < ActiveRecord::Base
 
   def previous
     self.class.previous_episodes(self).first
+  end
+
+  def update_sort_order
+    sort_order = generate_sort_nr
   end
 
   def generate_sort_nr
