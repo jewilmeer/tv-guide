@@ -5,8 +5,7 @@ module Concerns
     extend ActiveSupport::Concern
 
     included do
-      before_save :tvdb_refresh, if: ->(){ self.tvdb_id_changed? }
-      before_create ->(){ self.last_checked_at= 1.year.ago }
+      after_create { self.delay.tvdb_full_update }
 
       # scopes
       def self.tvdb_client
@@ -69,7 +68,9 @@ module Concerns
         next if [0, 99].include? tvdb_episode.season_number.to_i
         next if [0, 99].include? tvdb_episode.number.to_i
 
-        episode = self.episodes.first_or_initialize(tvdb_id: tvdb_episode.id)
+        episode = self.episodes.first_or_initialize(tvdb_id: tvdb_episode.id) do |e|
+          e.program = self
+        end
         episode.apply_tvdb_attributes tvdb_episode
         episode.save
       end
@@ -94,10 +95,11 @@ module Concerns
       self.runtime        = tvdb_result.runtime
       self.network        = tvdb_result.network
       self.overview       = tvdb_result.overview
-      tvdb_result.genres.each do |genre_name|
-        genre = Genre.find_or_create_by(name: genre_name)
-        self.genres << genre unless genres.where(name: genre_name).any?
-      end
+
+      # tvdb_result.genres.each do |genre_name|
+      #   genre = Genre.find_or_create_by(name: genre_name)
+      #   self.genres << genre unless genres.where(name: genre_name).any?
+      # end
       self
     end
 
