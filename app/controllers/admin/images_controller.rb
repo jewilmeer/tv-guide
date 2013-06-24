@@ -7,6 +7,6 @@ class Admin::ImagesController < AdminAreaController
 
   private
   def get_program
-    Program.find params[:program_id]
+    Program.friendly.find params[:program_id]
   end
 end
