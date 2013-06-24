@@ -23,7 +23,7 @@ class Station::ProgramsController < Station::BaseController
 
   def find_program
     if params[:id]
-      Program.find params[:id]
+      Program.friendly.find params[:id]
     else
       Program.find_by_name params[:station_program][:program_id]
     end
