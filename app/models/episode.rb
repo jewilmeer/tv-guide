@@ -166,9 +166,7 @@ class Episode < ActiveRecord::Base
     self.class.tvdb_client
   end
 
-  def apply_tvdb_attributes tvdb_result, _program=nil
-    self.program      = _program if _program
-    self.program_name = _program.name if _program
+  def apply_tvdb_attributes tvdb_result
     self.program_name = program.name if program
     self.tvdb_id      = tvdb_result.id
     self.nr           = tvdb_result.number
