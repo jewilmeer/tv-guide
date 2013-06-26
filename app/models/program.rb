@@ -37,6 +37,7 @@ class Program < ActiveRecord::Base
   end
 
   def update_episodes_with_program_name
+    return unless persisted?
     episodes.update_all program_name: self.name
   end
 

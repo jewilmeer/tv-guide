@@ -8,8 +8,12 @@ module Concerns
       after_create { self.delay.tvdb_full_update }
 
       # scopes
-      def self.tvdb_client
-        TvdbParty::Search.new(TVDB_API)
+      def self.tvdb_client(tvdb_id= TVDB_API)
+        TvdbParty::Search.new(tvdb_id)
+      end
+
+      def self.tvdb_updated_tvdb_ids(timestamp)
+        Array(tvdb_client.get_series_updates(timestamp.to_i)['Series']).map(&:to_i)
       end
 
       def self.tvdb_search query
@@ -17,21 +21,15 @@ module Concerns
       end
 
       def self.from_tvdb(tvdb_result)
-        self.find_or_create_by(name: tvdb_result.name)  do |program|
+        self.find_or_create_by(tvdb_id: tvdb_result.id) do |program|
           program.apply_tvdb_attributes tvdb_result
         end
       end
 
-      def self.tvdb_updated_tvdb_ids(timestamp)
-        Array(tvdb_client.get_series_updates(timestamp.to_i)['Series'])
-      end
-
       def self.tvdb_apply_update_since since=5.minutes.ago
-        updated_ids = tvdb_updated_tvdb_ids(since)
-        programs = updated_ids.map do |tvdb_id|
-          self.where(tvdb_id: tvdb_id).first_or_create
+        tvdb_updated_tvdb_ids(since).map do |tvdb_id|
+          first_or_create_by(tvdb_id: tvdb_id)
         end
-        programs.map { |program| program.tvdb_full_update; program }
       end
     end
 
@@ -40,17 +38,20 @@ module Concerns
     end
 
     def tvdb_serie
-      tvdb_client.get_series_by_id self.tvdb_id
+      @tvdb_serie ||= tvdb_client.get_series_by_id self.tvdb_id
+    end
+
+    def tvdb_serie!
+      raise TVDBNotFound unless tvdb_serie
+
+      tvdb_serie
     end
 
     def tvdb_full_update
-      [
-        tvdb_refresh,
-        tvdb_refresh_episodes,
-        update_episode_counters
-      ]
+      # do not continue if one of these fails
+      return unless tvdb_refresh && tvdb_refresh_episodes && update_episode_counters
 
-      # cleanup invalid episodes
+      # cleanup invalid programs
       return self.destroy unless self.valid?
 
       self.delay.tvdb_update_banners if followed_by_any_user?
@@ -58,32 +59,38 @@ module Concerns
     end
 
     def tvdb_refresh
-      self.apply_tvdb_attributes tvdb_serie
+      self.apply_tvdb_attributes tvdb_serie!
+      self.save
+    rescue TVDBNotFound
+      self.destroy
+      nil
+    end
+
+    def tvdb_episodes
+      tvdb_client.get_all_episodes_by_id(self.tvdb_id)
     end
 
     def tvdb_refresh_episodes
       logger.debug "=== Refreshing episodes"
-      tvdb_client.get_all_episodes_by_id(self.tvdb_id).map do |tvdb_episode|
+      tvdb_episodes.map do |tvdb_episode|
         # remove special episodes
         next if [0, 99].include? tvdb_episode.season_number.to_i
         next if [0, 99].include? tvdb_episode.number.to_i
 
-        episode = self.episodes.first_or_initialize(tvdb_id: tvdb_episode.id) do |e|
-          e.program = self
-        end
+        episode = episodes.where(tvdb_id: tvdb_episode.id).first_or_initialize
         episode.apply_tvdb_attributes tvdb_episode
-        episode.save
+        episode.save!
       end
     end
 
     def update_episode_counters
-      self.max_season_nr= self.episodes.order('season_nr desc').first.try(:season_nr)
-      self.current_season_nr= self.episodes.last_aired.first.try(:season_nr) || 1
-      save
+      update_attributes({
+        max_season_nr: self.episodes.order('season_nr desc').first.try(:season_nr),
+        current_season_nr: (self.episodes.last_aired.first.try(:season_nr) || 1)
+      })
     end
 
     def apply_tvdb_attributes tvdb_result
-      return unless tvdb_result
       self.tvdb_id        = tvdb_result.id
       self.name           = tvdb_result.name unless self.name.present?
       self.search_name    = tvdb_result.name unless self.search_name.present?
@@ -113,3 +120,5 @@ module Concerns
     end
   end
 end
+
+class TVDBNotFound < StandardError; end
