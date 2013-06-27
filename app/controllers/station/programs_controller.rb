@@ -14,8 +14,8 @@ class Station::ProgramsController < Station::BaseController
   end
 
   def destroy
-    station = current_user.stations.find params[:station_id]
-    program = Program.find params[:id]
+    station = current_user.stations.friendly.find params[:station_id]
+    program = Program.friendly.find params[:id]
     station.programs.delete program
     redirect_to :back
   end
