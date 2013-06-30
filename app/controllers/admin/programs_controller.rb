@@ -25,7 +25,7 @@ class Admin::ProgramsController < AdminAreaController
   # POST /admin_programs
   # POST /admin_programs.xml
   def create
-    @program = Program.new(params[:program])
+    @program = Program.new program_params
 
     respond_to do |format|
       if @program.save
@@ -42,7 +42,7 @@ class Admin::ProgramsController < AdminAreaController
   # PUT /admin_programs/1.xml
   def update
     respond_to do |format|
-      if @program.update_attributes(params[:program])
+      if @program.update_attributes program_params
         format.html { redirect_to([:admin, @program], :notice => 'Program was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -66,5 +66,9 @@ class Admin::ProgramsController < AdminAreaController
   protected
   def find_program
     @program = Program.friendly.find(params[:id])
+  end
+
+  def program_params
+    params.require(:program).permit!
   end
 end
