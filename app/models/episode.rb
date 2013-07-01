@@ -222,7 +222,7 @@ class Episode < ActiveRecord::Base
   end
 
   def search_term_pattern
-    "%{program_name} S%{filled_season_nr}E%{filled_episode_nr}"
+    "%{program_name} S%{filled_season_nr}E%{filled_episode_nr} | %{filled_season_nr}x%{filled_episode_nr}"
   end
 
   def interpolated_search_term
