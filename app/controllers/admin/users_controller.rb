@@ -36,7 +36,7 @@ class Admin::UsersController < AdminAreaController
 
   protected
   def get_user
-    @user = User.find_by_login!(params[:id])
+    @user = User.friendly.find params[:id])
   end
 
   def user_params
