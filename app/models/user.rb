@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :token_authenticatable,
     :trackable, :rememberable, :validatable
 
+  include FriendlyId
+  friendly_id :login, use: :slugged
+
   has_many :interactions, :dependent => :nullify
   has_many :stations
 
@@ -11,10 +14,6 @@ class User < ActiveRecord::Base
   after_create :create_personal_station
 
   validates :login, presence: true, uniqueness: true
-
-  def to_param
-    login.parameterize
-  end
 
   def notify_of_registration
     AdminMailer.notify_of_registration( self ).deliver
