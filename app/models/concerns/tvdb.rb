@@ -79,7 +79,7 @@ module Concerns
 
         episode = episodes.where(tvdb_id: tvdb_episode.id).first_or_initialize
         episode.apply_tvdb_attributes tvdb_episode
-        episode.save!
+        episode.save
       end
     end
 
