@@ -7,7 +7,6 @@ gem 'pg'
 
 # Bundle the extra gems:
 gem 'mechanize'
-# gem 'squeel'
 gem 'simple_form', '3.0.0.rc'
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 gem 'paperclip'
