@@ -3,10 +3,9 @@ require 'spec_helper'
 describe EpisodesController do
   describe "show" do
     let(:episode) { create :episode }
-    let(:request) { get :show, id: episode.id }
+    let(:show_request) { get :show, id: episode.id }
 
-    before { request }
-    it { should assign_to :episode }
+    before { show_request }
     it { should respond_with :success }
   end
 
@@ -23,6 +22,7 @@ describe EpisodesController do
       before do
         sign_in create(:user)
         Episode.any_instance.stub(ensure_up_to_date: true)
+        Episode.any_instance.stub(download: true)
         request
       end
 

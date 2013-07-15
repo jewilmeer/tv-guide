@@ -8,6 +8,7 @@ describe Episode do
   end
 
   describe 'validations' do
+    subject { build :episode }
     it { should validate_presence_of :title }
     it { should validate_presence_of :season_nr }
     it { should validate_presence_of :program_id }
