@@ -103,10 +103,10 @@ module Concerns
       self.network        = tvdb_result.network
       self.overview       = tvdb_result.overview
 
-      # tvdb_result.genres.each do |genre_name|
-      #   genre = Genre.find_or_create_by(name: genre_name)
-      #   self.genres << genre unless genres.where(name: genre_name).any?
-      # end
+      tvdb_result.genres.each do |genre_name|
+        genre = Genre.find_or_create_by(name: genre_name)
+        self.genres << genre unless genres.where(name: genre_name).any?
+      end
       self
     end
 

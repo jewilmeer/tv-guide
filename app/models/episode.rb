@@ -258,10 +258,10 @@ class Episode < ActiveRecord::Base
   end
 
   def update_sort_order
-    sort_order = generate_sort_nr
+    sort_order = try(:generate_sort_nr)
   end
 
   def generate_sort_nr
-    (season_nr * 1000) + nr
+    (season_nr || 1) * 1000 + nr
   end
 end
