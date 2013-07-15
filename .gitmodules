@@ -1,0 +1,3 @@
+[submodule "vendor/deployment"]
+	path = vendor/deployment
+	url = git@github.com:jewilmeer/ansible-deployment.git
