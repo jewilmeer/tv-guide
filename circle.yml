@@ -1,0 +1,7 @@
+machine:
+  timezone:
+    Europe/Amsterdam
+
+dependencies:
+  bundler:
+    without: [development, production]

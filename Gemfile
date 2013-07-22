@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 # ruby '1.9.3'
 
-gem "rails", "~> 4.0.0.rc2"
+gem "rails", "~> 4.0.0"
 gem 'mail'
 gem 'pg'
 
@@ -17,7 +17,7 @@ gem 'user-agent'
 gem 'haml'
 gem 'will_paginate'
 # strong params doesn't like me in production
-gem 'devise', github: 'plataformatec/devise'
+gem 'devise'
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: :master
 
 # background
@@ -26,8 +26,8 @@ gem 'slim'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
 gem 'jquery-rails'
-gem 'coffee-rails'#, "4.0.0.rc1"
-gem 'sass-rails', "4.0.0.rc2"
+gem 'coffee-rails'
+gem 'sass-rails'
 gem 'uglifier'
 gem "compass-rails", github: "milgner/compass-rails", branch: "rails4"
 gem 'bootstrap-sass'
