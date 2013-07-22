@@ -1,0 +1,14 @@
+box: wercker/ubuntu12.04-ruby2.0.0
+services:
+  - wercker/postgresql
+build:
+  # The steps that will be executed on build
+  steps:
+    # A step that executes `bundle install` command
+    - bundle-install
+    # A step that prepares the database.yml with settings from the database you defined in services
+    - rails-database-yml
+    # Add more steps here:
+    - script:
+      name: rake
+      code: bundle exec rake
