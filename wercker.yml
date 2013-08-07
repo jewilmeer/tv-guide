@@ -3,9 +3,15 @@ services:
     - wercker/postgresql
 build:
     steps:
-      - bundle-install
-      - rails-database-yml
-          service: postgresql
-      - script:
-          name: run tests
-          code: bundle exec rake
+        - bundle-install
+        - rails-database-yml:
+            service: postgresql
+        - script:
+            name: echo ruby information
+            code: |
+                echo "ruby version $(ruby --version) running!"
+                echo "from location $(which ruby)"
+                echo -p "gem list: $(gem list)"
+        - script:
+            name: Run tests
+            code: bundle exec rake
