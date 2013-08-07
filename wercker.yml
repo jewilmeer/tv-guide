@@ -1,6 +1,7 @@
 box: wercker/ubuntu12.04-ruby1.9.3@0.0.7
 services:
     - wercker/postgresql
+    - wercker/redis
 build:
     steps:
         - bundle-install
