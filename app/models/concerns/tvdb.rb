@@ -79,7 +79,7 @@ module Concerns
 
         episode = episodes.where(tvdb_id: tvdb_episode.id).first_or_initialize
         episode.apply_tvdb_attributes tvdb_episode
-        episode.save!
+        episode.save
       end
     end
 
@@ -103,10 +103,10 @@ module Concerns
       self.network        = tvdb_result.network
       self.overview       = tvdb_result.overview
 
-      # tvdb_result.genres.each do |genre_name|
-      #   genre = Genre.find_or_create_by(name: genre_name)
-      #   self.genres << genre unless genres.where(name: genre_name).any?
-      # end
+      tvdb_result.genres.each do |genre_name|
+        genre = Genre.find_or_create_by(name: genre_name)
+        self.genres << genre unless genres.where(name: genre_name).any?
+      end
       self
     end
 
