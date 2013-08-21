@@ -1,0 +1,24 @@
+%ul.breadcrumb
+  %li
+    = link_to 'Home', root_path
+    %span.divider /
+  %li
+    = link_to 'Programs', programs_path
+    %span.divider /
+  %li
+    = link_to episode.program.name, program_path(episode.program)
+    %span.divider /
+  %li.active= truncate episode.full_episode_title
+
+  / next+previous links
+  %li.pull-right
+    - if episode.next
+      = link_to 'Next episode', program_episode_path(episode.program, episode.next)
+    - else
+      %span.muted Next episode
+  %li.pull-right
+    - if episode.previous
+      = link_to 'Previous episode', program_episode_path(episode.program, episode.previous)
+    - else
+      %span.muted Previous episode
+    %span.divider /

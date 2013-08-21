@@ -1,0 +1,19 @@
+box: wercker/ubuntu12.04-ruby1.9.3@0.0.7
+services:
+    - wercker/postgresql
+    - wercker/redis
+build:
+    steps:
+        - bundle-install
+        - bundle-package
+        - rails-database-yml:
+            service: postgresql
+        - script:
+            name: echo ruby information
+            code: |
+                echo "ruby version $(ruby --version) running!"
+                echo "from location $(which ruby)"
+                echo -p "gem list: $(gem list)"
+        - script:
+            name: Run tests
+            code: bundle exec rake
