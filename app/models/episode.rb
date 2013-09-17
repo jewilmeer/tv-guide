@@ -3,7 +3,7 @@ class Episode < ActiveRecord::Base
 
   mount_uploader :thumb, ::ImageUploader
 
-  belongs_to :program
+  belongs_to :program, touch: true
   has_many :interactions, :dependent => :nullify
   has_many :downloads, :dependent => :destroy
   has_many :stations, through: :program
