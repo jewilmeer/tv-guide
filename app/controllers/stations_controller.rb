@@ -1,5 +1,5 @@
 class StationsController < ApplicationController
-  before_filter :authenticate_user!, :only => :download_list
+  before_filter :authenticate_user_from_token!, :only => :download_list
   before_filter :require_trust, :only => :download_list
 
   def index

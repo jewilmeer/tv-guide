@@ -1,4 +1,5 @@
 class ProgramsController < ApplicationController
+  before_filter :authenticate_user_from_token!, only: :download_list
   respond_to :html, :json, :js
 
   def index
