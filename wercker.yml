@@ -8,6 +8,12 @@ build:
       - rails-database-yml:
           service: postgresql
       - script:
+          name: echo ruby information
+          code: |
+              echo "ruby version $(ruby --version) running!"
+              echo "from location $(which ruby)"
+              echo -p "gem list: $(gem list)"
+      - script:
           name: prepare db
           code: RAILS_ENV=test bundle exec rake db:schema:load
       - script:
