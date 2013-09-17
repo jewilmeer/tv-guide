@@ -10,11 +10,6 @@ class StationsController < ApplicationController
     @station            = Station.friendly.find params[:id]
     @past_episodes      = @station.episodes.last_aired.page params[:page]
     @next_episodes      = @station.episodes.next_airing
-
-    @personal_stations   = current_user.stations if user_signed_in?
-    @personal_stations   ||= []
-    @genre_stations      = Station.genre_stations
-    @other_user_stations = Station.user_stations - @personal_stations
   end
 
   def download_list

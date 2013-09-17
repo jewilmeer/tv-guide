@@ -5,7 +5,7 @@ module StationsHelper
   end
 
   def other_user_stations
-    Station.user_stations - personal_stations
+    Station.filled.user_stations - personal_stations
   end
 
   def genre_stations
