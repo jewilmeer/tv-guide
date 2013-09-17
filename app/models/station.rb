@@ -14,6 +14,7 @@ class Station < ActiveRecord::Base
   scope :user_stations,   -> { where( taggable_type: "User") }
   scope :genre_stations,  -> { where( taggable_type: "Genre") }
   scope :personal,        -> { user_stations.where( 'stations.user_id = stations.taggable_id' ) }
+  scope :filled,          -> { joins(:programs) }
 
   def url_params
     { station_type: taggable_type, station_id: taggable_id }

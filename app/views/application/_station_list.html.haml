@@ -11,6 +11,7 @@
         User stations
     - other_user_stations.each do |station|
       %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
-    %li.nav-header Genre stations
-    - genre_stations.each do |station|
-      %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
+    - if genre_stations.any?
+      %li.nav-header Genre stations
+      - genre_stations.each do |station|
+        %li{class: ('active' if station == @station)}= link_to "#{station.name} station", station
