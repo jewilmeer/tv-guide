@@ -1,15 +1,14 @@
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable, :token_authenticatable,
+  devise :database_authenticatable, :registerable,
     :trackable, :rememberable, :validatable
 
-  include FriendlyId
+  include FriendlyId, Concerns::TokenAuthenticatable
   friendly_id :login, use: :slugged
 
   has_many :interactions, :dependent => :nullify
   has_many :stations
 
   before_update :notify_of_special_features
-  before_save :ensure_authentication_token
   after_create :notify_of_registration
   after_create :create_personal_station
 

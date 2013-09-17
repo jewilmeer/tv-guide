@@ -2,6 +2,7 @@ class EpisodesController < ApplicationController
   layout 'fluid'
   respond_to :html, :js, :nzb
 
+  before_filter :authenticate_user_from_token!, only: :download
   before_filter :authenticate_user!, :only => [:update, :download, :search]
 
   def show
