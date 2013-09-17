@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/maddox/tvdb_party"
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "2.0.2"
+  s.rubygems_version = "1.8.23"
   s.summary = "Simple Ruby library to talk to thetvdb.com's api"
   s.test_files = ["test/test_helper.rb", "test/tvdb_party_test.rb"]
 
