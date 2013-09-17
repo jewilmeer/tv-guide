@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include Concerns::Authentication
+  include Concerns::Authentication, Concerns::TokenAuthenticatableFilters
 
   protect_from_forgery
 
