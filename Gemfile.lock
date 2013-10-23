@@ -49,6 +49,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    airbrake (3.1.14)
+      builder
+      json
     arel (4.0.0)
     atomic (1.1.14)
     aws-sdk (1.11.1)
@@ -123,8 +126,6 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    exceptional (2.0.33)
-      rack
     execjs (2.0.1)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
@@ -299,6 +300,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   annotate!
   aws-sdk
   bootstrap-sass
@@ -310,7 +312,6 @@ DEPENDENCIES
   dalli
   database_cleaner
   devise
-  exceptional
   factory_girl_rails
   fakeweb
   font-awesome-sass-rails
