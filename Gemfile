@@ -11,7 +11,7 @@ gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 gem 'paperclip'
 gem 'carrierwave'
 gem "aws-sdk"
-gem 'exceptional'
+gem 'airbrake'
 gem 'user-agent'
 gem 'haml'
 gem 'will_paginate'
