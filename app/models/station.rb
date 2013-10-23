@@ -14,7 +14,7 @@ class Station < ActiveRecord::Base
   scope :user_stations,   -> { where( taggable_type: "User") }
   scope :genre_stations,  -> { where( taggable_type: "Genre") }
   scope :personal,        -> { user_stations.where( 'stations.user_id = stations.taggable_id' ) }
-  scope :filled,          -> { where("id in (SELECT DISTINCT ON (program_id) station_id id FROM programs_stations)") }
+  scope :filled,          -> { where("id in (SELECT DISTINCT ON (program_id, station_id) station_id id FROM programs_stations)") }
 
   def url_params
     { station_type: taggable_type, station_id: taggable_id }
