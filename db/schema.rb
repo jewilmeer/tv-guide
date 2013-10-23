@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20130702172004) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "downloads", force: true do |t|
     t.integer  "episode_id"
     t.string   "download_type"
@@ -67,8 +64,8 @@ ActiveRecord::Schema.define(version: 20130702172004) do
     t.string   "image_type"
     t.boolean  "downloaded", default: false
     t.integer  "program_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "interactions", force: true do |t|
