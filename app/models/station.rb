@@ -1,6 +1,6 @@
 class Station < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :slugish, use: :slugged
+  friendly_id :slug_candidates
 
   belongs_to :user
   belongs_to :taggable, polymorphic: true
@@ -20,14 +20,19 @@ class Station < ActiveRecord::Base
     { station_type: taggable_type, station_id: taggable_id }
   end
 
-  def slugish
-    case taggable
-    when Genre
-      "#{taggable_type.downcase}_#{taggable.name}"
-    when User
-      user.login
-    else
-      raise 'Go eat your own fish, we are not finished yet'
-    end
+  def slugged_name
+    name[0...-2]
+  end
+
+  def slugged_type_specific_name
+    "#{taggable_type.downcase}_#{taggable.name}"
+  end
+
+  def slug_candidates
+    [
+      :slugged_name,
+      :slugged_type_specific_name,
+      [:slugged_name, :created_at]
+    ]
   end
 end
