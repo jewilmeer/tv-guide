@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
     :trackable, :rememberable, :validatable
 
   include FriendlyId, Concerns::TokenAuthenticatable
-  friendly_id :login, use: :slugged
+  friendly_id :login
 
   has_many :interactions, :dependent => :nullify
   has_many :stations

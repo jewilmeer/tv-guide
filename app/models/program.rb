@@ -3,7 +3,7 @@ class Program < ActiveRecord::Base
 
   include Concerns::TVDB
   include FriendlyId
-  friendly_id :tvdb_name, use: :slugged
+  friendly_id :slug_candidates
 
   has_many :episodes, :dependent => :destroy
   has_many :interactions, :dependent => :nullify
@@ -59,5 +59,21 @@ class Program < ActiveRecord::Base
 
   def series_banner
     self.images.with_image_type('series:graphical').all.sample
+  end
+
+  def year_first_aired
+    first_aired.year
+  end
+
+  def slug_candidates
+    [
+      :name,
+      [:name, :year_first_aired],
+      [:name, :tvdb_id]
+    ]
+  end
+
+  def should_generate_new_friendly_id
+    name_changed?
   end
 end
