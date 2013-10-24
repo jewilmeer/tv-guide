@@ -61,15 +61,14 @@ class Program < ActiveRecord::Base
     self.images.with_image_type('series:graphical').all.sample
   end
 
-  def year_first_aired
-    first_aired.year
+  def slug_alternative_additions
+    first_aired.try(:year) || self.tvdb_id
   end
 
   def slug_candidates
     [
       :name,
-      [:name, :year_first_aired],
-      [:name, :tvdb_id]
+      [:name, :slug_alternative_additions]
     ]
   end
 
