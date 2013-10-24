@@ -6,7 +6,7 @@ gem 'pg'
 
 # Bundle the extra gems:
 gem 'mechanize'
-gem 'simple_form', '3.0.0.rc'
+gem 'simple_form'
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 gem 'paperclip'
 gem 'carrierwave'
@@ -17,18 +17,18 @@ gem 'haml'
 gem 'will_paginate'
 # strong params doesn't like me in production
 gem 'devise'
-gem 'friendly_id', '5.0.0.beta3'
+gem 'friendly_id'
 
 # background
 gem 'sidekiq'
 gem 'slim'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
+# assets
 gem 'jquery-rails'
 gem 'coffee-rails'
 gem 'sass-rails'
 gem 'uglifier'
-gem "compass-rails", github: "milgner/compass-rails", branch: "rails4"
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'font-awesome-sass-rails'
