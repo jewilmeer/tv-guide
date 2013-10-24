@@ -68,6 +68,8 @@ module Concerns
 
     def tvdb_episodes
       tvdb_client.get_all_episodes_by_id(self.tvdb_id)
+    rescue MultiXml::ParseError
+      []
     end
 
     def tvdb_refresh_episodes
