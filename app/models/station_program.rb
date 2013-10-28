@@ -8,7 +8,7 @@ class StationProgram < ActiveRecord::Base
   before_create ->(sp) { sp.initially_followed?; true }
   after_create ->(sp) {
     return true unless sp.initially_followed?
-    program.delay.tvdb_update_banners
+    sp.program.delay.tvdb_update_banners
     sp.delay.schedule_downloads
   }
   before_save -> { self.station.touch }
