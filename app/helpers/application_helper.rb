@@ -31,4 +31,16 @@ module ApplicationHelper
   def meta_description description
     content_for(:meta_description) { description }
   end
+
+  def user_attributes
+    return unless user_signed_in?
+    {}.tap do |attributes|
+      if current_user.try(:admin)
+        attributes[:admin] = true
+      end
+      if current_user.try(:trusted)
+        attributes[:trusted] = true
+      end
+    end
+  end
 end

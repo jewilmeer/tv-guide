@@ -7,7 +7,7 @@
   .tab-content
     - grouped_episodes.each do |season, episodes|
       - active_season = active_season?(season, program, selected_episode)
-      - cache [program, season, active_season, current_user.try(:trusted?), current_user.try(:admin?)] do
+      - cache [program, season, active_season] do
         .tab-pane{:id => "s#{season}", :class => (:active if active_season) }
           %table.table.table-bordered.table-striped
             %thead
