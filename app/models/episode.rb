@@ -62,8 +62,12 @@ class Episode < ActiveRecord::Base
   end
 
   def age
-    0 unless airs_at
+    return 0 unless airs_at
     (airs_at.to_date - Date.today).to_i.abs.succ
+  end
+
+  def aired?
+    age > 0
   end
 
   def search_query(extra_terms)

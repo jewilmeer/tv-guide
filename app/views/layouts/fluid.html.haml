@@ -14,7 +14,7 @@
 
     %title== Netflikker.nl #{yield(:title)}
     = yield :head
-  %body.fluid{:class => ('admin' if current_user.try(:admin))}
+  %body.fluid{:data => user_attributes}
     = render 'header'
 
     .container-fluid
