@@ -15,7 +15,7 @@
     %title== Netflikker.nl #{yield(:title)}
     = yield :head
     = airbrake_javascript_notifier
-  %body{:class => ('admin' if current_user.try(:admin))}
+  %body{:data => user_attributes}
     = render 'header'
 
     #main.container

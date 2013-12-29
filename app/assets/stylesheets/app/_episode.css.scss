@@ -1,3 +1,15 @@
 dd.episode {
   padding-bottom: 15px;
 }
+
+body:not([data-trusted]) {
+  .trusted-actions {
+    display: none;
+  }
+}
+
+body:not([data-admin]) {
+  .admin-actions {
+    display: none;
+  }
+}

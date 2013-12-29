@@ -50,7 +50,7 @@
             TBD
         %dt Episode info
         %dd== Season #{@episode.season_nr}, Episode #{@episode.nr}
-      - if current_user.try(:trusted?) && @episode.airs_at.try(:past?)
+      - if @episode.aired?
         = render 'trusted_actions', episode: @episode
 %section
   %h3 Season overview

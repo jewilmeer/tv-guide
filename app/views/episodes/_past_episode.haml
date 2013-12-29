@@ -1,4 +1,4 @@
-- cache [:past_episode, episode, current_user.try(:trusted)] do
+- cache [:past_episode, episode] do
   %dd.panel[episode]
     %h5
       = link_to episode.program_name, episode.program
