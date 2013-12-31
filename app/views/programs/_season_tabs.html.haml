@@ -1,13 +1,13 @@
 - selected_episode ||= nil
 #season-tabs.tabbable.tabs-right{data: current_episode_data(selected_episode) }
-  - cache program do
+  - cache [program, :season_tabs] do
     %ul.nav.nav-tabs#program-season-tabs
       - grouped_episodes.each do |season, episodes|
         %li{class: "s#{season}"}
           %a{:href => "#s#{season}", 'data-toggle' => 'tab'}== Season #{season} (#{episodes.length})
     .tab-content
       - grouped_episodes.each do |season, episodes|
-        - cache [program, season] do
+        - cache [:season, program, season] do
           .tab-pane{:id => "s#{season}"}
             %table.table.table-bordered.table-striped
               %thead
