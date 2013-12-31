@@ -53,7 +53,8 @@ TvEpisodes::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production
-  config.cache_store = :mem_cache_store
+  # Make cache size 2MB
+  config.cache_store = :mem_cache_store, { compress: true, value_max_bytes: 1048576*2 }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
