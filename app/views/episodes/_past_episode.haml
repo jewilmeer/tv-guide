@@ -11,7 +11,7 @@
 
     .row-fluid
       - if current_user.try(:trusted)
-        .clear= render 'episodes/trusted_actions', episode: episode, search_terms: @search_terms
+        .clear= render 'episodes/trusted_actions', episode: episode
       .media
         - if episode.thumb.present?
           .pull-left= image_tag(episode.thumb.url, class: 'media-object img-polaroid', size: '300x168')
