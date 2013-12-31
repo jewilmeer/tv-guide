@@ -1,17 +1,17 @@
 - selected_episode ||= nil
-.tabbable.tabs-right
-  %ul.nav.nav-tabs#program-season-tabs
-    - grouped_episodes.each do |season, episodes|
-      %li{class: (:active if active_season?(season, program, selected_episode)) }
-        %a{:href => "#s#{season}", 'data-toggle' => 'tab'}== Season #{season} (#{episodes.length})
-  .tab-content
-    - grouped_episodes.each do |season, episodes|
-      - active_season = active_season?(season, program, selected_episode)
-      - cache [program, season, active_season] do
-        .tab-pane{:id => "s#{season}", :class => (:active if active_season) }
-          %table.table.table-bordered.table-striped
-            %thead
-              %th Title
-              %th{:width => 150} Airdate
-            %tbody
-              = render episodes, selected_episode: selected_episode
+#season-tabs.tabbable.tabs-right{data: current_episode_data(selected_episode) }
+  - cache program do
+    %ul.nav.nav-tabs#program-season-tabs
+      - grouped_episodes.each do |season, episodes|
+        %li{class: "s#{season}"}
+          %a{:href => "#s#{season}", 'data-toggle' => 'tab'}== Season #{season} (#{episodes.length})
+    .tab-content
+      - grouped_episodes.each do |season, episodes|
+        - cache [program, season] do
+          .tab-pane{:id => "s#{season}"}
+            %table.table.table-bordered.table-striped
+              %thead
+                %th Title
+                %th{:width => 150} Airdate
+              %tbody
+                = render episodes, selected_episode: selected_episode, program: program
