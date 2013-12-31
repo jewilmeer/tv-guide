@@ -1,9 +1,10 @@
 .btn-group.trusted-actions
-  = link_to search_episode_path(episode), class: 'btn btn-small' do
+  = link_to search_episode_path(episode), class: 'btn btn-small', rel: :nofollow do
     %i.icon-search.icon-large
     Search
 
   - episode.downloads.each do |download|
-    = link_to download_episode_path(episode, :format => :nzb), :title => download.origin, class: :'btn btn-small' do
+    = link_to download_episode_path(episode, :format => :nzb),
+      :title => download.origin, class: :'btn btn-small', rel: :nofollow do
       %i.icon-cloud-download.icon-large
       Download

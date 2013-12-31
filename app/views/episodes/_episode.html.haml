@@ -1,4 +1,4 @@
-- cache [episode, episode.aired?] do
+- cache [:single_episode, episode, episode.aired?] do
   - program ||= episode.program
   %tr[episode]
     %td
