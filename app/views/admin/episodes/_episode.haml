@@ -2,7 +2,7 @@
   %td
     = link_to episode.program_name, episode.program
     \-
-    = link_to episode.full_episode_title, episode
+    = link_to episode.full_episode_title, [episode.program, episode]
   %td= l(episode.airs_at, :format => :long)
   %td
     = link_to edit_admin_episode_path(episode) do
