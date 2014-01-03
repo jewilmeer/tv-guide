@@ -1,9 +1,16 @@
 %tr[program]
-  %td= link_to program.name, program
-  %td= program.status
+  %td
+    = link_to program.name, program
+    - if program.status == 'Continuing'
+      .label.label-success Running
+  %td
+    - if program.first_aired
+      = l program.first_aired.to_date, format: :long
+    - else
+      \-
   %td
     - if next_episode = program.episodes.next_airing.first
       = pretty_date next_episode.airs_at
     - else
       \-
-  %td== #{program.runtime} minutes
+  %td= program.genres.pluck(:name).uniq.to_sentence

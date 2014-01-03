@@ -13,12 +13,15 @@ class Program < ActiveRecord::Base
   has_many :stations, through: :station_programs
   has_and_belongs_to_many :genres
 
+  belongs_to :network
+
   validates :tvdb_id, :uniqueness => true
   validates :name, presence: true, if: :persisted?
 
   before_save :update_episodes_with_program_name
 
   scope :followed_by_any_user, -> { includes(:stations).where( 'stations.taggable_type'=> 'User') }
+  scope :aired, -> { where.not(first_aired: nil) }
 
   def self.search_program query
     start_query, full_query = "%#{query}", "%#{query}%"
@@ -38,7 +41,8 @@ class Program < ActiveRecord::Base
 
   def update_episodes_with_program_name
     return unless persisted?
-    episodes.update_all program_name: self.name
+    return unless name_changed?
+    episodes.update_all(program_name: self.name)
   end
 
   def self.default_search_term_pattern
