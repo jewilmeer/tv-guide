@@ -1,8 +1,10 @@
-- date = nil
-%dl#past-episodes
+- cache [past_episodes.pluck(:updated_at).hash] do
+  - date = nil
   - past_episodes.each do |episode|
     - if date != episode.airs_at.to_date
       - date = episode.airs_at.to_date
       %dt
         %h5= pretty_date date
-    = render 'episodes/past_episode', {:episode => episode}
+    = render 'episodes/past_episode', episode: episode
+  .pagination
+    = link_to '>', url_for(params.merge(page: (params[:page] || 1).succ)), class: 'next_page'
