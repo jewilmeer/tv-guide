@@ -3,7 +3,7 @@ require 'spec_helper'
 describe EpisodesController do
   describe "show" do
     let(:episode) { create :episode }
-    let(:show_request) { get :show, id: episode.id }
+    let(:show_request) { get :show, id: episode.id, program_id: 2 }
 
     before { show_request }
     it { should respond_with :success }
@@ -11,7 +11,7 @@ describe EpisodesController do
 
   describe "update" do
     let(:episode) { create :episode }
-    let(:request) { put :update, id: episode.id, format: :js }
+    let(:request) { put :update, id: episode.id, program_id: 2, format: :js }
 
     context "not logged in" do
       before { request }
