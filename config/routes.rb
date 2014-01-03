@@ -29,15 +29,14 @@ TvEpisodes::Application.routes.draw do
     get :guide, on: :collection
     get :download_list, on: :member, path: 'download_list/:authentication_token'
 
-    resources :episodes, only: :show
-  end
-
-  resources :episodes, only: [:show, :update] do
-    member do
-      get :search
-      get :download, path: 'download(/:authentication_token)'
+    resources :episodes, only: [:show, :update] do
+      member do
+        get :search
+        get :download, path: 'download(/:authentication_token)'
+      end
     end
   end
+
 
   # signup. account settings. Needs to be implemented simpler
   # resources :users, only: [:new, :create, :edit, :update], :module => 'user', :path => '/user'

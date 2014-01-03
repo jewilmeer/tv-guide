@@ -3,8 +3,8 @@
     %h5
       = link_to episode.program_name, episode.program
       &nbsp;-&nbsp;
-      = link_to episode.full_episode_title, episode
-      = link_to episode_path(episode), :class => 'pull-right refresh',
+      = link_to episode.full_episode_title, [episode.program, episode]
+      = link_to program_episode_path(episode.program, episode), :class => 'pull-right refresh',
         :method => :put, :remote => true do
         %i.icon-repeat
 
