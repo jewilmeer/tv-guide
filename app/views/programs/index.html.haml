@@ -10,10 +10,10 @@
     %table.table.table-striped#programs
       %thead
         %tr
-          %th Name
-          %th{:width => '120'} Status
-          %th{:width => '200'} Next episode
-          %th{:width => '120'} Runtime
+          %th Program name
+          %th First aired
+          %th Next episode
+          %th Genres
       %tbody
         = render @programs
     = will_paginate @program

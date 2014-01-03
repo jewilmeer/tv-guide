@@ -25,6 +25,7 @@ TvEpisodes::Application.routes.draw do
   get "/user/:user_id/programs/t/:authentication_token" => 'user/programs#aired', :as => 'tokened_user_programs'
   get '/sitemap', :to => 'pages#sitemap', format: :xml
 
+  resources :networks, only: [:index, :show]
   resources :programs, only: [:index, :show, :update] do
     get :guide, on: :collection
     get :download_list, on: :member, path: 'download_list/:authentication_token'

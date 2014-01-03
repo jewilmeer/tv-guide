@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130702172004) do
+ActiveRecord::Schema.define(version: 20140103171816) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "downloads", force: true do |t|
     t.integer  "episode_id"
@@ -64,8 +67,8 @@ ActiveRecord::Schema.define(version: 20130702172004) do
     t.string   "image_type"
     t.boolean  "downloaded", default: false
     t.integer  "program_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "interactions", force: true do |t|
@@ -81,6 +84,13 @@ ActiveRecord::Schema.define(version: 20130702172004) do
     t.string   "referer"
   end
 
+  create_table "networks", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+  end
+
   create_table "programs", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -93,7 +103,7 @@ ActiveRecord::Schema.define(version: 20130702172004) do
     t.string   "airs_dayofweek"
     t.string   "airs_time"
     t.integer  "runtime"
-    t.string   "network"
+    t.string   "network_name"
     t.string   "contentrating"
     t.text     "actors"
     t.integer  "tvdb_rating"
@@ -105,8 +115,10 @@ ActiveRecord::Schema.define(version: 20130702172004) do
     t.integer  "program_preferences_count", default: 0
     t.datetime "first_aired"
     t.string   "slug"
+    t.integer  "network_id"
   end
 
+  add_index "programs", ["network_id"], name: "index_programs_on_network_id", using: :btree
   add_index "programs", ["slug"], name: "index_programs_on_slug", using: :btree
   add_index "programs", ["tvdb_id"], name: "index_programs_on_tvdb_id", using: :btree
 
