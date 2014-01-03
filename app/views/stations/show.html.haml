@@ -17,14 +17,14 @@
   .span6
     %h3
       Recently aired
-      - if current_user.try(:trusted?)
-        .pull-right
-          = link_to download_list_station_path(@station,
-          :authentication_token => current_user.authentication_token, format: :rss) do
-            %i.icon-rss
+      .pull-right.trusted-actions
+        = link_to download_list_station_path(@station,
+        :authentication_token => current_user.authentication_token, format: :rss) do
+          %i.icon-rss
     %section.past_episodes
       - if @past_episodes.any?
-        = render 'episodes/past_episodes', past_episodes: @past_episodes
+        %dl#past-episodes
+          = render 'episodes/past_episodes', past_episodes: @past_episodes
       - else
         %p.text-center It's very quite in this lane. I Could use some company ;-)
   .span3
