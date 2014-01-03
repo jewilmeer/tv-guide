@@ -3,7 +3,7 @@ dd.episode {
 }
 
 body:not([data-trusted]) {
-  .trusted-actions {
+  .trusted-actions, .refresh {
     display: none;
   }
 }
