@@ -102,7 +102,7 @@ module Concerns
       self.airs_time      = tvdb_result.air_time
       self.status         = tvdb_result.status
       self.runtime        = tvdb_result.runtime
-      self.network        = tvdb_result.network
+      self.network        = Network.find_or_create_by(name: tvdb_result.network)
       self.overview       = tvdb_result.overview
 
       tvdb_result.genres.each do |genre_name|

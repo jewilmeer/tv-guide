@@ -26,7 +26,7 @@
         %th{:width => 100} Genres
         %td= @program.genres.map(&:name).to_sentence
         %th{:width => 100} Network
-        %td{:width => 150}= @program.network
+        %td{:width => 150}= link_to @program.network.name, @program.network
       %tr
         %th Next episode
         %td
