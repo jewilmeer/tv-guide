@@ -62,4 +62,8 @@ group :test do
   gem 'fakeweb'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
 end
