@@ -1,0 +1,4 @@
+$('.pagination').remove();
+<% if @past_episodes.any? %>
+$('#past-episodes').append('<%= j render("episodes/past_episodes", past_episodes: @past_episodes) %>');
+<% end %>
