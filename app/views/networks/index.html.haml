@@ -1,0 +1,5 @@
+%h1 Network overview
+
+%ul.nav.nav-pills
+  - @networks.each do |network|
+    %li= link_to network.name, network
