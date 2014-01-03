@@ -1,6 +1,6 @@
 class NetworksController < ApplicationController
   def index
-    @networks = Network.sort('name')
+    @networks = Network.order('name')
   end
 
   def show
