@@ -15,6 +15,7 @@ $ ->
         $('.pagination').text("Searching for moar!")
         $.getScript(url)
     $(window).scroll()
+
   $('#past-episodes').on 'click', 'a i', ->
     $(@).addClass('icon-spin').parent('a').attr('disabled', 'disabled')
 
