@@ -5,6 +5,6 @@ class NetworksController < ApplicationController
 
   def show
     @network = Network.find params[:id]
-    @programs = @network.programs.aired.order('status, first_aired desc')
+    @programs = @network.programs.aired.where(status: 'Continuing').order('first_aired desc')
   end
 end
