@@ -6,7 +6,7 @@
       .actions= render 'episodes/trusted_actions', episode: episode
   %td{:width => 220}
     - if episode.airs_at
-      %p= pretty_date episode.airs_at.to_date, :with_year => true
+      %p= pretty_date episode.airdate, :with_year => true
       .admin-actions
         - if episode.aired?
           = link_to('Redownload', program_episode_path(episode.program, episode, :partial => :episodes), :method => :put, :remote => true, data: { :disable_with => 'loading...' }, :class => 'btn small')
