@@ -40,9 +40,12 @@ class ProgramsController < ApplicationController
   end
 
   def guide
-    @asked_itme        = rounded_time
-    @upcoming_episodes = Episode.next_airing_at(rounded_time).limit(100)
-    @past_episodes     = Episode.last_aired_at(rounded_time).page params[:page]
+    @upcoming_episodes = Episode.next_airing_from(Date.today)
+                          .includes(:program)
+                          .limit(100)
+    @past_episodes     = Episode.last_aired_from(Date.yesterday)
+                          .includes(:program, :downloads)
+                          .page params[:page]
   end
 
   private
