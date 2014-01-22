@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140103171816) do
+ActiveRecord::Schema.define(version: 20140109074649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,9 +46,11 @@ ActiveRecord::Schema.define(version: 20140103171816) do
     t.integer  "sort_nr"
   end
 
+  add_index "episodes", ["airdate"], name: "index_episodes_on_airdate", using: :btree
   add_index "episodes", ["airs_at"], name: "index_episodes_on_airs_at", using: :btree
   add_index "episodes", ["program_id"], name: "index_episodes_on_program_id", using: :btree
   add_index "episodes", ["sort_nr"], name: "index_episodes_on_sort_nr", using: :btree
+  add_index "episodes", ["updated_at"], name: "index_episodes_on_updated_at", using: :btree
 
   create_table "genres", force: true do |t|
     t.string   "name"
