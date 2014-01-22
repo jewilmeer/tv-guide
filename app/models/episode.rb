@@ -11,10 +11,13 @@ class Episode < ActiveRecord::Base
   validates :title, :season_nr, :program_id, :program_name, :presence => true
 
   # used for guide view
-  scope :next_airing,             ->{ airs_at_in_future.order('episodes.airs_at asc').includes(:program) }
-  scope :next_airing_at,          ->(time){ next_airing.where('episodes.airs_at > ?', time) }
+  scope :next_airing_order,       ->{ order('episodes.airs_at asc').includes(:program) }
+  scope :next_airing,             ->{ airs_at_in_future.next_airing_order }
+  scope :next_airing_at,          ->(time){ where('airdate < ?', time.to_date).order('airs_at desc').where.not(airs_at: nil) }
+  scope :next_airing_from,        ->(date){ where('airdate > ?', date).order('airdate asc').where.not(airdate: nil) }
   scope :last_aired,              ->{ airs_at_in_past.order('episodes.airs_at desc').includes(:program, :downloads) }
-  scope :last_aired_at,           ->(time){ last_aired.where('episodes.airs_at < ?', time) }
+  scope :last_aired_at,           ->(time){ last_aired.where('date(episodes.airs_at) < ?', time.to_date) }
+  scope :last_aired_from,         ->(date){ where('episodes.airdate <= ?', date).order('airdate desc').where.not(airdate: nil) }
   scope :downloaded,              ->{ includes(:downloads).where('downloads.id IS NOT NULL') }
   scope :without_download,        ->{ includes(:downloads).where(downloads: {id: nil}) }
   scope :watched_by_a_user,       ->{ includes(:stations).where(stations: {taggable_type: 'User'}) }
@@ -62,12 +65,12 @@ class Episode < ActiveRecord::Base
   end
 
   def age
-    return 0 unless airs_at
-    (airs_at.to_date - Date.today).to_i.abs.succ
+    return 0 unless airdate
+    (Date.today - airdate).to_i
   end
 
   def aired?
-    age > 0
+    age >= 0
   end
 
   def search_query(extra_terms)
@@ -75,7 +78,7 @@ class Episode < ActiveRecord::Base
   end
 
   def program_name
-    @program_name || program.try(:name)
+    read_attribute(:program_name) || program.try(:name)
   end
 
   def season_and_episode
@@ -116,7 +119,6 @@ class Episode < ActiveRecord::Base
   end
 
   def download(quality='hd')
-    return unless self.airs_at.present?
     logger.info "="*30
     logger.info "Getting #{quality} from #{search_url}"
     logger.info "="*30
@@ -142,12 +144,12 @@ class Episode < ActiveRecord::Base
   end
 
   def max_download_time
-    airs_at + 7.days
+    airdate + 7.days
   end
 
   # < means before max_download_time
   def downloadable?
-    Time.now < max_download_time
+    Date.today < max_download_time
   end
 
   def searcher

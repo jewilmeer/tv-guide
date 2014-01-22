@@ -1,8 +1,8 @@
 - cache [past_episodes.pluck(:updated_at).hash] do
   - date = nil
   - past_episodes.each do |episode|
-    - if date != episode.airs_at.to_date
-      - date = episode.airs_at.to_date
+    - if date != episode.airdate
+      - date = episode.airdate
       %dt
         %h5= pretty_date date
     = render 'episodes/past_episode', episode: episode
