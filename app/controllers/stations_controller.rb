@@ -8,8 +8,13 @@ class StationsController < ApplicationController
 
   def show
     @station            = Station.friendly.find params[:id]
-    @past_episodes      = @station.episodes.last_aired.page params[:page]
-    @next_episodes      = @station.episodes.next_airing
+    @past_episodes      = @station.episodes.
+                            includes(:program, :downloads).
+                            last_aired_from(Date.today).
+                            page params[:page]
+    @next_episodes      = @station.episodes.
+                            includes(:program).
+                            next_airing_from(Date.today)
   end
 
   def download_list
