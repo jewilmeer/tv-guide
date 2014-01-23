@@ -25,8 +25,9 @@
         %td= pluralize( @program.runtime, 'minute')
         %th{:width => 100} Genres
         %td= @program.genres.map(&:name).to_sentence
-        %th{:width => 100} Network
-        %td{:width => 150}= link_to @program.network.name, @program.network
+        - if @program.network
+          %th{:width => 100} Network
+          %td{:width => 150}= link_to @program.network.name, @program.network
       %tr
         %th Next episode
         %td
