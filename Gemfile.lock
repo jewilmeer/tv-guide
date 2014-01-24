@@ -123,6 +123,8 @@ GEM
     font-awesome-sass-rails (3.0.2.2)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
+    foreigner (1.6.1)
+      activerecord (>= 3.0.0)
     friendly_id (5.0.0)
       activerecord (~> 4.0.0)
     gherkin (2.12.2)
@@ -305,6 +307,7 @@ DEPENDENCIES
   factory_girl_rails
   fakeweb
   font-awesome-sass-rails
+  foreigner
   friendly_id
   haml
   jquery-rails
