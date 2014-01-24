@@ -13,4 +13,4 @@
       = pretty_date next_episode.airs_at
     - else
       \-
-  %td= program.genres.pluck(:name).uniq.to_sentence
+  %td= program.genres.map(&:name).uniq.to_sentence
