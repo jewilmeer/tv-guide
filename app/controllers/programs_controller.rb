@@ -4,8 +4,9 @@ class ProgramsController < ApplicationController
 
   def index
     @programs = Program.order('status, name').
-      includes(:network).
+      includes(:network, :genres).
       search_program(params[:q]).
+      active.
       page params[:page]
     if matched_program = exact_match_found?(@programs, params[:q])
       redirect_to matched_program

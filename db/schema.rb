@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140109074649) do
+ActiveRecord::Schema.define(version: 20140124124328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,8 +118,10 @@ ActiveRecord::Schema.define(version: 20140109074649) do
     t.datetime "first_aired"
     t.string   "slug"
     t.integer  "network_id"
+    t.boolean  "active",                    default: true
   end
 
+  add_index "programs", ["active"], name: "index_programs_on_active", using: :btree
   add_index "programs", ["network_id"], name: "index_programs_on_network_id", using: :btree
   add_index "programs", ["slug"], name: "index_programs_on_slug", using: :btree
   add_index "programs", ["tvdb_id"], name: "index_programs_on_tvdb_id", using: :btree
