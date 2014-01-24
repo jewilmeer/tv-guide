@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem "rails", "~> 4.0.0"
 gem 'mail'
 gem 'pg'
+gem 'foreigner'
 
 # Bundle the extra gems:
 gem 'mechanize'

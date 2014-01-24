@@ -2,6 +2,7 @@ class Program < ActiveRecord::Base
   require 'open-uri'
 
   include Concerns::TVDB
+  include Concerns::Sections
   include FriendlyId
   friendly_id :slug_candidates
 
@@ -22,11 +23,13 @@ class Program < ActiveRecord::Base
 
   scope :followed_by_any_user, -> { includes(:stations).where( 'stations.taggable_type'=> 'User') }
   scope :aired, -> { where.not(first_aired: nil) }
+  scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
 
   def self.search_program query
+    return all unless query.present?
     start_query, full_query = "%#{query}", "%#{query}%"
-    order('status, name').
-    where( %(programs.name LIKE :query OR programs.search_name LIKE :query OR overview LIKE :full_query),
+    where( %(programs.name ILIKE :query OR programs.search_name ILIKE :query OR overview ILIKE :full_query),
       { query: query, full_query: full_query }
     )
   end

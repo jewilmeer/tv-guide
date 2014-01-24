@@ -5,7 +5,7 @@
     - if episode.aired?
       .actions= render 'episodes/trusted_actions', episode: episode
   %td{:width => 220}
-    - if episode.airs_at
+    - if episode.airdate
       %p= pretty_date episode.airdate, :with_year => true
       .admin-actions
         - if episode.aired?

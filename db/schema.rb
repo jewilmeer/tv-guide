@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140109074649) do
+ActiveRecord::Schema.define(version: 20140124155357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,8 +27,6 @@ ActiveRecord::Schema.define(version: 20140109074649) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "downloads", ["episode_id"], name: "index_downloads_on_episode_id", using: :btree
 
   create_table "episodes", force: true do |t|
     t.string   "title"
@@ -48,7 +46,6 @@ ActiveRecord::Schema.define(version: 20140109074649) do
 
   add_index "episodes", ["airdate"], name: "index_episodes_on_airdate", using: :btree
   add_index "episodes", ["airs_at"], name: "index_episodes_on_airs_at", using: :btree
-  add_index "episodes", ["program_id"], name: "index_episodes_on_program_id", using: :btree
   add_index "episodes", ["sort_nr"], name: "index_episodes_on_sort_nr", using: :btree
   add_index "episodes", ["updated_at"], name: "index_episodes_on_updated_at", using: :btree
 
@@ -56,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140109074649) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",     default: true
   end
 
   create_table "genres_programs", id: false, force: true do |t|
@@ -118,19 +116,16 @@ ActiveRecord::Schema.define(version: 20140109074649) do
     t.datetime "first_aired"
     t.string   "slug"
     t.integer  "network_id"
+    t.boolean  "active",                    default: true
   end
 
-  add_index "programs", ["network_id"], name: "index_programs_on_network_id", using: :btree
-  add_index "programs", ["slug"], name: "index_programs_on_slug", using: :btree
-  add_index "programs", ["tvdb_id"], name: "index_programs_on_tvdb_id", using: :btree
+  add_index "programs", ["slug"], name: "index_programs_on_slug", unique: true, using: :btree
+  add_index "programs", ["tvdb_id"], name: "index_programs_on_tvdb_id", unique: true, using: :btree
 
   create_table "programs_stations", force: true do |t|
     t.integer "station_id"
     t.integer "program_id"
   end
-
-  add_index "programs_stations", ["program_id"], name: "index_programs_stations_on_program_id", using: :btree
-  add_index "programs_stations", ["station_id"], name: "index_programs_stations_on_station_id", using: :btree
 
   create_table "stations", force: true do |t|
     t.string   "name",          null: false
@@ -144,7 +139,6 @@ ActiveRecord::Schema.define(version: 20140109074649) do
 
   add_index "stations", ["slug"], name: "index_stations_on_slug", using: :btree
   add_index "stations", ["taggable_type"], name: "index_stations_on_taggable_type", using: :btree
-  add_index "stations", ["user_id"], name: "index_stations_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                                null: false
@@ -175,5 +169,23 @@ ActiveRecord::Schema.define(version: 20140109074649) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  add_foreign_key "downloads", "episodes", name: "downloads_episode_id_fk", dependent: :delete
+
+  add_foreign_key "episodes", "programs", name: "episodes_program_id_fk", dependent: :delete
+
+  add_foreign_key "genres_programs", "genres", name: "genres_programs_genre_id_fk"
+  add_foreign_key "genres_programs", "programs", name: "genres_programs_program_id_fk"
+
+  add_foreign_key "images", "programs", name: "images_program_id_fk", dependent: :delete
+
+  add_foreign_key "interactions", "episodes", name: "interactions_episode_id_fk", dependent: :delete
+  add_foreign_key "interactions", "programs", name: "interactions_program_id_fk", dependent: :delete
+  add_foreign_key "interactions", "users", name: "interactions_user_id_fk", dependent: :delete
+
+  add_foreign_key "programs_stations", "programs", name: "programs_stations_program_id_fk"
+  add_foreign_key "programs_stations", "stations", name: "programs_stations_station_id_fk"
+
+  add_foreign_key "stations", "users", name: "stations_user_id_fk", dependent: :delete
 
 end
