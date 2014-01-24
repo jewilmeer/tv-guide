@@ -23,6 +23,7 @@ class Program < ActiveRecord::Base
   scope :followed_by_any_user, -> { includes(:stations).where( 'stations.taggable_type'=> 'User') }
   scope :aired, -> { where.not(first_aired: nil) }
   scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
 
   def self.search_program query
     return scoped unless query.present?

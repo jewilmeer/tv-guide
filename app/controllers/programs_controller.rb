@@ -3,7 +3,7 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @programs = Program.order('status, programs.name')
+    @programs = Program.active.order('status, programs.name').
       includes(:network, :genres).
       search_program(params[:q]).
       page params[:page]
@@ -40,11 +40,10 @@ class ProgramsController < ApplicationController
   end
 
   def guide
-    @upcoming_episodes = Episode.next_airing_from(Date.today)
+    @upcoming_episodes = Episode.active.next_airing_from(Date.today)
                           .includes(:program)
                           .limit(100)
-    @past_episodes     = Episode.last_aired_from(Date.yesterday)
-                          .includes(:program, :downloads)
+    @past_episodes     = Episode.active.last_aired_from(Date.yesterday)
                           .page params[:page]
   end
 
