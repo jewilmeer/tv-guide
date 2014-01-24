@@ -27,7 +27,6 @@ class Program < ActiveRecord::Base
   def self.search_program query
     return scoped unless query.present?
     start_query, full_query = "%#{query}", "%#{query}%"
-    order('status, programs.name').
     where( %(programs.name LIKE :query OR programs.search_name LIKE :query OR overview LIKE :full_query),
       { query: query, full_query: full_query }
     )
