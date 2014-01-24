@@ -16,7 +16,8 @@
           %th Genres
       %tbody
         = render @programs
-    = will_paginate @program
+    .pagination
+      = link_to '>', url_for(params.merge(page: (params[:page] || 1).succ)), class: 'next_page'
   - else
     %p.nothing
       No programs found!

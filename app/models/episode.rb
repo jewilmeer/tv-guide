@@ -1,5 +1,6 @@
 class Episode < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
+  include Concerns::Sections
 
   mount_uploader :thumb, ::ImageUploader
 
