@@ -6,6 +6,7 @@ module Concerns
 
     included do
       after_create { self.delay.tvdb_full_update }
+      validates :name, format: { without: /\A\*\*\*.*/ }
 
       # scopes
       def self.tvdb_client(tvdb_id= TVDB_API)
@@ -60,8 +61,8 @@ module Concerns
 
     def tvdb_refresh
       self.apply_tvdb_attributes tvdb_serie!
-      self.save
-    rescue TVDBNotFound
+      self.save!
+    rescue TVDBNotFound, ActiveRecord::RecordInvalid
       self.destroy
       nil
     end
