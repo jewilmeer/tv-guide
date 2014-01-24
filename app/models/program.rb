@@ -2,6 +2,7 @@ class Program < ActiveRecord::Base
   require 'open-uri'
 
   include Concerns::TVDB
+  include Concerns::Sections
   include FriendlyId
   friendly_id :slug_candidates
 
@@ -26,7 +27,7 @@ class Program < ActiveRecord::Base
   scope :inactive, -> { where(active: false) }
 
   def self.search_program query
-    return scoped unless query.present?
+    return all unless query.present?
     start_query, full_query = "%#{query}", "%#{query}%"
     where( %(programs.name ILIKE :query OR programs.search_name ILIKE :query OR overview ILIKE :full_query),
       { query: query, full_query: full_query }

@@ -3,10 +3,10 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @programs = Program.active.order('status, programs.name').
+    @basic_program_scope = Program.active.order('status, programs.name').
       includes(:network, :genres).
-      search_program(params[:q]).
-      page params[:page]
+      search_program(params[:q])
+    @programs = @basic_program_scope.section(params[:page])
     if matched_program = exact_match_found?(@programs, params[:q])
       redirect_to matched_program
     else
@@ -44,7 +44,7 @@ class ProgramsController < ApplicationController
                           .includes(:program)
                           .limit(100)
     @past_episodes     = Episode.active.last_aired_from(Date.yesterday)
-                          .page params[:page]
+                          .section params[:page]
   end
 
   private
