@@ -22,6 +22,7 @@ class Program < ActiveRecord::Base
 
   scope :followed_by_any_user, -> { includes(:stations).where( 'stations.taggable_type'=> 'User') }
   scope :aired, -> { where.not(first_aired: nil) }
+  scope :active, -> { where(active: true) }
 
   def self.search_program query
     start_query, full_query = "%#{query}", "%#{query}%"
