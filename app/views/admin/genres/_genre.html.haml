@@ -1,0 +1,9 @@
+%tr[genre]{ class: ('success' if genre.active) }
+  %td= link_to genre.name, [:admin, genre]
+  %td== #{genre.programs.active.count} / #{genre.programs.inactive.count}
+  %td
+    = link_to admin_genre_path(genre, active: !genre.active), method: :patch, data: { remote: true, 'disable-with' => '...' } do
+      - if genre.active
+        %i.icon-ok.text-success
+      - else
+        %i.icon-remove.text-danger
