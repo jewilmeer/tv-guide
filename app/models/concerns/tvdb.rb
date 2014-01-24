@@ -103,6 +103,7 @@ module Concerns
       self.airs_time      = tvdb_result.air_time
       self.status         = tvdb_result.status
       self.runtime        = tvdb_result.runtime
+      self.tvdb_rating    = tvdb_result.rating
       self.network        = Network.find_or_create_by(name: tvdb_result.network)
       self.overview       = tvdb_result.overview
 
