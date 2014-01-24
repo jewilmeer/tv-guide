@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Download do
-  let!(:episode) { build_stubbed :episode }
+  let!(:episode) { create :episode }
   let(:download) { build :download, episode: episode }
 
   it "updates the episode upon creation" do
