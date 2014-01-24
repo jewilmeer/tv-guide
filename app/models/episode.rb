@@ -1,5 +1,6 @@
 class Episode < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
+  include Concerns::Sections
 
   mount_uploader :thumb, ::ImageUploader
 
@@ -27,6 +28,7 @@ class Episode < ActiveRecord::Base
   scope :airs_at_inside,          ->(first_date, last_date) { where('airs_at > :first_date AND airs_at < :last_date', \
                                       {first_date: first_date, last_date: last_date}) }
   scope :with_same_program,       ->(episode) { where('episodes.program_id = ?', episode.program_id) }
+  scope :active,                  ->{ includes(:program).where('programs.active = ?', true).references(:program) }
 
   before_validation :update_program_name
   before_validation :update_sort_order
@@ -65,7 +67,7 @@ class Episode < ActiveRecord::Base
   end
 
   def age
-    return 0 unless airdate
+    return -1 unless airdate
     (Date.today - airdate).to_i
   end
 
