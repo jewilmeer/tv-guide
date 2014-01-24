@@ -8,3 +8,5 @@
     = link_to 'Programs', [:admin, :programs]
   %li{class: (:active if active_page?('admin/users'))}
     = link_to 'Users', [:admin, :users]
+  %li{class: (:active if active_page?('admin/genres'))}
+    = link_to 'Genres', [:admin, :genres]

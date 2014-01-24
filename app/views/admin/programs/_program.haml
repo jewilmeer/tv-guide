@@ -1,4 +1,4 @@
-%tr[program]
+%tr[program]{class: ('muted' unless program.active)}
   %td
     = link_to truncate(program.name, :length => 40), [:admin, program]
   %td
@@ -24,5 +24,5 @@
       %i.icon-eye-open.icon-large
     = link_to edit_admin_program_path(program) do
       %i.icon-edit.icon-large
-    = link_to [:admin, program], :confirm => 'Are you sure?', :method => :delete do
+    = link_to [:admin, program], :'data-confirm' => 'Are you sure?', :method => :delete do
       %i.icon-trash.icon-large
