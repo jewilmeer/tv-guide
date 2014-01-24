@@ -82,8 +82,20 @@ module Concerns
 
         episode = episodes.where(tvdb_id: tvdb_episode.id).first_or_initialize
         episode.apply_tvdb_attributes tvdb_episode
+        update_active_state
         episode.save
       end
+    end
+
+    def update_active_state
+      self.active = calculate_active
+    end
+
+    def update_active_state!
+      update_active_state
+      save!
+    rescue ActiveRecord::RecordInvalid
+      destroy
     end
 
     def update_episode_counters
@@ -114,13 +126,27 @@ module Concerns
       self
     end
 
+    def tvdb_banners
+      logger.debug "[#{Time.now.to_s(:long)}] Getting banners for #{name}"
+      tvdb_client.get_banners_by_id(self.tvdb_id)
+    end
+
     def tvdb_update_banners
-      tvdb_client.get_banners_by_id(self.tvdb_id).each do |banner|
+      tvdb_banners.each do |banner|
         image = self.images.where(source_url: banner.url).first_or_initialize.tap do |image|
           image.image_type = [banner.banner_type, banner.banner_type2].compact.join(':')
         end
         image.save
       end
+    end
+
+    def calculate_active
+      return true if stations.any?
+      return false unless network_id.present?
+      return false if genres.inactive.any? || genres.none?
+      return false unless tvdb_rating >= 7
+      return false unless tvdb_banners.any?
+      true
     end
   end
 end
