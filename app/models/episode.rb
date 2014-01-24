@@ -27,6 +27,7 @@ class Episode < ActiveRecord::Base
   scope :airs_at_inside,          ->(first_date, last_date) { where('airs_at > :first_date AND airs_at < :last_date', \
                                       {first_date: first_date, last_date: last_date}) }
   scope :with_same_program,       ->(episode) { where('episodes.program_id = ?', episode.program_id) }
+  scope :active,                  ->{ includes(:program).where('programs.active = ?', true).references(:program) }
 
   before_validation :update_program_name
   before_validation :update_sort_order
