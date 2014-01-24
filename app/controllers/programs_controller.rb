@@ -3,7 +3,7 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @programs = Program.order('status, name').
+    @programs = Program.
       includes(:network, :genres).
       search_program(params[:q]).
       active.
