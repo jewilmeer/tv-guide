@@ -7,8 +7,7 @@
     %li[episode]
       = link_to episode.program do
         = episode.program_name
-        - if episode.nr == 1
-          - if episode.season_nr == 1
-            %span.label.label-success New
-          - else
-            %span.label.label-success New season
+        - if episode.new_serie?
+          %span.label.label-success New
+        - elsif episode.new_season?
+          %span.label.label-success New season

@@ -33,6 +33,8 @@ class Episode < ActiveRecord::Base
   before_validation :update_program_name
   before_validation :update_sort_order
 
+  delegate :new_serie?, to: :program
+
   # attribute overwrites
   def airdate=(date)
     super(date)
@@ -271,5 +273,9 @@ class Episode < ActiveRecord::Base
 
   def generate_sort_nr
     (season_nr || 1) * 1000 + nr
+  end
+
+  def new_season?
+    nr == 1
   end
 end
