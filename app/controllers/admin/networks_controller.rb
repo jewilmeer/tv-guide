@@ -10,6 +10,11 @@ class Admin::NetworksController < AdminAreaController
     @next_programs = program_scope.section params[:page].to_i.succ
   end
 
+  def update
+    @network = Network.find(params[:id])
+    @network.update_attribute :active, params[:active]
+  end
+
   def destroy
     @network = Network.find(params[:id])
     @network.destroy
