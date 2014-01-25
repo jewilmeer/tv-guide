@@ -9,7 +9,8 @@ TvEpisodes::Application.routes.draw do
 
   namespace :admin do
     root :to => 'pages#root'
-    resources :users, :interactions, :episodes, :genres
+    resources :users, :interactions, :episodes
+    resources :genres, :networks, only: [:index, :show, :update, :delete]
     resources :programs do
       resources :images, only: [:index]
     end
