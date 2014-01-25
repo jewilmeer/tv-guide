@@ -10,3 +10,5 @@
     = link_to 'Users', [:admin, :users]
   %li{class: (:active if active_page?('admin/genres'))}
     = link_to 'Genres', [:admin, :genres]
+  %li{class: (:active if active_page?('admin/networks'))}
+    = link_to 'Networks', [:admin, :networks]
