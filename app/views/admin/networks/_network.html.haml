@@ -1,3 +1,9 @@
-%tr[network]
+%tr[network]{ class: ('success' if network.active) }
   %td= link_to network.name, [:admin, network]
   %td= pluralize network.programs_count, 'program'
+  %td
+    = link_to admin_network_path(network, active: !network.active), method: :patch, data: { remote: true, 'disable-with' => '...' } do
+      - if network.active
+        %i.icon-ok.text-success
+      - else
+        %i.icon-remove.text-danger
