@@ -142,7 +142,7 @@ module Concerns
 
     def calculate_active
       return true if stations.any?
-      return false unless network_id.present?
+      return false unless network && network.active
       return false if genres.inactive.any? || genres.none?
       return false unless tvdb_rating >= 7
       return false unless tvdb_banners.any?
