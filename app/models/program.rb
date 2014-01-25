@@ -14,7 +14,7 @@ class Program < ActiveRecord::Base
   has_many :stations, through: :station_programs
   has_and_belongs_to_many :genres
 
-  belongs_to :network
+  belongs_to :network, counter_cache: true
 
   validates :tvdb_id, :uniqueness => true
   validates :name, presence: true, if: :persisted?
