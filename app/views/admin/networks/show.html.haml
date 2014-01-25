@@ -1,0 +1,19 @@
+%section
+  .page-header
+    %h1== #{@network.name}'s programs
+
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Name
+        %th Next episode
+        %th Status
+        %th Last update
+        %th Last checked
+        %th Controls
+
+    %tbody
+      = render @programs
+
+  .pagination
+    = link_to '>', url_for(params.merge(page: (params[:page] || 1).succ)), class: 'next_page'

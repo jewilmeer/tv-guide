@@ -46,8 +46,8 @@
           = pluralize( @program.max_season_nr, 'season')
         %dt First episode aired at
         %dd
-          - if first_aired = @program.episodes.order('airs_at').first
-            = l(first_aired.airs_at, :format => :long) rescue '-'
+          - if @program.first_aired
+            = l(@program.first_aired, :format => :long)
           - else
             \-
         %dt Last aired
