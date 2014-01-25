@@ -4,6 +4,7 @@ gem "rails", "~> 4.0.0"
 gem 'mail'
 gem 'pg'
 gem 'foreigner'
+# gem 'immigrant' #add missing foreign keys
 
 # Bundle the extra gems:
 gem 'mechanize'
