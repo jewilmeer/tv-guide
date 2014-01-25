@@ -1,8 +1,17 @@
-%h1
-  == #{@genre.name} overview
-  %small
-    = link_to admin_genre_path(@genre, active: !@genre.active), method: :patch, data: { remote: true, 'disable-with' => '...' } do
-      = @genre.active? ? 'Active' : 'Inactive'
+%section
+  .page-header
+    %h1
+      == #{@genre.name} overview
+      %small
+        = link_to admin_genre_path(@genre, active: !@genre.active), method: :patch, data: { remote: true, 'disable-with' => '...' } do
+          = @genre.active? ? 'Active' : 'Inactive'
 
-%table.table.table-hover
-  %tbody= render @genre.programs
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Program name
+        %th First aired
+        %th Next episode
+        %th Genres
+
+    %tbody= render @genre.programs
