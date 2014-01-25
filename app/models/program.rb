@@ -82,4 +82,8 @@ class Program < ActiveRecord::Base
   def should_generate_new_friendly_id
     name_changed?
   end
+
+  def new_serie?
+    first_aired.between?(2.months.ago, 2.months.from_now)
+  end
 end
