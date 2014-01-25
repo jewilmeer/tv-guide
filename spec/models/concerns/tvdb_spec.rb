@@ -39,4 +39,10 @@ describe Concerns::TVDB do
       expect{ program.tvdb_serie! }.to raise_error TVDBNotFound
     end
   end
+
+  describe "valid format" do
+    subject { Program.new }
+    it { should allow_value('House of pain').for(:name) }
+    it { should_not allow_value('***DUPLICATE').for(:name) }
+  end
 end
