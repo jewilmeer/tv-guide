@@ -60,10 +60,11 @@ module Concerns
     end
 
     def tvdb_refresh
-      self.apply_tvdb_attributes tvdb_serie!
-      self.save!
+      apply_tvdb_attributes tvdb_serie!
+      update_active_state
+      save!
     rescue TVDBNotFound, ActiveRecord::RecordInvalid
-      self.destroy
+      destroy
       nil
     end
 
@@ -82,7 +83,6 @@ module Concerns
 
         episode = episodes.where(tvdb_id: tvdb_episode.id).first_or_initialize
         episode.apply_tvdb_attributes tvdb_episode
-        update_active_state
         episode.save
       end
     end
