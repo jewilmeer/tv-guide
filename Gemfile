@@ -35,6 +35,9 @@ gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'font-awesome-sass-rails'
 
+gem 'pry-rails'
+gem 'pry-debugger'
+
 group :production do
   gem 'newrelic_rpm'
   gem 'dalli'
@@ -51,9 +54,6 @@ group :development, :test do
 
   # help test stuff
   gem 'timecop'
-
-  gem 'pry-rails'
-  gem 'pry-debugger'
 end
 
 group :development do
