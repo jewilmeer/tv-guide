@@ -11,4 +11,11 @@ class Admin::GenresController < AdminAreaController
     @genre = Genre.find(params[:id])
     @genre.update_attribute :active, params[:active]
   end
+
+  def destroy
+    @genre = Genre.find(params[:id])
+    @genre.destroy
+
+    redirect_to admin_genres_path flash: { notice: %(... and it's gone!) }
+  end
 end

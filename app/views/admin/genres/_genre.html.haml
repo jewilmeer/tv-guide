@@ -7,3 +7,6 @@
         %i.icon-ok.text-success
       - else
         %i.icon-remove.text-danger
+  %td
+    = link_to admin_genre_path(genre), method: :delete do
+      %i.icon-trash
