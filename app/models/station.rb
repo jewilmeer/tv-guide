@@ -1,4 +1,5 @@
 class Station < ActiveRecord::Base
+  include Concerns::Sections
   extend FriendlyId
   friendly_id :slug_candidates
 

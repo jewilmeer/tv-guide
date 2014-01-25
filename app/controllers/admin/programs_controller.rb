@@ -4,7 +4,7 @@ class Admin::ProgramsController < AdminAreaController
   # GET /admin_programs
   # GET /admin_programs.xml
   def index
-    @programs = Program.order('status, name').page params[:page]
+    @programs = Program.order('active desc, status, name').page params[:page]
   end
 
   def show

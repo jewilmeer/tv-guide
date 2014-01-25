@@ -1,6 +1,7 @@
 $('#programs tbody').append('<%= j render(@programs) %>');
-<% if @programs.next_page %>
-  $('.pagination').replaceWith('<%= j will_paginate(@programs) %>');
+<% if @basic_program_scope.section(params[:page].to_i.succ).any? %>
+  content = '<%= j link_to ">", url_for(params.merge(page: (params[:page] || 1).succ)), class: :next_page %>';
+  $('.pagination').html(content);
 <% else %>
   $('.pagination').remove();
 <% end %>
