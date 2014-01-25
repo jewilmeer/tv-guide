@@ -69,6 +69,8 @@ class Admin::ProgramsController < AdminAreaController
   end
 
   def program_params
-    params.require(:program).permit!
+    params.require(:program).permit!.tap do |params|
+      params[:slug] = nil if params[:slug].blank?
+    end
   end
 end

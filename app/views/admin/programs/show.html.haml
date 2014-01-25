@@ -30,6 +30,7 @@
       = simple_form_for([:admin, @program]) do |f|
         = f.input :name
         = f.input :search_name
+        = f.input :slug, hint: 'Leaf slug empty to trigger an auto-regenerate'
         = f.input :active
         .form-actions
           = f.button :submit, data: { disable_with: 'Please wait...' }, class: 'btn-primary'
