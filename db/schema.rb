@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124155357) do
+ActiveRecord::Schema.define(version: 20140125092036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20140124155357) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "downloads", ["episode_id"], name: "index_downloads_on_episode_id", using: :btree
 
   create_table "episodes", force: true do |t|
     t.string   "title"
@@ -46,6 +48,7 @@ ActiveRecord::Schema.define(version: 20140124155357) do
 
   add_index "episodes", ["airdate"], name: "index_episodes_on_airdate", using: :btree
   add_index "episodes", ["airs_at"], name: "index_episodes_on_airs_at", using: :btree
+  add_index "episodes", ["program_id"], name: "index_episodes_on_program_id", using: :btree
   add_index "episodes", ["sort_nr"], name: "index_episodes_on_sort_nr", using: :btree
   add_index "episodes", ["updated_at"], name: "index_episodes_on_updated_at", using: :btree
 
@@ -127,6 +130,9 @@ ActiveRecord::Schema.define(version: 20140124155357) do
     t.integer "program_id"
   end
 
+  add_index "programs_stations", ["program_id"], name: "index_programs_stations_on_program_id", using: :btree
+  add_index "programs_stations", ["station_id"], name: "index_programs_stations_on_station_id", using: :btree
+
   create_table "stations", force: true do |t|
     t.string   "name",          null: false
     t.integer  "user_id"
@@ -139,6 +145,7 @@ ActiveRecord::Schema.define(version: 20140124155357) do
 
   add_index "stations", ["slug"], name: "index_stations_on_slug", using: :btree
   add_index "stations", ["taggable_type"], name: "index_stations_on_taggable_type", using: :btree
+  add_index "stations", ["user_id"], name: "index_stations_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                                null: false
@@ -182,6 +189,8 @@ ActiveRecord::Schema.define(version: 20140124155357) do
   add_foreign_key "interactions", "episodes", name: "interactions_episode_id_fk", dependent: :delete
   add_foreign_key "interactions", "programs", name: "interactions_program_id_fk", dependent: :delete
   add_foreign_key "interactions", "users", name: "interactions_user_id_fk", dependent: :delete
+
+  add_foreign_key "programs", "networks", name: "programs_network_id_fk"
 
   add_foreign_key "programs_stations", "programs", name: "programs_stations_program_id_fk"
   add_foreign_key "programs_stations", "stations", name: "programs_stations_station_id_fk"
