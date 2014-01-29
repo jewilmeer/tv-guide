@@ -3,12 +3,13 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @basic_program_scope = Program.active.order('status, programs.name').
+    @programs = Program.active.order('status, programs.name').
       includes(:network, :genres).
-      search_program(params[:q])
-    @programs = @basic_program_scope.section(params[:page])
-    if matched_program = exact_match_found?(@programs, params[:q])
-      redirect_to matched_program
+      search_program(params[:q]).
+      section(params[:page])
+
+    if @program = exact_match_found?(params[:q])
+      redirect_to @program
     else
       respond_with @programs
     end
@@ -52,9 +53,9 @@ class ProgramsController < ApplicationController
     Program.friendly.find(params[:id])
   end
 
-  def exact_match_found?(programs, query)
-    return false unless query.present?
-    programs.find { |program| program.name.downcase == query.downcase }
+  def exact_match_found?(query)
+    return false if query.blank?
+    Program.where('lower(name) = ?', query.downcase).first
   end
 
   def rounded_time
