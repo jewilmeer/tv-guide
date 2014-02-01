@@ -84,6 +84,7 @@ class Program < ActiveRecord::Base
   end
 
   def new_serie?
+    return false unless first_aired.present?
     first_aired.between?(2.months.ago, 2.months.from_now)
   end
 end
