@@ -36,7 +36,6 @@ gem 'bootswatch-rails'
 gem 'font-awesome-sass-rails'
 
 gem 'pry-rails'
-# gem 'pry-debugger'
 
 group :production do
   gem 'newrelic_rpm'
