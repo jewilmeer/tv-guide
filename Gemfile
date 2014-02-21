@@ -31,7 +31,7 @@ gem 'jquery-rails'
 gem 'coffee-rails'
 gem 'sass-rails'
 gem 'uglifier'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 2.0'
 gem 'bootswatch-rails'
 gem 'font-awesome-sass-rails'
 

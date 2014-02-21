@@ -1,10 +1,12 @@
 # -*- encoding: utf-8 -*-
+# stub: tvdb_party 0.6.0 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "tvdb_party"
   s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.require_paths = ["lib"]
   s.authors = ["Jon Maddox"]
   s.date = "2010-11-19"
   s.description = "Simple Ruby library to talk to thetvdb.com's api"
@@ -13,8 +15,7 @@ Gem::Specification.new do |s|
   s.files = [".document", ".gitignore", "LICENSE", "README.textile", "Rakefile", "VERSION", "lib/tvdb_party.rb", "lib/tvdb_party/actor.rb", "lib/tvdb_party/banner.rb", "lib/tvdb_party/episode.rb", "lib/tvdb_party/httparty_icebox.rb", "lib/tvdb_party/search.rb", "lib/tvdb_party/series.rb", "test/test_helper.rb", "test/tvdb_party_test.rb", "tvdb_party.gemspec"]
   s.homepage = "http://github.com/maddox/tvdb_party"
   s.rdoc_options = ["--charset=UTF-8"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.23"
+  s.rubygems_version = "2.2.0"
   s.summary = "Simple Ruby library to talk to thetvdb.com's api"
   s.test_files = ["test/test_helper.rb", "test/tvdb_party_test.rb"]
 
