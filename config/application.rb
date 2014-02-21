@@ -9,5 +9,6 @@ module TvEpisodes
     config.autoload_paths += %W(#{config.root}/lib)
 
     config.time_zone = 'Amsterdam'
+    I18n.enforce_available_locales = true
   end
 end
