@@ -1,8 +1,8 @@
 class Download < ActiveRecord::Base
   belongs_to :episode, :touch => true
 
-  validates_presence_of :origin, :download_type, :download_file_name
-  validate :download_type, :uniqueness => { :scope => [:episode_id] }
+  validates :origin, :download_type, :download_file_name, presence: true
+  validates :download_type, :uniqueness => { :scope => [:episode_id] }
 
   has_attached_file :download,
     :processors => [],
