@@ -10,7 +10,8 @@ gem 'foreigner'
 gem 'mechanize'
 gem 'simple_form'
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
-gem 'paperclip'
+# paperclip validations suck bigtime: https://github.com/thoughtbot/paperclip#security-validations is not working
+gem 'paperclip', '~> 3.0'
 gem 'carrierwave'
 gem "aws-sdk"
 gem 'airbrake'
