@@ -39,7 +39,7 @@ module Concerns
     end
 
     def tvdb_serie
-      @tvdb_serie ||= tvdb_client.get_series_by_id self.tvdb_id
+      @tvdb_serie ||= tvdb_client.get_series_by_id tvdb_id
     end
 
     def tvdb_serie!
@@ -49,14 +49,16 @@ module Concerns
     end
 
     def tvdb_full_update
+      # ignore recently updated, but inactive programs
+      return if !active && last_checked_witin?(1.month)
       # do not continue if one of these fails
       return unless tvdb_refresh && tvdb_refresh_episodes && update_episode_counters
 
       # cleanup invalid programs
-      return self.destroy unless self.valid?
+      return destroy unless valid?
 
-      self.delay.tvdb_update_banners if followed_by_any_user?
-      self.touch(:last_checked_at)
+      self.delay.tvdb_update_banners if active?
+      touch(:last_checked_at)
     end
 
     def tvdb_refresh
@@ -147,6 +149,10 @@ module Concerns
       return false unless tvdb_rating >= 7
       return false unless tvdb_banners.any?
       true
+    end
+
+    def last_checked_within?(timespan)
+      last_checked_at < timespan.ago
     end
   end
 end
