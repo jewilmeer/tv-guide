@@ -50,7 +50,7 @@ module Concerns
 
     def tvdb_full_update
       # ignore recently updated, but inactive programs
-      return if !active && last_checked_witin?(1.month)
+      return if !active && last_checked_within?(1.month)
       # do not continue if one of these fails
       return unless tvdb_refresh && tvdb_refresh_episodes && update_episode_counters
 
