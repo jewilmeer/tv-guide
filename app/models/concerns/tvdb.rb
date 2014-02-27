@@ -39,7 +39,7 @@ module Concerns
     end
 
     def tvdb_serie
-      @tvdb_serie ||= tvdb_client.get_series_by_id self.tvdb_id
+      @tvdb_serie ||= tvdb_client.get_series_by_id tvdb_id
     end
 
     def tvdb_serie!
@@ -53,10 +53,10 @@ module Concerns
       return unless tvdb_refresh && tvdb_refresh_episodes && update_episode_counters
 
       # cleanup invalid programs
-      return self.destroy unless self.valid?
+      return destroy unless valid?
 
-      self.delay.tvdb_update_banners if followed_by_any_user?
-      self.touch(:last_checked_at)
+      self.delay.tvdb_update_banners if active?
+      touch(:last_checked_at)
     end
 
     def tvdb_refresh
