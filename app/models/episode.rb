@@ -184,7 +184,7 @@ class Episode < ActiveRecord::Base
     self.title        = tvdb_result.name || 'TBA'
     self.description  = tvdb_result.overview
     self.airdate      = tvdb_result.air_date
-    self.remote_thumb_url = tvdb_result.thumb
+    self.remote_thumb_url = tvdb_result.thumb if program.active?
     self
   end
 
