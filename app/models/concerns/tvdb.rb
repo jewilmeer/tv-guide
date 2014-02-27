@@ -49,6 +49,8 @@ module Concerns
     end
 
     def tvdb_full_update
+      # ignore recently updated, but inactive programs
+      return if !active && last_checked_witin?(1.month)
       # do not continue if one of these fails
       return unless tvdb_refresh && tvdb_refresh_episodes && update_episode_counters
 
@@ -147,6 +149,10 @@ module Concerns
       return false unless tvdb_rating >= 7
       return false unless tvdb_banners.any?
       true
+    end
+
+    def last_checked_within?(timespan)
+      last_checked_at < timespan.ago
     end
   end
 end
