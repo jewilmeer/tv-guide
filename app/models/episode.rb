@@ -268,7 +268,7 @@ class Episode < ActiveRecord::Base
   end
 
   def update_sort_order
-    sort_order = try(:generate_sort_nr)
+    self.sort_nr = try(:generate_sort_nr)
   end
 
   def generate_sort_nr
