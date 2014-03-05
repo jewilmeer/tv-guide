@@ -14,7 +14,9 @@ module Concerns
       end
 
       def self.tvdb_updated_tvdb_ids(timestamp)
-        Array(tvdb_client.get_series_updates(timestamp.to_i)['Series']).map(&:to_i)
+        result = tvdb_client.get_series_updates(timestamp.to_i)
+        return [] unless result.is_a? Hash
+        Array(result['Series']).map(&:to_i)
       end
 
       def self.tvdb_search query
