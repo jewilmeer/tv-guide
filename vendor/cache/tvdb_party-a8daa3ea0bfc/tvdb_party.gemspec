@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.files = [".document", ".gitignore", "LICENSE", "README.textile", "Rakefile", "VERSION", "lib/tvdb_party.rb", "lib/tvdb_party/actor.rb", "lib/tvdb_party/banner.rb", "lib/tvdb_party/episode.rb", "lib/tvdb_party/httparty_icebox.rb", "lib/tvdb_party/search.rb", "lib/tvdb_party/series.rb", "test/test_helper.rb", "test/tvdb_party_test.rb", "tvdb_party.gemspec"]
   s.homepage = "http://github.com/maddox/tvdb_party"
   s.rdoc_options = ["--charset=UTF-8"]
-  s.rubygems_version = "2.2.0"
+  s.rubygems_version = "2.2.2"
   s.summary = "Simple Ruby library to talk to thetvdb.com's api"
   s.test_files = ["test/test_helper.rb", "test/tvdb_party_test.rb"]
 
