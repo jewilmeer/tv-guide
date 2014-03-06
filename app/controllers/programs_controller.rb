@@ -3,10 +3,11 @@ class ProgramsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @programs = Program.active.order('status, programs.name').
-      includes(:network, :genres).
-      search_program(params[:q]).
-      section(params[:page])
+    @basic_program_scope = Program.active.order('status, programs.name')
+      .includes(:network, :genres)
+      .search_program(params[:q])
+
+    @programs = @basic_program_scope.section(params[:page])
 
     if @program = exact_match_found?(params[:q])
       redirect_to @program
