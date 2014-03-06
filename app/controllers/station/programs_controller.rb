@@ -25,7 +25,7 @@ class Station::ProgramsController < Station::BaseController
     if params[:id]
       Program.friendly.find params[:id]
     else
-      Program.find_by_name params[:station_program][:program_id]
+      Program.find params[:station_program][:program_id]
     end
   end
 end
