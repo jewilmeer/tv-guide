@@ -4,7 +4,6 @@
     %h3 Add new program
   = simple_form_for @station_program, url: station_programs_path(@station) do |f|
     .modal-body
-      = f.input :program_id, as: :string, input_html: { 'data-provide' => 'typeahead',
-        autocomplete: :off }
+      = f.association :program, collection: Program.active.order('status, programs.name')
     .modal-footer
       = f.button :submit, as: :submit, class: 'btn btn-primary'
