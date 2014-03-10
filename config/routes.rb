@@ -12,7 +12,7 @@ TvEpisodes::Application.routes.draw do
     resources :users, :interactions, :episodes
     resources :genres, :networks, only: [:index, :show, :update, :delete]
     resources :programs do
-      resources :images, only: [:index]
+      resources :images, :episodes, only: [:index]
     end
   end
 
