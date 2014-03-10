@@ -4,9 +4,9 @@ class AdminAreaController < ApplicationController
 
   def program_nav_links
     {
-      :previous => Program.where('status = ?', @program.status).order(:name).
+      :previous => Program.active.where('status = ?', @program.status).order(:name).
                     where('name > ?', @program.name).first,
-      :next     => Program.where('status = ?', @program.status).order(:name).
+      :next     => Program.active.where('status = ?', @program.status).order(:name).
                     where('name < ?', @program.name).last
     }
   end

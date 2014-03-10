@@ -3,7 +3,17 @@ class Admin::EpisodesController < AdminAreaController
   before_filter :get_episode, :except => [:index, :destroy]
 
   def index
-    basic_scope = Episode.airs_at_in_past.includes(:program)
+    if params[:program_id]
+      @program = Program.friendly.find params[:program_id]
+      @nav = program_nav_links
+
+      basic_scope = @program.episodes.order('sort_nr desc').includes(:program)
+    else
+      basic_scope = Episode.active
+        .airs_at_in_past
+        .order('episodes.updated_at desc')
+        .includes(:program)
+    end
 
     @episodes = basic_scope.page params[:page]
   end
@@ -19,7 +29,7 @@ class Admin::EpisodesController < AdminAreaController
 
   def destroy
     Episode.destroy params[:id]
-    redirect_to admin_episodes_path
+    redirect_to :back
   end
 
   protected

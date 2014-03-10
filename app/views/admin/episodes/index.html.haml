@@ -1,12 +1,17 @@
-.page-header
-  %h1 All Episodes
+- if @program
+  = render 'admin/programs/hero', program: @program, nav: @nav
+- else
+  .page-header
+    %h1 All Episodes
+
 - if @episodes.any?
   %table.table.table-striped.table-hover.table-bordered
     %thead
       %tr
         %th Episode title
         %th Airdate
-        %th Edit
+        %td Last updated
+        %th Controls
     %tbody
       = render @episodes
   = will_paginate @episodes
