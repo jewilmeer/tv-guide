@@ -1,9 +1,15 @@
 %tr[episode]
   %td
-    = link_to episode.program_name, episode.program
+    = link_to episode.program_name, [:admin, episode.program]
     \-
     = link_to episode.full_episode_title, [episode.program, episode]
-  %td= l(episode.airs_at, :format => :long)
+    %small.muted== (#{episode.tvdb_id})
+  %td
+    - if episode.airs_at
+      = l(episode.airs_at, :format => :long)
+    - else
+      \-
+  %td= l episode.updated_at, format: :long
   %td
     = link_to edit_admin_episode_path(episode) do
       %i.icon-edit.icon-large

@@ -1,0 +1,12 @@
+.page-heading
+  %h3= @program.name
+
+%table.table.table-hover
+  %thead
+    %tr
+      %td Epsisode title
+      %td Airdate
+      %td Last updated
+      %td Controls
+  %tbody
+    = render @program.episodes.order('sort_nr desc')
