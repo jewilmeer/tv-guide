@@ -8,10 +8,10 @@ class EpisodesController < ApplicationController
   def show
     @program = episode.program
     @grouped_episodes = @program.episodes.includes(:downloads).
-      order('season_nr, nr desc').group_by(&:season_nr)
+      order('season_nr desc, nr desc').group_by(&:season_nr)
     @episode = episode
 
-    fresh_when(etag: [!!current_user, @program, @episode], public: true)
+    fresh_when(etag: @episode, last_modified: @program.updated_at, public: true) unless user_signed_in?
   end
 
   def update
