@@ -9,7 +9,9 @@ class EpisodesController < ApplicationController
     @program = episode.program
     @grouped_episodes = @program.episodes.includes(:downloads).
       order('season_nr, nr desc').group_by(&:season_nr)
-    respond_with episode
+    @episode = episode
+
+    fresh_when(etag: [!!current_user, @program, @episode], public: true)
   end
 
   def update
