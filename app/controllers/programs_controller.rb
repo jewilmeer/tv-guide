@@ -20,6 +20,7 @@ class ProgramsController < ApplicationController
     @program          = Program.friendly.find params[:id]
     @grouped_episodes = @program.episodes.includes(:downloads).order('season_nr desc, nr desc').group_by(&:season_nr)
     @personal_station = current_user.stations.personal.first if user_signed_in?
+    fresh_when(@program, public: true) unless user_signed_in?
   end
 
   def update
