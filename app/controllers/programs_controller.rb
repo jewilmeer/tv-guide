@@ -1,6 +1,7 @@
 class ProgramsController < ApplicationController
   before_filter :authenticate_user_from_token!, only: :download_list
   respond_to :html, :json, :js
+  etag { current_user.try :id }
 
   def index
     @basic_program_scope = Program.active.order('status, programs.name')
@@ -19,7 +20,7 @@ class ProgramsController < ApplicationController
   def show
     @program = Program.friendly.find params[:id]
 
-    if stale?(@program, public: true) && !user_signed_in?
+    if stale?(@program, public: true)
       @grouped_episodes = @program.episodes.includes(:downloads).order('season_nr desc, nr desc').group_by(&:season_nr)
       @personal_station = current_user.stations.personal.first if user_signed_in?
     end
