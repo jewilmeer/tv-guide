@@ -17,11 +17,13 @@ class EpisodesController < ApplicationController
   end
 
   def update
+    @episode  = episode
     episode.download
     respond_with episode
   end
 
   def download
+    @episode  = episode
     @download = episode.downloads.first!
     current_user.interactions.create({
       user:             current_user,
@@ -38,6 +40,7 @@ class EpisodesController < ApplicationController
   end
 
   def search
+    @episode  = episode
     end_point = episode.search_url
 
     current_user.interactions.create({
