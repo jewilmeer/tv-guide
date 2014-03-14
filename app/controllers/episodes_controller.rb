@@ -6,12 +6,13 @@ class EpisodesController < ApplicationController
   before_filter :authenticate_user!, :only => [:update, :download, :search]
 
   def show
-    @program = episode.program
-    @grouped_episodes = @program.episodes.includes(:downloads).
-      order('season_nr desc, nr desc').group_by(&:season_nr)
-    @episode = episode
+    @program = program
+    @episode = @program.episodes.find(params[:id])
 
-    fresh_when(etag: @episode, last_modified: @program.updated_at, public: true) unless user_signed_in?
+    if !user_signed_in? && stale?(etag: @episode, last_modified: @program.updated_at, public: true)
+      @grouped_episodes = @program.episodes.includes(:downloads).
+        order('season_nr desc, nr desc').group_by(&:season_nr)
+    end
   end
 
   def update
@@ -52,8 +53,11 @@ class EpisodesController < ApplicationController
     redirect_to end_point
   end
 
+  def program
+    Program.friendly.find params[:program_id]
+  end
 
   def episode
-    @episode ||= Episode.includes(:program, :downloads).find params[:id]
+    Episode.includes(:program, :downloads).find params[:id]
   end
 end
