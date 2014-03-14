@@ -2,6 +2,7 @@ class EpisodesController < ApplicationController
   layout 'fluid'
   respond_to :html, :js, :nzb
 
+  etag { current_user.try :id }
   before_filter :authenticate_user_from_token!, only: :download
   before_filter :authenticate_user!, :only => [:update, :download, :search]
 
@@ -9,7 +10,7 @@ class EpisodesController < ApplicationController
     @program = program
     @episode = @program.episodes.find(params[:id])
 
-    if !user_signed_in? && stale?(etag: @episode, last_modified: @program.updated_at, public: true)
+    if stale?(etag: @episode, last_modified: @program.updated_at, public: true)
       @grouped_episodes = @program.episodes.includes(:downloads).
         order('season_nr desc, nr desc').group_by(&:season_nr)
     end
