@@ -164,10 +164,10 @@ module Concerns
       return true unless tvdb_updated_within?(1.month)
       false
     end
-  end
 
-  def tvdb_log_msg(msg)
-    Rails.logger.tagged(:TVDB) { Rails.logger.info { msg } }
+    def tvdb_log_msg(msg)
+      Rails.logger.tagged(:TVDB) { Rails.logger.info { msg } }
+    end
   end
 end
 
