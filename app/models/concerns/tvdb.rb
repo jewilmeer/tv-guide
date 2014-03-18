@@ -73,7 +73,7 @@ module Concerns
     end
 
     def tvdb_refresh_episodes
-      logger.debug "=== Refreshing episodes"
+      tvdb_log_msg "Refreshing episodes for #{name}"
       tvdb_episodes.map do |tvdb_episode|
         # remove special episodes
         next if [0, 99].include? tvdb_episode.season_number.to_i
@@ -125,7 +125,7 @@ module Concerns
     end
 
     def tvdb_banners
-      logger.debug "[#{Time.now.to_s(:long)}] Getting banners for #{name}"
+      tvdb_log_msg "[#{Time.now.to_s(:long)}] Getting banners for #{name}"
       tvdb_client.get_banners_by_id(self.tvdb_id)
     end
 
@@ -158,6 +158,10 @@ module Concerns
       return true unless tvdb_updated_within?(1.month)
       false
     end
+  end
+
+  def tvdb_log_msg(msg)
+    Rails.logger.tagged(:TVDB) { Rails.logger.info { msg } }
   end
 end
 
