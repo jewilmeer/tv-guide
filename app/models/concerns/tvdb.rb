@@ -48,12 +48,12 @@ module Concerns
       return if tvdb_updated_within?(1.hour)
       # do not continue if one of these fails
       return unless tvdb_refresh && tvdb_refresh_episodes && update_episode_counters
+      self.delay.tvdb_update_banners if active?
+
       touch(:last_checked_at)
 
       # cleanup invalid programs
       return destroy unless valid?
-
-      self.delay.tvdb_update_banners if active?
       true
     end
 
@@ -130,6 +130,7 @@ module Concerns
     end
 
     def tvdb_update_banners
+      return if banners_updated_within?(1.day)
       tvdb_banners.each do |banner|
         image = self.images.where(source_url: banner.url).first_or_initialize.tap do |image|
           image.image_type = [banner.banner_type, banner.banner_type2].compact.join(':')
@@ -150,6 +151,11 @@ module Concerns
     def tvdb_updated_within?(timespan)
       return true unless last_checked_at
       last_checked_at >= timespan.ago
+    end
+
+    def banners_updated_within?(timespan)
+      return false if images.none?
+      images.order('created_at').last.created_at >= timespan.ago
     end
 
     def needs_tvdb_update?
