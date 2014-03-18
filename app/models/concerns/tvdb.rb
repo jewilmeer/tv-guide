@@ -28,12 +28,6 @@ module Concerns
           program.apply_tvdb_attributes tvdb_result
         end
       end
-
-      def self.tvdb_apply_update_since since=5.minutes.ago
-        tvdb_updated_tvdb_ids(since).map do |tvdb_id|
-          first_or_create_by(tvdb_id: tvdb_id)
-        end
-      end
     end
 
     def tvdb_client
@@ -51,16 +45,16 @@ module Concerns
     end
 
     def tvdb_full_update
-      # ignore recently updated, but inactive programs
-      return if !active && last_checked_within?(1.month)
+      return if tvdb_updated_within?(1.hour)
       # do not continue if one of these fails
       return unless tvdb_refresh && tvdb_refresh_episodes && update_episode_counters
+      touch(:last_checked_at)
 
       # cleanup invalid programs
       return destroy unless valid?
 
       self.delay.tvdb_update_banners if active?
-      touch(:last_checked_at)
+      true
     end
 
     def tvdb_refresh
@@ -153,8 +147,16 @@ module Concerns
       true
     end
 
-    def last_checked_within?(timespan)
-      last_checked_at < timespan.ago
+    def tvdb_updated_within?(timespan)
+      return true unless last_checked_at
+      last_checked_at >= timespan.ago
+    end
+
+    def needs_tvdb_update?
+      return true if last_checked_at.blank?
+      return true if active && !tvdb_updated_within?(1.day)
+      return true unless tvdb_updated_within?(1.month)
+      false
     end
   end
 end
