@@ -17,7 +17,7 @@ class Program < ActiveRecord::Base
   belongs_to :network, counter_cache: true
 
   validates :tvdb_id, :uniqueness => true
-  validates :name, presence: true, if: :persisted?
+  validates :name, presence: true, if: :tvdb_updated?
 
   before_save :update_episodes_with_program_name
 
@@ -86,5 +86,9 @@ class Program < ActiveRecord::Base
   def new_serie?
     return false unless first_aired.present?
     first_aired.between?(2.months.ago, 2.months.from_now)
+  end
+
+  def tvdb_updated?
+    last_checked_at.present?
   end
 end
