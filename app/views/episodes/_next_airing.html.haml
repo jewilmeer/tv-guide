@@ -1,13 +1,16 @@
-- date = nil
-%ul.nav.nav-list#next-airing
-  - next_episodes.each do |episode|
-    - if date != episode.airdate
-      - date = episode.airdate
-      %li.nav-header= pretty_date date
-    %li[episode]
-      = link_to episode.program do
-        = episode.program_name
-        - if episode.new_serie?
-          %span.label.label-success New
-        - elsif episode.new_season?
-          %span.label.label-success New season
+- if next_episodes.any?
+  - date = nil
+  %ul.nav.nav-list#next-airing
+    - next_episodes.each do |episode|
+      - if date != episode.airdate
+        - date = episode.airdate
+        %li.nav-header= pretty_date date
+      %li[episode]
+        = link_to episode.program do
+          = episode.program_name
+          - if episode.new_serie?
+            %span.label.label-success New
+          - elsif episode.new_season?
+            %span.label.label-success New season
+- else
+  %p No airing episodes

@@ -1,10 +1,14 @@
-- cache [past_episodes.pluck(:updated_at).hash] do
-  - date = nil
-  - past_episodes.each do |episode|
-    - if date != episode.airdate
-      - date = episode.airdate
-      %dt
-        %h5= pretty_date date
-    = render 'episodes/past_episode', episode: episode
-  .pagination
-    = link_to '>', url_for(params.merge(page: (params[:page] || 1).succ)), class: 'next_page'
+-# A bit riskfull, need a better way
+- cache [last_updated_episode, params[:page]] do
+  - if past_episodes.any?
+    - date = nil
+    - past_episodes.each do |episode|
+      - if date != episode.airdate
+        - date = episode.airdate
+        %dt
+          %h5= pretty_date date
+      = render 'episodes/past_episode', episode: episode
+    .pagination
+      = link_to '>', url_for(params.merge(page: (params[:page] || 1).succ)), class: 'next_page'
+  - else
+    %p No past episodes found
