@@ -1,4 +1,4 @@
+<% content = render "episodes/past_episodes",
+  past_episodes: @past_episodes, last_updated_episode: @last_updated_episode %>
 $('.pagination').remove();
-<% if @past_episodes.any? %>
-$('#past-episodes').append('<%= j render("episodes/past_episodes", past_episodes: @past_episodes) %>');
-<% end %>
+$('#past-episodes').append('<%= j content %>');

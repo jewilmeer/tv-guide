@@ -5,18 +5,13 @@
     .span8
       .page-header
         %h4 Recently aired
-      - if @past_episodes.any?
         %dl#past-episodes
-          = render 'episodes/past_episodes', past_episodes: @past_episodes
-      - else
-        %p No past episodes found
+          = render 'episodes/past_episodes', |
+            past_episodes: @past_episodes, last_updated_episode: @last_updated_episode
 
     .span4
       .page-header
         %h4 Next airing
       .well
-        - if @upcoming_episodes.any?
-          - cache [:next_airing, Episode.order('updated_at').last] do
-            = render :partial => 'episodes/next_airing', :locals => {:next_episodes => @upcoming_episodes}
-        - else
-          %p No airing episodes
+        - cache [:guide, @last_updated_episode] do
+          = render 'episodes/next_airing', next_episodes: @upcoming_episodes

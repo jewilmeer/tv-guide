@@ -25,15 +25,12 @@
     %section.past_episodes
       - if @past_episodes.any?
         %dl#past-episodes
-          = render 'episodes/past_episodes', past_episodes: @past_episodes
+          = render 'episodes/past_episodes', past_episodes: @past_episodes, last_updated_episode: @last_updated_episode
       - else
         %p.text-center It's very quite in this lane. I Could use some company ;-)
   .span3
     .page-header
       %h4 Next airing
     .well
-      - if @next_episodes.any?
-        - cache [:next_airing, @station, @next_episodes.order('updated_at').last] do
-          = render 'episodes/next_airing', next_episodes: @next_episodes
-      - else
-        %p Nope, nothing airing anytime soon...
+      - cache [@station, @last_updated_episode] do
+        = render 'episodes/next_airing', next_episodes: @next_episodes

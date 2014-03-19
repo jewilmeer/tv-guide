@@ -15,6 +15,7 @@ class StationsController < ApplicationController
     @next_episodes      = @station.episodes.
                             includes(:program).
                             next_airing_from(Date.today)
+    @last_updated_episode = @station.episodes.order('updated_at').last
   end
 
   def download_list
