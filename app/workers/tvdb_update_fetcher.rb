@@ -3,7 +3,17 @@ class TvdbUpdateFetcher
   sidekiq_options :backtrace => true
 
   def perform(timestamp=5.minutes.ago)
-    Program.tvdb_updated_tvdb_ids(timestamp).each do |tvdb_id|
+    tvdb_ids = Program.tvdb_updated_tvdb_ids(timestamp)
+    Rails.logger.tagged(:TVDB) { Rails.logger.info { "Found updated tvdb_ids: #{tvdb_ids.inspect}}" } }
+
+    tvdb_ids.each do |tvdb_id|
+      program = Program.find_or_create_by(tvdb_id: tvdb_id) do |program|
+        program.active = false
+      end
+
+      next unless program.needs_tvdb_update?
+      Rails.logger.tagged(:TVDB) { Rails.logger.debug("Schedule #{tvdb_id}: #{program.name}") }
+
       TvdbProgramUpdater.perform_async tvdb_id
     end
   end
