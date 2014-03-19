@@ -33,6 +33,7 @@
       %h4 Next airing
     .well
       - if @next_episodes.any?
-        = render 'episodes/next_airing', next_episodes: @next_episodes
+        - cache [:next_airing, @station, @next_episodes.order('updated_at').last] do
+          = render 'episodes/next_airing', next_episodes: @next_episodes
       - else
         %p Nope, nothing airing anytime soon...
