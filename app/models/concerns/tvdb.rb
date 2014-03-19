@@ -28,12 +28,6 @@ module Concerns
           program.apply_tvdb_attributes tvdb_result
         end
       end
-
-      def self.tvdb_apply_update_since since=5.minutes.ago
-        tvdb_updated_tvdb_ids(since).map do |tvdb_id|
-          first_or_create_by(tvdb_id: tvdb_id)
-        end
-      end
     end
 
     def tvdb_client
@@ -51,16 +45,16 @@ module Concerns
     end
 
     def tvdb_full_update
-      # ignore recently updated, but inactive programs
-      return if !active && last_checked_within?(1.month)
+      return if tvdb_updated_within?(1.hour)
       # do not continue if one of these fails
       return unless tvdb_refresh && tvdb_refresh_episodes && update_episode_counters
+      self.delay.tvdb_update_banners if active?
+
+      touch(:last_checked_at)
 
       # cleanup invalid programs
       return destroy unless valid?
-
-      self.delay.tvdb_update_banners if active?
-      touch(:last_checked_at)
+      true
     end
 
     def tvdb_refresh
@@ -79,7 +73,7 @@ module Concerns
     end
 
     def tvdb_refresh_episodes
-      logger.debug "=== Refreshing episodes"
+      tvdb_log_msg "Refreshing episodes for #{name}"
       tvdb_episodes.map do |tvdb_episode|
         # remove special episodes
         next if [0, 99].include? tvdb_episode.season_number.to_i
@@ -131,11 +125,12 @@ module Concerns
     end
 
     def tvdb_banners
-      logger.debug "[#{Time.now.to_s(:long)}] Getting banners for #{name}"
+      tvdb_log_msg "[#{Time.now.to_s(:long)}] Getting banners for #{name}"
       tvdb_client.get_banners_by_id(self.tvdb_id)
     end
 
     def tvdb_update_banners
+      return if banners_updated_within?(1.day)
       tvdb_banners.each do |banner|
         image = self.images.where(source_url: banner.url).first_or_initialize.tap do |image|
           image.image_type = [banner.banner_type, banner.banner_type2].compact.join(':')
@@ -153,8 +148,25 @@ module Concerns
       true
     end
 
-    def last_checked_within?(timespan)
-      last_checked_at < timespan.ago
+    def tvdb_updated_within?(timespan)
+      return true unless last_checked_at
+      last_checked_at >= timespan.ago
+    end
+
+    def banners_updated_within?(timespan)
+      return false if images.none?
+      images.order('created_at').last.created_at >= timespan.ago
+    end
+
+    def needs_tvdb_update?
+      return true if last_checked_at.blank?
+      return true if active && !tvdb_updated_within?(1.day)
+      return true unless tvdb_updated_within?(1.month)
+      false
+    end
+
+    def tvdb_log_msg(msg)
+      Rails.logger.tagged(:TVDB) { Rails.logger.info { msg } }
     end
   end
 end

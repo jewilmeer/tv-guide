@@ -55,17 +55,71 @@ describe Concerns::TVDB do
     it { should_not allow_value('***DUPLICATE').for(:name) }
   end
 
-  describe "last_checked_within?" do
+  describe "tvdb_updated_within?" do
+    def tvdb_updated_within?(timestamp)
+      instance.tvdb_updated_within?(timestamp)
+    end
     let(:last_checked_at) { 1.month.ago }
 
     before { instance.stub last_checked_at: last_checked_at }
 
-    it "is false if " do
-      expect(instance.last_checked_within?(2.months)).to be_false
+    describe "within given range" do
+      it 'is true' do
+        expect( tvdb_updated_within?(2.months) ).to be_true
+      end
     end
 
-    it "is true if in future of last_checked_at" do
-      expect(instance.last_checked_within?(2.weeks)).to be_true
+    describe "outside given range" do
+      it "it true" do
+        expect( tvdb_updated_within?(1.day) ).to be_false
+      end
+    end
+  end
+
+  describe "needs_tvdb_update?" do
+    subject { instance.needs_tvdb_update? }
+    let(:last_checked_at) { nil }
+    let(:active) { false }
+
+    before do
+      instance.stub(last_checked_at: last_checked_at)
+      instance.stub(active: active)
+    end
+
+    it "is true by default" do
+      expect(subject).to be_true
+    end
+
+    describe "3 weeks not checked" do
+      let(:last_checked_at) { 3.weeks.ago }
+
+      it "doesn't need an update" do
+        expect(subject).to be_false
+      end
+    end
+
+    describe "1 month not checked" do
+      let(:last_checked_at) { 1.month.ago }
+
+      it "it needs an update" do
+        expect(subject).to be_true
+      end
+    end
+
+    describe "active, 1 day not checked" do
+      let(:active) { true }
+      let(:last_checked_at) { 25.hours.ago }
+      it "needs an update" do
+        expect(subject).to be_true
+      end
+    end
+
+    describe "active, 1 hour not checked" do
+      let(:active) { true }
+      let(:last_checked_at) { 1.hours.ago }
+      it "needs an update" do
+        expect(subject).to be_false
+      end
     end
   end
 end

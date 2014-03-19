@@ -17,7 +17,7 @@ class Program < ActiveRecord::Base
   belongs_to :network, counter_cache: true
 
   validates :tvdb_id, :uniqueness => true
-  validates :name, presence: true, if: :persisted?
+  validates :name, presence: true, if: :tvdb_updated?
 
   before_save :update_episodes_with_program_name
 
@@ -39,13 +39,13 @@ class Program < ActiveRecord::Base
   end
 
   def to_s
-    self.name
+    name
   end
 
   def update_episodes_with_program_name
     return unless persisted?
     return unless name_changed?
-    episodes.update_all(program_name: self.name)
+    episodes.update_all(program_name: name)
   end
 
   def self.default_search_term_pattern
@@ -53,23 +53,23 @@ class Program < ActiveRecord::Base
   end
 
   def followed_by_any_user?
-    Program.followed_by_any_user.where(id: self.id).any?
+    Program.followed_by_any_user.where(id: id).any?
   end
 
   def followed_by_user?(user)
-    self.stations.user_stations.where('user_id = ?', user.id).any?
+    stations.user_stations.where('user_id = ?', user.id).any?
   end
 
   def banner
-    self.images.with_fanart.sample
+    images.with_fanart.sample
   end
 
   def series_banner
-    self.images.with_image_type('series:graphical').all.sample
+    images.with_image_type('series:graphical').all.sample
   end
 
   def slug_alternative_additions
-    first_aired.try(:year) || self.tvdb_id
+    first_aired.try(:year) || tvdb_id
   end
 
   def slug_candidates
@@ -86,5 +86,9 @@ class Program < ActiveRecord::Base
   def new_serie?
     return false unless first_aired.present?
     first_aired.between?(2.months.ago, 2.months.from_now)
+  end
+
+  def tvdb_updated?
+    last_checked_at.present?
   end
 end
