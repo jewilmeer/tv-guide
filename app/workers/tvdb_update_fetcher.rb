@@ -6,8 +6,6 @@ class TvdbUpdateFetcher
     tvdb_ids = Program.tvdb_updated_tvdb_ids(timestamp)
     Rails.logger.tagged(:TVDB) { Rails.logger.info { "Found updated tvdb_ids: #{tvdb_ids.inspect}}" } }
 
-    binding.pry
-
     tvdb_ids.each do |tvdb_id|
       program = Program.find_or_create_by(tvdb_id: tvdb_id) do |program|
         program.active = false
