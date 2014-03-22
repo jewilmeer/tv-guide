@@ -1,5 +1,6 @@
 -# A bit riskfull, need a better way
-- cache [last_updated_episode, params[:page]] do
+- @station ||= nil
+- cache [@station, last_updated_episode, params[:page]] do
   - if past_episodes.any?
     - date = nil
     - past_episodes.each do |episode|

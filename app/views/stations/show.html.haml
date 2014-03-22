@@ -23,11 +23,8 @@
           :authentication_token => current_user.authentication_token, format: :rss) do
             %i.icon-rss
     %section.past_episodes
-      - if @past_episodes.any?
-        %dl#past-episodes
-          = render 'episodes/past_episodes', past_episodes: @past_episodes, last_updated_episode: @last_updated_episode
-      - else
-        %p.text-center It's very quite in this lane. I Could use some company ;-)
+      %dl#past-episodes
+        = render 'episodes/past_episodes', past_episodes: @past_episodes, last_updated_episode: @last_updated_episode
   .span3
     .page-header
       %h4 Next airing
