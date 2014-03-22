@@ -2,14 +2,18 @@
 %h3 Full guide
 %section
   .row
-    .span8
+    .span3
+      .page-header
+        %h4 Stations
+      = render 'application/station_list'
+    .span6
       .page-header
         %h4 Recently aired
         %dl#past-episodes
           = render 'episodes/past_episodes', |
             past_episodes: @past_episodes, last_updated_episode: @last_updated_episode
 
-    .span4
+    .span3
       .page-header
         %h4 Next airing
       .well
