@@ -138,6 +138,9 @@ class Episode < ActiveRecord::Base
       logger.info "No downloads found at #{search_url}"
       false
     end
+  rescue Mechanize::ResponseCodeError => e
+    logger.debug "Could not download episode: #{e.message}"
+    false
   end
 
   def download_with_reschedule
