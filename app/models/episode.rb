@@ -50,22 +50,8 @@ class Episode < ActiveRecord::Base
     date
   end
 
-  def self.episode_season_split(q)
-    match = q.match(/S(\d{1,2})E(\d{1,2})/)
-    [ match[1].to_i, match[2].to_i ] if match && match.length == 3
-  end
-
   def episode
     "%02d" % nr.to_i
-  end
-
-  def match(pattern)
-    match = filename.match(Regexp.new(pattern, 'i'))
-    match ? match[1] : nil
-  end
-
-  def is_episode?
-    %w(.avi .mkv .mov .srt .wmv .ts).include?(File.extname(path).downcase)
   end
 
   def age
@@ -107,11 +93,6 @@ class Episode < ActiveRecord::Base
 
   def to_i
     nr.to_i
-  end
-
-  def self.to_i(season, filename)
-    match = filename.match(Regexp.new("[#{season_nr}]{1,2}[Ex]*(\\d{1,2})", Regexp::IGNORECASE))
-    match ? match[1].to_i : nil
   end
 
   def to_param
