@@ -12,11 +12,11 @@ class Episode < ActiveRecord::Base
   validates :title, :season_nr, :program_id, :program_name, :presence => true
 
   # used for guide view
-  scope :next_airing_order,       ->{ order(airs_at: :asc).includes(:program) }
+  scope :next_airing_order,       ->{ order('airs_at asc').includes(:program) }
   scope :next_airing,             ->{ airs_at_in_future.next_airing_order }
   scope :next_airing_at,          ->(time){ where('airdate < ?', time.to_date).order('airs_at desc').where.not(airs_at: nil) }
   scope :next_airing_from,        ->(date){ where('airdate > ?', date).order('airdate asc').where.not(airdate: nil) }
-  scope :last_aired,              ->{ airs_at_in_past.order(airs_at: :desc).includes(:program, :downloads) }
+  scope :last_aired,              ->{ airs_at_in_past.order('airs_at desc').includes(:program, :downloads) }
   scope :last_aired_at,           ->(time){ last_aired.where('date(episodes.airs_at) < ?', time.to_date) }
   scope :last_aired_from,         ->(date){ where('episodes.airdate <= ?', date).order('airdate desc').where.not(airdate: nil) }
   scope :downloaded,              ->{ includes(:downloads).where.not(downloads: { id: nil } ).references(:downloads) }
