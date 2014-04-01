@@ -19,16 +19,12 @@ class Download < ActiveRecord::Base
   end
 
   def file=(file)
-    file.save(temp_file.path)
-    File.open(temp_file.path, "r:UTF-8") do |nzb_file|
+    tmp_filepath = "tmp/#{filename}.nzb"
+    tmp_file     = file.save(tmp_filepath)
+    File.open(tmp_filepath, "r:UTF-8") do |nzb_file|
       self.download = nzb_file
     end
-  ensure
-    temp_file.unlink
-  end
-
-  def temp_file
-    @temp_file ||= Tempfile.new([filename, '.nzb'])
+    File.delete(tmp_filepath)
   end
 end
 # == Schema Information
