@@ -30,7 +30,7 @@ class Program < ActiveRecord::Base
     return all unless query.present?
     start_query, full_query = "%#{query}", "%#{query}%"
     where( %(programs.name ILIKE :query OR programs.search_name ILIKE :query OR overview ILIKE :full_query),
-      { query: query, full_query: full_query }
+      { query: start_query, full_query: full_query }
     )
   end
 
