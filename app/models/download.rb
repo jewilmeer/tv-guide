@@ -10,7 +10,10 @@ class Download < ActiveRecord::Base
     :s3_credentials => "#{Rails.root}/config/s3.yml",
     :s3_permissions => 'public-read',
     :s3_protocol    => 'http',
-    :s3_headers     => { :content_type => 'application/octet-stream', :content_disposition => 'attachment' },
+    :s3_headers     => {
+      :content_type => 'application/octet-stream',
+      :content_disposition => 'attachment'
+    },
     :bucket         => Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
     :path           => ':attachment/:id/:style/:filename.nzb'
 
