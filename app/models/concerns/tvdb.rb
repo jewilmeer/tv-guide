@@ -44,8 +44,8 @@ module Concerns
       tvdb_serie
     end
 
-    def tvdb_full_update
-      return if tvdb_updated_within?(1.hour)
+    def tvdb_full_update(forced=false)
+      return if !forced && tvdb_updated_within?(1.hour)
       # do not continue if one of these fails
       return unless tvdb_refresh && tvdb_refresh_episodes && update_episode_counters
       self.delay.tvdb_update_banners if active?
