@@ -37,7 +37,7 @@ class ProgramsController < ApplicationController
       :referer          => request.referer,
       :user_agent       => request.user_agent
     })
-    @program.delay.tvdb_full_update
+    @program.delay.tvdb_full_update(true)
   end
 
   def download_list
