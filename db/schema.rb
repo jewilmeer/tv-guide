@@ -124,8 +124,10 @@ ActiveRecord::Schema.define(version: 20140125164804) do
     t.boolean  "active",                    default: true
   end
 
-  add_index "programs", ["slug"], name: "index_programs_on_slug", unique: true, using: :btree
-  add_index "programs", ["tvdb_id"], name: "index_programs_on_tvdb_id", unique: true, using: :btree
+  add_index "programs", ["active"], name: "index_programs_on_active", using: :btree
+  add_index "programs", ["network_id"], name: "index_programs_on_network_id", using: :btree
+  add_index "programs", ["slug"], name: "index_programs_on_slug", using: :btree
+  add_index "programs", ["tvdb_id"], name: "index_programs_on_tvdb_id", using: :btree
 
   create_table "programs_stations", force: true do |t|
     t.integer "station_id"
@@ -180,11 +182,6 @@ ActiveRecord::Schema.define(version: 20140125164804) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "downloads", "episodes", name: "downloads_episode_id_fk", dependent: :delete
-
-  add_foreign_key "episodes", "programs", name: "episodes_program_id_fk", dependent: :delete
-
-  add_foreign_key "genres_programs", "genres", name: "genres_programs_genre_id_fk"
-  add_foreign_key "genres_programs", "programs", name: "genres_programs_program_id_fk"
 
   add_foreign_key "images", "programs", name: "images_program_id_fk", dependent: :delete
 
