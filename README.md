@@ -1,3 +1,5 @@
+[![wercker status](https://app.wercker.com/status/620d072c7f20cc7a3e22860fda5cb64a/m/master "wercker status")](https://app.wercker.com/project/bykey/620d072c7f20cc7a3e22860fda5cb64a)
+
 # Digital tv guide
 This project will aggregate tv series and will search for nzb files to automate downloading those.
 
