@@ -7,8 +7,8 @@ This project will aggregate tv series and will search for nzb files to automate 
 - Switch from paperclip to carrierwave
 
 # Setup
-Install redis, and start it
 ```bash
+redis-server
 cd 'projects'
 git clone git@github.com:jewilmeer/tv-guide.git
 cd tv-guide
