@@ -149,7 +149,7 @@ module Concerns
     end
 
     def tvdb_updated_within?(timespan)
-      return true unless last_checked_at
+      return false unless last_checked_at.present?
       last_checked_at >= timespan.ago
     end
 
