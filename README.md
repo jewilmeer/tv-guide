@@ -11,6 +11,7 @@ cd 'projects'
 git clone git@github.com:jewilmeer/tv-guide.git
 cd tv-guide
 cp config/database{.sample,}.yml
+cp config/s3{.sample,}.yml
 bundle
 bundle exec rake db:setup
 bundle exec rails s
