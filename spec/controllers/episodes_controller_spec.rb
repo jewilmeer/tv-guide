@@ -3,7 +3,7 @@ require 'spec_helper'
 describe EpisodesController do
   describe "show" do
     let(:episode) { create :episode }
-    let(:show_request) { get :show, id: episode.id, program_id: 2 }
+    let(:show_request) { get :show, id: episode.id, program_id: episode.program_id }
 
     before { show_request }
     it { should respond_with :success }
