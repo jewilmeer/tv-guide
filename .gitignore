@@ -10,4 +10,4 @@ log/*.log
 public/assets/*
 public/uploads
 tmp/**/*
-vendor/ruby
+vendor/cache
