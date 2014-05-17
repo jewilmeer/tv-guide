@@ -51,6 +51,7 @@ class ProgramsController < ApplicationController
                           .limit(100)
     @past_episodes     = Episode.active.last_aired_from(Date.yesterday)
                           .section params[:page]
+    @last_updated_episode = Episode.active.order(:updated_at).last
   end
 
   private
