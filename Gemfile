@@ -21,7 +21,6 @@ gem 'will_paginate'
 # strong params doesn't like me in production
 gem 'devise'
 gem 'friendly_id'
-gem 'appsignal'
 
 # background
 gem 'sidekiq'

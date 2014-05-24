@@ -44,10 +44,6 @@ GEM
     airbrake (3.1.16)
       builder
       multi_json
-    appsignal (0.8.7)
-      activesupport (>= 3.0)
-      rack
-      thread_safe
     arel (4.0.2)
     aws-sdk (1.38.0)
       json (~> 1.4)
@@ -290,7 +286,6 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   annotate!
-  appsignal
   aws-sdk
   bootstrap-sass (~> 2.0)
   bootswatch-rails
