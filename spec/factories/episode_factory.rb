@@ -7,11 +7,5 @@ FactoryGirl.define do
     sequence(:tvdb_id) { |n| n*rand(10_000) }
     # associations
     program
-
-    trait :with_download do
-      after(:create) do |episode, factory_attributes|
-        FactoryGirl.create_list :download, 2, episode: episode
-      end
-    end
   end
 end

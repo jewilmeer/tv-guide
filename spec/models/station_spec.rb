@@ -17,13 +17,13 @@ describe Station do
       end
 
       it "shows only stations with program in it" do
-        Station.filled.should include(user_station1, user_station2)
+        expect(Station.filled).to include(user_station1, user_station2)
       end
       it "does only include a station once" do
-        Station.filled.should have(2).stations
+        expect(Station.filled.size).to eq(2)
       end
       it "doesn't return empty stations" do
-        Station.filled.should_not include(user_station3)
+        expect(Station.filled).not_to include(user_station3)
       end
     end
   end
