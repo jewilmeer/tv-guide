@@ -17,4 +17,6 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   FakeWeb.allow_net_connect = false
+
+  config.raise_errors_for_deprecations!
 end
