@@ -11,7 +11,7 @@ gem 'mechanize'
 gem 'simple_form'
 gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 # paperclip validations suck bigtime: https://github.com/thoughtbot/paperclip#security-validations is not working
-gem 'paperclip', '~> 3.0'
+gem 'paperclip'
 gem 'carrierwave'
 gem 'fog'
 gem "aws-sdk"
@@ -51,7 +51,6 @@ group :development, :test do
 
   # test stuff
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
   gem "factory_girl_rails"
 
   # help test stuff
