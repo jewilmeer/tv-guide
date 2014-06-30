@@ -1,1 +1,1 @@
-TVDB_API = 'A80BBC7B6342EEB0'
+TVDB_API = Rails.application.secrets.tvdb_id
