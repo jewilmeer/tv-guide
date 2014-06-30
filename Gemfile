@@ -13,6 +13,7 @@ gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
 # paperclip validations suck bigtime: https://github.com/thoughtbot/paperclip#security-validations is not working
 gem 'paperclip', '~> 3.0'
 gem 'carrierwave'
+gem 'fog'
 gem "aws-sdk"
 gem 'airbrake'
 gem 'user-agent'
@@ -65,8 +66,4 @@ group :test do
   gem 'fakeweb'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'spring-commands-cucumber'
 end
