@@ -1,21 +1,27 @@
 class Download < ActiveRecord::Base
-  belongs_to :episode, :touch => true
-
-  validates :origin, :download_type, :download_file_name, presence: true
-  validates :download_type, :uniqueness => { :scope => [:episode_id] }
+  belongs_to :episode, touch: true
 
   has_attached_file :download,
-    :processors => [],
-    :storage        => :s3,
-    :s3_credentials => "#{Rails.root}/config/s3.yml",
-    :s3_permissions => 'public-read',
-    :s3_protocol    => 'http',
-    :s3_headers     => {
-      :content_type => 'application/octet-stream',
-      :content_disposition => 'attachment'
+    processors: [],
+    storage:        :s3,
+    s3_credentials: Rails.application.secrets.aws,
+    s3_permissions: :private,
+    s3_protocol:    'http',
+    s3_headers:     {
+      content_type: 'application/octet-stream',
+      content_disposition: 'attachment'
     },
-    :bucket         => Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
-    :path           => ':attachment/:id/:style/:filename.nzb'
+    bucket:         Rails.env.production? ? 'tv-guide' : 'tv-guide-dev',
+    path:           ':attachment/:id/:style/:filename.nzb'
+
+  do_not_validate_attachment_file_type :download
+  validates_attachment :download,
+    presence: true,
+    content_type: { content_type: "application/xml" },
+    file_name: { matches: /.*/ }
+  validates_attachment_content_type :download, content_type: 'application/xml'
+  validates :origin, :download_type, presence: true
+  validates :download_type, uniqueness: { scope: [:episode_id] }
 
   def filename
     episode.filename

@@ -110,11 +110,11 @@ class Episode < ActiveRecord::Base
 
     next_page   = Browser.agent.get( search_url ).forms.last.submit
     if (download_links = next_page.links_with(:text => 'Download')).any?
-      download        = self.downloads.first_or_initialize( download_type: quality )
-      download.origin = strip_tags(Nokogiri::HTML(next_page.body).css('td label').last.to_s)
-      file            = download_links.last.click
-      download.file   = file
-      download.save
+      self.downloads.first_or_initialize( download_type: quality ).tap do |download|
+        download.origin = strip_tags(Nokogiri::HTML(next_page.body).css('td label').last.to_s)
+        download.file   = download_links.last.click
+        download.save
+      end
     else
       logger.info "No downloads found at #{search_url}"
       false
