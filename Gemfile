@@ -38,8 +38,6 @@ gem 'bootswatch-rails'
 gem 'font-awesome-sass-rails'
 gem 'sprockets', '2.11.0' # because of undefined method `environment' for nil:NilClass error
 
-gem 'pry-rails'
-
 group :production do
   gem 'newrelic_rpm'
   gem 'dalli'
@@ -55,6 +53,8 @@ group :development, :test do
 
   # help test stuff
   gem 'timecop'
+
+  gem 'pry-rails'
 end
 
 group :development do
