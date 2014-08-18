@@ -9,7 +9,7 @@ gem 'foreigner'
 # Bundle the extra gems:
 gem 'mechanize'
 gem 'simple_form'
-gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
+gem 'tvdb_party', github: 'jewilmeer/tvdb_party'
 # paperclip validations suck bigtime: https://github.com/thoughtbot/paperclip#security-validations is not working
 gem 'paperclip'
 gem 'carrierwave'
@@ -26,7 +26,7 @@ gem 'friendly_id'
 # background
 gem 'sidekiq'
 gem 'slim'
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sinatra'
 
 # assets
 gem 'jquery-rails'

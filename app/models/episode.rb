@@ -5,11 +5,11 @@ class Episode < ActiveRecord::Base
   mount_uploader :thumb, ::ImageUploader
 
   belongs_to :program, touch: true
-  has_many :interactions, :dependent => :nullify
-  has_many :downloads, :dependent => :destroy
+  has_many :interactions, dependent: :nullify
+  has_many :downloads, dependent: :destroy
   has_many :stations, through: :program
 
-  validates :title, :season_nr, :program_id, :program_name, :presence => true
+  validates :title, :season_nr, :program_id, :program_name, presence: true
 
   # used for guide view
   scope :next_airing_order,       ->{ order('airs_at asc').includes(:program) }
@@ -109,7 +109,7 @@ class Episode < ActiveRecord::Base
     logger.info "="*30
 
     next_page   = Browser.agent.get( search_url ).forms.last.submit
-    if (download_links = next_page.links_with(:text => 'Download')).any?
+    if (download_links = next_page.links_with(text: 'Download')).any?
       self.downloads.first_or_initialize( download_type: quality ).tap do |download|
         download.origin = strip_tags(Nokogiri::HTML(next_page.body).css('td label').last.to_s)
         download.file   = download_links.last.click
@@ -174,7 +174,7 @@ class Episode < ActiveRecord::Base
 
   def self.from_tvdb tvdb_result, program=nil
     if program
-      _new = self.new( :program_id => program.id )
+      _new = self.new( program_id: program.id )
     else
       _new = self.new
     end
