@@ -4,7 +4,7 @@ class EpisodesController < ApplicationController
 
   etag { current_user.try :id }
   before_filter :authenticate_user_from_token!, only: :download
-  before_filter :authenticate_user!, :only => [:update, :download, :search]
+  before_filter :authenticate_user!, only: [:update, :download, :search]
 
   def show
     @program = program

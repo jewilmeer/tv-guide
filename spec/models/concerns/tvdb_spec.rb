@@ -19,7 +19,7 @@ describe Concerns::TVDB do
     end
 
     before do
-      Program.stub_chain(:tvdb_client, :get_series_updates).and_return(update_result)
+      allow(Program).to receive_message_chain(:tvdb_client, :get_series_updates) { update_result }
     end
 
     it "returns a list of arrays if there are updates" do
@@ -39,20 +39,27 @@ describe Concerns::TVDB do
     let(:program) { Program.new(tvdb_id: 1234) }
 
     it "return result if there is a result" do
-      program.stub(tvdb_serie: true)
-      expect{ program.tvdb_serie! }.to be_true
+      allow(program).to receive(:tvdb_serie) { true }
+      expect(program.tvdb_serie!).to be_truthy
     end
 
     it "raises an error upon nil" do
-      program.stub(tvdb_serie: nil)
+      allow(program).to receive(:tvdb_serie) { nil }
       expect{ program.tvdb_serie! }.to raise_error TVDBNotFound
     end
   end
 
   describe "valid format" do
-    subject { Program.new }
-    it { should allow_value('House of pain').for(:name) }
-    it { should_not allow_value('***DUPLICATE').for(:name) }
+    let(:program) { Program.new }
+    it "allows valid names" do
+      program.name = 'House of pain'
+      expect(program.valid?).to be_truthy
+    end
+
+    it "disallows invalid names" do
+      program.name = '***DUPLICATE'
+      expect(program.valid?).not_to be_truthy
+    end
   end
 
   describe "tvdb_updated_within?" do
@@ -61,17 +68,17 @@ describe Concerns::TVDB do
     end
     let(:last_checked_at) { 1.month.ago }
 
-    before { instance.stub last_checked_at: last_checked_at }
+    before { allow(instance).to receive(:last_checked_at) { last_checked_at} }
 
     describe "within given range" do
       it 'is true' do
-        expect( tvdb_updated_within?(2.months) ).to be_true
+        expect( tvdb_updated_within?(2.months) ).to be_truthy
       end
     end
 
     describe "outside given range" do
       it "it true" do
-        expect( tvdb_updated_within?(1.day) ).to be_false
+        expect( tvdb_updated_within?(1.day) ).to be_falsey
       end
     end
   end
@@ -82,19 +89,19 @@ describe Concerns::TVDB do
     let(:active) { false }
 
     before do
-      instance.stub(last_checked_at: last_checked_at)
-      instance.stub(active: active)
+      allow(instance).to receive(:last_checked_at) { last_checked_at }
+      allow(instance).to receive(:active) { active }
     end
 
     it "is true by default" do
-      expect(subject).to be_true
+      expect(subject).to be_truthy
     end
 
     describe "3 weeks not checked" do
       let(:last_checked_at) { 3.weeks.ago }
 
       it "doesn't need an update" do
-        expect(subject).to be_false
+        expect(subject).to be_falsey
       end
     end
 
@@ -102,7 +109,7 @@ describe Concerns::TVDB do
       let(:last_checked_at) { 1.month.ago }
 
       it "it needs an update" do
-        expect(subject).to be_true
+        expect(subject).to be_truthy
       end
     end
 
@@ -110,7 +117,7 @@ describe Concerns::TVDB do
       let(:active) { true }
       let(:last_checked_at) { 25.hours.ago }
       it "needs an update" do
-        expect(subject).to be_true
+        expect(subject).to be_truthy
       end
     end
 
@@ -118,7 +125,7 @@ describe Concerns::TVDB do
       let(:active) { true }
       let(:last_checked_at) { 1.hours.ago }
       it "needs an update" do
-        expect(subject).to be_false
+        expect(subject).to be_falsey
       end
     end
   end

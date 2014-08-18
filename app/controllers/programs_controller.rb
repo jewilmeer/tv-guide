@@ -29,13 +29,13 @@ class ProgramsController < ApplicationController
   def update
     @program = find_program
     current_user.interactions.create({
-      :user => current_user,
-      :program => @program,
-      :interaction_type => "update program",
-      :format => params[:format] || 'html',
-      :end_point => url_for(@program),
-      :referer          => request.referer,
-      :user_agent       => request.user_agent
+      user: current_user,
+      program: @program,
+      interaction_type: "update program",
+      format: params[:format] || 'html',
+      end_point: url_for(@program),
+      referer:          request.referer,
+      user_agent:       request.user_agent
     })
     @program.delay.tvdb_full_update(true)
   end
