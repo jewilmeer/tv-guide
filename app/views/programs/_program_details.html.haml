@@ -1,4 +1,4 @@
-%ul.nav.nav-tabs#program-detail-tabs{:data => {:toggle => :tabs}}
+%ul.nav.nav-tabs#program-detail-tabs{data: {toggle: :tabs}}
   %li= link_to 'Banner', '#banner', 'data-toggle' => 'tab'
   %li= link_to 'More information', '#more-info', 'data-toggle' => 'tab'
 
@@ -7,32 +7,32 @@
     .row-fluid
       .span8
         - if @program.series_banner
-          %img{:src => @program.series_banner.file.url, :width => 700, :height => 129}
+          %img{src: @program.series_banner.file.url, width: 700, height: 129}
         - else
-          %img{:src => 'http://placehold.it/700x129', :width => 700, :height => 129}
+          %img{src: 'http://placehold.it/700x129', width: 700, height: 129}
       .span4
         .panel
           %ul.unstyled
             %li== Last updated #{distance_of_time_in_words_to_now(@program.updated_at)} ago
             %li= link_to 'Imdb page', "http://www.imdb.com/title/#{@program.imdb_id}"
             - if current_user
-              %li= link_to 'Request update', program_path(@program), :id => :check_update, :remote => true, :method => :put, data: { :disable_with => 'Requesting...' }
+              %li= link_to 'Request update', program_path(@program), id: :check_update, remote: true, method: :put, data: { disable_with: 'Requesting...' }
 
   .tab-pane#more-info
     %table.table
       %tr
-        %th{:width => 100} Runtime
+        %th{width: 100} Runtime
         %td= pluralize( @program.runtime, 'minute')
-        %th{:width => 100} Genres
+        %th{width: 100} Genres
         %td= @program.genres.map(&:name).to_sentence
         - if @program.network
-          %th{:width => 100} Network
-          %td{:width => 150}= link_to @program.network.name, @program.network
+          %th{width: 100} Network
+          %td{width: 150}= link_to @program.network.name, @program.network
       %tr
         %th Next episode
         %td
           - if episode = @program.episodes.next_airing.first
-            = l episode.airs_at, :format => :long
+            = l episode.airs_at, format: :long
           - else
             \-
         %th Thetvdb rating
@@ -41,4 +41,4 @@
         %td= @program.contentrating || 'Not available'
       %tr
         %th.top Overview
-        %td{:colspan => 5}= @program.overview
+        %td{colspan: 5}= @program.overview

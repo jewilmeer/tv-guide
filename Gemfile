@@ -12,10 +12,11 @@ gem 'pg_search'
 # Bundle the extra gems:
 gem 'mechanize'
 gem 'simple_form'
-gem 'tvdb_party', :git => 'git://github.com/jewilmeer/tvdb_party.git'
+gem 'tvdb_party', github: 'jewilmeer/tvdb_party'
 # paperclip validations suck bigtime: https://github.com/thoughtbot/paperclip#security-validations is not working
-gem 'paperclip', '~> 3.0'
+gem 'paperclip'
 gem 'carrierwave'
+gem 'fog'
 gem "aws-sdk"
 gem 'airbrake'
 gem 'user-agent'
@@ -28,7 +29,7 @@ gem 'friendly_id'
 # background
 gem 'sidekiq'
 gem 'slim'
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sinatra'
 
 # assets
 gem 'jquery-rails'
@@ -36,7 +37,7 @@ gem 'coffee-rails'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'bootstrap-sass', '~> 2.0'
-gem 'bootswatch-rails'
+gem 'bootswatch-rails', '~> 3.1.0'
 gem 'font-awesome-sass-rails'
 gem 'sprockets', '2.11.0' # because of undefined method `environment' for nil:NilClass error
 
@@ -51,7 +52,6 @@ group :development, :test do
 
   # test stuff
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
   gem "factory_girl_rails"
 
   # help test stuff
@@ -68,8 +68,4 @@ group :test do
   gem 'fakeweb'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'spring-commands-cucumber'
 end

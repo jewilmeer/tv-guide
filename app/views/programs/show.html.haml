@@ -10,7 +10,7 @@
           %small
             = @program.status
             - if current_user.try(:trusted?)
-              = link_to download_list_program_path @program, :authentication_token => current_user.authentication_token, :format => :rss do
+              = link_to download_list_program_path @program, authentication_token: current_user.authentication_token, format: :rss do
                 %i.icon-rss
       .span2
         - if user_signed_in?

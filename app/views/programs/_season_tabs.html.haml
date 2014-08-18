@@ -4,14 +4,14 @@
     %ul.nav.nav-tabs#program-season-tabs
       - grouped_episodes.each do |season, episodes|
         %li{class: "s#{season}"}
-          %a{:href => "#s#{season}", 'data-toggle' => 'tab'}== Season #{season} (#{episodes.length})
+          %a{href: "#s#{season}", 'data-toggle' => 'tab'}== Season #{season} (#{episodes.length})
     .tab-content
       - grouped_episodes.each do |season, episodes|
         - cache [:season, program, season] do
-          .tab-pane{:id => "s#{season}"}
+          .tab-pane{id: "s#{season}"}
             %table.table.table-bordered.table-striped
               %thead
                 %th Title
-                %th{:width => 150} Airdate
+                %th{width: 150} Airdate
               %tbody
                 = render episodes, selected_episode: selected_episode, program: program

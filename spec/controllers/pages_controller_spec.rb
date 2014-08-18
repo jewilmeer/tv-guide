@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe PagesController do
+describe PagesController, type: :controller do
   describe "#index" do
     before { get :index }
-    it { should respond_with :redirect }
+    it { expect(response).to have_http_status(:redirect) }
 
     context "Not logged in" do
-      it { should redirect_to guide_programs_path }
+      it { expect(response).to redirect_to guide_programs_path }
     end
   end
 end

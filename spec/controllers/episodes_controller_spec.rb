@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe EpisodesController do
+describe EpisodesController, type: :controller do
   describe "show" do
     let(:episode) { create :episode }
     let(:show_request) { get :show, id: episode.id, program_id: episode.program_id }
 
     before { show_request }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe "update" do
@@ -15,18 +15,18 @@ describe EpisodesController do
 
     context "not logged in" do
       before { request }
-      it { should respond_with :unauthorized }
+      it { expect(response).to have_http_status :unauthorized }
     end
 
     context "logged in" do
       before do
         sign_in create(:user)
-        Episode.any_instance.stub(ensure_up_to_date: true)
-        Episode.any_instance.stub(download: true)
+        allow_any_instance_of(Episode).to receive(:ensure_up_to_date) { true }
+        allow_any_instance_of(Episode).to receive(:download) { true }
         request
       end
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 end

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   include FriendlyId, Concerns::TokenAuthenticatable
   friendly_id :login
 
-  has_many :interactions, :dependent => :nullify
+  has_many :interactions, dependent: :nullify
   has_many :stations
 
   before_update :notify_of_special_features

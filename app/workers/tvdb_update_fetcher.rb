@@ -1,6 +1,6 @@
 class TvdbUpdateFetcher
   include Sidekiq::Worker
-  sidekiq_options :backtrace => true
+  sidekiq_options backtrace: true
 
   def perform(timestamp=5.minutes.ago)
     tvdb_ids = Program.tvdb_updated_tvdb_ids(timestamp)
