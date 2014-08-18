@@ -23,7 +23,7 @@ class Program < ActiveRecord::Base
 
   belongs_to :network, counter_cache: true
 
-  validates :tvdb_id, :uniqueness => true
+  validates :tvdb_id, uniqueness: true
   validates :name, presence: true, if: :tvdb_updated?
 
   before_save :update_episodes_with_program_name
