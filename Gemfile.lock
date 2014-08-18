@@ -106,6 +106,9 @@ GEM
     diff-lcs (1.2.5)
     domain_name (0.5.20)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (0.11.1)
+      dotenv-deployment (~> 0.0.2)
+    dotenv-deployment (0.0.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.39.5)
@@ -330,6 +333,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   devise
+  dotenv
   factory_girl_rails
   fakeweb
   fog
