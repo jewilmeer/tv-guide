@@ -6,8 +6,15 @@ class Program < ActiveRecord::Base
   include FriendlyId
   friendly_id :slug_candidates
 
-  has_many :episodes, :dependent => :destroy
-  has_many :interactions, :dependent => :nullify
+  include PgSearch
+  pg_search_scope :search,
+    against: [
+      [:name, 'A'],
+      :overview, :network_name, :actors
+    ]
+
+  has_many :episodes, dependent: :destroy
+  has_many :interactions, dependent: :nullify
   has_many :station_programs, dependent: :destroy
   has_many :images, dependent: :destroy
 

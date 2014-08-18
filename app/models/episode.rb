@@ -4,6 +4,17 @@ class Episode < ActiveRecord::Base
 
   mount_uploader :thumb, ::ImageUploader
 
+  include PgSearch
+  multisearchable against: [:title, :description],
+    using: {
+      tsearch: {dictionary: "english"}
+    }
+  pg_search_scope :search,
+    against: [
+      [:title, 'A'],
+      :description
+    ]
+
   belongs_to :program, touch: true
   has_many :interactions, :dependent => :nullify
   has_many :downloads, :dependent => :destroy
