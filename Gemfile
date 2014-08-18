@@ -6,6 +6,9 @@ gem 'pg'
 gem 'foreigner'
 # gem 'immigrant' #add missing foreign keys
 
+# search
+gem 'pg_search'
+
 # Bundle the extra gems:
 gem 'mechanize'
 gem 'simple_form'

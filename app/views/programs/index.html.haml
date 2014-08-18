@@ -5,7 +5,11 @@
         == Results for #{params[:search]}
       - else
         List all programs
-
+  .panel
+    = form_tag programs_path, method: :get, class: 'form-search' do
+      %label{for: :q} Search
+      = text_field_tag :q, params[:q], class: 'search-query"'
+      = submit_tag 'Go', class: 'btn'
   - if @programs.any?
     %table.table.table-striped#programs
       %thead

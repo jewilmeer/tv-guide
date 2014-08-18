@@ -203,6 +203,10 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     pg (0.17.1)
+    pg_search (0.7.6)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     polyglot (0.3.5)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -340,6 +344,7 @@ DEPENDENCIES
   newrelic_rpm
   paperclip
   pg
+  pg_search
   pry-rails
   rails (~> 4.0)
   rspec-rails

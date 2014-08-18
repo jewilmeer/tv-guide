@@ -4,9 +4,13 @@ class ProgramsController < ApplicationController
   etag { current_user.try :id }
 
   def index
-    @basic_program_scope = Program.active.order('status, programs.name')
-      .includes(:network, :genres)
-      .search_program(params[:q])
+    @basic_program_scope = Program.active.includes(:network, :genres)
+
+    if params[:q].present?
+      @basic_program_scope = @basic_program_scope.order('status').search(params[:q])
+    else
+      @basic_program_scope = @basic_program_scope.order('status, programs.name')
+    end
 
     @programs = @basic_program_scope.section(params[:page])
 
@@ -20,9 +24,13 @@ class ProgramsController < ApplicationController
   def show
     @program = Program.friendly.find params[:id]
 
-    if stale?(@program, public: true)
-      @grouped_episodes = @program.episodes.includes(:downloads).order('season_nr desc, nr desc').group_by(&:season_nr)
-      @personal_station = current_user.stations.personal.first if user_signed_in?
+    if params[:q]
+      @episodes = @program.episodes.includes(:downloads).order('season_nr desc, nr desc').search(params[:q])
+    else
+      if stale?(@program, public: true)
+        @grouped_episodes = @program.episodes.includes(:downloads).order('season_nr desc, nr desc').group_by(&:season_nr)
+        @personal_station = current_user.stations.personal.first if user_signed_in?
+      end
     end
   end
 
