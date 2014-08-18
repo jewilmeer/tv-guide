@@ -19,5 +19,19 @@
 
   %section.episodes
     .page-header
-      %h3 Episodes
-    = render 'season_tabs', program: @program, grouped_episodes: @grouped_episodes
+      %h3
+        Episodes
+        = form_tag program_path(@program), method: :get, class: 'form-search' do
+          %label{for: :q} Search
+          = text_field_tag :q, params[:q], class: 'search-query"'
+          = submit_tag 'Go', class: 'btn'
+
+    - if params[:q]
+      %table.table.table-bordered.table-striped
+        %thead
+          %th Title
+          %th{:width => 150} Airdate
+        %tbody
+          = render @episodes
+    - else
+      = render 'season_tabs', program: @program, grouped_episodes: @grouped_episodes
