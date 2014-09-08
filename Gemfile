@@ -9,6 +9,9 @@ gem 'foreigner'
 # search
 gem 'pg_search'
 
+# monitoring
+gem 'skylight'
+
 # Bundle the extra gems:
 gem 'mechanize'
 gem 'simple_form'
