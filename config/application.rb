@@ -10,5 +10,7 @@ module TvEpisodes
 
     config.time_zone = 'Amsterdam'
     I18n.enforce_available_locales = true
+
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

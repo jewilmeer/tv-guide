@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   validates :login, presence: true, uniqueness: true
 
   def notify_of_registration
-    AdminMailer.notify_of_registration( self ).deliver
+    AdminMailer.notify_of_registration( self ).deliver_later
   end
 
   def create_personal_station
@@ -25,7 +25,11 @@ class User < ActiveRecord::Base
   # send an email to the user as they have been trusted.
   # This will instruct them how to use the download functionality
   def notify_of_special_features
-    UserMailer.trusted_notification( self ).deliver if self.trusted_changed? && self.trusted_was == false
+    UserMailer.trusted_notification( self ).deliver_later if self.trusted_changed? && self.trusted_was == false
+  end
+
+  def name
+    login
   end
 
   def filtered_email

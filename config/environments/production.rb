@@ -1,4 +1,4 @@
-TvEpisodes::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both thread web servers
