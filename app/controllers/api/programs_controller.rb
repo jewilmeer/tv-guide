@@ -3,7 +3,7 @@ class Api::ProgramsController < Api::BaseController
     @programs = Program.order('status')
     @last_program = Program.order('updated_at').last
 
-    if stale?(@last_program) do
+    if stale?(@last_program, public: true) do
       render json: @programs.where('name IS NOT NULL').pluck(:name)
     end
   end
