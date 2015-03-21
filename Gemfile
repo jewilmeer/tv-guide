@@ -3,8 +3,6 @@ source 'http://rubygems.org'
 gem "rails", "~> 4.0"
 gem 'mail'
 gem 'pg'
-gem 'foreigner'
-# gem 'immigrant' #add missing foreign keys
 
 # search
 gem 'pg_search'
