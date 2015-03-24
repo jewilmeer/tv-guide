@@ -1,8 +1,10 @@
 class Api::ProgramsController < Api::BaseController
   def index
     @programs = Program.order('status')
+    @last_program = Program.order('updated_at').last
 
-    # render json: @programs
-    render json: @programs.where('name IS NOT NULL').pluck(:name)
+    if stale?(@last_program, public: true)
+      render json: @programs.where('name IS NOT NULL').pluck(:name)
+    end
   end
 end

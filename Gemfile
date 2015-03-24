@@ -3,14 +3,9 @@ source 'http://rubygems.org'
 gem "rails", "~> 4.0"
 gem 'mail'
 gem 'pg'
-gem 'foreigner'
-# gem 'immigrant' #add missing foreign keys
 
 # search
 gem 'pg_search'
-
-# monitoring
-gem 'skylight'
 
 # Bundle the extra gems:
 gem 'mechanize'
@@ -67,6 +62,10 @@ end
 
 group :development do
   gem 'annotate', github: 'ctran/annotate_models'
+  gem 'capistrano', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-passenger', require: false
 end
 
 group :test do

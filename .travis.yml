@@ -3,3 +3,4 @@ rvm:
   - 2.1.0
 before_script:
   - cp config/database.sample.yml config/database.yml
+  - bin/rake db:create db:schema:load

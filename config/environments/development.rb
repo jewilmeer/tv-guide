@@ -1,4 +1,4 @@
-TvEpisodes::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb
   config.eager_load = false
 
@@ -26,4 +26,8 @@ TvEpisodes::Application.configure do
   # config.assets.debug = true
 
   config.action_mailer.delivery_method = :letter_opener
+
+  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
+  # yet still be able to expire them through the digest params.
+  config.assets.digest = true
 end
