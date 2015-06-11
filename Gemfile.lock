@@ -53,7 +53,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.7)
-    airbrake (4.1.0)
+    airbrake (4.2.1)
       builder
       multi_json
     arel (6.0.0)
@@ -85,6 +85,9 @@ GEM
     capistrano-rails (1.1.2)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano-sidekiq (0.5.2)
+      capistrano
+      sidekiq
     capistrano-stats (1.1.1)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -283,7 +286,7 @@ GEM
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
-    multi_json (1.10.1)
+    multi_json (1.11.1)
     multi_test (0.1.2)
     multi_xml (0.5.5)
     net-http-digest_auth (1.4)
@@ -441,6 +444,7 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-passenger
   capistrano-rails
+  capistrano-sidekiq
   carrierwave
   coffee-rails
   cucumber-rails
